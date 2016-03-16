@@ -9,10 +9,12 @@ var schema = new mongoose.Schema({
         ref: 'Project'
     },
     email: {
-        type: String
+        type: String,
+        required: true
     },
     password: {
-        type: String
+        type: String,
+        required: true
     },
     salt: {
         type: String
