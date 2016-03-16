@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var enums = []
 
 var ProjectSchema = new mongoose.Schema({
 
