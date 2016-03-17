@@ -41,8 +41,15 @@ table-component {
   }
 }
 
-.box-box {
+box, circle {
   height: 5vh;
   width: 5vh;
-  border-radius: 50% !important;
+}
+
+box {
+  border-radius: 5%;
+}
+
+circle {
+  border-radius: 50%;
 }

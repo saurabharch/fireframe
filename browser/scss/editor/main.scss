@@ -37,6 +37,7 @@ $swatch-side: $left-width / 10;
 
 #wireframe-board {
   position: absolute;
+  overflow:auto;
   left: 10vw;
   top: $navbar-height;
   width: 80vw;
