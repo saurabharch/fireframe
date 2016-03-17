@@ -5,16 +5,16 @@
   box-sizing: border-box;
 }
 
-.base-layer {
-  background-color: #29e;
-  position:absolute;
+base-layer {
   color: white;
   font-size: 20px;
   font-family: sans-serif;
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 20px;
-  height: 240px;
-  width: 120px;
+  height: 400px;
+  width: 400px;
+  background-size: 20px 20px;
+  background-image: linear-gradient(to right, #7da0ab 1px, transparent 1px), linear-gradient(to bottom, #7da0ab 1px, transparent 1px);
 }
 
 table-component {
