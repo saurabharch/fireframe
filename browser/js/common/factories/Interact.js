@@ -56,15 +56,6 @@ app.factory('Interact', function() {
 			    target.setAttribute('data-x', x);
 			    target.setAttribute('data-y', y);
 			  }
-		},
-
-		windowResize: function() {
-			//all elements are sized as a % relative to the workspace width
-			$(window).resize(function() {
-				$('#wireframe-board').children().each(function() {
-
-				});
-			});
 		}
 	}
 });
