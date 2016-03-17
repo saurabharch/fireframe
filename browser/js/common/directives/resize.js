@@ -2,23 +2,29 @@ app.directive('windowResponsive', function() {
 	return {
 		restrict: 'A',
 		link: function(scope, element, attribute) {
-			var originalWidth = $('#wireframe-board').width();
+			var referenceWidth = $('#left-sidebar').width();
 			//all elements are sized as a % relative to the workspace width
 			$(window).resize(function() {
-				var	workspace = $('#wireframe-board'),
-						newWidth = workspace.width(),
-						percentChange = newWidth/originalWidth;
+				var	sidebar = $('#left-sidebar'),
+						newWidth = sidebar.width(),
+						percentChange = newWidth/referenceWidth;
+				
 				//adjust element width and height
 				var oldWidth = $(element).width();
 				var oldHeight = $(element).height();
 				$(element).width(oldWidth*percentChange);
 				$(element).height(oldHeight*percentChange);
-				originalWidth = workspace.width();
 
-				var boardLeft = workspace.offset().left;
-				// // var boardTop = workspace.offset().top;
+				//var boardLeft = workspace.offset().left;
+				// var boardTop = workspace.offset().top;
 
-				// var boxLeft = $(element).offset().left
+				// var boxLeft = $(element).offset().left;
+				// var boxTop = $(element).offset().top;
+
+				// var topOffset = boxTop - boardTop;
+				// var newTopOffset = topOffset*percentChange;
+				//console.log(topOffset, newTopOffset, percentChange);
+				//$(element).offset({ top: newTopOffset-boxTop });
 				// //find x distance from left edge, percentage change times that is new left offset
 				// // console.log(percentChange);
 				// console.log(boxLeft);
@@ -28,6 +34,8 @@ app.directive('windowResponsive', function() {
 				// // console.log($(element).position())
 
 				// $(element).offset({ left: (boardLeft+adjustment) });
+
+				referenceWidth = sidebar.width();
 			});
 		}
 	}
