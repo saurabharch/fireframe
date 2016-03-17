@@ -59,8 +59,11 @@ app.factory('Interact', function() {
 		},
 
 		windowResize: function() {
+			//all elements are sized as a % relative to the workspace width
 			$(window).resize(function() {
+				$('#wireframe-board').children().each(function() {
 
+				});
 			});
 		}
 	}
