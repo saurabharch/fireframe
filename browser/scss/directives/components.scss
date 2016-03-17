@@ -1,7 +1,8 @@
 .resize-drag {
   display: inline-block;
+  position: absolute;
   background-color: #29e;
-  color: white;
+
   font-size: 20px;
   font-family: sans-serif;
   border-radius: 8px;
@@ -14,5 +15,11 @@
 
 .base-layer {
   
+}
+
+button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px
 }
 

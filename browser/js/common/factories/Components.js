@@ -4,7 +4,7 @@ app.factory('Component', function($compile) {
 			var newElement;
 			switch(type) {
 				case 'base-layer':
-					newElement = $compile('<base-layer></base-layer>')($scope);
+					newElement = $compile('<base-layer class="resize-drag" ng-click="getComponentAttrs()"></base-layer>')($scope);
 					break;
 				case 'box':
 					newElement = $compile('<box></box>')($scope);
@@ -25,10 +25,18 @@ app.factory('Component', function($compile) {
   		$scope.board.append(newElement);
 		},
 
-		load: function(components, $scope) {
-			components.forEach(function() {
-				
-			})
+		save: function($scope) {
+			$('#wireframe-board').children().each(function() {
+				console.log("this is THIS!", this);
+				var allstyles = this.getAttribute("style");
+				console.log(allstyles);
+			});
 		}
+
+		// load: function(components, $scope) {
+		// 	components.forEach(function() {
+				
+		// 	})
+		// }
 	}
 });
