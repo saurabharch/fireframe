@@ -30,7 +30,7 @@ app.controller('WireframeCtrl', function($scope, wireframe, $compile, Component,
 	}
 
 	$scope.createElement = function(type) {
-		Component.create('base-layer', $scope);
+		Component.create('text-box', $scope);
 	}
 
 });
