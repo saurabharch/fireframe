@@ -19,19 +19,17 @@ app.controller('WireframeCtrl', function($scope, wireframe, $compile, Component,
 	$scope.components = wireframe.components;
 	$scope.board = $('#wireframe-board');
 	
-	//if initial page load, render wireframe components
-	$scope.elementsRendered = $scope.elementsRendered || false;
-	if(!$scope.elementsRendered) {
-		Component.load($scope.wireframe.components, $scope);
-	}
+	//load saved elements, if any
+	Component.load($scope.wireframe.components, $scope);
 
+	//initialize dragging and resizing
 	Interact.dragAndResize();
 
-	// $scope.containsBase = function() {
-	// 	return components.filter(function(component) {
-	// 		return component.type === 'base-layer';
-	// 	}).length;
-	// }
+	$scope.containsBase = function() {
+		return components.filter(function(component) {
+			return component.type === 'base-layer';
+		}).length;
+	}
 
 	$scope.loadElements = function() {
 		Component.load(wireframe.components, $scope);

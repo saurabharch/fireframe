@@ -15,8 +15,23 @@ app.directive('windowResponsive', function() {
 				$(element).height(oldHeight*percentChange);
 				originalWidth = workspace.width();
 
-				//adjust x and y positioning as well
-				//how???
+				var boardLeft = workspace.offset().left;
+				// // var boardTop = workspace.offset().top;
+
+				// var boxLeft = $(element).offset().left
+				// //find x distance from left edge, percentage change times that is new left offset
+				// // console.log(percentChange);
+				// console.log(boxLeft);
+				// console.log(boardLeft);
+				// var adjustment = (boxLeft-boardLeft)*percentChange;
+				// // console.log(boardLeft, newLeft, percentChange);
+				// // console.log($(element).position())
+
+				// $(element).offset({ left: (boardLeft+adjustment) });
+
+				if($(element).offset().left+$(element).width()>=(boardLeft+originalWidth)) {
+					console.log('34');
+				}
 			});
 		}
 	}
