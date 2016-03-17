@@ -1,25 +1,51 @@
 .resize-drag {
   display: inline-block;
   position: absolute;
+<<<<<<< HEAD
   background-color: #29e;
 
-  font-size: 20px;
-  font-family: sans-serif;
-  border-radius: 8px;
-  padding: 20px;
-  height: 240px;
-  width: 120px;
+=======
   /* This makes things *much* easier */
   box-sizing: border-box;
 }
 
-.base-layer {
-  
+base-layer {
+  color: white;
+>>>>>>> master
+  font-size: 20px;
+  font-family: sans-serif;
+  border-radius: 4px;
+  padding: 20px;
+  height: 400px;
+  width: 400px;
+  background-size: 20px 20px;
+  background-image: linear-gradient(to right, #7da0ab 1px, transparent 1px), linear-gradient(to bottom, #7da0ab 1px, transparent 1px);
 }
 
+table-component {
+  border: 1px solid black;
+  height: 120px;
+  width: 240px;
+}
+
+<<<<<<< HEAD
 button {
   position: absolute;
   bottom: 20px;
   right: 20px
 }
 
+=======
+.table-component {
+  background-color: white;
+  color: black;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 0;
+
+  #first-row {
+    background-color: #6D7375;
+  }
+}
+>>>>>>> master

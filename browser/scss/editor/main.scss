@@ -1,0 +1,76 @@
+$navbar-height: 90px;
+$left-width: 10vw;
+
+*{
+  box-sizing:border-box;
+}
+
+#left-sidebar {
+  position: absolute;
+  left: 0;
+  top: $navbar-height;
+  width: $left-width;
+  height: 100%;
+  background-color: gray
+}
+
+#color-picker {
+  height:$left-width;
+  width:$left-width;
+}
+
+#right-sidebar {
+  position: absolute;
+  right: 0;
+  top: $navbar-height;
+  width: 10vw;
+  height: 100%;
+  background-color: gray
+}
+
+$swatch-side: $left-width / 10;
+#swatch {
+  height:$swatch-side;
+  width:$swatch-side;
+  border:1px solid black;
+}
+
+#wireframe-board {
+  position: absolute;
+  left: 10vw;
+  top: $navbar-height;
+  width: 80vw;
+  height: 100%;
+  background-color: #d3d3d3
+}
+
+$btn-side: .45 * $left-width;
+
+.tool-panel {
+  padding:10%;
+  background-color:#aaa;
+  margin:2%;
+}
+
+.component-button {
+  box-sizing:border-box;
+  border:0;
+  border-radius:3%;
+  background-color:#ddd;
+  margin:1%;
+  width: $btn-side;
+  height: $btn-side;
+}
+
+.btn-arrange {
+  width:90%;
+  margin-bottom:2%;
+  text-align:center;
+}
+
+.button-icon {
+  height:0.5 * $btn-side;
+  top:0.25 * $btn-side;
+}
+
+/*.browser-icon*/

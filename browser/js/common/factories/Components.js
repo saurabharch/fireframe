@@ -1,25 +1,28 @@
 app.factory('Component', function($compile) {
-	return {
-		create: function(type, $scope) {
+	var factory = {
+		create: function(type, $scope, style) {
+			console.log("HIHIHIHIII");
+			var style = style || { "border-size": "2px", "border-style": "solid", "border-color": "black" };
 			var newElement;
 			switch(type) {
 				case 'base-layer':
 					newElement = $compile('<base-layer class="resize-drag" ng-click="getComponentAttrs()"></base-layer>')($scope);
+					newElement = $compile('<base-layer window-responsive class="resize-drag" ng-style='+JSON.stringify(style)+'></base-layer>')($scope);
 					break;
 				case 'box':
-					newElement = $compile('<box></box>')($scope);
+					newElement = $compile('<box window-responsive class="resize-drag" ng-style='+JSON.stringify(style)+'></box>')($scope);
 					break;
 				case 'text-box':
-					newElement = $compile('<text-box></text-box>')($scope);
+					newElement = $compile('<text-box window-responsive class="resize-drag" ng-style='+JSON.stringify(style)+'></text-box>')($scope);
 					break;
 				case 'image-box':
-					newElement = $compile('<image-box></image-box>')($scope);
+					newElement = $compile('<image-box window-responsive class="resize-drag" ng-style='+JSON.stringify(style)+'></image-box>')($scope);
 					break;
 				case 'list':
-					newElement = $compile('<list></list>')($scope);
+					newElement = $compile('<list window-responsive class="resize-drag" ng-style='+JSON.stringify(style)+'></list>')($scope);
 					break;
 				case 'table':
-					newElement = $compile('<table-component></table-component>')($scope);
+					newElement = $compile('<table-component window-responsive class="resize-drag" ng-style='+JSON.stringify(style)+'></table-component>')($scope);
 					break;
 			}
   		$scope.board.append(newElement);
@@ -31,6 +34,12 @@ app.factory('Component', function($compile) {
 				var allstyles = this.getAttribute("style");
 				console.log(allstyles);
 			});
+		},
+
+		load: function(components, $scope) {
+			components.forEach(function(component) {
+				factory.create(component.type, $scope, component.style);
+			});
 		}
 
 		// load: function(components, $scope) {
@@ -39,4 +48,6 @@ app.factory('Component', function($compile) {
 		// 	})
 		// }
 	}
+
+	return factory
 });
