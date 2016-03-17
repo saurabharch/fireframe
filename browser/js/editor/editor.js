@@ -14,8 +14,9 @@ app.config(function($stateProvider){
 app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, Interact) {
 	$scope.wireframe = wireframe;
 	$scope.board = $('#wireframe-board');
-	$scope.active = null;
+	$scope.activeColor = "#F00";
 	$scope.elementsRendered = $scope.elementsRendered || false;
+	
 
 	if(!$scope.elementsRendered) {
 		Component.load($scope.wireframe.components, $scope);
@@ -28,7 +29,8 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	};
 
 	$scope.createElement = function(type) {
-		Component.create(type, $scope);
+		var style = { "background-color":$scope.activeColor, "opacity":$scope.activeOpacity, "border-size": "2px", "border-style": "solid", "border-color": "black"};
+		Component.create(type, $scope, style);
 	};
 
 });
