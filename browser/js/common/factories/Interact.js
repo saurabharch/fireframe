@@ -38,7 +38,7 @@ app.factory('Interact', function() {
 
 			    target.setAttribute('data-x', x);
 			    target.setAttribute('data-y', y);
-			    target.textContent = Math.round(event.rect.width) + '×' + Math.round(event.rect.height);
+			    // target.textContent = Math.round(event.rect.width) + '×' + Math.round(event.rect.height);
 			  });
 
 			  function dragMoveListener (event) {
