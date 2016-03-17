@@ -28,10 +28,6 @@ app.directive('windowResponsive', function() {
 				// // console.log($(element).position())
 
 				// $(element).offset({ left: (boardLeft+adjustment) });
-
-				if($(element).offset().left+$(element).width()>=(boardLeft+originalWidth)) {
-					console.log('34');
-				}
 			});
 		}
 	}
