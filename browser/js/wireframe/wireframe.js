@@ -7,7 +7,7 @@ app.config(function($stateProvider) {
 			// 	return WireframeFactory.fetchById($stateParams.id);
 			// }
 			wireframe: function() {
-				return { components: [], height: 150, master: true };
+				return { components: [{ type: 'base-layer' }], height: 150, master: true };
 			}
 		},
 		controller: 'WireframeCtrl'
@@ -17,6 +17,11 @@ app.config(function($stateProvider) {
 app.controller('WireframeCtrl', function($scope, wireframe, $compile, Component, Interact) {
 	$scope.wireframe = wireframe;
 	$scope.board = $('#wireframe-board');
+	
+	$scope.elementsRendered = $scope.elementsRendered || false;
+	if(!$scope.elementsRendered) {
+		Component.load($scope.wireframe.components, $scope);
+	}
 
 	Interact.dragAndResize();
 
