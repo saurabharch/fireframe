@@ -4,6 +4,10 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 
 var schema = new mongoose.Schema({
+    projects: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Project'
+    },
     email: {
         type: String,
         required: true
