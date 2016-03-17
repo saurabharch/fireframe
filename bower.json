@@ -1,0 +1,21 @@
+{
+  "name": "FullstackGeneratedApp",
+  "description": "A generated project at Fullstack Academy",
+  "main": "server/start.js",
+  "authors": [
+    "Gustavo Ocasio <gocasiot@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/gerickson808/shrimpking",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery-ui": "^1.11.4"
+  }
+}
