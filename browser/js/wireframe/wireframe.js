@@ -19,7 +19,6 @@ app.controller('WireframeCtrl', function($scope, wireframe, $compile, Component,
 	$scope.board = $('#wireframe-board');
 
 	Interact.dragAndResize();
-	Interact.windowResize();
 
 	$scope.loadElements = function() {
 		Component.load(wireframe.components, $scope);
