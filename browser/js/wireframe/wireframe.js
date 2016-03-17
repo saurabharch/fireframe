@@ -16,21 +16,31 @@ app.config(function($stateProvider) {
 
 app.controller('WireframeCtrl', function($scope, wireframe, $compile, Component, Interact) {
 	$scope.wireframe = wireframe;
+	$scope.components = wireframe.components;
 	$scope.board = $('#wireframe-board');
 	
-	$scope.elementsRendered = $scope.elementsRendered || false;
-	if(!$scope.elementsRendered) {
-		Component.load($scope.wireframe.components, $scope);
-	}
+	//load saved elements, if any
+	Component.load($scope.wireframe.components, $scope);
 
+	//initialize dragging and resizing
 	Interact.dragAndResize();
+
+	$scope.containsBase = function() {
+		return components.filter(function(component) {
+			return component.type === 'base-layer';
+		}).length;
+	}
 
 	$scope.loadElements = function() {
 		Component.load(wireframe.components, $scope);
 	}
 
 	$scope.createElement = function(type) {
-		Component.create('base-layer', $scope);
+		Component.create(type, $scope);
+	}
+
+	$scope.deleteElement = function() {
+
 	}
 
 });
