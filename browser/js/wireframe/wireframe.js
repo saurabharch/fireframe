@@ -7,6 +7,9 @@ app.config(function($stateProvider) {
 			// 	return WireframeFactory.fetchById($stateParams.id);
 			// }
 			wireframe: function() {
+				console.log("in state?!??!");
+				return { components: [], height: 150, master: true };
+
 				return { components: [{ type: 'base-layer' }], height: 150, master: true };
 			}
 		},
@@ -33,6 +36,11 @@ app.controller('WireframeCtrl', function($scope, wireframe, $compile, Component,
 
 	$scope.loadElements = function() {
 		Component.load(wireframe.components, $scope);
+	}
+
+	$scope.saveElements = function() {
+		console.log($scope.components.clientHeight, $scope.components.clientWidth, wireframe.components, "scope? wireframe components?");
+		Component.save(wireframe.components, $scope);
 	}
 
 	$scope.createElement = function(type) {
