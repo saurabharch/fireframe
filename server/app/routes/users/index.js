@@ -21,6 +21,6 @@ router.param('id', function(req, res, next, id) {
 //get all projects for specific user
 router.get('/', function(req, res, next) {
   User.find({}).exec()
-  .then(projects => res.send(projects);)
+  .then(projects => res.send(projects))
   .then(null, next);
 });
