@@ -22,9 +22,9 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
     return hex.length == 1 ? "0" + hex : hex;
 	}
 
-function rgbToHex(r, g, b) {
-    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-}
+	function rgbToHex(arr) {
+    return "#" + componentToHex(arr[0]) + componentToHex(arr[1]) + componentToHex(arr[2]);
+	}
 
 	if(!$scope.elementsRendered) {
 		Component.load($scope.wireframe.components, $scope);
@@ -44,10 +44,11 @@ function rgbToHex(r, g, b) {
 
 	$scope.makeActive = function($event){
 		$scope.active = $event.target;
-		var color = $scope.active.style.backgroundColor.split("(");
-		color = color[1].split(',');
-		color = [color[0],color[1].substring(1),color[2].substring(1,2)];
-		color = rgbToHex(color[0],color[1],color[2]);
+		var color = $scope.active.style.backgroundColor;
+		color = color.substring(4, color.length-1);
+		color = color.split(', ').map(str => Number(str));
+		console.log(color);
+		color = rgbToHex(color);
 		$scope.activeColor = color;
 	};
 
