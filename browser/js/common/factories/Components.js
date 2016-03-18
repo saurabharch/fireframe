@@ -1,6 +1,6 @@
 app.factory('Component', function($compile) {
 	var styles = ['width', 'height', 'z-index', 'opacity', 'border-size', 'border-style', 'border-color'];
-
+	
 	//ng-style couldn't handle commas in rgb(0,0,0) so added this instead
 	function addCSS(element, styles) {
 		//should also add an id in here?
@@ -16,7 +16,6 @@ app.factory('Component', function($compile) {
 			var newElement;
 			switch(type) {
 				case 'base-layer':
-					// newElement = $compile('<base-layer class="resize-drag" ng-click="getComponentAttrs()"></base-layer>')($scope);
 					newElement = $compile('<base-layer ng-click="makeActive($event)" class="resize-drag"></base-layer>')($scope);
 					break;
 				case 'box':
@@ -38,6 +37,9 @@ app.factory('Component', function($compile) {
 
 			addCSS(newElement, style);
   		$scope.board.append(newElement);
+  		// $('.resize-drag').each(function() {
+  		// 	$(this).uniqueId();
+  		// })
 		},
 
 		save: function() {

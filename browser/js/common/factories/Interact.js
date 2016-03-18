@@ -6,25 +6,21 @@ app.factory('Interact', function() {
 			    inertia: false,
 			    autoScroll: true,
 			    onmove: dragMoveListener,
-			    // restrict: {
-			    //   restriction: "#wireframe-board",
-			    //   endOnly: false,
-			    //   elementRect: { top: 0, left: 0, bottom: null, right: null }
-			    // },
+			    restrict: {
+			      restriction: "#wireframe-board",
+			      endOnly: false,
+			      elementRect: { top: 0, left: 0, bottom: null, right: null }
+			    },
 			  })
 			  .resizable({
 			    preserveAspectRatio: false,
 			    edges: { left: true, right: true, bottom: true, top: true },
-			    // restrict: {
-			    //   restriction: "#wireframe-board",
-			    //   endOnly: false,
-			    //   elementRect: { top: 0, left: 0, bottom: null, right: null }
-			    // },
+			    restrict: {
+			      restriction: "#wireframe-board",
+			      endOnly: false,
+			      elementRect: { top: 0, left: 0, bottom: '1000px', right: '1000px' }
+			    },
 			  })
-			  // .restrict({
-			  // 	drag: "#wireframe-board",
-			  // 	resize: '#wireframe-board'
-			  // })
 			  .on('resizemove', function (event) {
 			    var target = event.target,
 			        x = (parseFloat(target.getAttribute('data-x')) || 0),
@@ -43,7 +39,6 @@ app.factory('Interact', function() {
 
 			    target.setAttribute('data-x', x);
 			    target.setAttribute('data-y', y);
-			    // target.textContent = Math.round(event.rect.width) + '×' + Math.round(event.rect.height);
 			  });
 
 			  function dragMoveListener (event) {
