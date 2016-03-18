@@ -6,20 +6,20 @@ app.factory('Interact', function() {
 			    inertia: false,
 			    autoScroll: true,
 			    onmove: dragMoveListener,
-			    // restrict: {
-			    //   restriction: "#wireframe-board",
-			    //   endOnly: false,
-			    //   elementRect: { top: 0, left: 0, bottom: null, right: null }
-			    // },
+			    restrict: {
+			      restriction: "#wireframe-board",
+			      endOnly: false,
+			      elementRect: { top: 0, left: 0, bottom: null, right: null }
+			    },
 			  })
 			  .resizable({
 			    preserveAspectRatio: false,
 			    edges: { left: true, right: true, bottom: true, top: true },
-			    // restrict: {
-			    //   restriction: "#wireframe-board",
-			    //   endOnly: false,
-			    //   elementRect: { top: 0, left: 0, bottom: '1000px', right: '1000px' }
-			    // },
+			    restrict: {
+			      restriction: "#wireframe-board",
+			      endOnly: false,
+			      elementRect: { top: 0, left: 0, bottom: '1000px', right: '1000px' }
+			    },
 			  })
 			  .on('resizemove', function (event) {
 			    var target = event.target,
