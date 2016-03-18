@@ -30,7 +30,16 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 
 	$scope.createElement = function(type) {
 		var style = { "background-color":$scope.activeColor, "opacity":$scope.activeOpacity, "border-size": "2px", "border-style": "solid", "border-color": "black"};
+
 		Component.create(type, $scope, style);
 	};
 
+	$scope.makeActive = function($event){
+		$scope.active = $event.target;
+		$scope.activeColor = $scope.active.style.backgroundColor;
+	};
+
+	$scope.$watch('activeColor', function(){
+		if($scope.active) $scope.active.style.backgroundColor = $scope.activeColor;
+	});
 });

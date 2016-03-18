@@ -17,22 +17,22 @@ app.factory('Component', function($compile) {
 			switch(type) {
 				case 'base-layer':
 					// newElement = $compile('<base-layer class="resize-drag" ng-click="getComponentAttrs()"></base-layer>')($scope);
-					newElement = $compile('<base-layer window-responsive class="resize-drag"></base-layer>')($scope);
+					newElement = $compile('<base-layer ng-click="makeActive($event)" class="resize-drag"></base-layer>')($scope);
 					break;
 				case 'box':
-					newElement = $compile('<box window-responsive class="resize-drag"></box>')($scope);
+					newElement = $compile('<box ng-click="makeActive($event)" class="resize-drag"></box>')($scope);
 					break;
 				case 'text-box':
-					newElement = $compile('<text-box window-responsive class="resize-drag"></text-box>')($scope);
+					newElement = $compile('<text-box ng-click="makeActive($event)" class="resize-drag"></text-box>')($scope);
 					break;
 				case 'image-box':
-					newElement = $compile('<image-box window-responsive class="resize-drag"></image-box>')($scope);
+					newElement = $compile('<image-box ng-click="makeActive($event)" class="resize-drag"></image-box>')($scope);
 					break;
 				case 'list':
-					newElement = $compile('<list window-responsive class="resize-drag"></list>')($scope);
+					newElement = $compile('<list ng-click="makeActive($event)" class="resize-drag"></list>')($scope);
 					break;
 				case 'table':
-					newElement = $compile('<table-component window-responsive class="resize-drag"></table-component>')($scope);
+					newElement = $compile('<table-component ng-click="makeActive($event)" class="resize-drag"></table-component>')($scope);
 					break;
 			}
 
@@ -81,5 +81,5 @@ app.factory('Component', function($compile) {
 		}
 	}
 
-	return factory
+	return factory;
 });

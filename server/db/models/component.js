@@ -5,11 +5,19 @@ var ComponentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Comment'
   },
-  xCoord: {
+  absX: {
     type: Number,
     required: true
   },
-  yCoord: {
+  absY: {
+    type: Number,
+    required: true
+  },
+  absHeight: {
+    type: Number,
+    required: true
+  },
+  absWidth: {
     type: Number,
     required: true
   },
