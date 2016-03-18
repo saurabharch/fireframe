@@ -1,7 +1,6 @@
 app.factory('Component', function($compile) {
 	var factory = {
 		create: function(type, $scope, style) {
-			console.log("HIHIHIHIII");
 			var style = style || { "border-size": "2px", "border-style": "solid", "border-color": "black" };
 			var newElement;
 			switch(type) {
@@ -30,9 +29,7 @@ app.factory('Component', function($compile) {
 
 		save: function($scope) {
 			$('#wireframe-board').children().each(function() {
-				console.log("this is THIS!", this);
-				var allstyles = this.getAttribute("style");
-				console.log(allstyles);
+				console.log($(this), "COMPONENT");
 			});
 		},
 
