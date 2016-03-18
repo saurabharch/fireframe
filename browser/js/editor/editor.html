@@ -1,15 +1,15 @@
 
 <!-- Left Sidebar -->
 <div id="left-sidebar">
-	<button class="component-button" ng-click="createElement('base-layer')"><span><img class="button-icon" src='/images/browser.svg'></span></button>
-	<button class="component-button" ng-click="createElement('text-box')"><span><img class="button-icon" src='/images/write.svg'></span></button>
-	<button class="component-button" ng-click="createElement('box')"><span><img class="button-icon" src='/images/box.svg'></span></button>
-	<button class="component-button" ng-click="createElement('table')"><span><img class="button-icon" src='/images/table.svg'></span></button>
-	<button class="component-button" ng-click="createElement('circle')"><span><img class="button-icon" src='/images/circle.svg'></span></button>
-	<button class="component-button" ng-click="createElement('triangle')"><span><img class="button-icon" src='/images/triangle.svg'></span></button>
-	<button class="component-button" ng-click="createElement('list')"><span><img class="button-icon" src='/images/list.svg'></span></button>
-	<button class="component-button" ng-click="createElement('image-box')"><span><img class="button-icon" src='/images/photo.svg'></span></button>
-	<button class="component-button" ng-click="createElement('button')"><span><img class="button-icon" src='/images/button.svg'></span></button>
+	<button class="component-button" ng-disabled="containsBase()" ng-click="createElement('base-layer')"><span><img class="button-icon" src='/images/browser.svg'></span></button>
+	<button class="component-button" ng-disabled="!containsBase()" ng-click="createElement('text-box')"><span><img class="button-icon" src='/images/write.svg'></span></button>
+	<button class="component-button" ng-disabled="!containsBase()" ng-click="createElement('box')"><span><img class="button-icon" src='/images/box.svg'></span></button>
+	<button class="component-button" ng-disabled="!containsBase()" ng-click="createElement('table')"><span><img class="button-icon" src='/images/table.svg'></span></button>
+	<button class="component-button" ng-disabled="!containsBase()" ng-click="createElement('circle')"><span><img class="button-icon" src='/images/circle.svg'></span></button>
+	<button class="component-button" ng-disabled="!containsBase()" ng-click="createElement('triangle')"><span><img class="button-icon" src='/images/triangle.svg'></span></button>
+	<button class="component-button" ng-disabled="!containsBase()" ng-click="createElement('list')"><span><img class="button-icon" src='/images/list.svg'></span></button>
+	<button class="component-button" ng-disabled="!containsBase()" ng-click="createElement('image-box')"><span><img class="button-icon" src='/images/photo.svg'></span></button>
+	<button class="component-button" ng-disabled="!containsBase()" ng-click="createElement('button')"><span><img class="button-icon" src='/images/button.svg'></span></button>
 </div>
 
 <!-- Workspace -->

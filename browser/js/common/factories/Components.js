@@ -1,52 +1,84 @@
 app.factory('Component', function($compile) {
+	var styles = ['width', 'height', 'z-index', 'opacity', 'border-size', 'border-style', 'border-color'];
+
+	//ng-style couldn't handle commas in rgb(0,0,0) so added this instead
+	function addCSS(element, styles) {
+		//should also add an id in here?
+		for(var prop in styles) {
+			var param = {};
+			param[prop] = styles[prop];
+			$(element).css(param);
+		}
+	}
+
 	var factory = {
 		create: function(type, $scope, style) {
-			console.log("HIHIHIHIII");
-			var style = style || { "border-size": "2px", "border-style": "solid", "border-color": "black" };
 			var newElement;
 			switch(type) {
 				case 'base-layer':
-					newElement = $compile('<base-layer class="resize-drag" ng-click="getComponentAttrs()"></base-layer>')($scope);
-					newElement = $compile('<base-layer window-responsive class="resize-drag" ng-style='+JSON.stringify(style)+'></base-layer>')($scope);
+					// newElement = $compile('<base-layer class="resize-drag" ng-click="getComponentAttrs()"></base-layer>')($scope);
+					newElement = $compile('<base-layer window-responsive class="resize-drag"></base-layer>')($scope);
 					break;
 				case 'box':
-					newElement = $compile('<box window-responsive class="resize-drag" ng-style='+JSON.stringify(style)+'></box>')($scope);
+					newElement = $compile('<box window-responsive class="resize-drag"></box>')($scope);
 					break;
 				case 'text-box':
-					newElement = $compile('<text-box window-responsive class="resize-drag" ng-style='+JSON.stringify(style)+'></text-box>')($scope);
+					newElement = $compile('<text-box window-responsive class="resize-drag"></text-box>')($scope);
 					break;
 				case 'image-box':
-					newElement = $compile('<image-box window-responsive class="resize-drag" ng-style='+JSON.stringify(style)+'></image-box>')($scope);
+					newElement = $compile('<image-box window-responsive class="resize-drag"></image-box>')($scope);
 					break;
 				case 'list':
-					newElement = $compile('<list window-responsive class="resize-drag" ng-style='+JSON.stringify(style)+'></list>')($scope);
+					newElement = $compile('<list window-responsive class="resize-drag"></list>')($scope);
 					break;
 				case 'table':
-					newElement = $compile('<table-component window-responsive class="resize-drag" ng-style='+JSON.stringify(style)+'></table-component>')($scope);
+					newElement = $compile('<table-component window-responsive class="resize-drag"></table-component>')($scope);
 					break;
 			}
+
+			addCSS(newElement, style);
   		$scope.board.append(newElement);
 		},
 
-		save: function($scope) {
+		save: function() {
+			var components = [];
 			$('#wireframe-board').children().each(function() {
-				console.log("this is THIS!", this);
-				var allstyles = this.getAttribute("style");
-				console.log(allstyles);
+				var element = $(this);
+				var component = {};
+				component.type = element.prop('tagName').toLowerCase();
+				component.style = {};
+
+				styles.forEach(function(style) {
+					if (element.css(style)) {
+						component.style[style] = element.css(style);
+					}
+				});
+				component.style.left = element.position().left;
+				component.style.top = element.position().top;
+
+				//this results in an array of object like this
+				//styles: {
+					// border-color: "rgb(0, 0, 0)"
+					// border-style: "solid"
+					// height: "400px"
+					// left: 0
+					// opacity: "1"
+					// top: 0
+					// width: "400px"
+					// z-index: "auto"
+				//},
+				//type: "base-layer"
+
+				//need send this array of components back to server (through wireframe factory?)
 			});
 		},
 
 		load: function(components, $scope) {
+			console.log(components);
 			components.forEach(function(component) {
 				factory.create(component.type, $scope, component.style);
 			});
 		}
-
-		// load: function(components, $scope) {
-		// 	components.forEach(function() {
-				
-		// 	})
-		// }
 	}
 
 	return factory
