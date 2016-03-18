@@ -9,16 +9,17 @@ app.factory('Interact', function() {
 			    restrict: {
 			      restriction: "#wireframe-board",
 			      endOnly: false,
-			      elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+			      elementRect: { top: 0, left: 0, bottom: null, right: null }
 			    },
 			  })
 			  .resizable({
 			    preserveAspectRatio: false,
 			    edges: { left: true, right: true, bottom: true, top: true },
-			  })
-			  .restrict({
-			  	drag: "#wireframe-board",
-			  	resize: '#wireframe-board'
+			    restrict: {
+			      restriction: "#wireframe-board",
+			      endOnly: false,
+			      elementRect: { top: 0, left: 0, bottom: '1000px', right: '1000px' }
+			    },
 			  })
 			  .on('resizemove', function (event) {
 			    var target = event.target,
@@ -38,7 +39,6 @@ app.factory('Interact', function() {
 
 			    target.setAttribute('data-x', x);
 			    target.setAttribute('data-y', y);
-			    // target.textContent = Math.round(event.rect.width) + '×' + Math.round(event.rect.height);
 			  });
 
 			  function dragMoveListener (event) {

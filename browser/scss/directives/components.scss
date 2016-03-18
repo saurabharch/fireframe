@@ -1,6 +1,7 @@
 .resize-drag {
   display: inline-block;
   position: absolute;
+  background-color: #29e;
   /* This makes things *much* easier */
   box-sizing: border-box;
 }
@@ -23,11 +24,14 @@ table-component {
   width: 240px;
 }
 
+
+button {
 .save-button {
   position: absolute;
   bottom: 20px;
   right: 20px;
 }
+
 
 .table-component {
   background-color: white;
@@ -53,3 +57,4 @@ box {
 circle {
   border-radius: 50%;
 }
+

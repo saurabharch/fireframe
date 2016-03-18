@@ -42,7 +42,8 @@ $swatch-side: $left-width / 10;
   top: $navbar-height;
   width: 80vw;
   height: 100vh - $navbar-height;
-  background-color: #d3d3d3
+  background-color: #d3d3d3;
+  overflow: auto;
 }
 
 $btn-side: .45 * $left-width;
