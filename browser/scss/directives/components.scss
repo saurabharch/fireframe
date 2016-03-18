@@ -2,8 +2,8 @@
   display: inline-block;
   position: absolute;
 
-  background-color: #29e;
 
+  background-color: #29e;
 
   /* This makes things *much* easier */
   box-sizing: border-box;
@@ -11,7 +11,6 @@
 
 base-layer {
   color: white;
-
   font-size: 20px;
   font-family: sans-serif;
   border-radius: 4px;
@@ -30,9 +29,10 @@ table-component {
 
 
 button {
+.save-button {
   position: absolute;
   bottom: 20px;
-  right: 20px
+  right: 20px;
 }
 
 
@@ -43,9 +43,23 @@ button {
   width: 100%;
   height: 100%;
   margin-bottom: 0;
-
   #first-row {
     background-color: #6D7375;
   }
+}
+
+
+
+box, circle {
+  height: 5vh;
+  width: 5vh;
+}
+
+box {
+  border-radius: 5%;
+}
+
+circle {
+  border-radius: 50%;
 }
 
