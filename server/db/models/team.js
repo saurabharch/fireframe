@@ -1,15 +1,16 @@
 var mongoose = require('mongoose');
 
 var TeamSchema = new mongoose.Schema({
-  creadminator: {
+  
+  administrator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
-  members: {
+  members: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
-  }
+  }]
 
 });
 

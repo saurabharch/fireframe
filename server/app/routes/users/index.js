@@ -1,26 +1,85 @@
-/* user routes */
-
+/* USER ROUTES */
 'use strict';
 var router = require('express').Router();
 module.exports = router;
 
-var mongoose = require('mongoose');
-var User = mongoose.model('User');
+var _ = require('lodash'),
+    auth = require('../authentication'),
+
+    mongoose = require('mongoose'),
+    User = mongoose.model('User'),
+    ProjectRouter = require('./project'),
+    TeamRouter = require('./team');
 
 router.param('id', function(req, res, next, id) {
   User.findById(id)
-  .populate('projects')
+  .populate('projects.wireframe.photoUrl')
   .then(user => {
-    req.currentUser = user;
-    next();
+    if (user) {
+      req.currentUser = user;
+      next();
+    } else {
+      var err = new Error('Something went wrong.');
+      err.status = 404;
+      next(err);
+    }
   })
   .then(null, next);
 });
 
-
-//get all projects for specific user
-router.get('/', function(req, res, next) {
+//get all users
+router.get('/', auth.ensureAdmin, function(req, res, next) {
   User.find({}).exec()
-  .then(projects => res.send(projects))
+  .then(function(allUsers) {
+    res.send(allUsers);
+  })
+  .then(null, next);
+});
+
+//nested sub-routers
+router.use('/:id/projects/', ProjectRouter);
+router.use('/:id/teams/', TeamRouter);
+
+//get user by ID
+router.get('/:id', auth.ensureCurrentUserOrAdmin, function(req, res, next) {
+  res.json(req.currentUser);
+});
+
+//add user
+router.post('/', auth.ensureAdmin, function(req, res, next) {
+  User.create(req.body)
+  .then(function(user) {
+    res.json(user.sanitize());
+  })
+  .then(null, next);
+});
+
+//update user
+router.put('/:id', auth.ensureCurrentUserOrAdmin, function(req, res, next) {
+  _.merge(req.currentUser, req.body);
+  
+  if(!req.user.admin) {
+    req.currentUser.admin = false;
+  }
+  req.currentUser.save()
+  .then(function(user) {
+    if (req.body.password && user.resetPassword) {
+      user.resetPassword = false;
+    }
+    return user.save();
+  })
+  .then(function(user){
+    res.json(user.sanitize());
+  })
+  .then(null, next);
+  
+});
+
+//delete user
+router.delete('/:id', auth.ensureAdmin, function(req, res, next) {
+  req.currentUser.remove()
+  .then(function() {
+    res.sendStatus(204);
+  })
   .then(null, next);
 });
