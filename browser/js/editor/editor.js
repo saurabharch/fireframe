@@ -4,18 +4,34 @@ app.config(function($stateProvider){
 		templateUrl: '/js/editor/editor.html',
 		resolve: {
 			wireframe: function() {
-				return { components: [], master: true };
+				return { _id: "ABC", components: [], master: true };
 			}
 		},
 		controller: 'EditorCtrl'
 		});
 });
 
-app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, Interact) {
+app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, Interact, CSS, Firebase) {
+	var newFork = true;
+	//check if project create or project join
+	newFork ? Firebase.createRoom(wireframe, $scope) : Firebase.joinRoom(wireframe, $scope);
+
 	$scope.wireframe = wireframe;
+	//$scope.components = wireframe.components;
 	$scope.board = $('#wireframe-board');
+	$scope.activeOpacity = 1;
 	$scope.activeColor = "#F00";
 	$scope.elementsRendered = $scope.elementsRendered || false;
+
+	//load saved elements, if any
+	Component.load($scope.components, $scope);
+
+	//initialize dragging and resizing
+	Interact.dragAndResize();
+
+	//set current zoom and initialize CSS zoom
+	$scope.currentZoom = CSS.currentZoom();
+	$scope.updateZoom = CSS.updateZoom;
 	
 	function componentToHex(c) {
     var hex = c.toString(16);
@@ -26,29 +42,21 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
     return "#" + componentToHex(arr[0]) + componentToHex(arr[1]) + componentToHex(arr[2]);
 	}
 
-	if(!$scope.elementsRendered) {
-		Component.load($scope.wireframe.components, $scope);
+	$scope.saveElements = function() {
+		Component.saveComponents();
 	}
-
-	Interact.dragAndResize();
-
-	$scope.loadElements = function() {
-		Component.load(wireframe.components, $scope);
-	};
 
 	$scope.createElement = function(type) {
 		var style = { "background-color":$scope.activeColor, "opacity":$scope.activeOpacity, "border-size": "2px", "border-style": "solid", "border-color": "black"};
-
-		Component.create(type, $scope, style);
+		Firebase.createElement(style, type);
+		//Component.create(type, $scope, style);
 	};
 
 	$scope.makeActive = function($event){
-		console.log("in make active editor js");
 		$scope.active = $event.target;
 		var color = $scope.active.style.backgroundColor;
 		color = color.substring(4, color.length-1);
 		color = color.split(', ').map(str => Number(str));
-		console.log(color);
 		color = rgbToHex(color);
 		$scope.activeColor = color;
 	};
@@ -56,4 +64,6 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	$scope.$watch('activeColor', function(){
 		if($scope.active) $scope.active.style.backgroundColor = $scope.activeColor;
 	});
+
+
 });

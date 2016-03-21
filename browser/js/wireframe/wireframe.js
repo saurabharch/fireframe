@@ -79,10 +79,11 @@ app.controller('WireframeCtrl', function($scope, wireframe, $compile, Component,
 	}
 
 	$scope.saveElements = function() {
-		Component.saveComponent();
+			Component.saveComponents();
 	}
 
 	$scope.createElement = function(type) {
+		
 		var newElement = Component.create(type, $scope);
 		$scope.components.push(newElement);
 		console.log(newElement);
