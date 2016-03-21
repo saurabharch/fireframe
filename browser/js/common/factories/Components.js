@@ -3,6 +3,7 @@ app.factory('Component', function($compile, CSS) {
 	
 	var factory = {
 		create: function(type, $scope, style) {
+
 			var newElement;
 			switch(type) {
 				case 'base-layer':
@@ -33,6 +34,7 @@ app.factory('Component', function($compile, CSS) {
 		save: function() {
 			var components = [];
 			$('#wireframe-board').children().each(function() {
+
 				var element = $(this);
 				var component = {};
 				component.type = element.prop('tagName').toLowerCase();
@@ -62,6 +64,7 @@ app.factory('Component', function($compile, CSS) {
 				//type: "base-layer"
 
 				//need send this array of components back to server (through wireframe factory?)
+
 			});
 		},
 
