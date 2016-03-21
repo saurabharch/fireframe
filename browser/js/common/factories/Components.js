@@ -1,23 +1,13 @@
-app.factory('Component', function($compile) {
+app.factory('Component', function($compile, CSS) {
 	var styles = ['width', 'height', 'z-index', 'opacity', 'border-size', 'border-style', 'border-color'];
 	
-	//ng-style couldn't handle commas in rgb(0,0,0) so added this instead
-	function addCSS(element, styles) {
-		//should also add an id in here?
-		for(var prop in styles) {
-			var param = {};
-			param[prop] = styles[prop];
-			$(element).css(param);
-		}
-	}
-
 	var factory = {
 		create: function(type, $scope, style) {
 
 			var newElement;
 			switch(type) {
 				case 'base-layer':
-					newElement = $compile('<base-layer ng-click="makeActive($event)" class="resize-drag"></base-layer>')($scope);
+					newElement = $compile('<base-layer ng-click="makeActive($event)" class="resize-drag"></base-layer>')($scope.board);
 					break;
 				case 'box':
 					newElement = $compile('<box ng-click="makeActive($event)" class="resize-drag"></box>')($scope);
@@ -36,11 +26,9 @@ app.factory('Component', function($compile) {
 					break;
 			}
 
-			addCSS(newElement, style);
+			CSS.addStyles(newElement, style);
+			//CSS.addUniqueId(newElement)
   		$scope.board.append(newElement);
-  		// $('.resize-drag').each(function() {
-  		// 	$(this).uniqueId();
-  		// })
 		},
 
 		save: function() {
@@ -51,7 +39,9 @@ app.factory('Component', function($compile) {
 				var component = {};
 				component.type = element.prop('tagName').toLowerCase();
 				component.style = {};
+				//component.style = CSS.extractStyles(element);
 
+				//NEED TO SCALE WIDTH AND POSITION BASED ON CURRENT ZOOM
 				styles.forEach(function(style) {
 					if (element.css(style)) {
 						component.style[style] = element.css(style);

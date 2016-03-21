@@ -44,6 +44,7 @@ $swatch-side: $left-width / 10;
   height: 100vh - $navbar-height;
   background-color: #d3d3d3;
   overflow: auto;
+  transform-origin: 0 0;
 }
 
 $btn-side: .45 * $left-width;
