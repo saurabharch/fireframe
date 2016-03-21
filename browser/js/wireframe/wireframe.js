@@ -57,7 +57,7 @@ app.config(function($stateProvider) {
 	})
 });
 
-app.controller('WireframeCtrl', function($scope, wireframe, $compile, Component, Interact) {
+app.controller('WireframeCtrl', function($scope, wireframe, $compile, Component, Interact, CSS) {
 	$scope.wireframe = wireframe;
 	$scope.components = wireframe.components;
 	$scope.board = $('#wireframe-board');
@@ -67,6 +67,10 @@ app.controller('WireframeCtrl', function($scope, wireframe, $compile, Component,
 
 	//initialize dragging and resizing
 	Interact.dragAndResize();
+
+	//set current zoom and initialize CSS zoom
+	$scope.currentZoom = CSS.currentZoom();
+	$scope.updateZoom = CSS.updateZoom;
 
 	$scope.containsBase = function() {
 		return components.filter(function(component) {
