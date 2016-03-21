@@ -16,4 +16,4 @@ var ComponentSchema = new mongoose.Schema({
   }
 });
 
-module.exports = ('Component', ComponentSchema);
+mongoose.model('Component', ComponentSchema);

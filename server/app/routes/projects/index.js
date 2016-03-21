@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 var Project = mongoose.model('Project');
 var WireframeRouter = require('./wireframe');
 var CommentRouter = require('./comment');
+var auth = require('../authentication');
 
 router.param('id', function(req, res, next, id) {
 	Project.findById(id)

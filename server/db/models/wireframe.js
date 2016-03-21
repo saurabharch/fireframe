@@ -57,4 +57,4 @@ WireframeSchema.methods.deleteWithComponents = function() {
 	});
 }
 
-module.exports = ('Wireframe', WireframeSchema);
+mongoose.model('Wireframe', WireframeSchema);

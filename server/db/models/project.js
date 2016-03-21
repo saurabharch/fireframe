@@ -36,4 +36,4 @@ ProjectSchema.methods.deleteProject = function() {
 	});
 }
 
-module.exports = ('Project', ProjectSchema);
+mongoose.model('Project', ProjectSchema);
