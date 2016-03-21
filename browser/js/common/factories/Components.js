@@ -25,7 +25,7 @@ app.factory('Component', function($compile, CSS) {
 					newElement = $compile('<table-component ng-click="makeActive($event)" class="resize-drag"></table-component>')($scope);
 					break;
 				case 'circle':
-					newElement = $compile('<table-component ng-click="makeActive($event)" class="resize-drag"></table-component>')($scope);
+					newElement = $compile('<circle ng-click="makeActive($event)" class="resize-drag"></circle>')($scope);
 					break;
 			}
 
