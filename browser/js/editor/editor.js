@@ -4,18 +4,22 @@ app.config(function($stateProvider){
 		templateUrl: '/js/editor/editor.html',
 		resolve: {
 			wireframe: function() {
-				return { components: [], master: true };
+				return { _id: "ABC", components: [], master: true };
 			}
 		},
 		controller: 'EditorCtrl'
 		});
 });
 
-app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, Interact, CSS) {
+app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, Interact, CSS, Firebase) {
+	var newFork = true;
+	//check if project create or project join
+	newFork ? Firebase.createRoom(wireframe, $scope) : Firebase.joinRoom(wireframe, $scope);
+
 	$scope.wireframe = wireframe;
 	//$scope.components = wireframe.components;
 	$scope.board = $('#wireframe-board');
-
+	$scope.activeOpacity = 1;
 	$scope.activeColor = "#F00";
 	$scope.elementsRendered = $scope.elementsRendered || false;
 
@@ -44,8 +48,8 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 
 	$scope.createElement = function(type) {
 		var style = { "background-color":$scope.activeColor, "opacity":$scope.activeOpacity, "border-size": "2px", "border-style": "solid", "border-color": "black"};
-
-		Component.create(type, $scope, style);
+		Firebase.createElement(style, type);
+		//Component.create(type, $scope, style);
 	};
 
 	$scope.makeActive = function($event){
@@ -53,7 +57,6 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 		var color = $scope.active.style.backgroundColor;
 		color = color.substring(4, color.length-1);
 		color = color.split(', ').map(str => Number(str));
-		console.log(color);
 		color = rgbToHex(color);
 		$scope.activeColor = color;
 	};
@@ -61,4 +64,6 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	$scope.$watch('activeColor', function(){
 		if($scope.active) $scope.active.style.backgroundColor = $scope.activeColor;
 	});
+
+
 });
