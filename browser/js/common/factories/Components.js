@@ -17,7 +17,7 @@ app.factory('Component', function($compile) {
 			var newElement;
 			switch(type) {
 				case 'base-layer':
-					newElement = $compile('<base-layer ng-click="makeActive($event)" class="resize-drag"></base-layer>')($scope);
+					newElement = $compile('<base-layer class="resize-drag"></base-layer>')($scope);
 					break;
 				case 'box':
 					newElement = $compile('<box ng-click="makeActive($event)" class="resize-drag"></box>')($scope);
@@ -41,9 +41,10 @@ app.factory('Component', function($compile) {
   		// $('.resize-drag').each(function() {
   		// 	$(this).uniqueId();
   		// })
+			return newElement;
 		},
 
-		save: function() {
+		saveComponent: function() {
 			var components = [];
 			$('#wireframe-board').children().each(function() {
 
@@ -79,6 +80,7 @@ app.factory('Component', function($compile) {
 		},
 
 		load: function(components, $scope) {
+			console.log($scope);
 			console.log(components);
 			components.forEach(function(component) {
 				factory.create(component.type, $scope, component.style);

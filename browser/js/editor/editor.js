@@ -35,6 +35,7 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	};
 
 	$scope.makeActive = function($event){
+		console.log("in make active editor js");
 		$scope.active = $event.target;
 		$scope.activeColor = $scope.active.style.backgroundColor;
 	};
