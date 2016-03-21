@@ -17,6 +17,14 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	$scope.activeColor = "#F00";
 	$scope.elementsRendered = $scope.elementsRendered || false;
 	
+	function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+	}
+
+	function rgbToHex(arr) {
+    return "#" + componentToHex(arr[0]) + componentToHex(arr[1]) + componentToHex(arr[2]);
+	}
 
 	if(!$scope.elementsRendered) {
 		Component.load($scope.wireframe.components, $scope);
@@ -37,7 +45,12 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	$scope.makeActive = function($event){
 		console.log("in make active editor js");
 		$scope.active = $event.target;
-		$scope.activeColor = $scope.active.style.backgroundColor;
+		var color = $scope.active.style.backgroundColor;
+		color = color.substring(4, color.length-1);
+		color = color.split(', ').map(str => Number(str));
+		console.log(color);
+		color = rgbToHex(color);
+		$scope.activeColor = color;
 	};
 
 	$scope.$watch('activeColor', function(){
