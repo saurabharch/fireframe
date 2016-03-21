@@ -15,8 +15,8 @@ body {
 }
 
 #main {
-  padding-top: 60px;
-  margin: 0 auto;
+  /*padding-top: 60px;*/
+  /*margin: 0 auto;*/
 }
 
 @import 'directives/main';
@@ -25,3 +25,4 @@ body {
 @import 'tutorial/main';
 @import 'login/main';
 @import 'editor/main';
+@import 'user/user';
