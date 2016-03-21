@@ -34,4 +34,4 @@ CommentSchema.pre('validate', function(next) {
   }
 });
     
-module.exports = ('Comment', CommentSchema);
+mongoose.model('Comment', CommentSchema);

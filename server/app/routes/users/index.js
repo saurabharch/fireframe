@@ -8,8 +8,7 @@ var _ = require('lodash'),
 
     mongoose = require('mongoose'),
     User = mongoose.model('User'),
-    ProjectRouter = require('./project'),
-    TeamRouter = require('./team');
+    ProjectRouter = require('../projects');
 
 router.param('id', function(req, res, next, id) {
   User.findById(id)
@@ -38,7 +37,7 @@ router.get('/', auth.ensureAdmin, function(req, res, next) {
 
 //nested sub-routers
 router.use('/:id/projects/', ProjectRouter);
-router.use('/:id/teams/', TeamRouter);
+// router.use('/:id/teams/', TeamRouter);
 
 //get user by ID
 router.get('/:id', auth.ensureCurrentUserOrAdmin, function(req, res, next) {
