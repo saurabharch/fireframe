@@ -1,34 +1,19 @@
 var mongoose = require('mongoose');
 
 var ComponentSchema = new mongoose.Schema({
-  comment: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Comment'
-  },
-  absX: {
-    type: Number,
-    required: true
-  },
-  absY: {
-    type: Number,
-    required: true
-  },
-  absHeight: {
-    type: Number,
-    required: true
-  },
-  absWidth: {
-    type: Number,
-    required: true
-  },
+  type: String,
   style: {
+    id: String,
     width: Number,
     height: Number,
     color: String,
     opacity: Number,
-    zIndex: Number
+    "z-index": Number
   },
-  type: String
+  wireframe: {
+    type:mongoose.Schema.Types.ObjectId, 
+    ref:'Wireframe'
+  }
 });
 
-module.exports = ('Component', ComponentSchema);
+mongoose.model('Component', ComponentSchema);

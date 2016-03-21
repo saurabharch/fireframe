@@ -10,8 +10,13 @@ app.factory('Firebase', function(Component) {
       firebase.on('child_added', function(snapshot) {
         var key = snapshot.key();
         var element = snapshot.val();
-        console.log(snapshot.val(), key, "snapshot");
         Component.create(element.type, $scope, element.style, key);
+      });
+
+      firebase.on('child_changed', function(snapshot) {
+        var key = snapshot.key();
+        var element = snapshot.val();
+        Component.update(key, element.style);
       });
 
       //Event listener, update element any time a user changes it
@@ -30,11 +35,7 @@ app.factory('Firebase', function(Component) {
       
       //load current components to fb
       wireframe.components.forEach(function(component) {
-        firebase.push({
-         id: component.id,
-         style: component.style,
-         type: component.type 
-        });
+        factory.createElement(component.style, component.type);
       });
     },
 
@@ -43,7 +44,6 @@ app.factory('Firebase', function(Component) {
       
       //load in existing firebase objects
       firebase.once('value', function(data) {
-        console.log(data);
         data.components.forEach(function(component) {
           Component.create(component.type, $scope, component.style, component.id);
         })

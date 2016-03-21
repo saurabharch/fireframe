@@ -24,14 +24,18 @@ app.factory('Component', function($compile, CSS) {
 					break;
 				case 'circle':
 					newElement = $compile('<circle id="' + id + '" ng-click="makeActive($event)" class="resize-drag"></circle>')($scope);
+
 					break;
 			}
 
 			CSS.addStyles(newElement, style);
-			//CSS.addUniqueId(newElement)
   		$scope.board.append(newElement);
 		},
 
+		update: function(id, style) {
+			var element = $('#'+id);
+			CSS.addStyles(element, style);
+		},
 
 		saveComponents: function() {
 			var components = [];

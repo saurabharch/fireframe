@@ -6,6 +6,10 @@ var CommentSchema = new mongoose.Schema({
     	type: mongoose.Schema.Types.ObjectId,
     	ref: 'Project', required: true 
     },
+    wireframe: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Wireframe', required: true 
+    },
     user: {
     	type: mongoose.Schema.Types.ObjectId,
     	ref: 'User',
@@ -22,4 +26,12 @@ var CommentSchema = new mongoose.Schema({
 
 });
 
-module.exports = ('Comment', CommentSchema);
+CommentSchema.pre('validate', function(next) {
+  if (this.project || this.wireframe) {
+    next();
+  } else {
+    next(new Error('Comments must belong to either a project or a wireframe.'));
+  }
+});
+    
+mongoose.model('Comment', CommentSchema);
