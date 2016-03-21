@@ -14,4 +14,4 @@ var TeamSchema = new mongoose.Schema({
 
 });
 
-mongoose.model('Teams', TeamSchema);
+mongoose.model('Team', TeamSchema);
