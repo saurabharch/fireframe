@@ -1,5 +1,4 @@
 navbar {
-
   display: block;
   background: #242626;
   /*background: white;
@@ -10,6 +9,10 @@ navbar {
     width: 91%;
     max-width: 1340px;
     /*padding-top: 20px;*/
+  }
+
+  .navbar {
+    margin: 0;
   }
 
   /*fullstack-logo {
