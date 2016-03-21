@@ -39,9 +39,10 @@ app.factory('Component', function($compile, CSS) {
 			$('#wireframe-board').children().each(function() {
 				var element = $(this);
 				components.push(factory.saveComponent(element))
-				//need send this array of components back to server (through wireframe factory?)
-
 			});
+			
+			//need send this array of components back to server (through wireframe factory?)
+			console.log(components);
 		},
 
 		saveComponent: function(element) {
@@ -77,9 +78,11 @@ app.factory('Component', function($compile, CSS) {
 
 		load: function(components, $scope) {
 			console.log(components);
-			components.forEach(function(component) {
-				factory.create(component.type, $scope, component.style);
-			});
+			if (components) {
+				components.forEach(function(component) {
+					factory.create(component.type, $scope, component.style);
+				});
+			}
 		}
 	}
 
