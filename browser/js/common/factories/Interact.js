@@ -13,7 +13,7 @@ app.factory('Interact', function(CSS) {
 			    onmove: dragMoveListener,
 			    restrict: {
 			      restriction: "#wireframe-board",
-			      endOnly: false,
+			      endOnly: true,
 			      elementRect: { top: 0, left: 0, bottom: null, right: null }
 			    },
 			  })
@@ -48,6 +48,7 @@ app.factory('Interact', function(CSS) {
 
 			  function dragMoveListener (event) {
 		    	var target = event.target,
+			  		originalPos = [target.getAttribute('data-x'),target.getAttribute('data-y')],
 		        // keep the dragged position in the data-x/data-y attributes
 		        x = ((parseFloat(target.getAttribute('data-x')) || 0) + event.dx/scale()),
 		        y = ((parseFloat(target.getAttribute('data-y')) || 0) + event.dy/scale());
@@ -60,7 +61,8 @@ app.factory('Interact', function(CSS) {
 			    // update the posiion attributes
 			    target.setAttribute('data-x', x);
 			    target.setAttribute('data-y', y);
+			    console.log(originalPos, target);
 			  }
 		}
-	}
+	};
 });
