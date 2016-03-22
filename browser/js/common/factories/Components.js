@@ -35,6 +35,7 @@ app.factory('Component', function($compile, CSS) {
 		update: function(id, style) {
 			var element = $('#'+id);
 			CSS.addStyles(element, style);
+			CSS.removeTransform(element, style);
 		},
 
 		saveComponents: function() {

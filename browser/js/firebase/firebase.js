@@ -16,6 +16,7 @@ app.factory('Firebase', function(Component) {
       firebase.on('child_changed', function(snapshot) {
         var key = snapshot.key();
         var element = snapshot.val();
+        console.log(snapshot.val());
         Component.update(key, element.style);
       });
 
@@ -24,6 +25,7 @@ app.factory('Firebase', function(Component) {
         var component = Component.saveComponent($(this));
         console.log(component, "component");
         var key = component.id;
+        console.log('asdfasdf', component.style);
         firebase.child(key).update({
           style: component.style
         });

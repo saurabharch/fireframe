@@ -25,6 +25,12 @@ app.factory('CSS', function() {
 				param[prop] = styles[prop];
 				$(element).css(param);
 			}
+		},
+
+		removeTransform: function(element, style) {
+			element.css('transform', '');
+			element.removeData('data-x').removeAttr('data-x');
+			element.removeData('data-y').removeAttr('data-y');
 		}
 	}
 });
