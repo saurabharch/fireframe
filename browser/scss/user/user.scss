@@ -1,29 +1,49 @@
+$sideBarWidth: 200px;
+
 #userPage {
+
 	.sidebar {
 		display: inline-block;
-		position: fixed;
+		position: absolute;
 		color: #D2D5D6;
 		height: 100%;
-		width: 200px;
+		width: $sideBarWidth;
 		background: #222;
 		
 		ul {
 			list-style: none;
 			padding: 0;
 			
-			li {
+			/*li {
 				padding: 8% 25%;
+			}*/
+
+			.active {
+				background: black;
+				color: white;
+			} 
+
+			a {
+				padding: 8% 25%;
+				display: block;
+				text-decoration: inherit;
+				color: inherit;
 			}
 
-			li:hover {
+			a:hover {
 				background: black;
 				color: white;
 			}
+
 		}
 
 	}
 
 	.container {
-		display: inline-block;
+		left: $sideBarWidth;
+		width: 100%;
+		text-align: center;
+		position: absolute;
+
 	}	
 }
