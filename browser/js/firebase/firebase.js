@@ -1,10 +1,11 @@
+
 app.factory('Firebase', function(Component) {
 
   var firebase;
 
   var factory = {
     connect: function(wireframeId, $scope) {
-      firebase = new Firebase("https://resplendent-torch-9329.firebaseio.com/projects/" + wireframeId);
+      firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframeId);
       
       //Event listener, create element any time a user adds one
       firebase.on('child_added', function(snapshot) {
@@ -16,19 +17,20 @@ app.factory('Firebase', function(Component) {
       firebase.on('child_changed', function(snapshot) {
         var key = snapshot.key();
         var element = snapshot.val();
-        console.log(snapshot.val());
         Component.update(key, element.style);
       });
 
       //Event listener, update element any time a user changes it
-      $('#wireframe-board').on('click', '.resize-drag', function(event) {
-        var component = Component.saveComponent($(this));
-        console.log(component, "component");
-        var key = component.id;
-        console.log('asdfasdf', component.style);
-        firebase.child(key).update({
-          style: component.style
-        });
+      var selectedElement;
+      $('#wireframe-board').on('mousedown', '.resize-drag', function(event) {
+        selectedElement = $(this);
+        $(window).on('mouseup', function() {
+          var component = Component.saveComponent(selectedElement);
+          var key = component.id;
+          firebase.child(key).update({
+            style: component.style
+          });
+        })
       });
     },
 

@@ -45,9 +45,14 @@ table-component {
   }
 }
 
-box, circle {
-  height: 5vh;
-  width: 5vh;
+box {
+  height: 50px;
+  width: 50px;
+}
+
+circle {
+  height: 50px;
+  width: 50px;
 }
 
 box {
