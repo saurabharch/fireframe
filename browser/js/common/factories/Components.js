@@ -7,6 +7,9 @@ app.factory('Component', function($compile, CSS) {
 				case 'base-layer':
 					newElement = $compile('<base-layer id="' + id + '" ng-click="makeActive($event)" class="resize-drag"></base-layer>')($scope);
 					break;
+				case 'circle':
+					newElement = $compile('<circle id="' + id + '" ng-click="makeActive($event)" class="resize-drag"></circle>')($scope);
+					break;
 				case 'box':
 					newElement = $compile('<box id="' + id + '" ng-click="makeActive($event)" class="resize-drag"></box>')($scope);
 					break;
@@ -22,10 +25,6 @@ app.factory('Component', function($compile, CSS) {
 				case 'table-component':
 					newElement = $compile('<table-component id="' + id + '" ng-click="makeActive($event)" class="resize-drag"></table-component>')($scope);
 					break;
-				case 'circle':
-					newElement = $compile('<circle id="' + id + '" ng-click="makeActive($event)" class="resize-drag"></circle>')($scope);
-
-					break;
 			}
 
 			CSS.addStyles(newElement, style);
@@ -35,6 +34,7 @@ app.factory('Component', function($compile, CSS) {
 		update: function(id, style) {
 			var element = $('#'+id);
 			CSS.addStyles(element, style);
+			CSS.removeTransform(element, style);
 		},
 
 		saveComponents: function() {
