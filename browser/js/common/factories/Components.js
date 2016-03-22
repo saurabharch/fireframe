@@ -37,6 +37,11 @@ app.factory('Component', function($compile, CSS) {
 			CSS.addStyles(element, style);
 		},
 
+		deleteComponent: function(id) {
+			var element = $('#'+id);
+
+		},
+
 		saveComponents: function() {
 			var components = [];
 			$('#wireframe-board').children().each(function() {

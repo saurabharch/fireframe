@@ -61,8 +61,8 @@ app.factory('Firebase', function(Component) {
 
     },
 
-    updateElement: function() {
-
+    updateElement: function(element, style) {
+      Component.update(element.id, style);
     }
 
 
