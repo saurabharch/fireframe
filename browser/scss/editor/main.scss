@@ -1,16 +1,20 @@
-$navbar-height: 10vh;
 $left-width: 10vw;
 
 *{
   box-sizing:border-box;
 }
+#wrapper {
+  position:relative;
+  height:95vh;
+  width: 100vw;
+}
 
 #left-sidebar {
   position: absolute;
   left: 0;
-  top: $navbar-height;
+  top:0;
   width: $left-width;
-  height: 100vh - $navbar-height;
+  height: 100%;
   background-color: gray
 }
 
@@ -22,9 +26,9 @@ $left-width: 10vw;
 #right-sidebar {
   position: absolute;
   right: 0;
-  top: $navbar-height;
+  top:0;
   width: 10vw;
-  height: 100vh - $navbar-height;
+  height: 100%;
   background-color: gray
 }
 
@@ -39,9 +43,9 @@ $swatch-side: $left-width / 10;
   position: absolute;
   overflow:auto;
   left: 10vw;
-  top: $navbar-height;
+  top:0;
   width: 80vw;
-  height: 100vh - $navbar-height;
+  height: 100%;
   background-color: #d3d3d3;
   overflow: auto;
   transform-origin: 0 0;

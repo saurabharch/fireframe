@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+window {
+	overflow:hidden;
+}
+
 body {
   background: #fdfdfd;
 }
@@ -17,8 +21,8 @@ body {
 #main {
 	margin: 0;
 	padding: 0;
-  /*padding-top: 60px;*/
-  /*margin: 0 auto;*/
+  height:100%;
+  width:100%;
 }
 
 @import 'directives/main';
