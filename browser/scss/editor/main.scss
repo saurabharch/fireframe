@@ -59,7 +59,7 @@ $btn-side: .45 * $left-width;
   margin:2%;
 }
 
-.base-layer .hover-delete-btn {
+.delete-hoverable .hover-delete-btn {
   float: right;
   margin-top: -13px;
   color: red;
@@ -68,7 +68,7 @@ $btn-side: .45 * $left-width;
   border-style: 1px solid #242424;
 }
 
-base-layer:hover {
+.resize-drag:hover {
   button {
     display: block !important;
   }

@@ -67,8 +67,12 @@ app.factory('Firebase', function(Component) {
       });
     },
 
-    deleteElement: function(id) {
-      console.log(id);
+    deleteElement: function(event) {
+      var innerDiv = event.target.parentNode;
+      var outerDiv = innerDiv.parentNode;
+      var outerouterDiv = outerDiv.parentNode;
+      var id = outerouterDiv.id;
+      console.log(id, "the ID"); //gotta figure out how to put ID in the button div to avoid the parent parent parent...
       firebase.child(id).remove(function() {
         console.log("deleting element???");
       });
