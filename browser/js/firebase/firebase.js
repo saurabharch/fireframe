@@ -4,6 +4,7 @@ app.factory('Firebase', function(Component) {
 
   var factory = {
     connect: function(wireframeId, $scope) {
+      console.log(wireframeId, 'here is our room id');
       firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframeId);
       
       //Event listener, create element any time a user adds one
@@ -20,6 +21,8 @@ app.factory('Firebase', function(Component) {
       });
 
       firebase.on('child_removed', function(snapshot) {
+                console.log('adding child?');
+
         var key = snapshot.key();
         var element = snapshot.val();
         Component.deleteComponent(key);
@@ -40,12 +43,15 @@ app.factory('Firebase', function(Component) {
     },
 
     createRoom: function(wireframe, $scope) {
+      console.log(wireframe, 'create room frame');
       factory.connect(wireframe._id, $scope);
       
       //load current components to fb
-      wireframe.components.forEach(function(component) {
-        factory.createElement(component.style, component.type);
-      });
+      if (wireframe.components) {
+        wireframe.components.forEach(function(component) {
+          factory.createElement(component.style, component.type);
+        });
+      }
     },
 
     joinRoom: function(wireframe, $scope) {
