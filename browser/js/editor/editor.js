@@ -79,14 +79,42 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 
 	$scope.moveBackward = function(){
 		if (!$scope.active) return;
+		var zIndex = getZindex($scope.active);
 
-		var zIndex = $scope.active.style['z-index'];
-		zIndex = Number(zIndex) + 1;
+		getElementArray().forEach(el => {
+			let elZ = getZindex(el);
+			if(elZ === zIndex - 1) el.style['z-index'] = elZ + 1;
+		});
+
+		if(zIndex === 0) return;
+		zIndex = zIndex - 1;
 		$scope.active.style['z-index'] = zIndex;
 	};
 
-	$scope.moveToFront = function(){};
-	$scope.moveToBack = function(){};
+	$scope.moveToFront = function(){
+		if(!$scope.active) return;
+		var zIndex = getZindex($scope.active);
+		var max = getMaxZ();
+		getElementArray().forEach(el => {
+			let elZ = getZindex(el);
+			if(elZ > zIndex) el.style['z-index'] = elZ - 1;
+		});
+
+		zIndex = max;
+		$scope.active.style['z-index'] = zIndex;
+	};
+	$scope.moveToBack = function(){
+		if (!$scope.active) return;
+		var zIndex = getZindex($scope.active);
+
+		getElementArray().forEach(el => {
+			let elZ = getZindex(el);
+			if(elZ < zIndex) el.style['z-index'] = elZ + 1;
+		});
+
+		zIndex = 0;
+		$scope.active.style['z-index'] = zIndex;
+	};
 
 
 //Event listeners
@@ -122,6 +150,17 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 		console.log(maxZ);
 		return maxZ;
 	}
+
+	// function getMinZ(){
+	// 	var minZ = getMaxZ();
+	// 	var elementArray = getElementArray();
+	// 	elementArray.forEach(el => {
+	// 		let z = getZindex(el);
+	// 		if(z < minZ) minZ = z;
+	// 	});
+	// 	console.log(minZ);
+	// 	return minZ;
+	// }
 
 	function getZrange(){
 		var elementArray = getElementArray();
