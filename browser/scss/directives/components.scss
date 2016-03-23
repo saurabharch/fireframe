@@ -1,7 +1,6 @@
 .resize-drag {
   display: inline-block;
   position: absolute;
-  background-color: #29e;
   /* This makes things *much* easier */
   box-sizing: border-box;
 }
@@ -14,7 +13,7 @@ base-layer {
   padding: 20px;
   height: 400px;
   width: 400px;
-  background-size: 20px 20px;
+  background-size: 10px 10px;
   background-image: linear-gradient(to right, #7da0ab 1px, transparent 1px), linear-gradient(to bottom, #7da0ab 1px, transparent 1px);
 }
 

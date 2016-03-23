@@ -47,7 +47,8 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	}
 
 	$scope.createElement = function(type) {
-		var style = { "background-color":$scope.activeColor, "opacity":$scope.activeOpacity, "border-size": "2px", "border-style": "solid", "border-color": "black"};
+		//var style = { "background-color":$scope.activeColor, "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray"};
+		var style = { "background-color": "white", "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray"};
 		Firebase.createElement(style, type);
 		//Component.create(type, $scope, style);
 	};
@@ -64,6 +65,5 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	$scope.$watch('activeColor', function(){
 		if($scope.active) $scope.active.style.backgroundColor = $scope.activeColor;
 	});
-
 
 });
