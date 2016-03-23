@@ -46,9 +46,11 @@ $swatch-side: $left-width / 10;
   top:0;
   width: 80vw;
   height: 100%;
-  background-color: #d3d3d3;
+  background-color: #ffffff;
   overflow: auto;
   transform-origin: 0 0;
+  background-size: 15px 15px;
+  background-image: linear-gradient(to right, #ceeade 1px, transparent 1px), linear-gradient(to bottom, #ceeade 1px, transparent 1px);
 }
 
 $btn-side: .45 * $left-width;
