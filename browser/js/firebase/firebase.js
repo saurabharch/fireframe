@@ -19,6 +19,12 @@ app.factory('Firebase', function(Component) {
         Component.update(key, element.style);
       });
 
+      firebase.on('child_removed', function(snapshot) {
+        var key = snapshot.key();
+        var element = snapshot.val();
+        Component.deleteComponent(key);
+      });
+
       //Event listener, update element any time a user changes it
       var selectedElement;
       $('#wireframe-board').on('mousedown', '.resize-drag', function(event) {
@@ -60,12 +66,19 @@ app.factory('Firebase', function(Component) {
       });
     },
 
-    deleteElement: function() {
-
+    deleteElement: function(event) {
+      var innerDiv = event.target.parentNode;
+      var outerDiv = innerDiv.parentNode;
+      var outerouterDiv = outerDiv.parentNode;
+      var id = outerouterDiv.id;
+      console.log(id, "the ID"); //gotta figure out how to put ID in the button div to avoid the parent parent parent...
+      firebase.child(id).remove(function() {
+        console.log("deleting element???");
+      });
     },
 
-    updateElement: function() {
-
+    updateElement: function(element, style) {
+      Component.update(element.id, style);
     }
 
 
