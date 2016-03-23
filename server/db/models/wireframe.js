@@ -56,10 +56,10 @@ WireframeSchema.methods.clone = function() {
 	var oldWireframe = this;
 	var wireframeCopy = {};
 	var clonedWireframe;
+	var project = 
 
 	//set as new document, and save current id as parent
 	wireframeCopy.components = oldWireframe.components;
-	wireframeCopy.project = oldWireframe.project;
 	wireframeCopy.isNew = true;
 	wireframeCopy.parent = oldWireframe._id;
 
@@ -74,7 +74,9 @@ WireframeSchema.methods.clone = function() {
 	})
 	.then(function(wireframe) {
 		//find parent project and add to it's set of wireframes
-		return mongoose.model('Project').findById(wireframe.project)
+		return Project.findOne({
+			wireframes: wireframe._id
+		});
 	})
 	.then(function(project) {
 		project.wireframes.addToSet(clonedWireframe._id);
@@ -91,10 +93,8 @@ WireframeSchema.methods.saveWithComponents = function(updatedWireframe) {
 
 	wireframe.components = [];
 	_.merge(wireframe, updatedWireframe);
-	console.log(wireframe, 'do I have all my new components?');
 
 	return wireframe.save();
-
 }
 
 var Wireframe = mongoose.model('Wireframe', WireframeSchema);

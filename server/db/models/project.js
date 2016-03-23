@@ -25,48 +25,48 @@ var ProjectSchema = new mongoose.Schema({
 });
 
 ProjectSchema.statics.createNewProject = function(project) {
-	var createdProject;
-	var createdWireframe;
+	var wireframe;
 
-	return Project.create(project)
-	.then(function(newProject) {
-		createdProject = newProject;
-		return Wireframe.create({
-			project: newProject._id,
-			master: true
-		})
+	return Wireframe.create({
+		master: true
 	})
-	.then(function(wireframe) {
-		createdWireframe = wireframe;
-		createdProject.wireframes.addToSet(wireframe._id);
-		return createdProject.save();
+	.then(function(createdWireframe) {
+		wireframe = createdWireframe;
+		project.wireframes = [wireframe._id];
+		return Project.create(project);
 	})
 	.then(function() {
-		return createdWireframe;
+		return wireframe;
 	})
+
 };
 
 ProjectSchema.methods.deleteProject = function() {
 	var project = this;
 
-	// return Wireframe.find({
-	// 	project: project._id
-	// })
-	// 	.then(function(wireframes) {
-	// 	var deletions = [];
-
-	// 	wireframes.forEach(function(wireframe) {
-	// 		deletions.push(wireframe.deleteWithComponents())
-	// 	})
-	// 	console.log(wireframes);
-	// 	return Promise.all(deletions);
-	// })
 	return project.remove()
 	// .then(function() {
 	// 	return Wireframe.remove(project.wireframes)
 	// });
 };
 
+ProjectSchema.methods.setMaster = function(wireframe) {
+	var project = this;
+	var projectWireframes = project.wireframes;
+
+	return Wireframe.findOne({
+		master: true,
+		_id: { $in: { projectWireframes }}
+	})
+	.then(function(oldMaster) {
+		oldMaster.master = false
+		return oldMaster.save()
+	})
+	.then(function() {
+		wireframe.master = true;
+		return wireframe.save();
+	});
+}
 
 
 var Project = mongoose.model('Project', ProjectSchema);

@@ -1,5 +1,4 @@
 /* projects route */
-
 'use strict';
 var router = require('express').Router();
 module.exports = router;
@@ -26,8 +25,6 @@ router.param('id', function(req, res, next, id) {
 	})
 	.then(null, next)
 });
-
-router.use('/:id/wireframes', WireframeRouter);
 
 //get all projects
 router.get('/', function(req, res, next) {
@@ -75,4 +72,15 @@ router.delete('/:id', auth.ensureTeamAdmin, function(req, res, next) {
     res.sendStatus(204)
   })
   .then(null, next);
+});
+
+//get all wireframes for a project
+router.get('/:id/wireframes', auth.ensureAdmin, function(req, res, next) {
+  req.project
+  .populate('wireframes')
+  .execPopulate()
+  .then(wireframes => {
+    res.json(wireframes);
+  })
+  .then(null, next)
 });
