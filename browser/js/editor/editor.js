@@ -4,7 +4,7 @@ app.config(function($stateProvider){
 		templateUrl: '/js/editor/editor.html',
 		resolve: {
 			wireframe: function(Wireframe){
-				return Wireframe.getWireframe();
+				return Wireframe.getWireframe() || {components:[]};
 			}
 		},
 		controller: 'EditorCtrl'
@@ -43,7 +43,7 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 
 	$scope.createElement = function(type) {
 		//var style = { "background-color":$scope.activeColor, "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray"};
-		var style = { "background-color": "white", "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray"};
+		var style = { "background-color": "#FFF", "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray", "z-index": getZrange()};
 		Firebase.createElement(style, type);
 	};
 
@@ -57,13 +57,23 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 		$($scope.active).addClass('active-element');
 	};
 
+	$scope.save = function () {
+		Wireframe.save($scope.wireframe)
+	};
+
 	//Z-index arrangement
 
 	$scope.moveForward = function(){
 		if(!$scope.active) return;
+		var zIndex = getZindex($scope.active);
 
-		var zIndex = $scope.active.style['z-index'];
-		zIndex = Number(zIndex) + 1;
+		getElementArray().forEach(el => {
+			let elZ = getZindex(el);
+			if(elZ === zIndex + 1) el.style['z-index'] = elZ - 1;
+		});
+
+		if(zIndex > getMaxZ()) return;
+		zIndex = zIndex + 1;
 		$scope.active.style['z-index'] = zIndex;
 	};
 
@@ -94,9 +104,30 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 
 //Helper functions
 
-	$scope.save = function () {
-		Wireframe.save($scope.wireframe)
-	};
+	function getElementArray(){
+		return [].slice.call($scope.board.children());
+	}
+
+	function getZindex(el){
+		return Number(el.style['z-index']);
+	}
+
+	function getMaxZ(){
+		var maxZ = 0;
+		var elementArray = getElementArray();
+		elementArray.forEach(el => {
+			let z = getZindex(el);
+			if(z > maxZ) maxZ = z;
+		});
+		console.log(maxZ);
+		return maxZ;
+	}
+
+	function getZrange(){
+		var elementArray = getElementArray();
+		console.log("element array", elementArray);
+		return elementArray.length;
+	}
 
 	function componentToHex(c) {
     var hex = c.toString(16);

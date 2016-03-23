@@ -3,7 +3,7 @@
 app.config(function($stateProvider) {
 	$stateProvider.state('dashboard.newProject', {
 		templateUrl: '/js/dashboard/dashboard.new-project.html',
-		controller: 'NewProjectCtrl'
+		controller: 'NewProjectCtrl',
 		resolve: {
 			user: function(AuthService, User, $log) {
 				var user;
