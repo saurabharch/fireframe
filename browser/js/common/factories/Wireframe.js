@@ -1,11 +1,20 @@
 app.factory('Wireframe', function($http, $log, Firebase) {
 	var path = '/api/projects/';
+	var wireframe;
 	
 	function extractData(res) {
 		return res.data;
 	}
 
 	var factory = {
+		getWireframe: function(){
+			return wireframe;
+		},
+
+		setWireframe: function(weirfraem){
+			wireframe = weirfraem;
+		},
+
 		fetchAll: function(projectId) {
 			$http.get(path+projectId+'/wireframe/')
 			.then(extractData)
@@ -39,7 +48,7 @@ app.factory('Wireframe', function($http, $log, Firebase) {
 			$http.put(path+projectId+'/wireframe/'+wireframe._id+'/master')
 			.then(extractData);
 		}
-	}
+	};
 
 	return factory;
 
