@@ -15,11 +15,7 @@ app.factory('Interact', function(CSS) {
 			      restriction: "#wireframe-board",
 			      endOnly: false,
 			      elementRect: { top: 0, left: 0, bottom: null, right: null }
-			    },
-			    autoScroll: {
-			    	enabled: true,
-			    	container: $('#wireframe-board')
-			    },
+			    }
 			  })
 			  .resizable({
 			    preserveAspectRatio: false,
@@ -28,11 +24,7 @@ app.factory('Interact', function(CSS) {
 			      restriction: "#wireframe-board",
 			      endOnly: false,
 			      elementRect: { top: 0, left: 0, bottom: '1000px', right: '1000px' }
-			    },
-			    autoScroll: {
-			    	enabled: true,
-			    	container: $('#wireframe-board'),
-			    },
+			    }
 			  })
 			  .on('resizemove', function (event) {
 			    var target = event.target,
