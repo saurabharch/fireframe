@@ -20,104 +20,103 @@ var WireframeSchema = new mongoose.Schema({
 		type:mongoose.Schema.Types.ObjectId, 
 		ref:'Wireframe'
 	}],
+	components: Array,
 	photoUrl: String
 
 });
 
-WireframeSchema.methods.populateComponents = function() {
-	var wireframe = this;
-	Component.find({
-		wireframe: wireframe._id
-	})
-	.then(components => {
-		wireframe.components = components;
-		return wireframe;
-	});
-};
+// WireframeSchema.methods.populateComponents = function() {
+// 	var wireframe = this;
+// 	return Component.find({
+// 		wireframe: wireframe._id
+// 	})
+// 	.then(function(components) {
+// 		wireframe.components = components;
+// 		return wireframe;
+// 	});
+// };
 
-WireframeSchema.methods.clone = function(oldWireframe) {
+WireframeSchema.methods.clone = function() {
+	var oldWireframe = this;
 	var wireframeCopy;
 	var clonedWireframe;
 
-	//copy properties from old wire frame
+	//copy properties from oldWireframe so we can add to and save oldWireframe later
 	_.merge(wireframeCopy, oldWireframe);
+	console.log('Do i have all the components?', wireframeCopy);
 
 	//set as new document, and save current id as parent
 	wireframeCopy.isNew = true;
 	wireframeCopy.parent = oldWireframe._id;
 
 	//create new wireframe with copied obj
-	WireframeSchema.create(wireframeCopy)
-	.then(wireframe => {
+	return Wireframe.create(wireframeCopy)
+	.then(function(wireframe) {
 		clonedWireframe = wireframe;
+
 		//add the new wireframe to the old one's list of children, and save
-		oldWireframe.children.push(wireframe._id);
+		oldWireframe.children.addToSet(wireframe._id);
 		return oldWireframe.save();
 	})
-	.then(() => {
-		//copy components for new wireframe
-		return Component.create(
-			oldWireframe.components.map(function(component) {
-				component.wireframe = clonedWireframe._id;
-				component.isNew = true;
-				return component;
-			})
-		);
-	})
-	.then(function(components) {
-		clonedWireframe.components = components;
+	.then(function() {
 		return clonedWireframe;
 	})
 }
 
-WireframeSchema.methods.deleteWithComponents = function() {
-	var wireframe = this;
-	Component.remove({
-		wireframe: wireframe._id
-	})
-	.then(() => {
-		return wireframe.remove()
-	});
-}
+// WireframeSchema.methods.deleteWithComponents = function() {
+// 	var wireframe = this;
+// 	return Component.remove({
+// 		wireframe: wireframe._id
+// 	})
+// 	.then(function() {
+// 		return wireframe.remove()
+// 	});
+// }
 
 WireframeSchema.methods.saveWithComponents = function(updatedWireframe) {
 	var wireframe = this;
 	var newWireframe;
+
+	wireframe.components = [];
 	_.merge(wireframe, updatedWireframe);
-	
+	console.log(wireframe, 'do I have all my new components?');
+
+	return wireframe.save();
+
 	//save wireframe, remove old components, and replace with new ones
-	return wireframe.save()
-	.then(frame => {
-		newWireframe = frame;
-		return Component.remove({
-			wireframe: frame._id
-		});
-	})
-	.then(() => {
-		//set each component with the wireframe id, save array of components
-		return Component.create(
-			wireframe.components.map(function(component) {
-				component.wireframe = newWireframe._id;
-				return component;
-			})
-		)
-	});
+	// return wireframe.save()
+	// .then(function(frame) {
+	// 	newWireframe = frame;
+	// 	return Component.remove({
+	// 		wireframe: frame._id
+	// 	});
+	// })
+	// .then(function() {
+	// 	//set each component with the wireframe id, save array of components
+	// 	return Component.create(
+	// 		wireframe.components.map(function(component) {
+	// 			component.wireframe = newWireframe._id;
+	// 			return component;
+	// 		})
+	// 	)
+	// });
+
 }
 
-WireframeSchema.methods.setMaster = function() {
-	var wireframe = this;
-	WireframeSchema.findOne({
-		project: wireframe.project._id,
-		master: true
-	})
-	.then(oldMaster => {
-		oldMaster.master = false
-		return oldMaster.save()
-	})
-	.then(oldMaster => {
-		wireframe.master = true;
-		return wireframe.save();
-	})
-}
+// WireframeSchema.methods.setMaster = function() {
+// 	var wireframe = this;
+// 	return Wireframe.findOne({
+// 		project: wireframe.project._id,
+// 		master: true
+// 	})
+// 	.then(function(oldMaster) {
+// 		oldMaster.master = false
+// 		return oldMaster.save()
+// 	})
+// 	.then(function(oldMaster) {
+// 		wireframe.master = true;
+// 		return wireframe.save();
+// 	})
+// }
 
 mongoose.model('Wireframe', WireframeSchema);

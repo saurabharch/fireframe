@@ -9,6 +9,10 @@ $left-width: 10vw;
   width: 100vw;
 }
 
+input {
+  width: 100%;
+}
+
 #left-sidebar {
   position: absolute;
   left: 0;
@@ -63,7 +67,8 @@ $btn-side: .45 * $left-width;
 
 .delete-hoverable .hover-delete-btn {
   float: right;
-  margin-top: -13px;
+  margin-top: 2px;
+  margin-right: 2px;
   color: red;
   background-color: #313841;
   display: none;
@@ -95,6 +100,10 @@ $btn-side: .45 * $left-width;
 .button-icon {
   height:0.5 * $btn-side;
   top:0.25 * $btn-side;
+}
+
+.active-element {
+  border: 3px dashed black !important;
 }
 
 /*.browser-icon*/

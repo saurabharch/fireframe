@@ -25,6 +25,9 @@ app.factory('Component', function($compile, CSS) {
 				case 'table-component':
 					newElement = $compile('<table-component id="' + id + '" ng-click="makeActive($event)" class="resize-drag"></table-component>')($scope);
 					break;
+				case 'button-component':
+					newElement = $compile('<button-component id="' + id + '" ng-click="makeActive($event)" class="resize-drag"></button-component>')($scope);
+					break;
 			}
 
 			CSS.addStyles(newElement, style);
@@ -49,14 +52,14 @@ app.factory('Component', function($compile, CSS) {
 			});
 			
 			//need send this array of components back to server (through wireframe factory?)
-			console.log(components);
+			return components;
 		},
 
 		saveComponent: function(element) {
 			var component = {};
 			component.type = element.prop('tagName').toLowerCase();
 			component.style = {};
-			component.id = element.attr('id');
+			//component.id = element.attr('id');
 			//component.style = CSS.extractStyles(element);
 
 			//STILL NEED TO SCALE WIDTH AND POSITION BASED ON CURRENT ZOOM

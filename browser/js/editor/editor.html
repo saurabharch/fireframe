@@ -6,10 +6,9 @@
         <button class="component-button" ng-click="createElement('box')"><span><img class="button-icon" src='/images/box.svg'></span></button>
         <button class="component-button" ng-click="createElement('table-component')"><span><img class="button-icon" src='/images/table.svg'></span></button>
         <button class="component-button" ng-click="createElement('circle')"><span><img class="button-icon" src='/images/circle.svg'></span></button>
-        <button class="component-button" ng-click="createElement('triangle')"><span><img class="button-icon" src='/images/triangle.svg'></span></button>
         <button class="component-button" ng-click="createElement('list')"><span><img class="button-icon" src='/images/list.svg'></span></button>
         <button class="component-button" ng-click="createElement('image-box')"><span><img class="button-icon" src='/images/photo.svg'></span></button>
-        <button class="component-button" ng-click="createElement('button')"><span><img class="button-icon" src='/images/button.svg'></span></button>
+        <button class="component-button" ng-click="createElement('button-component')"><span><img class="button-icon" src='/images/button.svg'></span></button>
     </div>
 
     <!-- Workspace -->
@@ -37,10 +36,11 @@
 	<button ng-click="save()">Save</button>
 	<div class="tool-panel">
 			<label>Arrange</label>
-				<button class="btn btn-arrange">Move Forward</button>
-				<button class="btn btn-arrange">Bring to Front</button>
-				<button class="btn btn-arrange">Move Backward</button>
-				<button class="btn btn-arrange">Send to Back</button>
+				<button class="btn btn-arrange" ng-click="moveForward()">Move Forward</button>
+				<button class="btn btn-arrange" ng-click="moveToFront()">Bring to Front</button>
+				<button class="btn btn-arrange" ng-click="moveBackward()">Move Backward</button>
+				<button class="btn btn-arrange" ng-click="moveToBack()">Send to Back</button>
+			</div>
 		</div>
 	</div>
 

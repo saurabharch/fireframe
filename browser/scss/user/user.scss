@@ -30,6 +30,13 @@ $sideBarWidth: 200px;
 				color: inherit;
 			}
 
+			a.add {
+				padding: 8% 20%;
+				display: block;
+				text-decoration: inherit;
+				color: inherit;
+			}
+
 			a:hover {
 				background: black;
 				color: white;
@@ -39,6 +46,10 @@ $sideBarWidth: 200px;
 
 	}
 
+	select {
+		min-width:60%;
+	}
+
 	.container {
 		left: $sideBarWidth;
 		width: 100%;
@@ -46,4 +57,9 @@ $sideBarWidth: 200px;
 		position: absolute;
 
 	}	
+
+	.form-group {
+		text-align:left;
+		margin-bottom:10px;
+	}
 }

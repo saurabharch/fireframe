@@ -8,6 +8,7 @@ var _ = require('lodash'),
 
     mongoose = require('mongoose'),
     User = mongoose.model('User'),
+    Team = mongoose.model('Team'),
     ProjectRouter = require('../projects');
 
 router.param('id', function(req, res, next, id) {
@@ -42,6 +43,14 @@ router.use('/:id/projects/', ProjectRouter);
 //get user by ID
 router.get('/:id', auth.ensureCurrentUserOrAdmin, function(req, res, next) {
   res.json(req.currentUser);
+});
+
+//get Teams user is a part of
+router.get('/:id/teams', function(req, res, next){
+  Team.find({admin: req.params.id})
+  .then(function(teams){
+    res.json(teams);
+  });
 });
 
 //add user

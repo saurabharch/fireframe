@@ -1,0 +1,50 @@
+<div class="row">
+	<h1>NEW PROJECT</h1>
+</div>
+
+<div class="row">
+	<form id="newProject" class="form-inline">
+		<div class="row">
+			<div class="form-group">
+				<label for="projectName">Project Name</label>
+				<input type="text" class="form-control" placeholder="Name" ng-model="projectName">
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+			  <label for="teams">Team</label>
+			  <select ng-model="team" class="form-control" id="team">
+			    <option ng-repeat="team in user.teams">{{team.name}}</option>
+			  </select>
+			  <button class="btn" ng-click="showTeamAdd()">Add team</button>
+			</div>
+		</div>
+	</form>
+</div>
+	  <button ng-click="addProject()" class="btn btn-default">Submit</button>
+	</form>
+</div>
+
+
+
+<div id="teamForm" ng-show="formShow">
+	<div class="row">
+		<form id="newProject" class="form-inline">
+			<div class="row">
+				<div class="form-group">
+					<label for="projectName">Team Name</label>
+					<input id="teamName" type="text" class="form-control" placeholder="Name">
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group">
+				  <label for="teams">Member Email</label>
+				  <input ng-model="member" type="text" class="form-control" placeholder="email">
+				  <button class="btn" ng-click="addMember()">Add Member</button>
+					<p ng-repeat="member in teamMembers">{{member}}</p>
+				</div>
+			</div>
+			<button class="btn btn-success" ng-click="addTeam()">Add Team</button>
+		</form>
+	</div>
+</div>

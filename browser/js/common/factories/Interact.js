@@ -13,13 +13,9 @@ app.factory('Interact', function(CSS) {
 			    onmove: dragMoveListener,
 			    restrict: {
 			      restriction: "#wireframe-board",
-			      endOnly: false,
+			      endOnly: true,
 			      elementRect: { top: 0, left: 0, bottom: null, right: null }
-			    },
-			    autoScroll: {
-			    	enabled: true,
-			    	container: $('#wireframe-board')
-			    },
+			    }
 			  })
 			  .resizable({
 			    preserveAspectRatio: false,
@@ -28,11 +24,7 @@ app.factory('Interact', function(CSS) {
 			      restriction: "#wireframe-board",
 			      endOnly: false,
 			      elementRect: { top: 0, left: 0, bottom: '1000px', right: '1000px' }
-			    },
-			    autoScroll: {
-			    	enabled: true,
-			    	container: $('#wireframe-board'),
-			    },
+			    }
 			  })
 			  .on('resizemove', function (event) {
 			    var target = event.target,
@@ -56,6 +48,7 @@ app.factory('Interact', function(CSS) {
 
 			  function dragMoveListener (event) {
 		    	var target = event.target,
+			  		originalPos = [target.getAttribute('data-x'),target.getAttribute('data-y')],
 		        // keep the dragged position in the data-x/data-y attributes
 		        x = ((parseFloat(target.getAttribute('data-x')) || 0) + event.dx/scale()),
 		        y = ((parseFloat(target.getAttribute('data-y')) || 0) + event.dy/scale());
@@ -70,5 +63,5 @@ app.factory('Interact', function(CSS) {
 			    target.setAttribute('data-y', y);
 			  }
 		}
-	}
+	};
 });

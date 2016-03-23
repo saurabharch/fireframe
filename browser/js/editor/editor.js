@@ -4,14 +4,14 @@ app.config(function($stateProvider){
 		templateUrl: '/js/editor/editor.html',
 		resolve: {
 			wireframe: function() {
-				return { _id: "ABC", components: [], master: true };
+				return { _id: "ABC", project: '56f2bd912b013bd3e1e7b643', components: [], master: true };
 			}
 		},
 		controller: 'EditorCtrl'
 		});
 });
 
-app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, Interact, CSS, Firebase, Screen) {
+app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, Interact, CSS, Firebase, Screen, Wireframe) {
 	var newFork = true;
 	//check if project create or project join
 	newFork ? Firebase.createRoom(wireframe, $scope) : Firebase.joinRoom(wireframe, $scope);
@@ -33,18 +33,10 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	$scope.currentZoom = CSS.currentZoom();
 	$scope.updateZoom = CSS.updateZoom;
 	
-	function componentToHex(c) {
-    // var hex = c.toString(16);
-    // return hex.length == 1 ? "0" + hex : hex;
-	}
-
-	function rgbToHex(arr) {
-    return "#" + componentToHex(arr[0]) + componentToHex(arr[1]) + componentToHex(arr[2]);
-	}
 
 	$scope.saveElements = function() {
 		Component.saveComponents();
-	}
+	};
 
 	$scope.deleteElement = Firebase.deleteElement;
 
@@ -53,7 +45,6 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 		//var style = { "background-color":$scope.activeColor, "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray"};
 		var style = { "background-color": "white", "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray"};
 		Firebase.createElement(style, type);
-		//Component.create(type, $scope, style);
 	};
 
 	$scope.makeActive = function($event){
@@ -63,14 +54,57 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 		color = color.split(', ').map(str => Number(str));
 		color = rgbToHex(color);
 		$scope.activeColor = color;
+		$($scope.active).addClass('active-element');
 	};
+
+	//Z-index arrangement
+
+	$scope.moveForward = function(){
+		if(!$scope.active) return;
+
+		var zIndex = $scope.active.style['z-index'];
+		zIndex = Number(zIndex) + 1;
+		$scope.active.style['z-index'] = zIndex;
+	};
+
+	$scope.moveBackward = function(){
+		if (!$scope.active) return;
+
+		var zIndex = $scope.active.style['z-index'];
+		zIndex = Number(zIndex) + 1;
+		$scope.active.style['z-index'] = zIndex;
+	};
+
+	$scope.moveToFront = function(){};
+	$scope.moveToBack = function(){};
+
+
+//Event listeners
+
+	$scope.board.on('mousedown',function(){
+		$($scope.active).removeClass('active-element');
+		$scope.active = null;
+		// $scope.createSelectBox;
+	});
 
 	$scope.$watch('activeColor', function(){
 		if($scope.active) $scope.active.style.backgroundColor = $scope.activeColor;
 	});
 
+
+//Helper functions
+
 	$scope.save = function () {
-		Screen.capture();
+		Wireframe.save($scope.wireframe)
 	};
+
+	function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+	}
+
+	function rgbToHex(arr) {
+    return "#" + componentToHex(arr[0]) + componentToHex(arr[1]) + componentToHex(arr[2]);
+	}
 
 });
