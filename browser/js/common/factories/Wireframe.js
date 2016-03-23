@@ -16,13 +16,13 @@ app.factory('Wireframe', function($http, $log, Firebase, Component, Screen) {
 		},
 
 		fetchAll: function(projectId) {
-			return $http.get(path+projectId+'/wireframe/')
+			return $http.get(path+projectId+'/wireframes/')
 			.then(extractData)
 			.catch($log);
 		},
 
 		fetchOne: function(projectId, wireframeId) {
-			return $http.get(path+projectId+'/wireframe/'+wireframeId)
+			return $http.get(path+projectId+'/wireframes/'+wireframeId)
 			.then(extractData)
 			.catch($log);
 		},
@@ -30,7 +30,7 @@ app.factory('Wireframe', function($http, $log, Firebase, Component, Screen) {
 		//fork should be invoked after moving to the editor state
 		//we can display a loading screen while we resolve the wireframe fork and create the firebase room based on the returned id
 		fork: function(projectId, wireframeId, scope) {
-			return $http.get(path+projectId+'/wireframe/'+wireframeId+'/fork')
+			return $http.get(path+projectId+'/wireframes/'+wireframeId+'/fork')
 			.then(extractData)
 			.then(wireframe => {
 				Firebase.createRoom(wireframe, scope);
@@ -45,14 +45,12 @@ app.factory('Wireframe', function($http, $log, Firebase, Component, Screen) {
 			wireframe.components = Component.saveComponents();
 			wireframe.canvasImg = Screen.capture();
 
-$http.post(path, {name: 'proj'})
-
-			// return $http.put(path+previousWireframe.project+'/wireframe/'+wireframe._id, wireframe)
-			// .then(extractData);
+			return $http.put(path+"56f2c30a87e99846e3a2fd49"+'/wireframes/'+"56f2c30a87e99846e3a2fd4a", wireframe)
+			.then(extractData);
 		},
 
 		setMaster: function(projectId, wireframeId) {
-			return $http.put(path+projectId+'/wireframe/'+wireframe._id+'/master')
+			return $http.put(path+projectId+'/wireframes/'+wireframe._id+'/master')
 			.then(extractData);
 		}
 	};
