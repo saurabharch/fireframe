@@ -29,11 +29,14 @@ router.param('id', function(req, res, next, id) {
 });
 
 router.use('/:id/wireframes', WireframeRouter);
-router.use('/:id/comments', CommentRouter);
+//router.use('/:id/comments', CommentRouter);
 
-//get all wireframes for current project
+//get all projects
 router.get('/', function(req, res, next) {
-	Wireframe.find()
+  //find all projects that the user is a member of, or the creator of
+	Project.find({
+    $or: [{ creator: req.user._id }, { 'team.members': { $in: req.user._id } }]
+  })
   .then(projects => {
     res.json(projects);
   })
@@ -43,7 +46,7 @@ router.get('/', function(req, res, next) {
 //create new project
 //also create first wireframe for the project
 router.post('/', auth.ensureUser, function(req, res, next) {
-  req.body.administrator = req.user._id;
+  req.body.creator = req.user._id;
   Project.createNewProject(req.body)
   .then(wireframe => {
     res.json(wireframe);
