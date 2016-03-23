@@ -41,11 +41,12 @@ router.get('/', function(req, res, next) {
 });
 
 //create new project
+//also create first wireframe for the project
 router.post('/', auth.ensureUser, function(req, res, next) {
-  //should we set req.user as administrator?
-  Project.create(req.body)
-  .then(project => {
-    res.json(project);
+  req.body.administrator = req.user._id;
+  Project.createNewProject(req.body)
+  .then(wireframe => {
+    res.json(wireframe);
   })
   .then(null, next)
 });

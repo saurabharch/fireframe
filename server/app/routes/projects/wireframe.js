@@ -28,12 +28,11 @@ router.param('wireframeId', function(req, res, next, wireframeId) {
 	.then(null, next)
 });
 
-//router.use('/:wireframeId/comments', CommentRouter);
-
 //get all wireframes for a project
-//do we need this route?
 router.get('/', auth.ensureAdmin, function(req, res, next) {
-	Wireframe.find()
+	Wireframe.find({
+    project: req.project._id
+  })
   .then(wireframes => {
     res.json(wireframes);
   })
@@ -42,7 +41,7 @@ router.get('/', auth.ensureAdmin, function(req, res, next) {
 
 //save new wireframe
 router.post('/', function(req, res, next) {
-  Wireframe.createWireframeAndComponents(req.body)
+  Wireframe.create(req.body)
   .then(() => {
     res.sendStatus(201);
   })
@@ -55,22 +54,40 @@ router.get('/:wireframeId', function(req, res, next) {
   res.json(req.wireframe);
 });
 
-//edit single wireframe
+//edit current wireframe
 router.put('/:wireframeId', function(req, res, next) {
-  _.merge(req.wireframe, req.body);
-
-  req.wireframe.save()
-  .then(function(wireframe){
+  req.wireframe.saveWithComponents(req.body)
+  .then(wireframe => {
     res.json(wireframe);
   })
   .then(null, next);
 });
 
 //delete single wireframe
+//do we want to remove this? only able to delete whole projects, thus saving all versions
 router.delete('/:wireframeId', auth.ensureTeamAdmin, function(req, res, next) {
-  req.project.remove()
+  req.wireframe.deleteWithComponents()
   .then(function() {
     res.sendStatus(204)
   })
   .then(null, next);
 });
+
+//fork a wireframe
+router.get('/:wireframeId/fork', function(req, res, next) {
+  //returns new wireframe, with new instances of all components
+  req.wireframe.clone()
+  .then(wireframe => {
+    res.json(wireframe);
+  })
+  .then(null, next);
+})
+
+//set wireframe as new master
+router.get('/:wireframeId/master', function(req, res, next) {
+  req.wireframe.setMaster()
+  .then(wireframe => {
+    res.json(wireframe);
+  })
+  .then(null, next);
+})

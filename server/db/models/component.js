@@ -11,8 +11,9 @@ var ComponentSchema = new mongoose.Schema({
     "z-index": Number
   },
   wireframe: {
-    type:mongoose.Schema.Types.ObjectId, 
-    ref:'Wireframe'
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Wireframe',
+    required: true
   }
 });
 

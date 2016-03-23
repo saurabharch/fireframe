@@ -1,4 +1,3 @@
-
 app.factory('Firebase', function(Component) {
 
   var firebase;
