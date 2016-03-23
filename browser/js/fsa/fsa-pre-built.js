@@ -64,7 +64,6 @@
         };
 
         this.getLoggedInUser = function (fromServer) {
-
             // If an authenticated session exists, we
             // return the user attached to that session
             // with a promise. This ensures that we can
@@ -84,6 +83,11 @@
                 return null;
             });
 
+        };
+
+        this.signup = function(signupInfo){
+            return $http.post('/signup', signupInfo)
+                .then(onSuccessfulLogin);
         };
 
         this.login = function (credentials) {

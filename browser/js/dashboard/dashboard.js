@@ -1,16 +1,16 @@
 'use strict';
 
 app.config(function($stateProvider) {
-	$stateProvider.state('user', {
-		url: '/user/:id',
-		templateUrl: '/js/user/user.html',
-		controller: 'UserCtrl'
+	$stateProvider.state('dashboard', {
+		url: '/dashboard',
+		templateUrl: '/js/dashboard/dashboard.html',
+		controller: 'DashboardCtrl'
 	})
 });
 
-app.controller('UserCtrl', function($scope, $state) {
+app.controller('DashboardCtrl', function($scope, $state) {
 
-	$state.go('user.allProjects');
+	$state.go('dashboard.allProjects');
 
 	$(document).ready(function() {
 

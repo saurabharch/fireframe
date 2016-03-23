@@ -1,58 +1,149 @@
-/*
-
-This seed file is only a placeholder. It should be expanded and altered
-to fit the development of your application.
-
-It uses the same file the server uses to establish
-the database connection:
---- server/db/index.js
-
-The name of the database used is set in your environment files:
---- server/env/*
-
-This seed file has a safety check to see if you already have users
-in the database. If you are developing multiple applications with the
-fsg scaffolding, keep in mind that fsg always uses the same database
-name in the environment files.
-
-*/
-
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
-var User = Promise.promisifyAll(mongoose.model('User'));
+var User = mongoose.model('User');
+var Team = mongoose.model('Team');
+var Project = mongoose.model('Project');
+var Wireframe = mongoose.model('Wireframe');
+var allUsers;
 
-var seedUsers = function () {
 
-    var users = [
+connectToDb.then(function () {
+    mongoose.connection.db.dropDatabase();
+}).then(function() {
+    chalk.green('Dropped DB before seeding');
+
+    return User.create([
         {
             email: 'testing@fsa.com',
             password: 'password'
         },
         {
             email: 'obama@gmail.com',
-            password: 'potus'
+            password: 'potus',
+            admin: true
+        },
+        {
+            email: 'test@gmail.com',
+            password: '1'
+        },
+        {
+            email: 'user1@gmail.com',
+            password: '1'
         }
-    ];
-
-    return User.createAsync(users);
-
-};
-
-connectToDb.then(function () {
-    User.findAsync({}).then(function (users) {
-        if (users.length === 0) {
-            return seedUsers();
-        } else {
-            console.log(chalk.magenta('Seems to already be user data, exiting!'));
-            process.kill(0);
+    ]);
+}).then(function(users) {
+    allUsers = users;
+    // console.log('users: ', users);
+    return Team.create([
+        {
+            name: "Team Rebar",
+            administrator: users[0],
+            members: [users[1], users[2]]
+        },
+        {
+            name: "Team Concrete",
+            administrator: users[1],
+            members: [users[3]]
         }
-    }).then(function () {
-        console.log(chalk.green('Seed successful!'));
-        process.kill(0);
-    }).catch(function (err) {
-        console.error(err);
-        process.kill(1);
-    });
+    ]);
+}).then(function(teams) {
+    // console.log('-------------')
+    // console.log('teams: ', teams)
+    return Project.create([
+        {
+            name: "Fullstack Website",
+            team: teams[0],
+            creator: allUsers[0],
+            type: "Website"
+        }, 
+        {
+            name: "Jimmy's Newsletter",
+            team: teams[1],
+            creator: allUsers[1],
+            type: "Newsletter"
+        }
+    ]);
+}).then(function(projects) {
+    // console.log('-------------')
+    // console.log('projects: ', projects)
+    return Wireframe.create([
+        {
+            master: true,
+            project: projects[0],
+            components: [
+                {
+                    type: "box",
+                    style: {
+                        "background-color": "rgb(255, 255, 255)",
+                        "border-color": "rgb(128, 128, 128)",
+                        "border-style": "solid",
+                        height: "50px",
+                        left: 170,
+                        opacity: "1",
+                        top: 145.98959350585938,
+                        width: "50px",
+                        "z-index":  "0"
+                    }
+                },
+                {
+                    type: "circle",
+                    style: {
+                        "background-color": "rgb(255, 255, 255)",
+                        "border-color": "rgb(128, 128, 128)",
+                        "border-style": "solid",
+                        height: "327px",
+                        left: 175.98959350585938,
+                        opacity: "1",
+                        top: 293.9930725097656,
+                        width: "309px",
+                        "z-index":  "0"
+                    }
+                }
+            ],
+            photoUrl: 'http://blog.skipper18.com/wp-content/uploads/2014/01/wireframe-example-large-1.png'
+        },
+        {
+            master: true,
+            project: projects[1],
+            components: [
+                {
+                    type: "box",
+                    style: {
+                        "background-color": "rgb(255, 255, 255)",
+                        "border-color": "rgb(128, 128, 128)",
+                        "border-style": "dashed",
+                        height: "50px",
+                        left: 170,
+                        opacity: "1",
+                        top: 145.98959350585938,
+                        width: "30px",
+                        "z-index":  "0"
+                    }
+                },
+                {
+                    type: "circle",
+                    style: {
+                        "background-color": "rgb(255, 255, 255)",
+                        "border-color": "rgb(128, 128, 128)",
+                        "border-style": "dashed",
+                        height: "327px",
+                        left: 180,
+                        opacity: "1",
+                        top: 293.9930725097656,
+                        width: "200px",
+                        "z-index":  "0"
+                    }
+                }
+            ],
+            photoUrl: 'http://wireframesketcher.com/samples/YouTube.png'
+        }
+    ]);
+}).then(function(){
+    chalk.green('Seed successful!');
+    process.kill(0);
+}).catch(function (err) {
+    console.error(err);
+    process.kill(1);
 });

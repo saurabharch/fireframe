@@ -13,9 +13,10 @@
 		<div class="row">
 			<div class="form-group">
 			  <label for="teams">Team</label>
-			  <select ng-model="team" class="form-control" id="team">
-			    <option ng-repeat="team in user.teams">{{team.name}}</option>
-			  </select>
+			  <select class="form-control"
+            ng-model="projectTeam"
+            ng-options="team.name for team in user.teams">
+	      </select>
 			  <button class="btn" ng-click="showTeamAdd()">Add team</button>
 			</div>
 		</div>
@@ -33,7 +34,7 @@
 			<div class="row">
 				<div class="form-group">
 					<label for="projectName">Team Name</label>
-					<input id="teamName" type="text" class="form-control" placeholder="Name">
+					<input id="teamName" ng-model="teamName" type="text" class="form-control" placeholder="Name">
 				</div>
 			</div>
 			<div class="row">

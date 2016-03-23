@@ -1,11 +1,20 @@
 app.factory('Wireframe', function($http, $log, Firebase, Component, Screen) {
 	var path = '/api/projects/';
+	var wireframe;
 	
 	function extractData(res) {
 		return res.data;
 	}
 
 	var factory = {
+		getWireframe: function(){
+			return wireframe;
+		},
+
+		setWireframe: function(weirfraem){
+			wireframe = weirfraem;
+		},
+
 		fetchAll: function(projectId) {
 			return $http.get(path+projectId+'/wireframes/')
 			.then(extractData)
@@ -30,13 +39,11 @@ app.factory('Wireframe', function($http, $log, Firebase, Component, Screen) {
 			.catch($log);
 		},
 
-		save: function(previousWireframe) {
-			var wireframe = {};
-			wireframe.project = previousWireframe.project;
+		save: function(wireframe) {
 			wireframe.components = Component.saveComponents();
 			wireframe.canvasImg = Screen.capture();
 
-			return $http.put(path+"56f2c30a87e99846e3a2fd49"+'/wireframes/'+"56f2c30a87e99846e3a2fd4a", wireframe)
+			return $http.put(path+wireframe.project+'/wireframes/'+wireframe._id, wireframe)
 			.then(extractData);
 		},
 
@@ -44,7 +51,7 @@ app.factory('Wireframe', function($http, $log, Firebase, Component, Screen) {
 			return $http.put(path+projectId+'/wireframes/'+wireframe._id+'/master')
 			.then(extractData);
 		}
-	}
+	};
 
 	return factory;
 

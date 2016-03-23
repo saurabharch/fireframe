@@ -25,12 +25,24 @@ var ProjectSchema = new mongoose.Schema({
 });
 
 ProjectSchema.statics.createNewProject = function(project) {
+	var createdProject;
+	var createdWireframe;
+
 	return Project.create(project)
 	.then(function(newProject) {
+		createdProject = newProject;
 		return Wireframe.create({
 			project: newProject._id,
 			master: true
 		})
+	})
+	.then(function(wireframe) {
+		createdWireframe = wireframe;
+		createdProject.wireframes.addToSet(wireframe._id);
+		return createdProject.save();
+	})
+	.then(function() {
+		return createdWireframe;
 	})
 };
 
