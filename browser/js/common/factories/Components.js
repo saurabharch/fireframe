@@ -37,6 +37,10 @@ app.factory('Component', function($compile, CSS) {
 			CSS.removeTransform(element, style);
 		},
 
+		deleteComponent: function(id) {
+			$('#'+id).remove();
+		},
+
 		saveComponents: function() {
 			var components = [];
 			$('#wireframe-board').children().each(function() {

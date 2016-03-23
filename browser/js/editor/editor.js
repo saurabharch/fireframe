@@ -34,8 +34,8 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	$scope.updateZoom = CSS.updateZoom;
 	
 	function componentToHex(c) {
-    var hex = c.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
+    // var hex = c.toString(16);
+    // return hex.length == 1 ? "0" + hex : hex;
 	}
 
 	function rgbToHex(arr) {
@@ -45,6 +45,9 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	$scope.saveElements = function() {
 		Component.saveComponents();
 	}
+
+	$scope.deleteElement = Firebase.deleteElement;
+
 
 	$scope.createElement = function(type) {
 		//var style = { "background-color":$scope.activeColor, "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray"};
@@ -69,4 +72,5 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	$scope.save = function () {
 		Screen.capture();
 	};
+
 });

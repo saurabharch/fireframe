@@ -61,6 +61,21 @@ $btn-side: .45 * $left-width;
   margin:2%;
 }
 
+.delete-hoverable .hover-delete-btn {
+  float: right;
+  margin-top: -13px;
+  color: red;
+  background-color: #313841;
+  display: none;
+  border-style: 1px solid #242424;
+}
+
+.resize-drag:hover {
+  button {
+    display: block !important;
+  }
+}
+
 .component-button {
   box-sizing:border-box;
   border:0;
