@@ -9,7 +9,7 @@ var auth = {
 	},
 
 	isAdmin: function(user) {
-		return req.user && req.user.admin
+		return user && user.admin
 	},
 	
 	ensureAdmin: function(req, res, next) {
@@ -33,27 +33,29 @@ var auth = {
 	},
 
 	isTeamMember: function(user, team) {
-		return user && (team.members.indexOf(user._id) || auth.isTeamAdmin(user._id));
+		//return user && (team.members.indexOf(user._id) || auth.isTeamAdmin(user._id));
 	},
 
 	isTeamAdmin: function(user, team) {
-		return team.administrator === user._id;
+		//return team.administrator === user._id;
 	},
 
 	ensureTeamMemberOrAdmin: function(req, res, next) {
-		if (auth.isTeamMember(req.user, req.project.team) || auth.isAdmin(req.user)) {
-			next()
-		} else {
-			next(Error('You shall not pass.'));
-		}
+		next()
+		// if (auth.isTeamMember(req.user, req.project.team) || auth.isAdmin(req.user)) {
+		// 	next()
+		// } else {
+		// 	next(Error('You shall not pass.'));
+		// }
 	},
 
 	ensureTeamAdmin: function(req, res, next) {
-		if (auth.isTeamMember(req.user) || auth.isAdmin(req.user)) {
-			next()
-		} else {
-			next(Error('You shall not pass.'));
-		}
+		next()
+		// if (auth.isTeamMember(req.user) || auth.isAdmin(req.user)) {
+		// 	next()
+		// } else {
+		// 	next(Error('You shall not pass.'));
+		// }
 	}
 
 }

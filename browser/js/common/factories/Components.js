@@ -59,7 +59,7 @@ app.factory('Component', function($compile, CSS) {
 			var component = {};
 			component.type = element.prop('tagName').toLowerCase();
 			component.style = {};
-			component.id = element.attr('id');
+			//component.id = element.attr('id');
 			//component.style = CSS.extractStyles(element);
 
 			//STILL NEED TO SCALE WIDTH AND POSITION BASED ON CURRENT ZOOM
