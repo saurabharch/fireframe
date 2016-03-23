@@ -16,6 +16,16 @@ var ProjectSchema = new mongoose.Schema({
 
 });
 
+ProjectSchema.statics.createNewProject = function(project) {
+	ProjectSchema.create(project)
+	.then(newProject => {
+		return Wireframe.create({
+			project: newProject._id,
+			master: true
+		})
+	})
+};
+
 ProjectSchema.methods.deleteProject = function() {
 	var project = this;
 
@@ -34,6 +44,6 @@ ProjectSchema.methods.deleteProject = function() {
 	.then(() => {
 		return project.remove();
 	});
-}
+};
 
 mongoose.model('Project', ProjectSchema);
