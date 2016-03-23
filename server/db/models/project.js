@@ -20,7 +20,7 @@ var ProjectSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId, 
 		ref: 'Wireframe',
 	}],
-	type: String
+	type: String //what is this for?
 
 });
 
@@ -50,25 +50,11 @@ ProjectSchema.methods.deleteProject = function() {
 	// 	return Promise.all(deletions);
 	// })
 	return project.remove()
-	.then(function() {
-		return Wireframe.remove(project.wireframes)
-	});
+	// .then(function() {
+	// 	return Wireframe.remove(project.wireframes)
+	// });
 };
 
-ProjectSchema.methods.setMaster = function(wireframe) {
-	var project = this;
-	return Wireframe.findOne({
-		project: project._id,
-		master: true
-	})
-	.then(function(oldMaster) {
-		oldMaster.master = false
-		return oldMaster.save()
-	})
-	.then(function() {
-		wireframe.master = true;
-		return wireframe.save();
-	})
-}
+
 
 var Project = mongoose.model('Project', ProjectSchema);

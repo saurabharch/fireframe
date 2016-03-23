@@ -8,10 +8,10 @@ var WireframeSchema = new mongoose.Schema({
 		type:Boolean,
 		default:false
 	},
-	project: {
-		type:mongoose.Schema.Types.ObjectId, 
-		ref:'Project'
-	},
+	// project: {
+	// 	type:mongoose.Schema.Types.ObjectId, 
+	// 	ref:'Project'
+	// },
 	parent: {
 		type:mongoose.Schema.Types.ObjectId, 
 		ref:'Wireframe', default:null
@@ -35,6 +35,21 @@ var WireframeSchema = new mongoose.Schema({
 // 		return wireframe;
 // 	});
 // };
+WireframeSchema.methods.setMaster = function(wireframe) {
+	var project = this;
+	return Wireframe.findOne({
+		project: project._id,
+		master: true
+	})
+	.then(function(oldMaster) {
+		oldMaster.master = false
+		return oldMaster.save()
+	})
+	.then(function() {
+		wireframe.master = true;
+		return wireframe.save();
+	})
+}
 
 WireframeSchema.methods.clone = function() {
 	var oldWireframe = this;
