@@ -31,9 +31,6 @@ describe('Project model', function() {
           Project.create({name: "Creating a Test Project"})
           .then(function(project) {
             projOne = project;
-            // Wireframe.create({
-            //   project: project
-            // })
           }),
           Project.create({name: "Another Test Project"})
           .then(function(project) {
@@ -44,7 +41,7 @@ describe('Project model', function() {
             projThree = project;
           })
         ])
-        .then(done, function(err) {
+        .then(function(){done()}, function(err) {
           done(err);
         });
       });
@@ -56,7 +53,7 @@ describe('Project model', function() {
     it('deletes a project', function(done) {
       projOne.deleteProject()
       .then(function(project) {
-        console.log("this project should be the deleted", project)
+        console.log("this project should be the deleted one", project);
         expect(projOne).to.not.exist;
         done();
       })
