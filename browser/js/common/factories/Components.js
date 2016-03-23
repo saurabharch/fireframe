@@ -25,6 +25,9 @@ app.factory('Component', function($compile, CSS) {
 				case 'table-component':
 					newElement = $compile('<table-component id="' + id + '" ng-click="makeActive($event)" class="resize-drag"></table-component>')($scope);
 					break;
+				case 'button-component':
+					newElement = $compile('<button-component id="' + id + '" ng-click="makeActive($event)" class="resize-drag"></button-component>')($scope);
+					break;
 			}
 
 			CSS.addStyles(newElement, style);
