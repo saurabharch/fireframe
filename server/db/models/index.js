@@ -3,7 +3,6 @@
 // anywhere the User model needs to be used.
 require('./user');
 require('./team');
-require('./component');
 require('./wireframe');
 require('./project');
 require('./comment');
