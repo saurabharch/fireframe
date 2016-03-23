@@ -49,18 +49,6 @@ ProjectSchema.statics.createNewProject = function(project) {
 ProjectSchema.methods.deleteProject = function() {
 	var project = this;
 
-	// return Wireframe.find({
-	// 	project: project._id
-	// })
-	// 	.then(function(wireframes) {
-	// 	var deletions = [];
-
-	// 	wireframes.forEach(function(wireframe) {
-	// 		deletions.push(wireframe.deleteWithComponents())
-	// 	})
-	// 	console.log(wireframes);
-	// 	return Promise.all(deletions);
-	// })
 	return project.remove()
 	.then(function() {
 		return Wireframe.remove(project.wireframes)
