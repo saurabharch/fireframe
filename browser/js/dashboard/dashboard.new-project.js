@@ -1,9 +1,9 @@
 'use strict';
 
 app.config(function($stateProvider) {
-	$stateProvider.state('user.newProject', {
-		templateUrl: '/js/user/user.new-project.html',
-		controller: 'NewProjectCtrl',
+	$stateProvider.state('dashboard.newProject', {
+		templateUrl: '/js/dashboard/dashboard.new-project.html',
+		controller: 'NewProjectCtrl'
 		resolve: {
 			user: function(AuthService, User, $log) {
 				var user;

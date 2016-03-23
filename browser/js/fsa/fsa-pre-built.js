@@ -85,6 +85,11 @@
 
         };
 
+        this.signup = function(signupInfo){
+            return $http.post('/signup', signupInfo)
+                .then(onSuccessfulLogin);
+        };
+
         this.login = function (credentials) {
             return $http.post('/login', credentials)
                 .then(onSuccessfulLogin)

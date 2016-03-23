@@ -1,8 +1,8 @@
 'use strict';
 
 app.config(function($stateProvider) {
-	$stateProvider.state('user.allProjects', {
-		templateUrl: '/js/user/user.allProjects.html',
+	$stateProvider.state('dashboard.allProjects', {
+		templateUrl: '/js/dashboard/dashboard.allProjects.html',
 		controller: 'AllProjectsCtrl'
 	})
 });
