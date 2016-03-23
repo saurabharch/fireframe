@@ -1,10 +1,14 @@
 app.config(function($stateProvider){
 	$stateProvider.state('editor', {
-		url: '/editor/:wireframeId',
+		url: '/editor/:id',
 		templateUrl: '/js/editor/editor.html',
 		resolve: {
-			wireframe: function(Wireframe){
-				return Wireframe.getWireframe() || {components:[]};
+			// wireframe: function(Wireframe){
+			// 	return Wireframe.getWireframe();
+			// }
+			wireframe: function($stateParams, Wireframe) {
+				console.log($stateParams);
+				return Wireframe.fetchOne($stateParams.id)
 			}
 		},
 		controller: 'EditorCtrl'
