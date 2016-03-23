@@ -38,8 +38,12 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 		Component.saveComponents();
 	};
 
+	$scope.deleteElement = Firebase.deleteElement;
+
+
 	$scope.createElement = function(type) {
-		var style = { "background-color":$scope.activeColor, "opacity":$scope.activeOpacity, "border-size": "2px", "border-style": "solid", "border-color": "black"};
+		//var style = { "background-color":$scope.activeColor, "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray"};
+		var style = { "background-color": "white", "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray"};
 		Firebase.createElement(style, type);
 	};
 
@@ -102,4 +106,5 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	function rgbToHex(arr) {
     return "#" + componentToHex(arr[0]) + componentToHex(arr[1]) + componentToHex(arr[2]);
 	}
+
 });
