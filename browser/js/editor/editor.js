@@ -11,7 +11,7 @@ app.config(function($stateProvider){
 		});
 });
 
-app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, Interact, CSS, Firebase) {
+app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, Interact, CSS, Firebase, Screen) {
 	var newFork = true;
 	//check if project create or project join
 	newFork ? Firebase.createRoom(wireframe, $scope) : Firebase.joinRoom(wireframe, $scope);
@@ -87,7 +87,12 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 		if($scope.active) $scope.active.style.backgroundColor = $scope.activeColor;
 	});
 
+
 //Helper functions
+
+	$scope.save = function () {
+		Screen.capture();
+	};
 
 	function componentToHex(c) {
     var hex = c.toString(16);
