@@ -1,16 +1,16 @@
 'use strict';
 
 app.config(function($stateProvider) {
-	$stateProvider.state('user.newProject', {
-		templateUrl: '/js/user/user.new-project.html',
+	$stateProvider.state('dashboard.newProject', {
+		templateUrl: '/js/dashboard/dashboard.new-project.html',
 		controller: 'NewProjectCtrl'
 	});
 });
 
-app.controller('NewProjectCtrl', function($scope, $state, AuthService, UserFactory) {
+app.controller('NewProjectCtrl', function($scope, $state, AuthService, User, Wireframe) {
 
 		$scope.user = AuthService.getLoggedInUser();
-		$scope.user.teams = UserFactory.getUserTeams($scope.user._id);
+		$scope.user.teams = User.getUserTeams($scope.user._id);
 		$scope.formShow = false;
 
 	//Add New Team
@@ -37,7 +37,7 @@ app.controller('NewProjectCtrl', function($scope, $state, AuthService, UserFacto
 				members: members
 			};
 
-			UserFactory.addTeam(team)
+			User.addTeam(team)
 			.then(team => {
 				$scope.user.teams.push(team);
 				$scope.formShow = false;
@@ -52,8 +52,11 @@ app.controller('NewProjectCtrl', function($scope, $state, AuthService, UserFacto
 				team: $scope.team
 			};
 
-			UserFactory.addProject(project)
-			.then(wireframe => $state.go('editor', wireframe));
+			User.addProject(project)
+			.then(wireframe => {
+				$state.go('editor', {id:wireframe._id});
+				Wireframe.setWireframe(wireframe);
+			});
 		};
 
 });

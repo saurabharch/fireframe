@@ -1,4 +1,4 @@
-app.factory('UserFactory', function($http, $log){
+app.factory('User', function($http, $log){
 
 	var factory = {
 
