@@ -67,7 +67,8 @@ $btn-side: .45 * $left-width;
 
 .delete-hoverable .hover-delete-btn {
   float: right;
-  margin-top: -13px;
+  margin-top: 2px;
+  margin-right: 2px;
   color: red;
   background-color: #313841;
   display: none;
