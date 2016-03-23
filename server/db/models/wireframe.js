@@ -71,3 +71,7 @@ WireframeSchema.methods.saveWithComponents = function(updatedWireframe) {
 }
 
 var Wireframe = mongoose.model('Wireframe', WireframeSchema);
+
+
+
+
