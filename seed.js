@@ -23,6 +23,7 @@ var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
 
+
 var seedUsers = function () {
 
     var users = [
@@ -32,7 +33,16 @@ var seedUsers = function () {
         },
         {
             email: 'obama@gmail.com',
-            password: 'potus'
+            password: 'potus',
+            admin: true
+        },
+        {
+            email: 'test@gmail.com',
+            password: '1'
+        },
+        {
+            email: 'user1@gmail.com',
+            password: '1'
         }
     ];
 
@@ -40,7 +50,101 @@ var seedUsers = function () {
 
 };
 
+var seedTeams = function() {
+    
+    var teams = [
+        {
+            name: "Team Alpha",
+            administrator:,
+            members:
+        },
+        {
+            name: "Team Bravo",
+            administrator:,
+            members:
+        }
+    ];
+
+    return;
+
+};
+
+var seedProjects = function() {
+
+	var projects = [
+        {
+            name: Fullstack Website,
+            team:
+            type: Website
+        }, 
+        {
+            name: Jimmys Newsletter
+            team:
+            type: Newsletter
+        }
+    ];
+
+    return ; 
+};
+
+var seedWireframes = function() {
+    
+    var wireframes = [
+        {
+            master: true,
+            project:,
+            photoUrl: 'http://blog.skipper18.com/wp-content/uploads/2014/01/wireframe-example-large-1.png'
+        },
+        {
+            master: true,
+            project:,
+            photoUrl: 'http://blog.skipper18.com/wp-content/uploads/2014/01/wireframe-example-large-1.png'
+        }
+    ];
+
+    return;
+};
+
+var seedComponents = function() {
+
+    var seedComponents = [
+        {
+            type: "box",
+            style: {
+                "background-color": "rgb(255, 255, 255)",
+                "border-color": "rgb(128, 128, 128)",
+                "border-style": "solid",
+                height: "50px",
+                left: 170,
+                opacity: "1",
+                top: 145.98959350585938,
+                width: "50px",
+                "z-index":  "0"
+            },
+            wireframe: 
+        },
+        {
+            type: "circle",
+            style: {
+                "background-color": "rgb(255, 255, 255)",
+                "border-color": "rgb(128, 128, 128)",
+                "border-style": "dashed",
+                height: "327px",
+                left: 175.98959350585938,
+                opacity: "1",
+                top: 293.9930725097656,
+                width: "309px",
+                "z-index":  "0"
+            },
+            wireframe: 
+        }
+    ];
+
+    return ;
+};
+
 connectToDb.then(function () {
+	    
     User.findAsync({}).then(function (users) {
         if (users.length === 0) {
             return seedUsers();
