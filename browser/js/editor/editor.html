@@ -37,10 +37,11 @@
 	<button ng-click="save()">Save</button>
 	<div class="tool-panel">
 			<label>Arrange</label>
-				<button class="btn btn-arrange">Move Forward</button>
-				<button class="btn btn-arrange">Bring to Front</button>
-				<button class="btn btn-arrange">Move Backward</button>
-				<button class="btn btn-arrange">Send to Back</button>
+				<button class="btn btn-arrange" ng-click="moveForward()">Move Forward</button>
+				<button class="btn btn-arrange" ng-click="moveToFront()">Bring to Front</button>
+				<button class="btn btn-arrange" ng-click="moveBackward()">Move Backward</button>
+				<button class="btn btn-arrange" ng-click="moveToBack()">Send to Back</button>
+			</div>
 		</div>
 	</div>
 
