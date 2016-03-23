@@ -4,14 +4,14 @@ app.config(function($stateProvider){
 		templateUrl: '/js/editor/editor.html',
 		resolve: {
 			wireframe: function() {
-				return { _id: "ABC", components: [], master: true };
+				return { _id: "ABC", project: '56f2bd912b013bd3e1e7b643', components: [], master: true };
 			}
 		},
 		controller: 'EditorCtrl'
 		});
 });
 
-app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, Interact, CSS, Firebase, Screen) {
+app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, Interact, CSS, Firebase, Screen, Wireframe) {
 	var newFork = true;
 	//check if project create or project join
 	newFork ? Firebase.createRoom(wireframe, $scope) : Firebase.joinRoom(wireframe, $scope);
@@ -95,7 +95,7 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 //Helper functions
 
 	$scope.save = function () {
-		Screen.capture();
+		Wireframe.save($scope.wireframe)
 	};
 
 	function componentToHex(c) {
