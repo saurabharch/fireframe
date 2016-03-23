@@ -5,6 +5,7 @@ module.exports = router;
 
 var mongoose = require('mongoose');
 var Wireframe = mongoose.model('Wireframe');
+var Project = mongoose.model('Project');
 var auth = require('../authentication');
 
 router.use(auth.ensureTeamMemberOrAdmin);
@@ -14,25 +15,22 @@ router.param('wireframeId', function(req, res, next, wireframeId) {
 	Wireframe.findOne(wireframeId)
 	.then(wireframe => {
 		if (wireframe) {
-      return wireframe.populateComponents();
+      req.wireframe = wireframe;
+      next();
     } else {
       var err = new Error('Something went wrong.');
       err.status = 404;
       next(err);
     }
 	})
-  .then(wireframe => {
-    req.wireframe = wireframe;
-    next();
-  })
 	.then(null, next)
 });
 
 //get all wireframes for a project
 router.get('/', auth.ensureAdmin, function(req, res, next) {
-	Wireframe.find({
-    project: req.project._id
-  })
+	req.project
+  .populate('wireframes')
+  .execPopulate()
   .then(wireframes => {
     res.json(wireframes);
   })
@@ -56,6 +54,7 @@ router.get('/:wireframeId', function(req, res, next) {
 
 //edit current wireframe
 router.put('/:wireframeId', function(req, res, next) {
+  console.log('made it hurr')
   req.wireframe.saveWithComponents(req.body)
   .then(wireframe => {
     res.json(wireframe);
@@ -66,7 +65,7 @@ router.put('/:wireframeId', function(req, res, next) {
 //delete single wireframe
 //do we want to remove this? only able to delete whole projects, thus saving all versions
 router.delete('/:wireframeId', auth.ensureTeamAdmin, function(req, res, next) {
-  req.wireframe.deleteWithComponents()
+  req.wireframe.remove()
   .then(function() {
     res.sendStatus(204)
   })
@@ -85,7 +84,7 @@ router.get('/:wireframeId/fork', function(req, res, next) {
 
 //set wireframe as new master
 router.get('/:wireframeId/master', function(req, res, next) {
-  req.wireframe.setMaster()
+  Project.setMaster(req.wireframe)
   .then(wireframe => {
     res.json(wireframe);
   })
