@@ -7,11 +7,13 @@ app.config(function($stateProvider) {
 	});
 });
 
-app.controller('NewProjectCtrl', function($scope, $uibModal, AuthService, UserFactory) {
+app.controller('NewProjectCtrl', function($scope, $state, AuthService, UserFactory) {
 
 		$scope.user = AuthService.getLoggedInUser();
 		$scope.user.teams = UserFactory.getUserTeams($scope.user._id);
 		$scope.formShow = false;
+
+	//Add New Team
 		$scope.teamMembers = [];
 
 		$scope.showTeamAdd = function(){
@@ -36,6 +38,22 @@ app.controller('NewProjectCtrl', function($scope, $uibModal, AuthService, UserFa
 			};
 
 			UserFactory.addTeam(team)
-			.then(team => $scope.user.teams.push(team));
+			.then(team => {
+				$scope.user.teams.push(team);
+				$scope.formShow = false;
+			});
 		};
+
+	//Add New Project
+
+		$scope.addProject = function(){	
+			var project = {
+				name: $scope.projectName,
+				team: $scope.team
+			};
+
+			UserFactory.addProject(project)
+			.then(wireframe => $state.go('editor', wireframe));
+		};
+
 });

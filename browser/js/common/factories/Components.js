@@ -52,7 +52,7 @@ app.factory('Component', function($compile, CSS) {
 			});
 			
 			//need send this array of components back to server (through wireframe factory?)
-			console.log(components);
+			return components;
 		},
 
 		saveComponent: function(element) {
