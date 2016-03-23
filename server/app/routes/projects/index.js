@@ -5,7 +5,6 @@ module.exports = router;
 
 var mongoose = require('mongoose');
 var Project = mongoose.model('Project');
-var WireframeRouter = require('./wireframe');
 var auth = require('../authentication');
 
 router.param('id', function(req, res, next, id) {

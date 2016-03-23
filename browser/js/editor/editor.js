@@ -7,7 +7,7 @@ app.config(function($stateProvider){
 			// 	return Wireframe.getWireframe();
 			// }
 			wireframe: function($stateParams, Wireframe) {
-				console.log($stateParams);
+				console.log($stateParams, 'our state params');
 				return Wireframe.fetchOne($stateParams.id)
 			}
 		},

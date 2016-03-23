@@ -12,7 +12,7 @@ router.use(auth.ensureTeamMemberOrAdmin);
 
 //find wireframe and populate it with its components
 router.param('id', function(req, res, next, id) {
-	Wireframe.findOne(id)
+	Wireframe.findById(id)
 	.then(wireframe => {
 		if (wireframe) {
       req.wireframe = wireframe;
@@ -37,6 +37,7 @@ router.post('/', function(req, res, next) {
 
 //get single wireframe
 router.get('/:id', function(req, res, next) {
+  console.log(req.wireframe)
   //return wireframe with components
   res.json(req.wireframe);
 });
