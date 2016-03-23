@@ -22,6 +22,7 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
+var Project = Promise.promisifyAll(mongoose.model('Project'));
 
 var seedUsers = function () {
 
@@ -48,6 +49,8 @@ connectToDb.then(function () {
             console.log(chalk.magenta('Seems to already be user data, exiting!'));
             process.kill(0);
         }
+    }).then(function() {
+        return Project.create({ name: 'TEAM' })
     }).then(function () {
         console.log(chalk.green('Seed successful!'));
         process.kill(0);

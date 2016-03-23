@@ -11,7 +11,7 @@ app.config(function($stateProvider){
 		});
 });
 
-app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, Interact, CSS, Firebase, Screen) {
+app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, Interact, CSS, Firebase, Screen, Wireframe) {
 	var newFork = true;
 	//check if project create or project join
 	newFork ? Firebase.createRoom(wireframe, $scope) : Firebase.joinRoom(wireframe, $scope);
@@ -95,7 +95,7 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 //Helper functions
 
 	$scope.save = function () {
-		Screen.capture();
+		Wireframe.save($scope.wireframe)
 	};
 
 	function componentToHex(c) {

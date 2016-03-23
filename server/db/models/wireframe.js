@@ -20,6 +20,7 @@ var WireframeSchema = new mongoose.Schema({
 		type:mongoose.Schema.Types.ObjectId, 
 		ref:'Wireframe'
 	}],
+	canvasImg: String,
 	photoUrl: String
 
 });
@@ -29,7 +30,7 @@ WireframeSchema.methods.populateComponents = function() {
 	Component.find({
 		wireframe: wireframe._id
 	})
-	.then(components => {
+	.then(function(components) {
 		wireframe.components = components;
 		return wireframe;
 	});
@@ -47,14 +48,14 @@ WireframeSchema.methods.clone = function(oldWireframe) {
 	wireframeCopy.parent = oldWireframe._id;
 
 	//create new wireframe with copied obj
-	WireframeSchema.create(wireframeCopy)
-	.then(wireframe => {
+	Wireframe.create(wireframeCopy)
+	.then(function(wireframe) {
 		clonedWireframe = wireframe;
 		//add the new wireframe to the old one's list of children, and save
 		oldWireframe.children.push(wireframe._id);
 		return oldWireframe.save();
 	})
-	.then(() => {
+	.then(function() {
 		//copy components for new wireframe
 		return Component.create(
 			oldWireframe.components.map(function(component) {
@@ -75,7 +76,7 @@ WireframeSchema.methods.deleteWithComponents = function() {
 	Component.remove({
 		wireframe: wireframe._id
 	})
-	.then(() => {
+	.then(function() {
 		return wireframe.remove()
 	});
 }
@@ -87,13 +88,13 @@ WireframeSchema.methods.saveWithComponents = function(updatedWireframe) {
 	
 	//save wireframe, remove old components, and replace with new ones
 	return wireframe.save()
-	.then(frame => {
+	.then(function(frame) {
 		newWireframe = frame;
 		return Component.remove({
 			wireframe: frame._id
 		});
 	})
-	.then(() => {
+	.then(function() {
 		//set each component with the wireframe id, save array of components
 		return Component.create(
 			wireframe.components.map(function(component) {
@@ -106,15 +107,15 @@ WireframeSchema.methods.saveWithComponents = function(updatedWireframe) {
 
 WireframeSchema.methods.setMaster = function() {
 	var wireframe = this;
-	WireframeSchema.findOne({
+	Wireframe.findOne({
 		project: wireframe.project._id,
 		master: true
 	})
-	.then(oldMaster => {
+	.then(function(oldMaster) {
 		oldMaster.master = false
 		return oldMaster.save()
 	})
-	.then(oldMaster => {
+	.then(function(oldMaster) {
 		wireframe.master = true;
 		return wireframe.save();
 	})
