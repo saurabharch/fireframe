@@ -3,14 +3,30 @@
 app.config(function($stateProvider) {
 	$stateProvider.state('user.newProject', {
 		templateUrl: '/js/user/user.new-project.html',
-		controller: 'NewProjectCtrl'
+		controller: 'NewProjectCtrl',
+		resolve: {
+			user: function(AuthService, User, $log) {
+				var user;
+				return AuthService.getLoggedInUser()
+				.then(currentUser => {
+					user = currentUser;
+					return User.getUserTeams(user._id)
+				})
+				.then(teams => {
+					user.teams = teams;
+					return user;
+				})
+				.catch(function(err) {
+					console.log(err);
+					return user;
+				})
+			}
+		}
 	});
 });
 
-app.controller('NewProjectCtrl', function($scope, $state, AuthService, User, Wireframe) {
-
-		$scope.user = AuthService.getLoggedInUser();
-		$scope.user.teams = User.getUserTeams($scope.user._id);
+app.controller('NewProjectCtrl', function($scope, $state, user, User, Wireframe) {
+		$scope.user = user;
 		$scope.formShow = false;
 
 	//Add New Team
@@ -26,7 +42,7 @@ app.controller('NewProjectCtrl', function($scope, $state, AuthService, User, Wir
 		};
 
 		$scope.addTeam = function(){
-			var name = $('#teamName');
+			var name = $scope.teamName;
 			var admin = $scope.user._id;
 			var members = $scope.teamMembers;
 			if(!(name && members)) throw new Error('Fill out the form!');
@@ -49,13 +65,14 @@ app.controller('NewProjectCtrl', function($scope, $state, AuthService, User, Wir
 		$scope.addProject = function(){	
 			var project = {
 				name: $scope.projectName,
-				team: $scope.team
+				team: $scope.projectTeam._id
 			};
 
 			User.addProject(project)
 			.then(wireframe => {
-				$state.go('editor', {id:wireframe._id});
+				console.log(wireframe, '///////')
 				Wireframe.setWireframe(wireframe);
+				$state.go('editor', {id:wireframe._id});
 			});
 		};
 

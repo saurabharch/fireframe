@@ -11,6 +11,9 @@ var _ = require('lodash'),
     ProjectRouter = require('../projects');
 
 router.post('/', function(req, res, next){
-	Team.create(req.body)
-	.then(team => res.json(team));
+	Team.createAndAddMembers(req.body)
+	.then(team => {
+		res.json(team)
+	})
+	.then(null, next);
 });
