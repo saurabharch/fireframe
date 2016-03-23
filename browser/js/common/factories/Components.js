@@ -1,5 +1,5 @@
 app.factory('Component', function($compile, CSS) {
-	var styles = ['width', 'height', 'z-index', 'opacity', 'border-size', 'border-style', 'border-color', 'background-color'];
+	var styles = ['width', 'height', 'z-index', 'opacity', 'border-size', 'border-style', 'border-color', 'background-color', 'z-index'];
 	var factory = {
 		create: function(type, $scope, style, id) {
 			var newElement;
@@ -59,7 +59,7 @@ app.factory('Component', function($compile, CSS) {
 			var component = {};
 			component.type = element.prop('tagName').toLowerCase();
 			component.style = {};
-			//component.id = element.attr('id');
+			component.id = element.attr('id');
 			//component.style = CSS.extractStyles(element);
 
 			//STILL NEED TO SCALE WIDTH AND POSITION BASED ON CURRENT ZOOM
