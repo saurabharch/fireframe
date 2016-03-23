@@ -10,15 +10,15 @@ var ProjectSchema = new mongoose.Schema({
 	team: {
 		type:mongoose.Schema.Types.ObjectId, 
 		ref:'Team',
-		required:true
+		//required:true
 	},
 	type: String
 
 });
 
 ProjectSchema.statics.createNewProject = function(project) {
-	ProjectSchema.create(project)
-	.then(newProject => {
+	Project.create(project)
+	.then(function(newProject) {
 		return Wireframe.create({
 			project: newProject._id,
 			master: true
@@ -32,18 +32,18 @@ ProjectSchema.methods.deleteProject = function() {
 	Wireframe.find({
 		project: project._id
 	})
-	.then(wireframes => {
+	.then(function(wireframes) {
 		var deletions = [];
 
 		wireframes.forEach(function(wireframe) {
 			deletions.push(wireframe.deleteWithComponents())
 		})
-
+		console.log(wireframes);
 		return Promise.all(deletions);
 	})
-	.then(() => {
+	.then(function() {
 		return project.remove();
 	});
 };
 
-mongoose.model('Project', ProjectSchema);
+var Project = mongoose.model('Project', ProjectSchema);
