@@ -38,8 +38,7 @@ app.factory('Component', function($compile, CSS) {
 		},
 
 		deleteComponent: function(id) {
-			var element = $('#'+id);
-
+			$('#'+id).remove();
 		},
 
 		saveComponents: function() {

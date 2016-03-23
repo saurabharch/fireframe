@@ -20,6 +20,12 @@ app.factory('Firebase', function(Component) {
         Component.update(key, element.style);
       });
 
+      firebase.on('child_removed', function(snapshot) {
+        var key = snapshot.key();
+        var element = snapshot.val();
+        Component.deleteComponent(key);
+      });
+
       //Event listener, update element any time a user changes it
       var selectedElement;
       $('#wireframe-board').on('mousedown', '.resize-drag', function(event) {
@@ -61,8 +67,11 @@ app.factory('Firebase', function(Component) {
       });
     },
 
-    deleteElement: function() {
-
+    deleteElement: function(id) {
+      console.log(id);
+      firebase.child(id).remove(function() {
+        console.log("deleting element???");
+      });
     },
 
     updateElement: function(element, style) {
