@@ -13,7 +13,7 @@ connectToDb.then(function () {
     mongoose.connection.db.dropDatabase();
 }).then(function() {
     chalk.green('Dropped DB before seeding');
-
+    // console.log("LOOK HERE");
     return User.create([
         {
             email: 'testing@fsa.com',
@@ -56,22 +56,25 @@ connectToDb.then(function () {
             name: "Fullstack Website",
             team: teams[0],
             creator: allUsers[0],
+            wireframes: [],
             type: "Website"
         }, 
         {
             name: "Jimmy's Newsletter",
             team: teams[1],
             creator: allUsers[1],
+            wireframes: [],
             type: "Newsletter"
         }
     ]);
-}).then(function(projects) {
-    // console.log('-------------')
-    // console.log('projects: ', projects)
+ })
+.then(function(projects) {
+    console.log('-------------')
+    console.log('projects: ', projects)
     return Wireframe.create([
         {
             master: true,
-            project: projects[0],
+            // project: projects[0],
             components: [
                 {
                     type: "box",
@@ -106,7 +109,7 @@ connectToDb.then(function () {
         },
         {
             master: true,
-            project: projects[1],
+            // project: projects[1],
             components: [
                 {
                     type: "box",
@@ -140,10 +143,10 @@ connectToDb.then(function () {
             photoUrl: 'http://wireframesketcher.com/samples/YouTube.png'
         }
     ]);
-}).then(function(){
+ }).then(function(){
     chalk.green('Seed successful!');
     process.kill(0);
 }).catch(function (err) {
-    console.error(err);
+    console.log(err);
     process.kill(1);
 });

@@ -50,19 +50,22 @@ ProjectSchema.methods.deleteProject = function() {
 	});
 };
 
-ProjectSchema.methods.setMaster = function(wireframe) {
+ProjectSchema.methods.setMaster = function(wireframeId) {
 	var project = this;
 	var projectWireframes = project.wireframes;
 
-	return Wireframe.findOne({
+	return Wireframe.find({
 		master: true,
-		_id: { $in: { projectWireframes }}
+		_id: { $in: projectWireframes}
 	})
 	.then(function(oldMaster) {
-		oldMaster.master = false
-		return oldMaster.save()
+		oldMaster[0].master = false
+		return oldMaster[0].save()
 	})
 	.then(function() {
+		return Wireframe.findById(wireframeId)
+	})
+	.then(function(wireframe) {
 		wireframe.master = true;
 		return wireframe.save();
 	});

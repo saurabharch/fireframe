@@ -25,7 +25,8 @@ describe('Project model', function() {
 
   describe('methods', function() {
   
-      var projOne, projTwo, projThree;
+      var projOne, projTwo, projThree, wf;
+
       beforeEach(function(done) {
         Promise.all([
           Project.create({
@@ -34,12 +35,24 @@ describe('Project model', function() {
           .then(function(project) {
             projOne = project;
           }),
+
           Project.create({
-            name: "Another Test Project", wireframes: [{master:true}]
+            name: "Another Test Project"
           })
           .then(function(project) {
+            project.wireframes = [];
             projTwo = project;
+            return Wireframe.create({master:false})
+          })
+          .then(function(newWireframe) {
+            wf = newWireframe;
+            projTwo.wireframes.push(newWireframe._id);
+            return Wireframe.create({master:true})
+          })
+          .then(function(newMasterWireframe) {
+            projTwo.wireframes.push(newMasterWireframe._id);
           }),
+
           Project.create({
             name: "And a third Test Project"
           })
@@ -56,30 +69,28 @@ describe('Project model', function() {
         return Project.remove();
       });
 
-    // it('sets a master wireframe', function(done) {
-    //   projTwo.setMaster(projTwo.wireframes[1])
-    //   .then(function(newMasterWireframe) {
-    //     console.log(newMasterWireframe); 
-    //     //expect w[0]=F, w[1]=T
-    //     expect(projTwo.wireframes[0].master).to.be.false;
-    //     expect(projTwo.wireframes[1].master).to.be.true;
-    //     done();
-    //   })
-    //   .then(null, function(err) {
-    //     done(err);
-    //   });
-    // });
+    it('sets a master wireframe', function(done) {
 
-    // it('deletes a project', function(done) {
-    //   projOne.deleteProject()
-    //   .then(function(deletedProject) {
-    //     expect(deletedProject.wireframes).to.be.undefined;
-    //     done();
-    //   })
-    //   .then(null, function(err) {
-    //     done(err);
-    //   });
-    // });
+      projTwo.setMaster(projTwo.wireframes[0])
+      .then(function(newMasterWireframe) {
+        expect(newMasterWireframe._id.toString()).to.be.equal(projTwo.wireframes[0].toString());
+        done();
+      })
+      .then(null, function(err) {
+        done(err);
+      });
+    });
+
+    it('deletes a project', function(done) {
+      projOne.deleteProject()
+      .then(function(deletedProject) {
+        expect(deletedProject.wireframes).to.be.undefined;
+        done();
+      })
+      .then(null, function(err) {
+        done(err);
+      });
+    });
 
   });
 
