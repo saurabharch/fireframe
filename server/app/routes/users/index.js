@@ -47,10 +47,14 @@ router.get('/:id', auth.ensureCurrentUserOrAdmin, function(req, res, next) {
 
 //get Teams user is a part of
 router.get('/:id/teams', function(req, res, next){
-  Team.find({admin: req.params.id})
+  var id = req.params.id;
+  Team.find({
+    $or: [{ members: id }, { creator: id }]
+  })
   .then(function(teams){
     res.json(teams);
-  });
+  })
+  .then(null, next);
 });
 
 //add user
