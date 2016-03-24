@@ -3,11 +3,7 @@ app.config(function($stateProvider){
 		url: '/editor/:id',
 		templateUrl: '/js/editor/editor.html',
 		resolve: {
-			// wireframe: function(Wireframe){
-			// 	return Wireframe.getWireframe();
-			// }
 			wireframe: function($stateParams, Wireframe) {
-				console.log($stateParams, 'our state params');
 				return Wireframe.fetchOne($stateParams.id)
 			}
 		},
@@ -151,7 +147,6 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 			let z = getZindex(el);
 			if(z > maxZ) maxZ = z;
 		});
-		console.log(maxZ);
 		return maxZ;
 	}
 
@@ -168,7 +163,6 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 
 	function getZrange(){
 		var elementArray = getElementArray();
-		console.log("element array", elementArray);
 		return elementArray.length;
 	}
 

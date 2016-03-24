@@ -5,12 +5,13 @@ module.exports = router;
 
 var mongoose = require('mongoose');
 var Project = mongoose.model('Project');
+var Team = mongoose.model('Team');
 var auth = require('../authentication');
 
 router.param('id', function(req, res, next, id) {
 	Project.findById(id)
   .populate('wireframes', 'photoUrl master parent children')
-  .populate('team', 'members administrator')
+  .populate('team', 'members creator')
   .populate('comments')
 	.then(project => {
 		if (project) {
@@ -27,9 +28,15 @@ router.param('id', function(req, res, next, id) {
 
 //get all projects
 router.get('/', function(req, res, next) {
+  var id = req.user._id;
   //find all projects that the user is a member of, or the creator of
-	Project.find({
-    $or: [{ creator: req.user._id }], //{ 'req.user._id': { $in: team.members } }]
+  Team.find({
+    $or: [{ members: id }, { creator: id }]
+  })
+  .then(teams => {
+    return Project.find({
+      $or: [{ creator: id }, { team: { $in: teams }}]
+    })
   })
   .then(projects => {
     res.json(projects);
