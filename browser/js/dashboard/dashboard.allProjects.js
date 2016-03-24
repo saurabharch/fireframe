@@ -5,7 +5,6 @@ app.config(function($stateProvider) {
 		templateUrl: '/js/dashboard/dashboard.allProjects.html',
 		resolve: {
 			projects: function(User) {
-				console.log('fuck');
 				return User.fetchProjects()
 			}
 		},
@@ -14,5 +13,5 @@ app.config(function($stateProvider) {
 });
 
 app.controller('AllProjectsCtrl', function($scope, projects) {
-	$scope.projects = projects
+	$scope.projects = projects;
 });
