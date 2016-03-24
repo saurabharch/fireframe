@@ -25,6 +25,14 @@ body {
   width:100%;
 }
 
+.btn-cool {
+  background: #3ACF91;
+}
+
+.btn-warm {
+  background: #FF7B47;
+}
+
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';
