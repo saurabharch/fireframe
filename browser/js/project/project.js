@@ -17,9 +17,9 @@ app.controller('ProjectCtrl', function($scope, project, Wireframe) {
 	$scope.history = [];
 	$scope.altBranches = [];
 	$scope.master = project.wireframes.filter(frame => frame.master === true)[0];
+	$scope.active = $scope.master;
 
-
-	traverseFrames($scope.master);
+	traverseFrames($scope.active);
 	console.log($scope.master);
 	console.log($scope.history);
 	console.log($scope.altBranches);
@@ -28,17 +28,26 @@ app.controller('ProjectCtrl', function($scope, project, Wireframe) {
 		Wireframe.fork($scope.master._id, $scope.project._id);
 	};
 
+	$scope.changeActive = function(frame){
+		$scope.active = frame;
+		console.log($scope.active);
+		$scope.history = [];
+		$scope.altBranches = [];
+		traverseFrames($scope.active);
+	};
 
 
 	//Fill out history and branches by traversing project frame tree
 	function traverseFrames(frame) {
 		//Find history
-		var parent = $.grep($scope.project.wireframes, e => e._id === frame.parent)[0];
+		if (frame.parent){
+			var parent = $.grep($scope.project.wireframes, e => e._id === frame.parent)[0];
+		}
 		if(parent){
 			$scope.history.push(parent);
 			traverseFrames(parent);
 		}
-		$scope.altBranches = $.grep($scope.project.wireframes, e => !e.children.length && e != $scope.master);
+		$scope.altBranches = $.grep($scope.project.wireframes, e => !e.children.length && e != $scope.active);
 	}
 
 

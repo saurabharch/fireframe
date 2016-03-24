@@ -42,11 +42,11 @@ var auth = {
 
 	ensureTeamMemberOrAdmin: function(req, res, next) {
 		next()
-		if (auth.isTeamMember(req.user, req.project.team) || auth.isAdmin(req.user)) {
-			next()
-		} else {
-			next(Error('You shall not pass.'));
-		}
+		// if (auth.isTeamMember(req.user, req.project.team) || auth.isAdmin(req.user)) {
+		// 	next()
+		// } else {
+		// 	next(Error('You shall not pass.'));
+		// }
 	},
 
 	ensureTeamAdmin: function(req, res, next) {
