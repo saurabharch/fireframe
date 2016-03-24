@@ -15,20 +15,28 @@ connectToDb.then(function () {
     chalk.green('Dropped DB before seeding');
 
     return User.create([
-        {
+        {   
+            firstName: 'Gus',
+            lastName: 'Fring',
             email: 'testing@fsa.com',
             password: 'password'
         },
         {
+            firstName: 'Jeremy',
+            lastName: 'Obama',
             email: 'obama@gmail.com',
             password: 'potus',
             admin: true
         },
         {
+            firstName: 'Donald',
+            lastName: 'Drumpf',
             email: 'test@gmail.com',
             password: '1'
         },
         {
+            firstName: 'Ted',
+            lastName: 'Rubio',
             email: 'user1@gmail.com',
             password: '1'
         }
