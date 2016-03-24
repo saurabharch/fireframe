@@ -62,4 +62,35 @@ $sideBarWidth: 200px;
 		text-align:left;
 		margin-bottom:10px;
 	}
+
+	.project-table {
+
+		thead td{
+			background-color:#444;
+			font-size:1.2em;
+			color:#aaa;
+		}
+
+		width:100%;
+
+		tbody tr {
+			width:100%;
+
+			:nth-child(odd){
+				background-color:#aaa;
+			}
+
+			:nth-child(even){
+				background-color:#888;
+			};
+
+		}
+
+		td {
+			width:50%;
+
+
+
+		}
+	}
 }

@@ -25,6 +25,33 @@ var WireframeSchema = new mongoose.Schema({
 
 });
 
+
+// WireframeSchema.methods.populateComponents = function() {
+// 	var wireframe = this;
+// 	return Component.find({
+// 		wireframe: wireframe._id
+// 	})
+// 	.then(function(components) {
+// 		wireframe.components = components;
+// 		return wireframe;
+// 	});
+// };
+// WireframeSchema.methods.setMaster = function(wireframe) {
+// 	var project = this;
+// 	return Wireframe.findOne({
+// 		project: project._id,
+// 		master: true
+// 	})
+// 	.then(function(oldMaster) {
+// 		oldMaster.master = false
+// 		return oldMaster.save()
+// 	})
+// 	.then(function() {
+// 		wireframe.master = true;
+// 		return wireframe.save();
+// 	})
+// }
+
 WireframeSchema.methods.clone = function() {
 	var oldWireframe = this;
 	var wireframeCopy = {};
@@ -63,10 +90,7 @@ WireframeSchema.methods.clone = function() {
 WireframeSchema.methods.saveWithComponents = function(updatedWireframe) {
 	var wireframe = this;
 	var newWireframe;
-
-	wireframe.components = [];
-	_.merge(wireframe, updatedWireframe);
-
+	wireframe.components = updatedWireframe.components;
 	return wireframe.save();
 }
 
