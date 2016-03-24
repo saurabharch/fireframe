@@ -90,10 +90,7 @@ WireframeSchema.methods.clone = function() {
 WireframeSchema.methods.saveWithComponents = function(updatedWireframe) {
 	var wireframe = this;
 	var newWireframe;
-
-	wireframe.components = [];
-	_.merge(wireframe, updatedWireframe);
-
+	wireframe.components = updatedWireframe.components;
 	return wireframe.save();
 }
 
