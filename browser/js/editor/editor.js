@@ -3,11 +3,7 @@ app.config(function($stateProvider){
 		url: '/editor/:id',
 		templateUrl: '/js/editor/editor.html',
 		resolve: {
-			// wireframe: function(Wireframe){
-			// 	return Wireframe.getWireframe();
-			// }
 			wireframe: function($stateParams, Wireframe) {
-				console.log($stateParams, 'our state params');
 				return Wireframe.fetchOne($stateParams.id)
 			}
 		},
@@ -16,19 +12,17 @@ app.config(function($stateProvider){
 });
 
 app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, Interact, CSS, Firebase, Screen, Wireframe) {
+	$scope.wireframe = wireframe;
+	$scope.board = $('#wireframe-board');
+
 	var newFork = true;
 	//check if project create or project join
 	newFork ? Firebase.createRoom(wireframe, $scope) : Firebase.joinRoom(wireframe, $scope);
 
-	$scope.wireframe = wireframe;
 	//$scope.components = wireframe.components;
-	$scope.board = $('#wireframe-board');
 	$scope.activeOpacity = 1;
 	$scope.activeColor = "#F00";
 	$scope.elementsRendered = $scope.elementsRendered || false;
-
-	//load saved elements, if any
-	Component.load($scope.components, $scope);
 
 	//initialize dragging and resizing
 	Interact.dragAndResize();
@@ -151,7 +145,6 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 			let z = getZindex(el);
 			if(z > maxZ) maxZ = z;
 		});
-		console.log(maxZ);
 		return maxZ;
 	}
 
@@ -168,7 +161,6 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 
 	function getZrange(){
 		var elementArray = getElementArray();
-		console.log("element array", elementArray);
 		return elementArray.length;
 	}
 

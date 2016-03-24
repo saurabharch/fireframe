@@ -37,7 +37,7 @@ router.get('/', auth.ensureAdmin, function(req, res, next) {
 });
 
 //nested sub-routers
-router.use('/:id/projects/', ProjectRouter);
+// router.use('/:id/projects/', ProjectRouter);
 // router.use('/:id/teams/', TeamRouter);
 
 //get user by ID
@@ -47,10 +47,15 @@ router.get('/:id', auth.ensureCurrentUserOrAdmin, function(req, res, next) {
 
 //get Teams user is a part of
 router.get('/:id/teams', function(req, res, next){
-  Team.find({admin: req.params.id})
+  var id = req.params.id;
+  Team.find({
+    $or: [{ members: id }, { creator: id }]
+  })
+  .populate('administrator members')
   .then(function(teams){
     res.json(teams);
-  });
+  })
+  .then(null, next);
 });
 
 //add user

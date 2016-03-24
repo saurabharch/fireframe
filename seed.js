@@ -6,7 +6,7 @@ var User = mongoose.model('User');
 var Team = mongoose.model('Team');
 var Project = mongoose.model('Project');
 var Wireframe = mongoose.model('Wireframe');
-var allUsers;
+var allUsers, allTeams;
 
 
 connectToDb.then(function () {
@@ -15,20 +15,28 @@ connectToDb.then(function () {
     chalk.green('Dropped DB before seeding');
     // console.log("LOOK HERE");
     return User.create([
-        {
+        {   
+            firstName: 'Gus',
+            lastName: 'Fring',
             email: 'testing@fsa.com',
             password: 'password'
         },
         {
+            firstName: 'Jeremy',
+            lastName: 'Obama',
             email: 'obama@gmail.com',
             password: 'potus',
             admin: true
         },
         {
+            firstName: 'Donald',
+            lastName: 'Drumpf',
             email: 'test@gmail.com',
             password: '1'
         },
         {
+            firstName: 'Ted',
+            lastName: 'Rubio',
             email: 'user1@gmail.com',
             password: '1'
         }
@@ -49,32 +57,14 @@ connectToDb.then(function () {
         }
     ]);
 }).then(function(teams) {
+    allTeams = teams;
     // console.log('-------------')
     // console.log('teams: ', teams)
-    return Project.create([
-        {
-            name: "Fullstack Website",
-            team: teams[0],
-            creator: allUsers[0],
-            wireframes: [],
-            type: "Website"
-        }, 
-        {
-            name: "Jimmy's Newsletter",
-            team: teams[1],
-            creator: allUsers[1],
-            wireframes: [],
-            type: "Newsletter"
-        }
-    ]);
- })
-.then(function(projects) {
-    console.log('-------------')
-    console.log('projects: ', projects)
+
     return Wireframe.create([
         {
             master: true,
-            // project: projects[0],
+
             components: [
                 {
                     type: "box",
@@ -109,7 +99,6 @@ connectToDb.then(function () {
         },
         {
             master: true,
-            // project: projects[1],
             components: [
                 {
                     type: "box",
@@ -143,7 +132,27 @@ connectToDb.then(function () {
             photoUrl: 'http://wireframesketcher.com/samples/YouTube.png'
         }
     ]);
- }).then(function(){
+
+}).then(function(wireframes) {
+    // console.log('-------------')
+    // console.log('wireframes: ', wireframes)
+    return Project.create([
+        {
+            name: "Fullstack Website",
+            team: allTeams[0],
+            creator: allUsers[0],
+            wireframes: [wireframes[0]],
+            type: "Website"
+        }, 
+        {
+            name: "Jimmy's Newsletter",
+            team: allTeams[1],
+            creator: allUsers[1],
+            wireframes: [wireframes[1]],
+            type: "Newsletter"
+        }
+    ]);
+}).then(function(){
     chalk.green('Seed successful!');
     process.kill(0);
 }).catch(function (err) {

@@ -72,18 +72,6 @@ app.factory('Component', function($compile, CSS) {
 			component.style.left = element.position().left;
 			component.style.top = element.position().top;
 
-			//this results in an array of object like this
-			//styles: {
-				// border-color: "rgb(0, 0, 0)"
-				// border-style: "solid"
-				// height: "400px"
-				// left: 0
-				// opacity: "1"
-				// top: 0
-				// width: "400px"
-				// z-index: "auto"
-			//},
-			//type: "base-layer"
 			return component;
 		},
 
