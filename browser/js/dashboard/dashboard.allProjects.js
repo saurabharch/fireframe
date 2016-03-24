@@ -13,5 +13,5 @@ app.config(function($stateProvider) {
 });
 
 app.controller('AllProjectsCtrl', function($scope, projects) {
-	$scope.projects = projects
+	$scope.projects = projects;
 });
