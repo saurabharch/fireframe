@@ -13,7 +13,7 @@ connectToDb.then(function () {
     mongoose.connection.db.dropDatabase();
 }).then(function() {
     chalk.green('Dropped DB before seeding');
-
+    // console.log("LOOK HERE");
     return User.create([
         {   
             firstName: 'Gus',
@@ -60,9 +60,11 @@ connectToDb.then(function () {
     allTeams = teams;
     // console.log('-------------')
     // console.log('teams: ', teams)
+
     return Wireframe.create([
         {
             master: true,
+
             components: [
                 {
                     type: "box",
@@ -130,6 +132,7 @@ connectToDb.then(function () {
             photoUrl: 'http://wireframesketcher.com/samples/YouTube.png'
         }
     ]);
+
 }).then(function(wireframes) {
     // console.log('-------------')
     // console.log('wireframes: ', wireframes)
@@ -153,6 +156,6 @@ connectToDb.then(function () {
     chalk.green('Seed successful!');
     process.kill(0);
 }).catch(function (err) {
-    console.error(err);
+    console.log(err);
     process.kill(1);
 });
