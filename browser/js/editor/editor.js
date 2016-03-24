@@ -12,19 +12,17 @@ app.config(function($stateProvider){
 });
 
 app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, Interact, CSS, Firebase, Screen, Wireframe) {
+	$scope.wireframe = wireframe;
+	$scope.board = $('#wireframe-board');
+
 	var newFork = true;
 	//check if project create or project join
 	newFork ? Firebase.createRoom(wireframe, $scope) : Firebase.joinRoom(wireframe, $scope);
 
-	$scope.wireframe = wireframe;
 	//$scope.components = wireframe.components;
-	$scope.board = $('#wireframe-board');
 	$scope.activeOpacity = 1;
 	$scope.activeColor = "#F00";
 	$scope.elementsRendered = $scope.elementsRendered || false;
-
-	//load saved elements, if any
-	Component.load($scope.components, $scope);
 
 	//initialize dragging and resizing
 	Interact.dragAndResize();

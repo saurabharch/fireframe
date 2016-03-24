@@ -57,6 +57,14 @@ $swatch-side: $left-width / 10;
   background-image: linear-gradient(to right, #ceeade 1px, transparent 1px), linear-gradient(to bottom, #ceeade 1px, transparent 1px);
 }
 
+.phantom-board {
+  left: 0 !important;
+  width: 100% !important;
+  z-index: 1000 !important;
+  overflow: visible !important;
+  background: white !important;
+}
+
 $btn-side: .45 * $left-width;
 
 .tool-panel {
