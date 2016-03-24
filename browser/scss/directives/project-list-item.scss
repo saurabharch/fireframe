@@ -1,0 +1,30 @@
+/*project-item {
+	height:10px;
+}*/
+
+.project-item {
+	background-color:#888;
+	margin:2px 0px;
+	height:15px;
+	display:block;
+}
+
+/*.project-name {
+	float:left;
+}
+
+.project-creator{
+	float:right;
+}*/
+
+.project-name, .project-creator {
+	font-size:1.5em;
+	background-color:#aaa;
+	padding:5px;
+	display:inline-block;
+	/*margin-top:-0.8em;*/
+}
+
+.row-center {
+	margin-top:-10px;
+}

@@ -37,7 +37,7 @@ router.get('/', auth.ensureAdmin, function(req, res, next) {
 });
 
 //nested sub-routers
-router.use('/:id/projects/', ProjectRouter);
+// router.use('/:id/projects/', ProjectRouter);
 // router.use('/:id/teams/', TeamRouter);
 
 //get user by ID
