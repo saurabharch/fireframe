@@ -15,7 +15,7 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	$scope.wireframe = wireframe;
 	$scope.board = $('#wireframe-board');
 
-	var newFork = true;
+	var newFork = false;
 	//check if project create or project join
 	newFork ? Firebase.createRoom(wireframe, $scope) : Firebase.joinRoom(wireframe, $scope);
 
