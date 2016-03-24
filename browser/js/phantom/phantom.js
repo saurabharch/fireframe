@@ -24,8 +24,8 @@ app.controller('PhantomCtrl', function($scope, wireframe, Component, CSS, Wirefr
 	var widthScale = width/projectWidth*100;
 
 	var height = $(window).height();
-	var projectHeight = $scope.board.prop('scrollHeight');
-	var heightScale = height/projectHeight*100+50;
+	var projectHeight = $scope.board.prop('scrollHeight')+50;
+	var heightScale = height/projectHeight*100;
 
 	var scale = (heightScale > widthScale) ? widthScale : heightScale;
 
