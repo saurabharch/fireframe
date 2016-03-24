@@ -53,7 +53,7 @@ connectToDb.then(function () {
         {
             name: "Team Concrete",
             administrator: users[1],
-            members: [users[3]]
+            members: [users[1], users[3]]
         }
     ]);
 }).then(function(teams) {
