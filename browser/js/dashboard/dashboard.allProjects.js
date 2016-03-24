@@ -5,7 +5,6 @@ app.config(function($stateProvider) {
 		templateUrl: '/js/dashboard/dashboard.allProjects.html',
 		resolve: {
 			projects: function(User) {
-				console.log('fuck');
 				return User.fetchProjects()
 			}
 		},

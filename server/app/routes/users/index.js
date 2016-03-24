@@ -37,7 +37,7 @@ router.get('/', auth.ensureAdmin, function(req, res, next) {
 });
 
 //nested sub-routers
-router.use('/:id/projects/', ProjectRouter);
+// router.use('/:id/projects/', ProjectRouter);
 // router.use('/:id/teams/', TeamRouter);
 
 //get user by ID
@@ -51,6 +51,7 @@ router.get('/:id/teams', function(req, res, next){
   Team.find({
     $or: [{ members: id }, { creator: id }]
   })
+  .populate('administrator members')
   .then(function(teams){
     res.json(teams);
   })
