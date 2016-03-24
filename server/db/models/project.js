@@ -45,9 +45,9 @@ ProjectSchema.methods.deleteProject = function() {
 	var project = this;
 
 	return project.remove()
-	// .then(function() {
-	// 	return Wireframe.remove(project.wireframes)
-	// });
+	.then(function() {
+		return Wireframe.remove(project.wireframes)
+	});
 };
 
 ProjectSchema.methods.setMaster = function(wireframe) {
