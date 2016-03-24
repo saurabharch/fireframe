@@ -51,6 +51,7 @@ router.get('/:id/teams', function(req, res, next){
   Team.find({
     $or: [{ members: id }, { creator: id }]
   })
+  .populate('administrator members')
   .then(function(teams){
     res.json(teams);
   })
