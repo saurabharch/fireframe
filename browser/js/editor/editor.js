@@ -3,8 +3,18 @@ app.config(function($stateProvider){
 		url: '/editor/:id',
 		templateUrl: '/js/editor/editor.html',
 		resolve: {
-			wireframe: function($stateParams, Wireframe) {
-				return Wireframe.fetchOne($stateParams.id)
+			wireframe: function($stateParams, Wireframe, Firebase) {
+				return Firebase.checkForComponents($stateParams.id)
+				.then(components => {
+					if (!components.val()) {
+						return Wireframe.fetchOne($stateParams.id)
+					} else {
+						return { _id: $stateParams.id, existing: true }
+					}
+				})
+				.then(null, function(err){
+					console.log(err);
+				})
 			}
 		},
 		controller: 'EditorCtrl'
@@ -15,9 +25,8 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	$scope.wireframe = wireframe;
 	$scope.board = $('#wireframe-board');
 
-	var newFork = true;
-	//check if project create or project join
-	newFork ? Firebase.createRoom(wireframe, $scope) : Firebase.joinRoom(wireframe, $scope);
+	console.log(wireframe, 'hmmmm')
+	$scope.wireframe.existing ? Firebase.joinRoom(wireframe, $scope) : Firebase.createRoom(wireframe, $scope);
 
 	//$scope.components = wireframe.components;
 	$scope.activeOpacity = 1;
