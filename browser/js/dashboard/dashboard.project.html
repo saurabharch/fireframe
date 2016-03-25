@@ -5,6 +5,7 @@
 		<br><br>
 		<button class="btn btn-warm" ng-click="forkFrame()">Create Fork</button>
 		<button class="btn btn-cool" ng-show="currentEdit()" ng-click="joinRoom()">Join Editing</button>
+		<button class="btn btn-liquid" ng-hide="isMaster()" ng-click="setMaster()">Set Master</button>
 		<br>
 		<label>Project Description</label>
 		<br>

@@ -55,8 +55,8 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 		traverseFrames($scope.active);
 	};
 
-	$scope.currentEdit = function(){
-		return $scope.project.activeEdits.indexOf($scope.active._id) !== -1;
+	$scope.setMaster = function(){
+		$scope.master = $scope.active;
 	};
 
 	$scope.joinRoom = function(){
@@ -66,8 +66,9 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 	//Fill out history and branches by traversing project frame tree
 	function traverseFrames(frame) {
 		//Find history
+		var parent;
 		if (frame.parent){
-			var parent = $.grep($scope.project.wireframes, e => e._id === frame.parent)[0];
+			parent = $.grep($scope.project.wireframes, e => e._id === frame.parent)[0];
 		}
 		if(parent){
 			$scope.history.push(parent);
@@ -77,28 +78,14 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 	}
 
 
-	// 	//Find alternate branches
-	// 		traverseDown(frame);
+	//Functions checking current scope status
 
-	// }
+	$scope.currentEdit = function(){
+		return $scope.project.activeEdits.indexOf($scope.active._id) !== -1;
+	};
 
-	// //Doesn't find history, only children in order to find branches
-	// function traverseDown(frame){
-	// 	console.log("traversing down ", frame);
-	// 	if(frame.children){
-	// 		frame.children.forEach(function(childId){
-	// 			console.log("childId is ", childId);
-	// 			let child = $.grep($scope.project.wireframes, e => e._id = childId)[0];
-	// 			console.log("child is ", child);
-	// 			if(childId != $scope.master._id){
-	// 				console.log("Going deeper, sir!");
-	// 				traverseDown(child);
-	// 			}
-	// 		});
-	// 	} else if(frame !== $scope.master) {
-	// 		console.log("adding alt Branch, captain!");
-	// 		$scope.altBranches.push(frame);
-	// 	}
-	// }
+	$scope.isMaster = function(){
+		return $scope.active === $scope.master;
+	};
 
 });
