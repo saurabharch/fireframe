@@ -28,6 +28,8 @@ module.exports = function (app) {
 
     app.post('/signup', function(req, res, next){
         User.create({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
             email:req.body.email,
             password:req.body.password
         })
