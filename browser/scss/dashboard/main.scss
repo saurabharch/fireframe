@@ -76,12 +76,17 @@ $sideBarWidth: 200px;
 		tbody tr {
 			width:100%;
 
-			:nth-child(odd){
+			&:nth-child(odd){
 				background-color:#aaa;
 			}
 
-			:nth-child(even){
+			&:nth-child(even){
 				background-color:#888;
+			};
+
+			&:hover {
+				background-color:#555;
+				color:#fff;
 			};
 
 		}

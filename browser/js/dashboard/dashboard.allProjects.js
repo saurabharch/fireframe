@@ -14,4 +14,10 @@ app.config(function($stateProvider) {
 
 app.controller('AllProjectsCtrl', function($scope, projects) {
 	$scope.projects = projects;
+
+	$(document).ready(function() {
+		$('tr').on('mouseover', function(e) {
+			$(this).toggleClass('active');
+		});
+	});
 });
