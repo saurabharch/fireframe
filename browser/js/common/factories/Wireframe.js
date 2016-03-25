@@ -29,13 +29,9 @@ app.factory('Wireframe', function($http, $log, Firebase, Component) {
 
 		//fork should be invoked after moving to the editor state
 		//we can display a loading screen while we resolve the wireframe fork and create the firebase room based on the returned id
-		fork: function(wireframeId, scope) {
-			return $http.get(path+wireframeId+'/fork')
+		fork: function(wireframeId, projectId) {
+			return $http.post(path+wireframeId+'/fork', {id: projectId})
 			.then(extractData)
-			.then(wireframe => {
-				Firebase.createRoom(wireframe, scope);
-				return wireframe;
-			})
 			.catch($log);
 		},
 

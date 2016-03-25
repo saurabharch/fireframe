@@ -1,0 +1,23 @@
+<div class="row">
+	<div class="col-lg-8 col-lg-offset-1">
+		<label>Project Name</label> <br>
+		<img src="http://creatage.com/wp-content/uploads/2012/04/wireframe-lrg.jpg">
+		<br><br>
+		<button class="btn btn-cool" ng-click="joinRoom()">Join Editing</button>
+		<button class="btn btn-warm" ng-click="forkFrame()">Create Fork</button>
+		<br>
+		<label>Project Description</label>
+		<br>
+		<label>Comments</label>
+	</div>
+
+	<div class="col-lg-3">
+		<div ng-repeat="frame in altBranches" ng-click="changeActive(frame)">
+			<label>History</label><br>
+			<img src="http://creatage.com/wp-content/uploads/2012/04/wireframe-lrg.jpg" height="100" width="100" ng-click="changeActive($event)">
+			<label>{{frame._id}}</label>
+
+		</div>
+	</div>
+
+</div>

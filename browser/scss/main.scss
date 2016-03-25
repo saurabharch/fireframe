@@ -25,11 +25,19 @@ body {
   width:100%;
 }
 
+.btn-cool {
+  background: #3ACF91;
+}
+
+.btn-warm {
+  background: #FF7B47;
+}
+
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';
 @import 'tutorial/main';
 @import 'login/main';
 @import 'editor/main';
-@import 'user/user';
+@import 'dashboard/main';
 @import 'signup/main';
