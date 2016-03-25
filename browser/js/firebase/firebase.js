@@ -1,13 +1,16 @@
 app.factory('Firebase', function(Component, Session) {
+  var firebase;
   var firebaseComponents
   var firebaseUsers;
-  var currentUser = Session.user || Session.id || Math.round(100*Math.random());
+  var currentUser = Session.id || Math.round(100*Math.random());
   var activeUsers = [];
 
   var factory = {
-    connect: function(wireframeId, $scope) {
-      firebaseUsers = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframeId + "/users");
-      firebaseComponents = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframeId + "/components");
+    connect: function(wireframe, $scope) {
+      //don't think we need to do three firebase refs, maybe just one and add child...not sure which is better
+      firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframe.project + "/wireframes/" + wireframe._id);
+      firebaseUsers = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframe.project + "/wireframes/" + wireframe._id + "/users");
+      firebaseComponents = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframe.project + "/wireframes/" + wireframe._id + "/components");
       
       //add current user to room
       firebaseUsers.child(currentUser).set('connected');
@@ -16,9 +19,9 @@ app.factory('Firebase', function(Component, Session) {
       //this feels quite hacky, though I can't figure out a good way to delete components if everyone leaves a room
       function setOnDisconnect() {
         if(activeUsers.length<=1) {
-          firebaseComponents.onDisconnect().remove();  
+          firebase.onDisconnect().remove();  
         } else {
-          firebaseComponents.onDisconnect().cancel();
+          firebase.onDisconnect().cancel();
           firebaseUsers.onDisconnect().cancel();
         }
         firebaseUsers.child(currentUser).onDisconnect().remove();
@@ -74,8 +77,8 @@ app.factory('Firebase', function(Component, Session) {
       });
     },
 
-    checkForComponents: function(wireframeId, $scope) {
-      var firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/"+wireframeId);
+    checkForComponents: function(wireframeId, projectId) {
+      var firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + projectId + '/wireframes/' + wireframeId);
       
       //firebase promises not working => made our own
       return new Promise(function(resolve, reject) {
@@ -88,16 +91,18 @@ app.factory('Firebase', function(Component, Session) {
     },
 
     createRoom: function(wireframe, $scope) {
-      factory.connect(wireframe._id, $scope);
+      factory.connect(wireframe, $scope);
       
-      //load current components to fb
-      wireframe.components.forEach(function(component) {
-        factory.createElement(component.style, component.type);
-      });
+      //load current components to firebase
+      if (wireframe.components) {
+        wireframe.components.forEach(function(component) {
+          factory.createElement(component.style, component.type);
+        });
+      }
     },
 
     joinRoom: function(wireframe, $scope) {
-      factory.connect(wireframe._id, $scope);
+      factory.connect(wireframe, $scope);
       
       //load in existing firebase objects
       firebaseComponents.once('value', function(data) {

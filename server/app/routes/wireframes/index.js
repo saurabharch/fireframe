@@ -52,7 +52,7 @@ router.put('/:id', function(req, res, next) {
       width: 1024,
       height: 768
     },
-    renderDelay: 3000
+    takeShotOnCallback: true
   };
 
   req.wireframe.saveWithComponents(req.body)
@@ -85,10 +85,14 @@ router.delete('/:id', auth.ensureTeamAdmin, function(req, res, next) {
 });
 
 //fork a wireframe
-router.get('/:id/fork', function(req, res, next) {
+router.post('/:id/fork', function(req, res, next) {
   //returns new wireframe, with new instances of all components
-  req.wireframe.clone()
+  Project.findById(req.body.id)
+  .then(function(project){
+    return req.wireframe.clone(project)
+  })
   .then(wireframe => {
+    console.log(wireframe);
     res.json(wireframe);
   })
   .then(null, next);

@@ -17,7 +17,7 @@
 				<td>Project Name</td>
 				<td>Creator</td>
 			</thead>
-			<tr ng-repeat="project in projects | filter:search">
+			<tr ui-sref="dashboard.project({id:project._id})" ng-repeat="project in projects | filter:search">
 				<td>{{project.name}}</td><td>{{project.creator.email}}</td>
 			</tr>
 		</table>
