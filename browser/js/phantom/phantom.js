@@ -20,11 +20,11 @@ app.controller('PhantomCtrl', function($scope, wireframe, Component, CSS, Wirefr
 	
 	//update zoom to fit all elements
 	var width = $(window).width();
-	var projectWidth = $scope.board.prop('scrollWidth')+50;
+	var projectWidth = $scope.board.prop('scrollWidth');
 	var widthScale = width/projectWidth*100;
 
 	var height = $(window).height();
-	var projectHeight = $scope.board.prop('scrollHeight')+50;
+	var projectHeight = $scope.board.prop('scrollHeight');
 	var heightScale = height/projectHeight*100;
 
 	var scale = (heightScale > widthScale) ? widthScale : heightScale;
@@ -32,4 +32,5 @@ app.controller('PhantomCtrl', function($scope, wireframe, Component, CSS, Wirefr
 	CSS.updateZoom(scale);
 	$scope.board.width(width/scale*100);
 	$('navbar').remove();
+	window.callPhantom('takeShot');
 });
