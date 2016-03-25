@@ -42,7 +42,6 @@ describe('Projects Route', function() {
       Project.create({
         name: "Test Project Posting"
       }, function(err, p) {
-        console.log(p, "this should be the new project");
         if (err) return done(err);
         newProject = p;
         done();

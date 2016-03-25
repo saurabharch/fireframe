@@ -29,7 +29,7 @@ router.param('id', function(req, res, next, id) {
 });
 
 //save new wireframe
-router.post('/', function(req, res, next) {
+router.post('/', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
   Wireframe.create(req.body)
   .then(() => {
     res.sendStatus(201);
@@ -38,14 +38,14 @@ router.post('/', function(req, res, next) {
 });
 
 //get single wireframe
-router.get('/:id', function(req, res, next) {
+router.get('/:id', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
   console.log(req.wireframe)
   //return wireframe with components
   res.json(req.wireframe);
 });
 
 //edit current wireframe
-router.put('/:id', function(req, res, next) {
+router.put('/:id', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
   var w;
   var options = {
     windowSize: {
@@ -85,7 +85,7 @@ router.delete('/:id', auth.ensureTeamAdmin, function(req, res, next) {
 });
 
 //fork a wireframe
-router.post('/:id/fork', function(req, res, next) {
+router.post('/:id/fork', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
   //returns new wireframe, with new instances of all components
   Project.findById(req.body.id)
   .then(function(project){
@@ -99,7 +99,7 @@ router.post('/:id/fork', function(req, res, next) {
 })
 
 //set wireframe as new master
-router.get('/:id/master', function(req, res, next) {
+router.get('/:id/master', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
   Project.setMaster(req.wireframe)
   .then(wireframe => {
     res.json(wireframe);
