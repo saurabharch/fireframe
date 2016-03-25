@@ -33,7 +33,7 @@ var auth = {
 	},
 
 	isTeamMember: function(user, team) {
-		return user && (team.members.indexOf(user._id) || auth.isTeamAdmin(user._id));
+		// return user && (team.members.indexOf(user._id) || auth.isTeamAdmin(user._id));
 	},
 
 	isTeamAdmin: function(user, team) {
@@ -51,11 +51,11 @@ var auth = {
 
 	ensureTeamAdmin: function(req, res, next) {
 		next()
-		if (auth.isTeamMember(req.user) || auth.isAdmin(req.user)) {
-			next()
-		} else {
-			next(Error('You shall not pass.'));
-		}
+		// if (auth.isTeamMember(req.user) || auth.isAdmin(req.user)) {
+		// 	next()
+		// } else {
+		// 	next(Error('You shall not pass.'));
+		// }
 	}
 
 }

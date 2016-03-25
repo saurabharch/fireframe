@@ -1,25 +1,60 @@
-app.factory('Firebase', function(Component) {
-
-  var firebase;
+app.factory('Firebase', function(Component, Session) {
+  var firebaseComponents
+  var firebaseUsers;
+  var currentUser = Session.user || Session.id || Math.round(100*Math.random());
+  var activeUsers = [];
 
   var factory = {
     connect: function(wireframeId, $scope) {
-      firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframeId);
+      firebaseUsers = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframeId + "/users");
+      firebaseComponents = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframeId + "/components");
       
+      //add current user to room
+      firebaseUsers.child(currentUser).set('connected');
+      
+      //for every user change, set up disconnect handler depending on number of users currently connected
+      //this feels quite hacky, though I can't figure out a good way to delete components if everyone leaves a room
+      function setOnDisconnect() {
+        if(activeUsers.length<=1) {
+          firebaseComponents.onDisconnect().remove();  
+        } else {
+          firebaseComponents.onDisconnect().cancel();
+          firebaseUsers.onDisconnect().cancel();
+        }
+        firebaseUsers.child(currentUser).onDisconnect().remove();
+      };
+
+      //Event listener, log users joining room
+      firebaseUsers.on('child_added', function(snapshot) {
+        activeUsers.push(snapshot.key());
+        console.log(activeUsers);
+        setOnDisconnect();
+      });
+
+      //Event listener, log users leaving room
+      firebaseUsers.on('child_removed', function(snapshot) {
+        activeUsers = activeUsers.filter(function(user) {
+          return user !== snapshot.key();
+        })
+        setOnDisconnect();
+      });
+
       //Event listener, create element any time a user adds one
-      firebase.on('child_added', function(snapshot) {
+      firebaseComponents.on('child_added', function(snapshot) {
         var key = snapshot.key();
         var element = snapshot.val();
         Component.create(element.type, $scope, element.style, key);
       });
 
-      firebase.on('child_changed', function(snapshot) {
+      //Event listener, edit element any time a user changes one
+      firebaseComponents.on('child_changed', function(snapshot) {
         var key = snapshot.key();
         var element = snapshot.val();
         Component.update(key, element.style);
       });
 
-      firebase.on('child_removed', function(snapshot) {
+      //Event listener, delete element any time a user removes one
+      firebaseComponents.on('child_removed', function(snapshot) {
         var key = snapshot.key();
         var element = snapshot.val();
         Component.deleteComponent(key);
@@ -32,37 +67,50 @@ app.factory('Firebase', function(Component) {
         $(window).on('mouseup', function() {
           var component = Component.saveComponent(selectedElement);
           var key = component.id;
-          firebase.child(key).update({
+          firebaseComponents.child(key).update({
             style: component.style
           });
         })
       });
     },
 
+    checkForComponents: function(wireframeId, $scope) {
+      var firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/"+wireframeId);
+      
+      //firebase promises not working => made our own
+      return new Promise(function(resolve, reject) {
+        firebase.once('value', function(data) {
+          resolve(data);
+        }, function(err) {
+          reject(err);
+        })
+      })
+    },
+
     createRoom: function(wireframe, $scope) {
       factory.connect(wireframe._id, $scope);
       
       //load current components to fb
-      if (wireframe.components) {
-        wireframe.components.forEach(function(component) {
-          factory.createElement(component.style, component.type);
-        });
-      }
+      wireframe.components.forEach(function(component) {
+        factory.createElement(component.style, component.type);
+      });
     },
 
     joinRoom: function(wireframe, $scope) {
       factory.connect(wireframe._id, $scope);
       
       //load in existing firebase objects
-      firebase.once('value', function(data) {
-        data.components.forEach(function(component) {
-          Component.create(component.type, $scope, component.style, component.id);
-        })
+      firebaseComponents.once('value', function(data) {
+        if (data.components) {
+          data.components.forEach(function(component) {
+            Component.create(component.type, $scope, component.style, component.id);
+          })
+        }
       });
     },
 
     createElement: function(style, type) {
-      firebase.push({
+      firebaseComponents.push({
         style: style,
         type: type
       });
@@ -74,7 +122,7 @@ app.factory('Firebase', function(Component) {
       var outerouterDiv = outerDiv.parentNode;
       var id = outerouterDiv.id;
       console.log(id, "the ID"); //gotta figure out how to put ID in the button div to avoid the parent parent parent...
-      firebase.child(id).remove(function() {
+      firebaseComponents.child(id).remove(function() {
         console.log("deleting element?? ?");
       });
     },
