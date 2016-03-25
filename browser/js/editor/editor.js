@@ -29,7 +29,6 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	$scope.wireframe = wireframe;
 	$scope.board = $('#wireframe-board');
 
-	console.log(wireframe, 'hmmmm')
 	$scope.wireframe.existing ? Firebase.joinRoom(wireframe, $scope) : Firebase.createRoom(wireframe, $scope);
 
 	//$scope.components = wireframe.components;
