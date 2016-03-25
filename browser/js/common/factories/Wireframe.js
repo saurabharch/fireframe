@@ -1,4 +1,4 @@
-app.factory('Wireframe', function($http, $log, Firebase, Component, Screen) {
+app.factory('Wireframe', function($http, $log, Firebase, Component) {
 	var path = '/api/wireframes/';
 	var wireframe;
 	
@@ -41,7 +41,6 @@ app.factory('Wireframe', function($http, $log, Firebase, Component, Screen) {
 
 		save: function(wireframe) {
 			wireframe.components = Component.saveComponents();
-			wireframe.canvasImg = Screen.capture();
 
 			return $http.put(path+wireframe._id, wireframe)
 			.then(extractData);

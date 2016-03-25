@@ -2,7 +2,7 @@ app.factory('Firebase', function(Component, Session) {
   var firebase;
   var firebaseComponents
   var firebaseUsers;
-  var currentUser = Session.id || Math.round(100*Math.random());
+  var currentUser = Session.id || Math.round(10000*Math.random());
   var activeUsers = [];
 
   var factory = {
