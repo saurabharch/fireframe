@@ -25,7 +25,7 @@ app.config(function($stateProvider){
 		});
 });
 
-app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, Interact, CSS, Firebase, Screen, Wireframe) {
+app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, Interact, CSS, Firebase, Wireframe) {
 	$scope.wireframe = wireframe;
 	$scope.board = $('#wireframe-board');
 
@@ -33,7 +33,7 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 
 	//$scope.components = wireframe.components;
 	$scope.activeOpacity = 1;
-	$scope.activeColor = "#F00";
+	$scope.activeColor = "#FFF";
 	$scope.elementsRendered = $scope.elementsRendered || false;
 
 	//initialize dragging and resizing
@@ -44,9 +44,9 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	$scope.updateZoom = CSS.updateZoom;
 	
 
-	$scope.saveElements = function() {
-		Component.saveComponents();
-	};
+	// $scope.saveElements = function() {
+	// 	Component.saveComponents();
+	// };
 
 	$scope.deleteElement = Firebase.deleteElement;
 
@@ -64,12 +64,12 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 		color = color.split(', ').map(str => Number(str));
 		color = rgbToHex(color);
 		$scope.activeColor = color;
-		$($scope.active).addClass('active-element');
 	};
 
 	$scope.save = function () {
 		Wireframe.save($scope.wireframe)
 	};
+
 
 	//Z-index arrangement
 
@@ -129,6 +129,7 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 
 //Event listeners
 
+
 	$scope.board.on('mousedown',function(){
 		$($scope.active).removeClass('active-element');
 		$scope.active = null;
@@ -159,17 +160,6 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 		});
 		return maxZ;
 	}
-
-	// function getMinZ(){
-	// 	var minZ = getMaxZ();
-	// 	var elementArray = getElementArray();
-	// 	elementArray.forEach(el => {
-	// 		let z = getZindex(el);
-	// 		if(z < minZ) minZ = z;
-	// 	});
-	// 	console.log(minZ);
-	// 	return minZ;
-	// }
 
 	function getZrange(){
 		var elementArray = getElementArray();
