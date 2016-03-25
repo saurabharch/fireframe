@@ -7,17 +7,14 @@ var mongoose = require('mongoose');
 var Project = mongoose.model('Project');
 var Team = mongoose.model('Team');
 var auth = require('../authentication');
-var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 router.param('id', function(req, res, next, id) {
 	Project.findById(id)
-  .populate('wireframes')//, '_id photoUrl master parent children')
+  .populate('wireframes', 'photoUrl master parent children')
   .populate('team', ' members creator')
   .populate('comments')
 	.then(project => {
 		if (project) {
-      console.log("conditional worked out just fine")
-      console.log("this is our project", project)
       req.project = project;
       next();
     } else {
@@ -53,7 +50,6 @@ router.post('/', auth.ensureUser, function(req, res, next) {
   req.body.creator = req.user._id;
   Project.createNewProject(req.body)
   .then(wireframe => {
-    console.log('pro', wireframe)
     res.json(wireframe);
   })
   .then(null, next)
@@ -61,7 +57,6 @@ router.post('/', auth.ensureUser, function(req, res, next) {
 
 //get single project
 router.get('/:id', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
-  console.log(req.project, '???????')
   res.json(req.project);
 });
 
@@ -87,7 +82,6 @@ router.delete('/:id', auth.ensureTeamAdmin, function(req, res, next) {
 
 //get all wireframes for a project
 router.get('/:id/wireframes', auth.ensureAdmin, function(req, res, next) {
-  console.log("weird shit happened and we got here somehow")
   req.project
   .populate('wireframes')
   .execPopulate()

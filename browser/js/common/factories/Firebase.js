@@ -74,7 +74,7 @@ app.factory('Firebase', function(Component, Session) {
           firebaseComponents.child(key).update({
             style: component.style
           });
-        })
+        });
       });
     },
 
@@ -87,8 +87,22 @@ app.factory('Firebase', function(Component, Session) {
           resolve(data);
         }, function(err) {
           reject(err);
-        })
-      })
+        });
+      });
+    },
+
+    checkForWireframes: function(projectId){
+      var firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + projectId + '/wireframes/');
+        
+      //firebase promises r dum
+      return new Promise(function(resolve, reject) {
+        firebase.once('value', function(data) {
+          resolve(data);
+        }, function(err) {
+          reject(err);
+        });
+      });
+
     },
 
     createRoom: function(wireframe, $scope) {

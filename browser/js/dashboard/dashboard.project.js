@@ -3,15 +3,31 @@ app.config(function($stateProvider) {
 		url: '/project/:id',
 		templateUrl: '/js/dashboard/dashboard.project.html',
 		resolve: {
-			project: function($stateParams, Project) {
-				return Project.fetchProject($stateParams.id);
+			project: function($stateParams, Project, Firebase) {
+				var proj;
+				return Project.fetchProject($stateParams.id)
+				.then(project => {
+					proj = project;
+					return Firebase.checkForWireframes(project._id);
+				})
+				.then(wireframe =>{
+					var edits = wireframe.val();
+					proj.activeEdits = [];
+
+					if (edits) {
+						for(var session in edits) {
+							proj.activeEdits.push(session);
+						}
+					}
+					console.log("Active édits åre: ", proj.activeEdits);
+				}).then(wireframe => proj);
 			}
 		},
 		controller: 'ProjectCtrl'
 	});
 });
 
-app.controller('ProjectCtrl', function($scope, project, Wireframe) {
+app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 	$scope.project = project;
 	console.log(project);
 	$scope.history = [];
@@ -25,7 +41,10 @@ app.controller('ProjectCtrl', function($scope, project, Wireframe) {
 	console.log($scope.altBranches);
 
 	$scope.forkFrame = function(){
-		Wireframe.fork($scope.master._id, $scope.project._id);
+		Wireframe.fork($scope.master._id, $scope.project._id)
+		.then(wireframe=>{
+			$state.go('editor', {id:wireframe._id, projectId:$scope.project._id});
+		});
 	};
 
 	$scope.changeActive = function(frame){
@@ -36,6 +55,13 @@ app.controller('ProjectCtrl', function($scope, project, Wireframe) {
 		traverseFrames($scope.active);
 	};
 
+	$scope.currentEdit = function(){
+		return $scope.project.activeEdits.indexOf($scope.active._id) !== -1;
+	};
+
+	$scope.joinRoom = function(){
+		$state.go('editor', {id:$scope.active._id, projectId: $scope.project._id});
+	};
 
 	//Fill out history and branches by traversing project frame tree
 	function traverseFrames(frame) {
@@ -47,7 +73,7 @@ app.controller('ProjectCtrl', function($scope, project, Wireframe) {
 			$scope.history.push(parent);
 			traverseFrames(parent);
 		}
-		$scope.altBranches = $.grep($scope.project.wireframes, e => !e.children.length && e != $scope.active);
+		$scope.altBranches = $.grep($scope.project.wireframes, e => !e.children.length && e !== $scope.active);
 	}
 
 
