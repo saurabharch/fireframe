@@ -71,7 +71,7 @@ app.controller('NewProjectCtrl', function($scope, $state, user, User, Wireframe)
 			User.addProject(project)
 			.then(wireframe => {
 				Wireframe.setWireframe(wireframe);
-				$state.go('editor', { id: wireframe._id });
+				$state.go('editor', { id: wireframe._id, projectId: wireframe.project });
 			});
 		};
 

@@ -1,15 +1,16 @@
 app.factory('Firebase', function(Component, Session) {
   var firebaseComponents
   var firebaseUsers;
-  var currentUser = Session.user || Session.id || Math.round(100*Math.random());
+  var currentUser = Math.round(100*Math.random());//Session.user || Session.id || 
   var activeUsers = [];
 
   var factory = {
-    connect: function(wireframeId, $scope) {
-      firebaseUsers = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframeId + "/users");
-      firebaseComponents = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframeId + "/components");
+    connect: function(wireframe, $scope) {
+      firebaseUsers = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframe.project + "/wireframes/" + wireframe._id + "/users");
+      firebaseComponents = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframe.project + "/wireframes/" + wireframe._id + "/components");
       
       //add current user to room
+      console.log('current user', currentUser);
       firebaseUsers.child(currentUser).set('connected');
       
       //for every user change, set up disconnect handler depending on number of users currently connected
@@ -74,8 +75,8 @@ app.factory('Firebase', function(Component, Session) {
       });
     },
 
-    checkForComponents: function(wireframeId, $scope) {
-      var firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/"+wireframeId);
+    checkForComponents: function(wireframeId, projectId) {
+      var firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + projectId + '/wireframes/' + wireframeId);
       
       //firebase promises not working => made our own
       return new Promise(function(resolve, reject) {
@@ -88,16 +89,18 @@ app.factory('Firebase', function(Component, Session) {
     },
 
     createRoom: function(wireframe, $scope) {
-      factory.connect(wireframe._id, $scope);
+      factory.connect(wireframe, $scope);
       
-      //load current components to fb
-      wireframe.components.forEach(function(component) {
-        factory.createElement(component.style, component.type);
-      });
+      //load current components to firebase
+      if (wireframe.components) {
+        wireframe.components.forEach(function(component) {
+          factory.createElement(component.style, component.type);
+        });
+      }
     },
 
     joinRoom: function(wireframe, $scope) {
-      factory.connect(wireframe._id, $scope);
+      factory.connect(wireframe, $scope);
       
       //load in existing firebase objects
       firebaseComponents.once('value', function(data) {

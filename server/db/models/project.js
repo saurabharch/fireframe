@@ -35,7 +35,8 @@ ProjectSchema.statics.createNewProject = function(project) {
 		project.wireframes = [wireframe._id];
 		return Project.create(project);
 	})
-	.then(function() {
+	.then(function(project) {
+		wireframe.project = project._id;
 		return wireframe;
 	})
 
