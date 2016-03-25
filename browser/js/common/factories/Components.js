@@ -1,5 +1,5 @@
 app.factory('Component', function($compile, CSS) {
-	var styles = ['width', 'height', 'z-index', 'opacity', 'border-size', 'border-style', 'border-color', 'background-color', 'z-index'];
+	var styles = ['width', 'height', 'z-index', 'opacity', 'border-width', 'border-style', 'border-color', 'background-color', 'z-index'];
 	var factory = {
 		create: function(type, $scope, style, id) {
 			var newElement;
