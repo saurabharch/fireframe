@@ -3,6 +3,8 @@
 var router = require('express').Router();
 module.exports = router;
 
+var webshot = require('webshot');
+
 var mongoose = require('mongoose');
 var Wireframe = mongoose.model('Wireframe');
 var Project = mongoose.model('Project');
@@ -44,12 +46,33 @@ router.get('/:id', function(req, res, next) {
 
 //edit current wireframe
 router.put('/:id', function(req, res, next) {
+  var w;
+  var options = {
+    windowSize: {
+      width: 1024,
+      height: 768
+    },
+    renderDelay: 3000
+  };
+
   req.wireframe.saveWithComponents(req.body)
-  .then(wireframe => {
-    res.json(wireframe);
+  .then(function(wireframe) {
+    w = wireframe;
+    //Screen capture
+    webshot("http://localhost:1337/phantom/"+req.params.id, req.params.id+".png", options, function(err){});
+  })
+  .then(function() {
+    res.json(w);
   })
   .then(null, next);
+
+
+
+  
 });
+
+
+
 
 //delete single wireframe
 //do we want to remove this? only able to delete whole projects, thus saving all versions

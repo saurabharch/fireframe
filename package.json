@@ -71,5 +71,7 @@
   "devDependencies": {
     "chrome": "^0.1.0",
     "karma-chrome-launcher": "^0.2.3"
+    "supertest": "^0.15.0",
+    "webshot": "^0.18.0"
   }
 }

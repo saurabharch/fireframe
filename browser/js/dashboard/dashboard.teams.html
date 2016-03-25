@@ -2,9 +2,8 @@
 	<h1>TEAMS</h1>
 	<form class="form-inline">
 		<div class="form-group">
-	    <input type="text" class="form-control" placeholder="Search">
+	    <input type="text" class="form-control" placeholder="Search" ng-model="search">
 	  </div>
-	  <button type="submit" class="btn btn-default">Submit</button>
 	</form>
 </div>
 
@@ -16,14 +15,14 @@
 	    <div class="panel-heading" role="tab" id="headingOne">
 	      <h4 class="panel-title">
 	        <a data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-	          {{ team.name }} (Admin: {{ team.administrator.email }})
+	          {{ team.name }} (Admin: {{ team.administrator.firstName }} {{ team.administrator.lastName }})
 	        </a>
 	      </h4>
 	    </div>
 	    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 	      <ul class="list-group">
 	        <!--Project 1 Team members. This is placeholder. Should be done with ng-repeat-->
-	      	<li class="list-group-item" ng-repeat="member in team.members">{{ member.email }}</li>
+	      	<li class="list-group-item" ng-repeat="member in team.members | filter: search">{{ member.firstName }} {{ member.lastName }}</li>
 
 	      </ul>
 	    </div>
