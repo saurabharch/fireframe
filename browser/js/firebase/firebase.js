@@ -1,36 +1,43 @@
-app.factory('Firebase', function(Component, AuthService) {
+app.factory('Firebase', function(Component, Session) {
   var firebaseComponents
   var firebaseUsers;
-  var currentUsers = [];
+  var currentUser = Session.user || Session.id || Math.round(100*Math.random());
+  var activeUsers = [];
 
   var factory = {
     connect: function(wireframeId, $scope) {
-      firebaseComponents = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframeId + "/components");
       firebaseUsers = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframeId + "/users");
+      firebaseComponents = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframeId + "/components");
       
-      //on connect => add user to firebase room
-      //on user added => push into every other user's array
-      //on on disconnect => check if user array is length 1
-      //    => if yes, clear data from room
-      //    => if no, just send user removed event
-      //Event listener, create element any time a user adds one
-      // firebaseUsers.on('child_added', function(snapshot) {
-      //   var key = snapshot.key();
-      //   var element = snapshot.val();
-      //   Component.create(element.type, $scope, element.style, key);
-      // });
+      //add current user to room
+      firebaseUsers.child(currentUser).set('connected');
+      
+      //for every user change, set up disconnect handler depending on number of users currently connected
+      //this feels quite hacky, though I can't figure out a good way to delete components if everyone leaves a room
+      function setOnDisconnect() {
+        if(activeUsers.length<=1) {
+          firebaseComponents.onDisconnect().remove();  
+        } else {
+          firebaseComponents.onDisconnect().cancel();
+          firebaseUsers.onDisconnect().cancel();
+        }
+        firebaseUsers.child(currentUser).onDisconnect().remove();
+      };
 
-      // firebaseUsers.on('child_changed', function(snapshot) {
-      //   var key = snapshot.key();
-      //   var element = snapshot.val();
-      //   Component.update(key, element.style);
-      // });
+      //Event listener, log users joining room
+      firebaseUsers.on('child_added', function(snapshot) {
+        activeUsers.push(snapshot.key());
+        console.log(activeUsers);
+        setOnDisconnect();
+      });
 
-      // firebaseUsers.on('child_removed', function(snapshot) {
-      //   var key = snapshot.key();
-      //   var element = snapshot.val();
-      //   Component.deleteComponent(key);
-      // });
+      //Event listener, log users leaving room
+      firebaseUsers.on('child_removed', function(snapshot) {
+        activeUsers = activeUsers.filter(function(user) {
+          return user !== snapshot.key();
+        })
+        setOnDisconnect();
+      });
 
       //Event listener, create element any time a user adds one
       firebaseComponents.on('child_added', function(snapshot) {
@@ -39,12 +46,14 @@ app.factory('Firebase', function(Component, AuthService) {
         Component.create(element.type, $scope, element.style, key);
       });
 
+      //Event listener, edit element any time a user changes one
       firebaseComponents.on('child_changed', function(snapshot) {
         var key = snapshot.key();
         var element = snapshot.val();
         Component.update(key, element.style);
       });
 
+      //Event listener, delete element any time a user removes one
       firebaseComponents.on('child_removed', function(snapshot) {
         var key = snapshot.key();
         var element = snapshot.val();
@@ -65,15 +74,26 @@ app.factory('Firebase', function(Component, AuthService) {
       });
     },
 
+    checkForComponents: function(wireframeId, $scope) {
+      var firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/"+wireframeId);
+      
+      //firebase promises not working => made our own
+      return new Promise(function(resolve, reject) {
+        firebase.once('value', function(data) {
+          resolve(data);
+        }, function(err) {
+          reject(err);
+        })
+      })
+    },
+
     createRoom: function(wireframe, $scope) {
       factory.connect(wireframe._id, $scope);
       
       //load current components to fb
-      if (wireframe.components) {
-        wireframe.components.forEach(function(component) {
-          factory.createElement(component.style, component.type);
-        });
-      }
+      wireframe.components.forEach(function(component) {
+        factory.createElement(component.style, component.type);
+      });
     },
 
     joinRoom: function(wireframe, $scope) {
@@ -81,9 +101,11 @@ app.factory('Firebase', function(Component, AuthService) {
       
       //load in existing firebase objects
       firebaseComponents.once('value', function(data) {
-        data.components.forEach(function(component) {
-          Component.create(component.type, $scope, component.style, component.id);
-        })
+        if (data.components) {
+          data.components.forEach(function(component) {
+            Component.create(component.type, $scope, component.style, component.id);
+          })
+        }
       });
     },
 
