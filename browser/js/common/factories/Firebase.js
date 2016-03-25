@@ -2,7 +2,7 @@ app.factory('Firebase', function(Component, Session) {
   var firebase;
   var firebaseComponents
   var firebaseUsers;
-  var currentUser = Math.round(100*Math.random());//Session.user || Session.id || 
+  var currentUser = Session.id || Math.round(100*Math.random());
   var activeUsers = [];
 
   var factory = {
@@ -13,7 +13,6 @@ app.factory('Firebase', function(Component, Session) {
       firebaseComponents = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframe.project + "/wireframes/" + wireframe._id + "/components");
       
       //add current user to room
-      console.log('current user', currentUser);
       firebaseUsers.child(currentUser).set('connected');
       
       //for every user change, set up disconnect handler depending on number of users currently connected

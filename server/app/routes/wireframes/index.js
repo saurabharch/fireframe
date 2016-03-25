@@ -52,7 +52,7 @@ router.put('/:id', function(req, res, next) {
       width: 1024,
       height: 768
     },
-    renderDelay: 3000
+    takeShotOnCallback: true
   };
 
   req.wireframe.saveWithComponents(req.body)
