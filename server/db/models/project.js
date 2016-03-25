@@ -31,11 +31,13 @@ ProjectSchema.statics.createNewProject = function(project) {
 		master: true
 	})
 	.then(function(createdWireframe) {
-		wireframe = createdWireframe;
+		//convert to object so we can set project ID, which is needed for firebase connection
+		wireframe = createdWireframe.toObject();
 		project.wireframes = [wireframe._id];
 		return Project.create(project);
 	})
 	.then(function(project) {
+		//set project ID and return
 		wireframe.project = project._id;
 		return wireframe;
 	})

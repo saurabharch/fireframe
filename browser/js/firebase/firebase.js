@@ -1,4 +1,5 @@
 app.factory('Firebase', function(Component, Session) {
+  var firebase;
   var firebaseComponents
   var firebaseUsers;
   var currentUser = Math.round(100*Math.random());//Session.user || Session.id || 
@@ -6,6 +7,8 @@ app.factory('Firebase', function(Component, Session) {
 
   var factory = {
     connect: function(wireframe, $scope) {
+      //don't think we need to do three firebase refs, maybe just one and add child...not sure which is better
+      firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframe.project + "/wireframes/" + wireframe._id);
       firebaseUsers = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframe.project + "/wireframes/" + wireframe._id + "/users");
       firebaseComponents = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + wireframe.project + "/wireframes/" + wireframe._id + "/components");
       
@@ -17,9 +20,9 @@ app.factory('Firebase', function(Component, Session) {
       //this feels quite hacky, though I can't figure out a good way to delete components if everyone leaves a room
       function setOnDisconnect() {
         if(activeUsers.length<=1) {
-          firebaseComponents.onDisconnect().remove();  
+          firebase.onDisconnect().remove();  
         } else {
-          firebaseComponents.onDisconnect().cancel();
+          firebase.onDisconnect().cancel();
           firebaseUsers.onDisconnect().cancel();
         }
         firebaseUsers.child(currentUser).onDisconnect().remove();
