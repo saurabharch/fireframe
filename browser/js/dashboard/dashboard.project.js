@@ -34,6 +34,7 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 	$scope.altBranches = [];
 	$scope.master = project.wireframes.filter(frame => frame.master === true)[0];
 	$scope.active = $scope.master;
+	$scope.showHistory = true;
 
 	traverseFrames($scope.active);
 	console.log($scope.master);
@@ -47,6 +48,18 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 		});
 	};
 
+	$scope.goHistory = function(){
+		$('#showAlt').removeClass("active");
+		$scope.showHistory = true;
+		$('#showHist').addClass("active");
+	};
+
+	$scope.goAlt = function(){
+		$('#showHist').removeClass("active");
+		$scope.showHistory = false;
+		$('#showAlt').addClass("active");
+	};
+
 	$scope.changeActive = function(frame){
 		$scope.active = frame;
 		console.log($scope.active);
@@ -57,6 +70,7 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 
 	$scope.setMaster = function(){
 		$scope.master = $scope.active;
+		Wireframe.setMaster($scope.master._id, $scope.project._id);
 	};
 
 	$scope.joinRoom = function(){
