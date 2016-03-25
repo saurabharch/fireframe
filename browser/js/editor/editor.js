@@ -1,15 +1,19 @@
 app.config(function($stateProvider){
 	$stateProvider.state('editor', {
-		url: '/editor/:id',
+		url: '/editor/:projectId/edit/:id',
 		templateUrl: '/js/editor/editor.html',
 		resolve: {
 			wireframe: function($stateParams, Wireframe, Firebase) {
-				return Firebase.checkForComponents($stateParams.id)
+				return Firebase.checkForComponents($stateParams.id, $stateParams.projectId)
 				.then(components => {
 					if (!components.val()) {
 						return Wireframe.fetchOne($stateParams.id)
+						.then(wireframe => {
+							wireframe.project = $stateParams.projectId;
+							return wireframe;
+						})
 					} else {
-						return { _id: $stateParams.id, existing: true }
+						return { _id: $stateParams.id, existing: true, project: $stateParams.projectId }
 					}
 				})
 				.then(null, function(err){
