@@ -5,6 +5,7 @@
 		<br><br>
 		<button class="btn btn-warm" ng-click="forkFrame()">Create Fork</button>
 		<button class="btn btn-cool" ng-show="currentEdit()" ng-click="joinRoom()">Join Editing</button>
+		<button class="btn btn-liquid" ng-hide="isMaster()" ng-click="setMaster()">Set Master</button>
 		<br>
 		<label>Project Description</label>
 		<br>
@@ -12,12 +13,21 @@
 	</div>
 
 	<div class="col-lg-3">
-		<div ng-repeat="frame in altBranches" ng-click="changeActive(frame)">
-			<label>History</label><br>
+		<ul class="nav nav-tabs">
+		  <li id="goHist"class="active" ng-click="goHistory()">History</a></li>
+		  <li id="goAlternate" ng-click="goAlt()">Alternate</a></li>
+	  </ul>
+<!-- 		<h3 ng-show="showHistory">History</h3><br>
+		<h3 ng-hide="showHistory">Alternate Branches</h3><br> -->
+		<div ng-hide="showHistory" ng-repeat="frame in altBranches" ng-click="changeActive(frame)">
 			<img src="http://creatage.com/wp-content/uploads/2012/04/wireframe-lrg.jpg" height="100" width="100" ng-click="changeActive($event)">
 			<label>{{frame._id}}</label>
-
 		</div>
+		<div ng-show="showHistory" ng-repeat="frame in history" ng-click="changeActive(frame)">
+			<img src="http://creatage.com/wp-content/uploads/2012/04/wireframe-lrg.jpg" height="100" width="100" ng-click="changeActive($event)">
+			<label>{{frame._id}}</label>
+		</div>
+
 	</div>
 
 </div>
