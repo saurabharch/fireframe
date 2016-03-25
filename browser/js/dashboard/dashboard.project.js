@@ -1,7 +1,7 @@
 app.config(function($stateProvider) {
-	$stateProvider.state('project', {
+	$stateProvider.state('dashboard.project', {
 		url: '/project/:id',
-		templateUrl: '/js/project/project.html',
+		templateUrl: '/js/dashboard/dashboard.project.html',
 		resolve: {
 			project: function($stateParams, Project) {
 				return Project.fetchProject($stateParams.id);
