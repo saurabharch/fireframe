@@ -1,11 +1,11 @@
-/* wireframe route */
+/* Wireframe Routes */
 'use strict';
 var router = require('express').Router();
 module.exports = router;
 
+var Readable = require('stream').Readable;
 var webshot = require('webshot');
-var fs = require('fs');
-var image = require('../images/index.js');
+var image = require('../imageUpload.js');
 
 var mongoose = require('mongoose');
 var Wireframe = mongoose.model('Wireframe');
@@ -49,6 +49,7 @@ router.get('/:id', function(req, res, next) {
 //edit current wireframe
 router.put('/:id', function(req, res, next) {
   var w;
+  var imageUrl;
   var options = {
     windowSize: {
       width: 1024,
@@ -60,26 +61,18 @@ router.put('/:id', function(req, res, next) {
   req.wireframe.saveWithComponents(req.body)
   .then(function(wireframe) {
     w = wireframe;
-    //Screen capture
-    var renderStream = webshot("http://localhost:1337/phantom/"+req.params.id, null, options);
-    var screenshot = '';
-    var imageUrl;
 
-    renderStream.on('data', function(data) {
-      screenshot += data//.toString('binary');
-    });
+    //Capture  screen and upload to AWS S3
+    webshot("http://localhost:1337/phantom/"+req.params.id, function(err, stream) {
+      if(err) return console.log(err);
+      var imageData = new Readable().wrap(stream);
+      imageUrl = image.upload(req.params.id, imageData);
+    });  
 
-    renderStream.on('end', function() {
-      var b = new Buffer(screenshot);
-      // var str = b.toString('base64')
-      console.log(b);
-      image.upload(req.params.id, b);
-    });    
   })
-  .then(function() {
-    var url = image.getUrl(req.params.id);
-    console.log('Url: ', url);
-  })
+  // .then(function() {
+    
+  // })
   .then(function() {
     res.json(w);
   })
