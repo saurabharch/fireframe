@@ -2,6 +2,7 @@ app.directive('textBox', function($timeout) {
   return {
     restrict: 'E',
     templateUrl: '/js/common/directives/components/text-box/text-box.html',
+    scope:true,
     link: function(scope, element) {
 
     	scope.text = element[0].getAttribute('data-textContents');
