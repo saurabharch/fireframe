@@ -10,13 +10,11 @@ var auth = require('../authentication');
 
 router.param('id', function(req, res, next, id) {
 	Project.findById(id)
-  .populate('wireframes')//, '_id photoUrl master parent children')
+  .populate('wireframes', 'photoUrl master parent children')
   .populate('team', ' members creator')
   .populate('comments')
 	.then(project => {
 		if (project) {
-      console.log("conditional worked out just fine")
-      console.log("this is our project", project)
       req.project = project;
       next();
     } else {
@@ -59,7 +57,6 @@ router.post('/', auth.ensureUser, function(req, res, next) {
 
 //get single project
 router.get('/:id', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
-  console.log(req.project, '???????')
   res.json(req.project);
 });
 
@@ -85,7 +82,6 @@ router.delete('/:id', auth.ensureTeamAdmin, function(req, res, next) {
 
 //get all wireframes for a project
 router.get('/:id/wireframes', auth.ensureAdmin, function(req, res, next) {
-  console.log("weird shit happened and we got here somehow")
   req.project
   .populate('wireframes')
   .execPopulate()

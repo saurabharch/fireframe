@@ -42,8 +42,8 @@ app.factory('Wireframe', function($http, $log, Firebase, Component) {
 			.then(extractData);
 		},
 
-		setMaster: function(wireframeId) {
-			return $http.put(path+wireframeId+'/master')
+		setMaster: function(wireframeId, projectId) {
+			return $http.put(path+wireframeId+'/master', {id: projectId})
 			.then(extractData);
 		}
 	};
