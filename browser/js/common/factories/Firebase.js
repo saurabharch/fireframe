@@ -93,7 +93,7 @@ app.factory('Firebase', function(Component, Session, Wireframe) {
           var component = selectedElement;
           var key = component.id;
           firebaseComponents.child(uid).update({
-            style: endStyle
+            style: {}
           });
           console.log('current components', componentCache);
         });
