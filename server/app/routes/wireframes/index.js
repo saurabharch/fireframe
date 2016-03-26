@@ -4,6 +4,8 @@ var router = require('express').Router();
 module.exports = router;
 
 var webshot = require('webshot');
+var fs = require('fs');
+var image = require('../images/index.js');
 
 var mongoose = require('mongoose');
 var Wireframe = mongoose.model('Wireframe');
@@ -59,7 +61,24 @@ router.put('/:id', function(req, res, next) {
   .then(function(wireframe) {
     w = wireframe;
     //Screen capture
-    webshot("http://localhost:1337/phantom/"+req.params.id, req.params.id+".png", options, function(err){});
+    var renderStream = webshot("http://localhost:1337/phantom/"+req.params.id, null, options);
+    var screenshot = '';
+    var imageUrl;
+
+    renderStream.on('data', function(data) {
+      screenshot += data//.toString('binary');
+    });
+
+    renderStream.on('end', function() {
+      var b = new Buffer(screenshot);
+      // var str = b.toString('base64')
+      console.log(b);
+      image.upload(req.params.id, b);
+    });    
+  })
+  .then(function() {
+    var url = image.getUrl(req.params.id);
+    console.log('Url: ', url);
   })
   .then(function() {
     res.json(w);
