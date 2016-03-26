@@ -20,39 +20,45 @@ app.config(function($stateProvider){
 					console.log(err);
 				})
 			},
-			otherWireframe: function($stateParams, Wireframe, Firebase) {
+			components: function($stateParams, Wireframe, Firebase) {
+				//check if there are already components in the room
+				//if there are, populate the cache
 				return Firebase.checkForComponents($stateParams.id, $stateParams.projectId)
+				//alll of this logic shoud be in check for components
 				.then(components => {
+					//if no, fetch them from mongoose
 					if (!components.val()) {
-						return Wireframe.fetchOne($stateParams.id)
-						.then(wireframe => {
-							wireframe.project = $stateParams.projectId;
-							return wireframe;
-						})
+						//fetchForEditing sets them in the firebase factory
+						//and returns a reference to those factoryComponents
+						return Wireframe.fetchForEditing($stateParams.id, $stateParams.projectId)
 					} else {
-						return { _id: $stateParams.id, existing: true, project: $stateParams.projectId }
+						//otherwise, join room and return a reference to the factoryComponents
+						return Firebase.getComponents
 					}
 				})
 				.then(null, function(err){
 					console.log(err);
 				})
-			}
+			//refactor so wireframe.components here is a reference to a cache of the components stored in firebase factory
+			//every child added, removed, updated event alters that cache
+			//we ng-repeat over that cache and have single directive that has dynamic templates, depending on the type
+			//this way, we can tie our styles directly to the object reference through ng-style, thus not worry about so much jquery
+			//same goes for ng-src and images
 		},
 		controller: 'EditorCtrl'
 		});
 });
 
-app.controller('EditorCtrl', function($scope, wireframe, otherWireframe, $compile, Component, Interact, CSS, Firebase, Wireframe) {
+app.controller('EditorCtrl', function($scope, wireframe, components, $compile, Component, Interact, CSS, Firebase, Wireframe) {
 	$scope.wireframe = wireframe;
-	$scope.otherWireframe = otherWireframe;
 	$scope.board = $('#wireframe-board');
+	$scope.components = components;
+	
+	//THIS SHOULD NOW BE TAKE CARE OF IN THE RESOLVE
+	//$scope.wireframe.existing ? Firebase.joinRoom(wireframe, $scope) : Firebase.createRoom(wireframe, $scope);
 
-	$scope.wireframe.existing ? Firebase.joinRoom(wireframe, $scope) : Firebase.createRoom(wireframe, $scope);
-
-	//$scope.components = wireframe.components;
 	$scope.activeOpacity = 1;
 	$scope.activeColor = "#FFF";
-	$scope.elementsRendered = $scope.elementsRendered || false;
 
 	//initialize dragging and resizing
 	Interact.dragAndResize();
@@ -60,14 +66,8 @@ app.controller('EditorCtrl', function($scope, wireframe, otherWireframe, $compil
 	//set current zoom and initialize CSS zoom
 	$scope.currentZoom = CSS.currentZoom();
 	$scope.updateZoom = CSS.updateZoom;
-	
-
-	// $scope.saveElements = function() {
-	// 	Component.saveComponents();
-	// };
 
 	$scope.deleteElement = Firebase.deleteElement;
-
 
 	$scope.createElement = function(type) {
 		//var style = { "background-color":$scope.activeColor, "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray"};
@@ -194,3 +194,49 @@ app.controller('EditorCtrl', function($scope, wireframe, otherWireframe, $compil
 	}
 
 });
+
+app.directive('component', function ($compile) {
+    var baseLayer = '<div class="entry-photo"><h2>&nbsp;</h2><div class="entry-img"><span><a href="{{rootDirectory}}{{content.data}}"><img ng-src="{{rootDirectory}}{{content.data}}" alt="entry photo"></a></span></div><div class="entry-text"><div class="entry-title">{{content.title}}</div><div class="entry-copy">{{content.description}}</div></div></div>';
+    var empty = '<div><h1>I AM EMPTY</h1></div>'
+
+    var getTemplate = function(componentType) {
+      var template = '';
+
+      switch(componentType) {
+        case 'base-layer':
+          template = baseLayer;
+          break;
+        default:
+          template = empty;
+      }
+      return template;
+    }
+
+    var linker = function(scope, element, attrs) {
+      element.html(getTemplate(scope.components.type)).show();
+      $compile(element.contents())(scope);
+    }
+
+    return {
+        restrict: "E",
+        link: linker,
+        scope: {
+            component:'='
+        }
+    };
+});
+
+app.directive('component', function() {
+	return {
+		restir
+	}
+})
+
+
+
+
+
+
+
+
+

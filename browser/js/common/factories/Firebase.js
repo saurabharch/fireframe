@@ -5,6 +5,8 @@ app.factory('Firebase', function(Component, Session) {
   var currentUser = Session.id || Math.round(100*Math.random());
   var activeUsers = [];
 
+  var factoryComponents = [];
+
   var factory = {
     connect: function(wireframe, $scope) {
       //don't think we need to do three firebase refs, maybe just one and add child...not sure which is better
@@ -30,7 +32,6 @@ app.factory('Firebase', function(Component, Session) {
       //Event listener, log users joining room
       firebaseUsers.on('child_added', function(snapshot) {
         activeUsers.push(snapshot.key());
-        console.log(activeUsers);
         setOnDisconnect();
       });
 
@@ -46,6 +47,7 @@ app.factory('Firebase', function(Component, Session) {
       firebaseComponents.on('child_added', function(snapshot) {
         var key = snapshot.key();
         var element = snapshot.val();
+        factoryComponents.push(element);
         Component.create(element.type, $scope, element.style, key);
       });
 
@@ -109,23 +111,37 @@ app.factory('Firebase', function(Component, Session) {
       
       //load current components to firebase
       if (wireframe.components) {
+
         wireframe.components.forEach(function(component) {
           factory.createElement(component.style, component.type);
         });
       }
+
+      return factoryComponents;
     },
 
     joinRoom: function(wireframe, $scope) {
       factory.connect(wireframe, $scope);
       
       //load in existing firebase objects
-      firebaseComponents.once('value', function(data) {
-        if (data.components) {
-          data.components.forEach(function(component) {
-            Component.create(component.type, $scope, component.style, component.id);
-          })
-        }
-      });
+
+      return new Promise(function(resolve, reject) {
+        firebaseComponents.once('value', function(data) {
+          if (data.components) {
+            resolve(data.components);
+            // data.components.forEach(function(component) {
+            //   Component.create(component.type, $scope, component.style, component.id);
+            // })
+          }
+        }, function(err) {
+          reject(err);
+        })
+      })
+      .then(components => {
+        factoryComponents = component;
+        return factoryComponents;
+      })
+      
     },
 
     createElement: function(style, type) {
