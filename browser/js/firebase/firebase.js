@@ -46,14 +46,14 @@ app.factory('Firebase', function(Component, Session) {
       firebaseComponents.on('child_added', function(snapshot) {
         var key = snapshot.key();
         var element = snapshot.val();
-        Component.create(element.type, $scope, element.style, key);
+        Component.create(element.type, $scope, element.style, key, element.source);
       });
 
       //Event listener, edit element any time a user changes one
       firebaseComponents.on('child_changed', function(snapshot) {
         var key = snapshot.key();
         var element = snapshot.val();
-        Component.update(key, element.style);
+        Component.update(key, element.style, element.source);
       });
 
       //Event listener, delete element any time a user removes one
@@ -65,7 +65,7 @@ app.factory('Firebase', function(Component, Session) {
 
       //Event listener, update element any time a user changes it
       var selectedElement;
-      $('#wireframe-board').on('mousedown', '.resize-drag', function(event) {
+      $('#wireframe-board').on('mousedown', '.component', function(event) {
         selectedElement = $(this);
         $(window).on('mouseup', function() {
           var component = Component.saveComponent(selectedElement);
@@ -96,7 +96,7 @@ app.factory('Firebase', function(Component, Session) {
       //load current components to firebase
       if (wireframe.components) {
         wireframe.components.forEach(function(component) {
-          factory.createElement(component.style, component.type);
+          factory.createElement(component.style, component.type, component.source);
         });
       }
     },
@@ -108,16 +108,17 @@ app.factory('Firebase', function(Component, Session) {
       firebaseComponents.once('value', function(data) {
         if (data.components) {
           data.components.forEach(function(component) {
-            Component.create(component.type, $scope, component.style, component.id);
+            Component.create(component.type, $scope, component.style, component.id, component.source);
           })
         }
       });
     },
 
-    createElement: function(style, type) {
+    createElement: function(style, type, source) {
       firebaseComponents.push({
         style: style,
-        type: type
+        type: type,
+        source: source || ""
       });
     },
 
@@ -133,9 +134,8 @@ app.factory('Firebase', function(Component, Session) {
     },
 
     updateElement: function(element, style) {
-      Component.update(element.id, style);
-    }
-
+      Component.update(element.id, style, source);
+    },
 
   }
   return factory;
