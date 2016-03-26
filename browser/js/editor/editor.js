@@ -19,14 +19,32 @@ app.config(function($stateProvider){
 				.then(null, function(err){
 					console.log(err);
 				})
+			},
+			otherWireframe: function($stateParams, Wireframe, Firebase) {
+				return Firebase.checkForComponents($stateParams.id, $stateParams.projectId)
+				.then(components => {
+					if (!components.val()) {
+						return Wireframe.fetchOne($stateParams.id)
+						.then(wireframe => {
+							wireframe.project = $stateParams.projectId;
+							return wireframe;
+						})
+					} else {
+						return { _id: $stateParams.id, existing: true, project: $stateParams.projectId }
+					}
+				})
+				.then(null, function(err){
+					console.log(err);
+				})
 			}
 		},
 		controller: 'EditorCtrl'
 		});
 });
 
-app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, Interact, CSS, Firebase, Wireframe) {
+app.controller('EditorCtrl', function($scope, wireframe, otherWireframe, $compile, Component, Interact, CSS, Firebase, Wireframe) {
 	$scope.wireframe = wireframe;
+	$scope.otherWireframe = otherWireframe;
 	$scope.board = $('#wireframe-board');
 
 	$scope.wireframe.existing ? Firebase.joinRoom(wireframe, $scope) : Firebase.createRoom(wireframe, $scope);
