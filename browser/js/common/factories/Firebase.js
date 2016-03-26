@@ -151,6 +151,10 @@ app.factory('Firebase', function(Component, Session) {
       Component.update(element.id, style, source);
     },
 
+    createImage: function(file, scope) {
+      Component.create('image-box', scope, null, null, '/images/placeholder.png');
+    }
+
   }
   return factory;
 

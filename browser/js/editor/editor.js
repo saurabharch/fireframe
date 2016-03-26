@@ -69,6 +69,7 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	  var reader  = new FileReader();
 	  var name = Math.round(Math.random()*100000);
 
+	  Firebase.createImage(file, $scope);
 	  //on upload, must create element on firebase
 	  //once that element is rendered on our page, we read the file as a data url and set the src to that..not updating firebase
 	  //but also need to leave src as default placeholder on all other users pages
@@ -77,13 +78,12 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	  //once we have the url, connect from the server to our firebase room, find that component by its id, and set the src to the image src passed in
 
 	  reader.addEventListener("load", function () {
-	    $('img').attr('src', reader.result);
-	    Component.uploadImage(reader.result)
+	    //$('img').attr('src', 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150');
+	    //Component.uploadImage(reader.result)
 	  }, false);
 
-	  if (file) {
-	    reader.readAsDataURL(file);
-	  }
+	  reader.readAsDataURL(file);
+
 	};
 
 	//Z-index arrangement
