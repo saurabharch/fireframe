@@ -21,24 +21,8 @@ app.config(function($stateProvider){
 				})
 			},
 			components: function($stateParams, Wireframe, Firebase) {
-				//check if there are already components in the room
-				//if there are, populate the cache
-				return Firebase.checkForComponents($stateParams.id, $stateParams.projectId)
-				//alll of this logic shoud be in check for components
-				.then(components => {
-					//if no, fetch them from mongoose
-					if (!components.val()) {
-						//fetchForEditing sets them in the firebase factory
-						//and returns a reference to those factoryComponents
-						return Wireframe.fetchForEditing($stateParams.id, $stateParams.projectId)
-					} else {
-						//otherwise, join room and return a reference to the factoryComponents
-						return Firebase.getComponents
-					}
-				})
-				.then(null, function(err){
-					console.log(err);
-				})
+				return Firebase.getComponents($stateParams.id, $stateParams.projectId)
+			}
 			//refactor so wireframe.components here is a reference to a cache of the components stored in firebase factory
 			//every child added, removed, updated event alters that cache
 			//we ng-repeat over that cache and have single directive that has dynamic templates, depending on the type
@@ -52,10 +36,14 @@ app.config(function($stateProvider){
 app.controller('EditorCtrl', function($scope, wireframe, components, $compile, Component, Interact, CSS, Firebase, Wireframe) {
 	$scope.wireframe = wireframe;
 	$scope.board = $('#wireframe-board');
-	$scope.components = components;
+	$scope.components = Firebase.getThem();
+
+	$scope.getThem = function() {
+		console.log('scope components', $scope.components);	
+	}
 	
 	//THIS SHOULD NOW BE TAKE CARE OF IN THE RESOLVE
-	//$scope.wireframe.existing ? Firebase.joinRoom(wireframe, $scope) : Firebase.createRoom(wireframe, $scope);
+	$scope.wireframe.existing ? Firebase.joinRoom(wireframe, $scope) : Firebase.createRoom(wireframe, $scope);
 
 	$scope.activeOpacity = 1;
 	$scope.activeColor = "#FFF";
@@ -70,7 +58,6 @@ app.controller('EditorCtrl', function($scope, wireframe, components, $compile, C
 	$scope.deleteElement = Firebase.deleteElement;
 
 	$scope.createElement = function(type) {
-		//var style = { "background-color":$scope.activeColor, "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray"};
 		var style = { "background-color": "#FFF", "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray", "z-index": getZrange()};
 		Firebase.createElement(style, type);
 	};
@@ -147,7 +134,6 @@ app.controller('EditorCtrl', function($scope, wireframe, components, $compile, C
 
 //Event listeners
 
-
 	$scope.board.on('mousedown',function(){
 		$($scope.active).removeClass('active-element');
 		$scope.active = null;
@@ -213,7 +199,8 @@ app.directive('component', function ($compile) {
     }
 
     var linker = function(scope, element, attrs) {
-      element.html(getTemplate(scope.components.type)).show();
+    	console.log('linker', scope, element, attrs);
+      element.html(getTemplate(scope.type)).show();
       $compile(element.contents())(scope);
     }
 
@@ -225,12 +212,6 @@ app.directive('component', function ($compile) {
         }
     };
 });
-
-app.directive('component', function() {
-	return {
-		restir
-	}
-})
 
 
 

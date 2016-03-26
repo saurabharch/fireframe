@@ -1,11 +1,11 @@
-app.factory('Firebase', function(Component, Session) {
+app.factory('Firebase', function(Component, Session, Wireframe) {
   var firebase;
   var firebaseComponents
   var firebaseUsers;
   var currentUser = Session.id || Math.round(100*Math.random());
   var activeUsers = [];
 
-  var factoryComponents = [];
+  var currentComponents = [];
 
   var factory = {
     connect: function(wireframe, $scope) {
@@ -47,7 +47,7 @@ app.factory('Firebase', function(Component, Session) {
       firebaseComponents.on('child_added', function(snapshot) {
         var key = snapshot.key();
         var element = snapshot.val();
-        factoryComponents.push(element);
+        currentComponents.push(element);
         Component.create(element.type, $scope, element.style, key);
       });
 
@@ -75,6 +75,7 @@ app.factory('Firebase', function(Component, Session) {
           firebaseComponents.child(key).update({
             style: component.style
           });
+          console.log('current components', currentComponents);
         });
       });
     },
@@ -117,7 +118,7 @@ app.factory('Firebase', function(Component, Session) {
         });
       }
 
-      return factoryComponents;
+      return currentComponents;
     },
 
     joinRoom: function(wireframe, $scope) {
@@ -138,8 +139,8 @@ app.factory('Firebase', function(Component, Session) {
         })
       })
       .then(components => {
-        factoryComponents = component;
-        return factoryComponents;
+        currentComponents = components;
+        return currentComponents;
       })
       
     },
@@ -164,8 +165,30 @@ app.factory('Firebase', function(Component, Session) {
 
     updateElement: function(element, style) {
       Component.update(element.id, style);
-    }
+    },
 
+    getThem: function() {
+      return currentComponents;
+    },
+
+    getComponents: function(id, projectId) {
+      factory.checkForComponents(id, projectId)
+      .then(components => {
+        if (!components.val()) {
+          return Wireframe.fetchOne(id, projectId)
+          .then(wireframe => {
+            currentComponents.concat(wireframe.components);
+            return currentComponents;
+          })
+        } else {
+          //otherwise, join room and return a reference to the currentComponents
+          return Firebase.joinRoom()
+        }
+      })
+      .then(null, function(err){
+        console.log(err);
+      })
+    }
 
   }
   return factory;

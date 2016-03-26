@@ -1,4 +1,4 @@
-app.factory('Wireframe', function($http, $log, Firebase, Component) {
+app.factory('Wireframe', function($http, $log, Component) {
 	var path = '/api/wireframes/';
 	var wireframe;
 	
