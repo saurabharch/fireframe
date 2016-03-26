@@ -74,6 +74,7 @@ $btn-side: .45 * $left-width;
 }
 
 .delete-hoverable .hover-delete-btn {
+  position: absolute;
   float: right;
   margin-top: 2px;
   margin-right: 2px;
@@ -108,4 +109,27 @@ $btn-side: .45 * $left-width;
 .button-icon {
   height:0.5 * $btn-side;
   top:0.25 * $btn-side;
+}
+
+.active-element {
+  border: 2px dashed black;
+}
+
+.fileUpload {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.fileUpload input.upload {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  height: 100%;
+  text-align: center;
 }

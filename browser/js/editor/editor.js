@@ -68,8 +68,9 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	  var file = element.files[0];
 	  var reader  = new FileReader();
 	  var name = Math.round(Math.random()*100000);
-
-	  Firebase.createImage(file, $scope);
+	  var style = { "background-color": "#FFF", "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray", "z-index": getZrange()};
+	  
+	  Firebase.createImage(file, $scope, style);
 	  //on upload, must create element on firebase
 	  //once that element is rendered on our page, we read the file as a data url and set the src to that..not updating firebase
 	  //but also need to leave src as default placeholder on all other users pages

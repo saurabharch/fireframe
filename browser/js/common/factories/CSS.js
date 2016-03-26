@@ -18,15 +18,17 @@ app.factory('CSS', function() {
 		},
 
 		//ng-style couldn't handle commas in rgb(0,0,0) so added this instead
-		addStyles: function(element, styles, source) {
+		addStyles: function(element, styles) {
 			for(var prop in styles) {
 				var param = {};
 				param[prop] = styles[prop];
 				$(element).css(param);
 			}
-			if (source) {
-				$(element).attr('src', source);
-			}
+		},
+
+		addSource: function(element, source) {
+			source = source || '/images/placeholder.png'
+			$('img').attr('src', source);
 		},
 
 		removeTransform: function(element, style) {

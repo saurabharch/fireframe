@@ -17,7 +17,8 @@ app.factory('Component', function($compile, CSS) {
 					newElement = $compile('<text-box id="' + id + '" ng-click="makeActive($event)" class="resize-drag component"></text-box>')($scope);
 					break;
 				case 'image-box':
-					newElement = $compile('<image-box id="' + id + '" ng-click="makeActive($event)" class="resize-drag component" source="wtf"></image-box>')($scope);
+					source = source || "/images/placeholder.png";
+					newElement = $compile('<image-box id="' + id + '" ng-click="makeActive($event)" class="resize-drag component" ng-src="/images/placeholder.png"></image-box>')($scope);
 					break;
 				case 'list':
 					newElement = $compile('<list id="' + id + '" ng-click="makeActive($event)" class="resize-drag component"></list>')($scope);
@@ -30,7 +31,7 @@ app.factory('Component', function($compile, CSS) {
 					break;
 			}
 
-			CSS.addStyles(newElement, style, source);
+			CSS.addStyles(newElement, style);
   		$scope.board.append(newElement);
 		},
 

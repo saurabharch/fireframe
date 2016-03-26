@@ -6,7 +6,9 @@ app.directive('imageBox', function() {
     	source: '='
     },
     link: function(scope, element, attr) {
-    	console.log(scope);
+    	scope.getSource = function() {
+    		return attr.src
+    	}
     }
 
   }
