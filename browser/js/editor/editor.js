@@ -13,7 +13,7 @@ app.config(function($stateProvider){
 							return wireframe;
 						})
 					} else {
-						return { _id: $stateParams.id, existing: true, project: $stateParams.projectId }
+						return { _id: $stateParams.id, existingRoom: true, project: $stateParams.projectId }
 					}
 				})
 				.then(null, function(err){
@@ -29,11 +29,11 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	$scope.wireframe = wireframe;
 	$scope.board = $('#wireframe-board');
 
-	$scope.wireframe.existing ? Firebase.joinRoom(wireframe, $scope) : Firebase.createRoom(wireframe, $scope);
+	$scope.wireframe.existingRoom ? Firebase.joinRoom(wireframe, $scope) : Firebase.createRoom(wireframe, $scope);
 
 	//$scope.components = wireframe.components;
 	$scope.activeOpacity = 1;
-	$scope.activeColor = "#F00";
+	$scope.activeColor = "#FFF";
 	$scope.elementsRendered = $scope.elementsRendered || false;
 
 	//initialize dragging and resizing
@@ -42,14 +42,8 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	//set current zoom and initialize CSS zoom
 	$scope.currentZoom = CSS.currentZoom();
 	$scope.updateZoom = CSS.updateZoom;
-	
-
-	$scope.saveElements = function() {
-		Component.saveComponents();
-	};
 
 	$scope.deleteElement = Firebase.deleteElement;
-
 
 	$scope.createElement = function(type) {
 		//var style = { "background-color":$scope.activeColor, "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray"};
@@ -64,11 +58,32 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 		color = color.split(', ').map(str => Number(str));
 		color = rgbToHex(color);
 		$scope.activeColor = color;
-		$($scope.active).addClass('active-element');
 	};
 
 	$scope.save = function () {
 		Wireframe.save($scope.wireframe)
+	};
+
+	$scope.imageUpload = function(element) {
+	  var file = element.files[0];
+	  var reader  = new FileReader();
+	  var name = Math.round(Math.random()*100000);
+
+	  //on upload, must create element on firebase
+	  //once that element is rendered on our page, we read the file as a data url and set the src to that..not updating firebase
+	  //but also need to leave src as default placeholder on all other users pages
+	  //at the same time, or perhaps once that firebase object is returned and we have its id, we need to upload the buffer to our server
+	  //send that to aws and get back a url
+	  //once we have the url, connect from the server to our firebase room, find that component by its id, and set the src to the image src passed in
+
+	  reader.addEventListener("load", function () {
+	    $('img').attr('src', reader.result);
+	    Component.uploadImage(reader.result)
+	  }, false);
+
+	  if (file) {
+	    reader.readAsDataURL(file);
+	  }
 	};
 
 	//Z-index arrangement
@@ -113,6 +128,7 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 		zIndex = max;
 		$scope.active.style['z-index'] = zIndex;
 	};
+
 	$scope.moveToBack = function(){
 		if (!$scope.active) return;
 		var zIndex = getZindex($scope.active);
@@ -128,6 +144,7 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 
 
 //Event listeners
+
 
 	$scope.board.on('mousedown',function(){
 		$($scope.active).removeClass('active-element');
@@ -159,17 +176,6 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 		});
 		return maxZ;
 	}
-
-	// function getMinZ(){
-	// 	var minZ = getMaxZ();
-	// 	var elementArray = getElementArray();
-	// 	elementArray.forEach(el => {
-	// 		let z = getZindex(el);
-	// 		if(z < minZ) minZ = z;
-	// 	});
-	// 	console.log(minZ);
-	// 	return minZ;
-	// }
 
 	function getZrange(){
 		var elementArray = getElementArray();

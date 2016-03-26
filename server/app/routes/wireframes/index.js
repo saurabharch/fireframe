@@ -111,8 +111,8 @@ router.post('/:id/fork', function(req, res, next) {
 })
 
 //set wireframe as new master
-router.get('/:id/master', function(req, res, next) {
-  Project.setMaster(req.wireframe)
+router.put('/:id/master', function(req, res, next) {
+  Project.setMaster(req.wireframe, req.body.id)
   .then(wireframe => {
     res.json(wireframe);
   })
