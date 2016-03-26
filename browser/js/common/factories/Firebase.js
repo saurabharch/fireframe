@@ -49,7 +49,7 @@ app.factory('Firebase', function(Component, Session, Wireframe) {
         var element = snapshot.val();
         element.id = key;
         componentCache.push(element);
-        console.log(componentCache)
+        console.log('child added', componentCache)
         //Component.create(element.type, $scope, element.style, key);
       });
 
@@ -64,7 +64,7 @@ app.factory('Firebase', function(Component, Session, Wireframe) {
             component.source = element.source;
           }
         })
-        console.log(componentCache)
+        console.log('child changed', componentCache)
         //Component.update(key, element.style);
       });
 
@@ -79,7 +79,7 @@ app.factory('Firebase', function(Component, Session, Wireframe) {
         });
 
         componentCache.splice(index, 1);
-        console.log(componentCache)
+        console.log(componentCache, 'child removed')
         //Component.deleteComponent(key);
       });
 
@@ -87,11 +87,13 @@ app.factory('Firebase', function(Component, Session, Wireframe) {
       var selectedElement;
       $('#wireframe-board').on('mousedown', '.resize-drag', function(event) {
         selectedElement = $(this);
+        var uid = selectedElement.attr('id');
+
         $(window).on('mouseup', function() {
-          //var component = Component.saveComponent(selectedElement);
+          var component = selectedElement;
           var key = component.id;
-          firebaseComponents.child(key).update({
-            style: component.style
+          firebaseComponents.child(uid).update({
+            style: endStyle
           });
           console.log('current components', componentCache);
         });
