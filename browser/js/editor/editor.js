@@ -3,23 +3,23 @@ app.config(function($stateProvider){
 		url: '/editor/:projectId/edit/:id',
 		templateUrl: '/js/editor/editor.html',
 		resolve: {
-			wireframe: function($stateParams, Wireframe, Firebase) {
-				return Firebase.checkForComponents($stateParams.id, $stateParams.projectId)
-				.then(components => {
-					if (!components.val()) {
-						return Wireframe.fetchOne($stateParams.id)
-						.then(wireframe => {
-							wireframe.project = $stateParams.projectId;
-							return wireframe;
-						})
-					} else {
-						return { _id: $stateParams.id, existing: true, project: $stateParams.projectId }
-					}
-				})
-				.then(null, function(err){
-					console.log(err);
-				})
-			},
+			// wireframe: function($stateParams, Wireframe, Firebase) {
+			// 	return Firebase.checkForComponents($stateParams.id, $stateParams.projectId)
+			// 	.then(components => {
+			// 		if (!components.val()) {
+			// 			return Wireframe.fetchOne($stateParams.id)
+			// 			.then(wireframe => {
+			// 				wireframe.project = $stateParams.projectId;
+			// 				return wireframe;
+			// 			})
+			// 		} else {
+			// 			return { _id: $stateParams.id, existing: true, project: $stateParams.projectId }
+			// 		}
+			// 	})
+			// 	.then(null, function(err){
+			// 		console.log(err);
+			// 	})
+			// },
 			components: function($stateParams, Wireframe, Firebase) {
 				return Firebase.getComponents($stateParams.id, $stateParams.projectId)
 			}
@@ -33,17 +33,17 @@ app.config(function($stateProvider){
 		});
 });
 
-app.controller('EditorCtrl', function($scope, wireframe, components, $compile, Component, Interact, CSS, Firebase, Wireframe) {
-	$scope.wireframe = wireframe;
+app.controller('EditorCtrl', function($scope, components, $compile, Component, Interact, CSS, Firebase, Wireframe) {
+	//$scope.wireframe = wireframe;
 	$scope.board = $('#wireframe-board');
-	$scope.components = Firebase.getThem();
+	$scope.components = Firebase.getComponentCache();
 
-	$scope.getThem = function() {
-		console.log('scope components', $scope.components);	
-	}
+	// $scope.getThem = function() {
+	// 	console.log('scope components', $scope.components);	
+	// }
 	
-	//THIS SHOULD NOW BE TAKE CARE OF IN THE RESOLVE
-	$scope.wireframe.existing ? Firebase.joinRoom(wireframe, $scope) : Firebase.createRoom(wireframe, $scope);
+	//THIS SHOULD NOW BE TAKEN CARE OF IN THE RESOLVE
+	//$scope.wireframe.existing ? Firebase.joinRoom(wireframe, $scope) : Firebase.createRoom(wireframe, $scope);
 
 	$scope.activeOpacity = 1;
 	$scope.activeColor = "#FFF";
@@ -59,7 +59,7 @@ app.controller('EditorCtrl', function($scope, wireframe, components, $compile, C
 
 	$scope.createElement = function(type) {
 		var style = { "background-color": "#FFF", "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray", "z-index": getZrange()};
-		Firebase.createElement(style, type);
+		Firebase.createElement({ style: style, type: type });
 	};
 
 	$scope.makeActive = function($event){
@@ -180,44 +180,3 @@ app.controller('EditorCtrl', function($scope, wireframe, components, $compile, C
 	}
 
 });
-
-app.directive('component', function ($compile) {
-    var baseLayer = '<div class="entry-photo"><h2>&nbsp;</h2><div class="entry-img"><span><a href="{{rootDirectory}}{{content.data}}"><img ng-src="{{rootDirectory}}{{content.data}}" alt="entry photo"></a></span></div><div class="entry-text"><div class="entry-title">{{content.title}}</div><div class="entry-copy">{{content.description}}</div></div></div>';
-    var empty = '<div><h1>I AM EMPTY</h1></div>'
-
-    var getTemplate = function(componentType) {
-      var template = '';
-
-      switch(componentType) {
-        case 'base-layer':
-          template = baseLayer;
-          break;
-        default:
-          template = empty;
-      }
-      return template;
-    }
-
-    var linker = function(scope, element, attrs) {
-    	console.log('linker', scope, element, attrs);
-      element.html(getTemplate(scope.type)).show();
-      $compile(element.contents())(scope);
-    }
-
-    return {
-        restrict: "E",
-        link: linker,
-        scope: {
-            component:'='
-        }
-    };
-});
-
-
-
-
-
-
-
-
-

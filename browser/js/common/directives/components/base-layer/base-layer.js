@@ -9,9 +9,6 @@ app.directive('baseLayer', function() {
         scope.components = element[0];
         console.log(element[0], "component data");
       }
-
     }
-
-
 	}
 });

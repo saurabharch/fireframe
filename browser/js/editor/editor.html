@@ -13,8 +13,9 @@
 
     <!-- Workspace -->
     <div id="wireframe-board">
-    	<h1>{{ getThem() }}</h1>
-    	<component ng-repeat="component in components" ng-style="component.style"></component>
+    	<div>
+	    	<component ng-repeat="component in components" ng-style="{{component.style}}" ng-src="{{component.src}}" type="{{component.type}}"></component>
+	    </div>
     </div>
 
 

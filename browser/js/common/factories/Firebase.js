@@ -5,7 +5,7 @@ app.factory('Firebase', function(Component, Session, Wireframe) {
   var currentUser = Session.id || Math.round(100*Math.random());
   var activeUsers = [];
 
-  var currentComponents = [];
+  var componentCache = [];
 
   var factory = {
     connect: function(wireframe, $scope) {
@@ -47,22 +47,40 @@ app.factory('Firebase', function(Component, Session, Wireframe) {
       firebaseComponents.on('child_added', function(snapshot) {
         var key = snapshot.key();
         var element = snapshot.val();
-        currentComponents.push(element);
-        Component.create(element.type, $scope, element.style, key);
+        element.id = key;
+        componentCache.push(element);
+        console.log(componentCache)
+        //Component.create(element.type, $scope, element.style, key);
       });
 
       //Event listener, edit element any time a user changes one
       firebaseComponents.on('child_changed', function(snapshot) {
         var key = snapshot.key();
         var element = snapshot.val();
-        Component.update(key, element.style);
+        componentCache.forEach(function(component) {
+          if (component.id === key) {
+            component.style = element.style;
+            component.type = element.type;
+            component.source = element.source;
+          }
+        })
+        console.log(componentCache)
+        //Component.update(key, element.style);
       });
 
       //Event listener, delete element any time a user removes one
       firebaseComponents.on('child_removed', function(snapshot) {
         var key = snapshot.key();
         var element = snapshot.val();
-        Component.deleteComponent(key);
+        var index;
+
+        componentCache.forEach(function(component, i) {
+          if (component.id===key) index = i;
+        });
+
+        componentCache.splice(index, 1);
+        console.log(componentCache)
+        //Component.deleteComponent(key);
       });
 
       //Event listener, update element any time a user changes it
@@ -70,12 +88,12 @@ app.factory('Firebase', function(Component, Session, Wireframe) {
       $('#wireframe-board').on('mousedown', '.resize-drag', function(event) {
         selectedElement = $(this);
         $(window).on('mouseup', function() {
-          var component = Component.saveComponent(selectedElement);
+          //var component = Component.saveComponent(selectedElement);
           var key = component.id;
           firebaseComponents.child(key).update({
             style: component.style
           });
-          console.log('current components', currentComponents);
+          console.log('current components', componentCache);
         });
       });
     },
@@ -107,25 +125,23 @@ app.factory('Firebase', function(Component, Session, Wireframe) {
 
     },
 
-    createRoom: function(wireframe, $scope) {
-      factory.connect(wireframe, $scope);
+    createRoom: function(wireframe) {
+      factory.connect(wireframe);
       
       //load current components to firebase
       if (wireframe.components) {
-
         wireframe.components.forEach(function(component) {
-          factory.createElement(component.style, component.type);
+          factory.createElement(component);
         });
       }
 
-      return currentComponents;
+      return componentCache;
     },
 
     joinRoom: function(wireframe, $scope) {
       factory.connect(wireframe, $scope);
       
       //load in existing firebase objects
-
       return new Promise(function(resolve, reject) {
         firebaseComponents.once('value', function(data) {
           if (data.components) {
@@ -139,16 +155,16 @@ app.factory('Firebase', function(Component, Session, Wireframe) {
         })
       })
       .then(components => {
-        currentComponents = components;
-        return currentComponents;
-      })
-      
+        componentCache = components;
+        return componentCache;
+      }) 
     },
 
-    createElement: function(style, type) {
+    createElement: function(component) {
       firebaseComponents.push({
-        style: style,
-        type: type
+        style: component.style || '',
+        type: component.type || '',
+        source: component.source || ''
       });
     },
 
@@ -167,22 +183,23 @@ app.factory('Firebase', function(Component, Session, Wireframe) {
       Component.update(element.id, style);
     },
 
-    getThem: function() {
-      return currentComponents;
+    getComponentCache: function() {
+      return componentCache;
     },
 
+    //get components array, which is either generated from joining an exisiting room or fetch from the backend and creating a room
     getComponents: function(id, projectId) {
       factory.checkForComponents(id, projectId)
       .then(components => {
         if (!components.val()) {
           return Wireframe.fetchOne(id, projectId)
           .then(wireframe => {
-            currentComponents.concat(wireframe.components);
-            return currentComponents;
+            wireframe.project = projectId;
+            return factory.createRoom(wireframe);
           })
         } else {
-          //otherwise, join room and return a reference to the currentComponents
-          return Firebase.joinRoom()
+          //otherwise, join room and return a reference to the componentCache
+          return factory.joinRoom()
         }
       })
       .then(null, function(err){
