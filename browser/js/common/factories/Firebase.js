@@ -2,7 +2,7 @@ app.factory('Firebase', function(Component, Session, $rootScope) {
   var firebase;
   var firebaseComponents;
   var firebaseUsers;
-  var currentUser = Session.id || Math.round(100*Math.random());
+  var currentUser = Session.id || Math.round(10000*Math.random());
   var activeUsers = [];
 
   var factory = {
@@ -46,15 +46,23 @@ app.factory('Firebase', function(Component, Session, $rootScope) {
       firebaseComponents.on('child_added', function(snapshot) {
         var key = snapshot.key();
         var element = snapshot.val();
+// <<<<<<< HEAD
         Component.create(element.type, $scope, element.style, key, element.dataset);
+// =======
+//         Component.create(element.type, $scope, element.style, key, element.source);
+// >>>>>>> 825d56e7b2f4ef57e4d8baed36e7453f4f2a14f4
       });
 
       //Event listener, edit element any time a user changes one
       firebaseComponents.on('child_changed', function(snapshot) {
         var key = snapshot.key();
         var element = snapshot.val();
+// <<<<<<< HEAD
         Component.update(key, element.style, element.dataset);
         $rootScope.$broadcast('element-changed');
+// =======
+//         Component.update(key, element.style, element.source);
+// >>>>>>> 825d56e7b2f4ef57e4d8baed36e7453f4f2a14f4
       });
 
       //Event listener, delete element any time a user removes one
@@ -66,7 +74,7 @@ app.factory('Firebase', function(Component, Session, $rootScope) {
 
       //Event listener, update element any time a user changes it
       var selectedElement;
-      $('#wireframe-board').on('mousedown', '.resize-drag', function(event) {
+      $('#wireframe-board').on('mousedown', '.component', function(event) {
         selectedElement = $(this);
         console.log(selectedElement);
         $(window).on('mouseup', function() {
@@ -113,7 +121,7 @@ app.factory('Firebase', function(Component, Session, $rootScope) {
       //load current components to firebase
       if (wireframe.components) {
         wireframe.components.forEach(function(component) {
-          factory.createElement(component.style, component.type);
+          factory.createElement(component.style, component.type, component.source);
         });
       }
     },
@@ -125,12 +133,18 @@ app.factory('Firebase', function(Component, Session, $rootScope) {
       firebaseComponents.once('value', function(data) {
         if (data.components) {
           data.components.forEach(function(component) {
+// <<<<<<< HEAD
             Component.create(component.type, $scope, component.style, component.id, component.dataset);
           });
+// =======
+//             Component.create(component.type, $scope, component.style, component.id, component.source);
+//           })
+// >>>>>>> 825d56e7b2f4ef57e4d8baed36e7453f4f2a14f4
         }
       });
     },
 
+// <<<<<<< HEAD
     createElement: function(style, type, dataset) {
       console.log("sent dataset = ",dataset)
       var blobject = {
@@ -140,6 +154,14 @@ app.factory('Firebase', function(Component, Session, $rootScope) {
       };
       console.log("object being sent to firebase is ", blobject);
       firebaseComponents.push(blobject);
+// =======
+//     createElement: function(style, type, source) {
+//       firebaseComponents.push({
+//         style: style,
+//         type: type,
+//         source: source || ""
+//       });
+// >>>>>>> 825d56e7b2f4ef57e4d8baed36e7453f4f2a14f4
     },
 
     deleteElement: function(event) {
@@ -153,8 +175,13 @@ app.factory('Firebase', function(Component, Session, $rootScope) {
       });
     },
 
+// <<<<<<< HEAD
     updateElement: function(element, style, dataset) {
       Component.update(element.id, style, dataset);
+// =======
+//     updateElement: function(element, style) {
+//       Component.update(element.id, style, source);
+// >>>>>>> 825d56e7b2f4ef57e4d8baed36e7453f4f2a14f4
     },
 
   };
