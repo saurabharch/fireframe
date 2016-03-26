@@ -109,26 +109,3 @@ $btn-side: .45 * $left-width;
   height:0.5 * $btn-side;
   top:0.25 * $btn-side;
 }
-
-/*.active-element {
-  border: 2px dashed black;
-}
-
-.fileUpload {
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-}
-
-.fileUpload input.upload {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-  opacity: 0;
-  filter: alpha(opacity=0);
-  height: 100%;
-  text-align: center;
-}
