@@ -1,6 +1,6 @@
-app.factory('Firebase', function(Component, Session) {
+app.factory('Firebase', function(Component, Session, $rootScope) {
   var firebase;
-  var firebaseComponents
+  var firebaseComponents;
   var firebaseUsers;
   var currentUser = Session.id || Math.round(100*Math.random());
   var activeUsers = [];
@@ -46,14 +46,15 @@ app.factory('Firebase', function(Component, Session) {
       firebaseComponents.on('child_added', function(snapshot) {
         var key = snapshot.key();
         var element = snapshot.val();
-        Component.create(element.type, $scope, element.style, key);
+        Component.create(element.type, $scope, element.style, key, element.dataset);
       });
 
       //Event listener, edit element any time a user changes one
       firebaseComponents.on('child_changed', function(snapshot) {
         var key = snapshot.key();
         var element = snapshot.val();
-        Component.update(key, element.style);
+        Component.update(key, element.style, element.dataset);
+        $rootScope.$broadcast('element-changed');
       });
 
       //Event listener, delete element any time a user removes one
@@ -67,11 +68,13 @@ app.factory('Firebase', function(Component, Session) {
       var selectedElement;
       $('#wireframe-board').on('mousedown', '.resize-drag', function(event) {
         selectedElement = $(this);
+        console.log(selectedElement);
         $(window).on('mouseup', function() {
           var component = Component.saveComponent(selectedElement);
           var key = component.id;
           firebaseComponents.child(key).update({
-            style: component.style
+            style: component.style,
+            dataset: component.dataset
           });
         });
       });
@@ -122,17 +125,21 @@ app.factory('Firebase', function(Component, Session) {
       firebaseComponents.once('value', function(data) {
         if (data.components) {
           data.components.forEach(function(component) {
-            Component.create(component.type, $scope, component.style, component.id);
-          })
+            Component.create(component.type, $scope, component.style, component.id, component.dataset);
+          });
         }
       });
     },
 
-    createElement: function(style, type) {
-      firebaseComponents.push({
+    createElement: function(style, type, dataset) {
+      console.log("sent dataset = ",dataset)
+      var blobject = {
         style: style,
-        type: type
-      });
+        type: type,
+        dataset: dataset
+      };
+      console.log("object being sent to firebase is ", blobject);
+      firebaseComponents.push(blobject);
     },
 
     deleteElement: function(event) {
@@ -146,12 +153,11 @@ app.factory('Firebase', function(Component, Session) {
       });
     },
 
-    updateElement: function(element, style) {
-      Component.update(element.id, style);
-    }
+    updateElement: function(element, style, dataset) {
+      Component.update(element.id, style, dataset);
+    },
 
-
-  }
+  };
   return factory;
 
 });

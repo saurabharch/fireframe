@@ -52,9 +52,9 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 
 
 	$scope.createElement = function(type) {
-		//var style = { "background-color":$scope.activeColor, "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray"};
+		console.log("hitting editor createElement");
 		var style = { "background-color": "#FFF", "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray", "z-index": getZrange()};
-		Firebase.createElement(style, type);
+		Firebase.createElement(style, type, {textContents:""});
 	};
 
 	$scope.makeActive = function($event){
