@@ -33,7 +33,7 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 	$scope.deleteElement = Firebase.deleteElement;
 
 	$scope.createElement = function(type) {
-		var style = { "background-color": "#FFF", "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray", "z-index": getZrange()};
+		var style = { "background-color": "#FFF", "opacity":$scope.activeOpacity, "z-index": getZrange()};
 		Firebase.createElement({ style: style, type: type });
 	};
 	

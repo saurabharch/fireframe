@@ -14,7 +14,7 @@
     <!-- Workspace -->
     <div id="wireframe-board">
     	<div>
-	    	<component class="resize-drag component" ng-repeat="component in components" id="{{ component.id }}" ng-style="setStyle(component.style)" ng-src="setSource(component.src)" ng-class="{{component.type}}" type="{{ component.type }}"></component>
+	    	<component class="resize-drag component" ng-repeat="component in components" id="{{ component.id }}" ng-style="setStyle(component.style)" ng-src="setSource(component.src)" ng-class="component.type" type="{{ component.type }}"></component>
 	    </div>
     </div>
 
