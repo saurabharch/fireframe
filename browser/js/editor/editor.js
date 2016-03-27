@@ -64,15 +64,12 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 		Wireframe.save($scope.wireframe)
 	};
 
-	// need to make this work if we want to use double click for file upload
+	// if we want to use double click for file upload we'll need to expand upon this
 	// $scope.uploadImage = function(event) {
 	// 	var id = event.currentTarget.id;
 	// }
 
 	$scope.imageUpload = function(element) {
-	  //approach: create a div element with backgroundUrl set to default link, with stretch to fit
-	  //on double clicking on that element and selecting a file, we just grab the id, send that along with the new file to backend
-	  //after successful file upload to s3, we connect to the room from node, update the element's backgroundurl, and disconnect from the room
 		var imageBox = $(element).closest('image-box');
 	  var file = element.files[0];
 	  var reader  = new FileReader();
