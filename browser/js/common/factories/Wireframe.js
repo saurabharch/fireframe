@@ -1,4 +1,4 @@
-app.factory('Wireframe', function($http, $log, Component) {
+app.factory('Wireframe', function($http, $log) {
 	var path = '/api/wireframes/';
 	var wireframe;
 	
@@ -27,16 +27,17 @@ app.factory('Wireframe', function($http, $log, Component) {
 			.catch($log);
 		},
 
-		//fork should be invoked after moving to the editor state
-		//we can display a loading screen while we resolve the wireframe fork and create the firebase room based on the returned id
 		fork: function(wireframeId, projectId) {
 			return $http.post(path+wireframeId+'/fork', {id: projectId})
 			.then(extractData)
 			.catch($log);
 		},
 
-		save: function(wireframe) {
-			wireframe.components = Component.saveComponents();
+		save: function(wireframe, components) {
+			wireframe.components = components.map(component => {
+				delete component.id;
+				return component;
+			})
 
 			return $http.put(path+wireframe._id, wireframe)
 			.then(extractData);

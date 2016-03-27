@@ -1,4 +1,5 @@
 app.factory('CSS', function() {
+	var styles = ['width', 'height', 'z-index', 'opacity', 'border-width', 'border-style', 'border-color', 'background-color', 'z-index'];
 	var currentScale = 100;
 
 	return {
@@ -27,7 +28,22 @@ app.factory('CSS', function() {
 			}
 		},
 
-		removeTransform: function(element, style) {
+		extractStyle: function(element) {
+			var style = {};
+			styles.forEach(function(prop) {
+				style[prop] = element.css(prop);
+			});
+			style.left = element.position().left;
+			style.top = element.position().top;
+			return style;
+		},
+
+		extractSource: function(element) {
+			return element.attr('src');
+		},
+
+		removeTransform: function(id) {
+			var element = $('#'+id);
 			element.css('transform', '');
 			element.removeData('data-x').removeAttr('data-x');
 			element.removeData('data-y').removeAttr('data-y');

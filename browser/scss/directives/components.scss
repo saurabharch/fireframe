@@ -10,8 +10,8 @@
   font-size: 20px;
   font-family: sans-serif;
   /*border-radius: 4px;*/
-  height: 400px;
-  width: 400px;
+  height: 100%;
+  width: 100%;
   border-radius: 10px;
   overflow: hidden
 }
@@ -79,7 +79,7 @@
   background-color: #34C646;
 }
 
-table-component {
+.table-component {
   border: 1px solid black;
   height: 120px;
   width: 240px;
@@ -104,28 +104,28 @@ table-component {
   }
 }
 
-box {
+.box {
   height: 50px;
   width: 50px;
 }
 
-circle {
+.circle {
   height: 50px;
   width: 50px;
   border-radius: 50%;
 }
 
-list {
+.list {
   height: 75px;
   width: 50px;
 }
 
-button-component {
+.button-component {
   height: 60px;
   width: 50px;
 }
 
-image-box {
+.image-box {
   height: 90px;
   width: 80px;
   border: 1px solid #FF0000;

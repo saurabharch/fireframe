@@ -1,8 +1,8 @@
-app.directive('component', function ($compile) {
-    function templateFinder(element, attr) {
-      return '/js/common/directives/components/base-layer/base-layer.html'
-      console.log('our attributes',attr);
-      switch(attr.type) {
+app.directive('component', function ($compile, CSS, Firebase, $templateRequest) {
+    function templateFinder(type) {
+      console.log('attribute', type);
+      //return '/js/common/directives/components/base-layer/base-layer.html'
+      switch(type) {
         case 'base-layer': return '/js/common/directives/components/base-layer/base-layer.html';
         case 'circle': return '/js/common/directives/components/circle/circle.html';
         case 'box': return '/js/common/directives/components/box/box.html';
@@ -16,13 +16,39 @@ app.directive('component', function ($compile) {
     }
 
     return {
-        restrict: "E",
-        templateUrl: templateFinder,
-        link: function(scope, element, attrs) {
-          console.log('here is our ', element)
-          element.html('<h1>Woo</h1>').show();
+      restrict: "E",
+      scope: {},
+      link: {
+        pre: function (scope, element, attrs) {
+          var url = templateFinder(attrs.type);
+          $templateRequest(url)
+          .then(function(res) { 
+            // compile the html, then link it to the scope
+            var $elem = $compile(res)(scope);
+            // append the compiled template inside the element
+            element.append($elem);
+          });
+        },
 
-          $compile(element.contents())(scope);
+        post: function (scope, element, attr){
+          var selectedElement;
+          element.on('mousedown', function(e){
+            console.log('mousedown');
+            selectedElement = $(this);
+          });
+
+          $(window).on('mouseup', function(e) {
+            if (selectedElement) {
+              console.log('mouseup');
+              var id = selectedElement.attr('id');
+
+              //listen for mouseup on window instead of element, to account for cursor being outside of element's area
+              var style = CSS.extractStyle(selectedElement);
+              Firebase.updateComponent(id, style);
+            }
+            selectedElement = null;
+          })
         }
+      }
     };
 });

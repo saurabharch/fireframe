@@ -3,47 +3,22 @@ app.config(function($stateProvider){
 		url: '/editor/:projectId/edit/:id',
 		templateUrl: '/js/editor/editor.html',
 		resolve: {
-			// wireframe: function($stateParams, Wireframe, Firebase) {
-			// 	return Firebase.checkForComponents($stateParams.id, $stateParams.projectId)
-			// 	.then(components => {
-			// 		if (!components.val()) {
-			// 			return Wireframe.fetchOne($stateParams.id)
-			// 			.then(wireframe => {
-			// 				wireframe.project = $stateParams.projectId;
-			// 				return wireframe;
-			// 			})
-			// 		} else {
-			// 			return { _id: $stateParams.id, existing: true, project: $stateParams.projectId }
-			// 		}
-			// 	})
-			// 	.then(null, function(err){
-			// 		console.log(err);
-			// 	})
-			// },
+			wireframe: function($stateParams) {
+				return { _id: $stateParams.id, project: $stateParams.projectId }
+			},
 			components: function($stateParams, Wireframe, Firebase) {
-				return Firebase.getComponents($stateParams.id, $stateParams.projectId)
+				return Firebase.fetchComponents($stateParams.id, $stateParams.projectId)
 			}
-			//refactor so wireframe.components here is a reference to a cache of the components stored in firebase factory
-			//every child added, removed, updated event alters that cache
-			//we ng-repeat over that cache and have single directive that has dynamic templates, depending on the type
-			//this way, we can tie our styles directly to the object reference through ng-style, thus not worry about so much jquery
-			//same goes for ng-src and images
 		},
 		controller: 'EditorCtrl'
 		});
 });
 
-app.controller('EditorCtrl', function($scope, components, $compile, Component, Interact, CSS, Firebase, Wireframe) {
-	//$scope.wireframe = wireframe;
-	$scope.board = $('#wireframe-board');
+app.controller('EditorCtrl', function($scope, wireframe, components, Interact, CSS, Firebase, Wireframe, $rootScope) {
 	$scope.components = Firebase.getComponentCache();
-
-	// $scope.getThem = function() {
-	// 	console.log('scope components', $scope.components);	
-	// }
-	
-	//THIS SHOULD NOW BE TAKEN CARE OF IN THE RESOLVE
-	//$scope.wireframe.existing ? Firebase.joinRoom(wireframe, $scope) : Firebase.createRoom(wireframe, $scope);
+	$scope.wireframe = wireframe;
+	$scope.board = $('#wireframe-board');
+	Firebase.setScope($scope);
 
 	$scope.activeOpacity = 1;
 	$scope.activeColor = "#FFF";
@@ -61,6 +36,14 @@ app.controller('EditorCtrl', function($scope, components, $compile, Component, I
 		var style = { "background-color": "#FFF", "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray", "z-index": getZrange()};
 		Firebase.createElement({ style: style, type: type });
 	};
+	
+	$scope.setStyle = function(style) {
+		return style;
+	}
+
+	$scope.setSource = function(source) {
+		return source;
+	}
 
 	$scope.makeActive = function($event){
 		$scope.active = $event.target;
@@ -72,9 +55,8 @@ app.controller('EditorCtrl', function($scope, components, $compile, Component, I
 	};
 
 	$scope.save = function () {
-		Wireframe.save($scope.wireframe)
+		Wireframe.save($scope.wireframe, $scope.components);
 	};
-
 
 	//Z-index arrangement
 

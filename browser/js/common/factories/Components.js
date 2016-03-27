@@ -1,5 +1,5 @@
 app.factory('Component', function($compile, CSS) {
-	var styles = ['width', 'height', 'z-index', 'opacity', 'border-width', 'border-style', 'border-color', 'background-color', 'z-index'];
+	var styles = ['z-index', 'opacity', 'border-width', 'border-style', 'border-color', 'background-color', 'z-index'];
 	var factory = {
 		create: function(type, $scope, style, id) {
 			var newElement;
@@ -30,7 +30,7 @@ app.factory('Component', function($compile, CSS) {
 					break;
 			}
 
-			CSS.addStyles(newElement, style);
+			//CSS.addStyles(newElement, style);
   		$scope.board.append(newElement);
 		},
 
@@ -51,7 +51,6 @@ app.factory('Component', function($compile, CSS) {
 				components.push(factory.saveComponent(element))
 			});
 			
-			//need send this array of components back to server (through wireframe factory?)
 			return components;
 		},
 
