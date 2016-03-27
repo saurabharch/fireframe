@@ -1,5 +1,5 @@
 app.factory('Component', function($compile, CSS) {
-	var styles = ['width', 'height', 'z-index', 'opacity', 'border-width', 'border-style', 'border-color', 'background-color', 'z-index'];
+	var styles = ['width', 'height', 'z-index', 'opacity', 'border-width', 'border-style', 'border-color', 'background-color', 'z-index', 'background-image'];
 	var datatypes = ['textContents'];
 
 	var factory = {
@@ -48,8 +48,6 @@ app.factory('Component', function($compile, CSS) {
 			for(var key in dataset){
 				element[0].setAttribute('data-'+key, dataset[key]);
 			}
-			console.log("finalleee ",element);
-
 		},
 
 		deleteComponent: function(id) {
@@ -75,7 +73,6 @@ app.factory('Component', function($compile, CSS) {
 			//component.style = CSS.extractStyles(element);
 
 			//STILL NEED TO SCALE WIDTH AND POSITION BASED ON CURRENT ZOOM
-
 			styles.forEach(function(style) {
 				if (element.css(style)) {
 					component.style[style] = element.css(style);

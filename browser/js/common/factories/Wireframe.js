@@ -48,6 +48,7 @@ app.factory('Wireframe', function($http, $log, Firebase, Component) {
 		},
 
 		uploadImage: function(projectId, wireframeId, componentId, file) {
+			console.log('componentId', componentId);
 			return $http.post(path+wireframeId+'/upload', {
 				projectId: projectId,
 				componentId: componentId,

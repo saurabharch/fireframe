@@ -21,6 +21,10 @@ app.factory('CSS', function() {
 		addStyles: function(element, styles) {
 			for(var prop in styles) {
 				var param = {};
+
+				//catch for images flying off board...
+				if((prop==='left' || prop==='top') && +styles[prop] < 0) styles[prop] = 0;
+				
 				param[prop] = styles[prop];
 				$(element).css(param);
 			}

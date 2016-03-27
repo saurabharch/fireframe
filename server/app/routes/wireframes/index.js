@@ -51,6 +51,9 @@ router.get('/:id', function(req, res, next) {
 
 //edit current wireframe
 router.put('/:id', function(req, res, next) {
+  req.body.components.forEach(function(c) {
+    console.log(c.style);
+  })
   //Are these webshot options needed?
   // var options = {
   //   windowSize: {
@@ -64,7 +67,6 @@ router.put('/:id', function(req, res, next) {
   //Save wireframe with components to DB before capturing screen
   req.wireframe.saveWithComponents(req.body)
   .then(function() {
-
     /**
      * Webshot (phantomJS wrapper) goes to '/phantom/:id',
      * components are loaded from DB, and webshot
@@ -92,15 +94,24 @@ router.put('/:id', function(req, res, next) {
 
 router.post('/:id/upload', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
   var imageUpload = req.body.imageData.split(',');
-  //req.body.imageData => split on comma, take [1] => new Buffer( base 64 string, 'base64') => fs.writeFile(buffer) or s3.upload(b)
-  var image = new Buffer(imageUpload[1], 'base64');
-  //s3.upload(image)?
-  //on return of image, connect to firebase room and update background of element
-  //var firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" +
-                                //req.body.projectId + "/wireframes/" + req.params.id + 
-                                //"/components/" + componentId);
-  //console.log(firebase);
-  res.sendStatus(201);
+  var imageData = new Buffer(imageUpload[1], 'base64');
+
+  //image.upload(req.body.componentId, imageData)
+  //.then(imageUrl => {
+    var firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" +
+                                req.body.projectId + "/wireframes/" + req.params.id + 
+                                "/components/" + req.body.componentId);
+    //return
+    firebase.child('style').update({
+      //"background-image": "url(" + imageUrl + ")"
+      //"background": "url('http://batesmeron.com/wp-content/uploads/2012/07/success_baby.jpg')"
+    })
+  //})
+  //.then(function() {
+    res.sendStatus(201);
+  // })
+  // .then(null, next);
+
 });
 
 //delete single wireframe

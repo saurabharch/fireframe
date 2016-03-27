@@ -80,7 +80,7 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	  reader.addEventListener("load", function () {
 	  	var image = reader.result;
 	  	imageBox.css('background-image', 'url(' + image + ')');
-	    Wireframe.uploadImage($scope.wireframe.project, $scope.wireframe._id, imageBox.id, image);
+	    Wireframe.uploadImage($scope.wireframe.project, $scope.wireframe._id, imageBox.attr('id'), image);
 	  }, false);
 
 	  reader.readAsDataURL(file);
