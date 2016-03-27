@@ -139,7 +139,6 @@ app.factory('Firebase', function(Component, Session, Wireframe, CSS, $rootScope)
 
     joinRoom: function(wireframeId, projectId) {
       factory.connect(wireframeId, projectId);
-      
       //load in existing firebase objects
       return new Promise(function(resolve, reject) {
         firebaseComponents.once('value', function(data) {
@@ -149,15 +148,11 @@ app.factory('Firebase', function(Component, Session, Wireframe, CSS, $rootScope)
         })
       })
       .then(components => {
-        console.log('joined', components)
-        //angular.copy(components, componentCache);
-        console.log('cache =>', componentCache);
         return componentCache;
       }) 
     },
 
     createElement: function(component) {
-      console.log('new element =>', component);
       firebaseComponents.push({
         style: component.style || '',
         type: component.type || '',

@@ -1,7 +1,5 @@
 app.directive('component', function ($compile, CSS, Firebase, $templateRequest) {
     function templateFinder(type) {
-      console.log('attribute', type);
-      //return '/js/common/directives/components/base-layer/base-layer.html'
       switch(type) {
         case 'base-layer': return '/js/common/directives/components/base-layer/base-layer.html';
         case 'circle': return '/js/common/directives/components/circle/circle.html';
