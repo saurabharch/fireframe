@@ -1,9 +1,12 @@
-/* wireframe route */
+/* Wireframe Routes */
 'use strict';
 var router = require('express').Router();
 module.exports = router;
 
-var webshot = require('webshot');
+var Promise = require('bluebird');
+var Readable = require('stream').Readable;
+var webshot = Promise.promisifyAll(require('webshot'));
+var image = require('../imageUpload.js');
 var Firebase = require('firebase');
 
 var mongoose = require('mongoose');
@@ -45,26 +48,44 @@ router.get('/:id', function(req, res, next) {
   res.json(req.wireframe);
 });
 
+
 //edit current wireframe
 router.put('/:id', function(req, res, next) {
-  var w;
-  var options = {
-    windowSize: {
-      width: 1024,
-      height: 768
-    },
-    renderDelay: 2000,
-    //takeShotOnCallback: true
-  };
+  //Are these webshot options needed?
+  // var options = {
+  //   windowSize: {
+  //     width: 1024,
+  //     height: 768
+  //   },
+  //   renderDelay: 2000,
+  //   takeShotOnCallback: true
+  // };
 
+  //Save wireframe with components to DB before capturing screen
   req.wireframe.saveWithComponents(req.body)
-  .then(function(wireframe) {
-    w = wireframe;
-    //Screen capture
-    webshot("http://localhost:1337/phantom/"+req.params.id, req.params.id+".png", options, function(err){});
-  })
   .then(function() {
-    res.json(w);
+
+    /**
+     * Webshot (phantomJS wrapper) goes to '/phantom/:id',
+     * components are loaded from DB, and webshot
+     * captures screen
+     */ 
+    return webshot("http://localhost:1337/phantom/"+req.params.id);
+  })
+  .then(function(stream) {
+    return new Readable().wrap(stream);
+  })
+  .then(function(imageData) {
+    //Image is uploaded to AWS S3
+    return image.upload(req.params.id, imageData);
+  })
+  .then(function(imageUrl) {
+    //Image url is saved to respective wireframe in DB
+    req.wireframe.set({ screenshotUrl: imageUrl });
+    return req.wireframe.save();
+  })
+  .then(function(wireframe) {
+    res.json(wireframe);
   })
   .then(null, next);
 });
@@ -80,7 +101,7 @@ router.post('/:id/upload', auth.ensureTeamMemberOrAdmin, function(req, res, next
                                 //"/components/" + componentId);
   //console.log(firebase);
   res.sendStatus(201);
-})
+});
 
 //delete single wireframe
 //do we want to remove this? only able to delete whole projects, thus saving all versions

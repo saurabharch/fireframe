@@ -20,8 +20,12 @@ var WireframeSchema = new mongoose.Schema({
 		type:mongoose.Schema.Types.ObjectId, 
 		ref:'Wireframe'
 	}],
-	components: Array,
-	photoUrl: String
+	components: {
+		type: Array
+	},
+	screenshotUrl: {
+		type: String
+	}
 
 });
 
