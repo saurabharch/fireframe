@@ -61,7 +61,8 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 	};
 
 	$scope.changeActive = function(frame){
-		$scope.active = frame;
+		console.log("fráme is: ",frame);
+		$scope.active = $.grep($scope.project.wireframes, e=> e._id === frame);
 		console.log($scope.active);
 		$scope.history = [];
 		$scope.altBranches = [];
