@@ -3,8 +3,9 @@
 var router = require('express').Router();
 module.exports = router;
 
+var Promise = require('bluebird');
 var Readable = require('stream').Readable;
-var webshot = require('webshot');
+var webshot = Promise.promisifyAll(require('webshot'));
 var image = require('../imageUpload.js');
 
 var mongoose = require('mongoose');
@@ -46,44 +47,47 @@ router.get('/:id', function(req, res, next) {
   res.json(req.wireframe);
 });
 
+
 //edit current wireframe
 router.put('/:id', function(req, res, next) {
-  var w;
-  var imageUrl;
-  var options = {
-    windowSize: {
-      width: 1024,
-      height: 768
-    },
-    takeShotOnCallback: true
-  };
+  //Are these webshot options needed?
+  // var options = {
+  //   windowSize: {
+  //     width: 1024,
+  //     height: 768
+  //   },
+  //   takeShotOnCallback: true
+  // };
 
+  //Save wireframe with components to DB before capturing screen
   req.wireframe.saveWithComponents(req.body)
-  .then(function(wireframe) {
-    w = wireframe;
-
-    //Capture  screen and upload to AWS S3
-    webshot("http://localhost:1337/phantom/"+req.params.id, function(err, stream) {
-      if(err) return console.log(err);
-      var imageData = new Readable().wrap(stream);
-      imageUrl = image.upload(req.params.id, imageData);
-    });  
-
-  })
-  // .then(function() {
-    
-  // })
   .then(function() {
-    res.json(w);
+
+    /**
+     * Webshot (phantomJS wrapper) goes to '/phantom/:id',
+     * components are loaded from DB, and webshot
+     * captures screen
+     */ 
+    return webshot("http://localhost:1337/phantom/"+req.params.id);
+  })
+  .then(function(stream) {
+    return new Readable().wrap(stream);
+  })
+  .then(function(imageData) {
+    //Image is uploaded to AWS S3
+    return image.upload(req.params.id, imageData);
+  })
+  .then(function(imageUrl) {
+    //Image url is saved to respective wireframe in DB
+    req.wireframe.set({ screenshotUrl: imageUrl });
+    return req.wireframe.save();
+  })
+  .then(function(wireframe) {
+    res.json(wireframe);
   })
   .then(null, next);
 
-
-
-  
 });
-
-
 
 
 //delete single wireframe

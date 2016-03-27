@@ -1,15 +1,13 @@
-/* Image uploading to Amazon S3 */
+/* Image uploading to AWS S3 */
 var AWS = require('aws-sdk');
 var path = require('path');
+var Promise = require('bluebird');
 
 AWS.config.loadFromPath(path.join(__dirname, '../../secret/config.json'));
 
 var image = {};
 
 image.upload = function(id, imageData) {
-	var imageUrl;
-	var s3 = new AWS.S3({ params: params });
-	
 	var params = {
 		Bucket: 'capstone.bucket', 
 		Key: id + '.png',
@@ -18,14 +16,14 @@ image.upload = function(id, imageData) {
 		ACL: 'public-read'
 	};
 
-	s3.upload(params, function(err, data) {
-		if(err) return console.log(err);
-		imageUrl = data.Location;
-		console.log('Successfully uploaded image');
-		console.log('ImageUrl: ', imageUrl);
-	});
+	var s3 = new Promise.promisifyAll(new AWS.S3());
 
-	return imageUrl;
+	//Upload image and return its AWS S3 url
+	return s3.uploadAsync(params)
+	.then(function(data){
+		var imageUrl = data.Location;
+		return imageUrl;
+	});
 
 };
 
