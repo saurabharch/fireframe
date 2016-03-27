@@ -104,6 +104,12 @@ table-component {
   }
 }
 
+text-box {
+  min-height:2em;
+  min-width:1em;
+  overflow:hidden;
+}
+
 box {
   height: 50px;
   width: 50px;

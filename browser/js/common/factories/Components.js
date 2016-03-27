@@ -1,7 +1,10 @@
 app.factory('Component', function($compile, CSS) {
 	var styles = ['width', 'height', 'z-index', 'opacity', 'border-width', 'border-style', 'border-color', 'background-color', 'z-index'];
+	var datatypes = ['textContents'];
+
 	var factory = {
-		create: function(type, $scope, style, id, source) {
+
+		create: function(type, $scope, style, id, dataset) {
 			var newElement;
 			switch(type) {
 				case 'base-layer':
@@ -32,13 +35,20 @@ app.factory('Component', function($compile, CSS) {
 			}
 
 			CSS.addStyles(newElement, style);
+			newElement[0].setAttribute('data-textContents',dataset.textContents);
   		$scope.board.append(newElement);
 		},
 
-		update: function(id, style, source) {
+		update: function(id, style, dataset) {
 			var element = $('#'+id);
 			CSS.addStyles(element, style);
 			CSS.removeTransform(element, style);
+
+			for(var key in dataset){
+				element[0].setAttribute('data-'+key, dataset[key]);
+			}
+			console.log("finalleee ",element);
+
 		},
 
 		deleteComponent: function(id) {
@@ -59,6 +69,7 @@ app.factory('Component', function($compile, CSS) {
 			var component = {};
 			component.type = element.prop('tagName').toLowerCase();
 			component.style = {};
+			component.dataset = {};
 			component.id = element.attr('id');
 			//component.style = CSS.extractStyles(element);
 
@@ -69,6 +80,13 @@ app.factory('Component', function($compile, CSS) {
 					component.style[style] = element.css(style);
 				}
 			});
+
+			datatypes.forEach(function(datatype) {
+				if(element[0].getAttribute('data-'+datatype)){
+					component.dataset[datatype] = element[0].getAttribute('data-'+datatype);
+				}
+			});
+
 			component.style.left = element.position().left;
 			component.style.top = element.position().top;
 
