@@ -4,6 +4,7 @@ var router = require('express').Router();
 module.exports = router;
 
 var webshot = require('webshot');
+var Firebase = require('firebase');
 
 var mongoose = require('mongoose');
 var Wireframe = mongoose.model('Wireframe');
@@ -52,7 +53,8 @@ router.put('/:id', function(req, res, next) {
       width: 1024,
       height: 768
     },
-    takeShotOnCallback: true
+    renderDelay: 2000,
+    //takeShotOnCallback: true
   };
 
   req.wireframe.saveWithComponents(req.body)
@@ -65,14 +67,20 @@ router.put('/:id', function(req, res, next) {
     res.json(w);
   })
   .then(null, next);
-
-
-
-  
 });
 
-
-
+router.post('/:id/upload', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
+  var imageUpload = req.body.imageData.split(',');
+  //req.body.imageData => split on comma, take [1] => new Buffer( base 64 string, 'base64') => fs.writeFile(buffer) or s3.upload(b)
+  var image = new Buffer(imageUpload[1], 'base64');
+  //s3.upload(image)?
+  //on return of image, connect to firebase room and update background of element
+  //var firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" +
+                                //req.body.projectId + "/wireframes/" + req.params.id + 
+                                //"/components/" + componentId);
+  //console.log(firebase);
+  res.sendStatus(201);
+})
 
 //delete single wireframe
 //do we want to remove this? only able to delete whole projects, thus saving all versions

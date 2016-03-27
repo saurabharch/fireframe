@@ -64,27 +64,26 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 		Wireframe.save($scope.wireframe)
 	};
 
+	// need to make this work if we want to use double click for file upload
+	// $scope.uploadImage = function(event) {
+	// 	var id = event.currentTarget.id;
+	// }
+
 	$scope.imageUpload = function(element) {
+	  //approach: create a div element with backgroundUrl set to default link, with stretch to fit
+	  //on double clicking on that element and selecting a file, we just grab the id, send that along with the new file to backend
+	  //after successful file upload to s3, we connect to the room from node, update the element's backgroundurl, and disconnect from the room
+		var imageBox = $(element).closest('image-box');
 	  var file = element.files[0];
 	  var reader  = new FileReader();
-	  var name = Math.round(Math.random()*100000);
-	  var style = { "background-color": "#FFF", "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray", "z-index": getZrange()};
 	  
-	  Firebase.createImage(file, $scope, style);
-	  //on upload, must create element on firebase
-	  //once that element is rendered on our page, we read the file as a data url and set the src to that..not updating firebase
-	  //but also need to leave src as default placeholder on all other users pages
-	  //at the same time, or perhaps once that firebase object is returned and we have its id, we need to upload the buffer to our server
-	  //send that to aws and get back a url
-	  //once we have the url, connect from the server to our firebase room, find that component by its id, and set the src to the image src passed in
-
 	  reader.addEventListener("load", function () {
-	    //$('img').attr('src', 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150');
-	    //Component.uploadImage(reader.result)
+	  	var image = reader.result;
+	  	imageBox.css('background-image', 'url(' + image + ')');
+	    Wireframe.uploadImage($scope.wireframe.project, $scope.wireframe._id, imageBox.id, image);
 	  }, false);
 
 	  reader.readAsDataURL(file);
-
 	};
 
 	//Z-index arrangement
