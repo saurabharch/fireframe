@@ -11,9 +11,9 @@
 
 <div>
   <accordion>
-    <accordion-group ng-repeat="team in teams" heading="{{team.name}}" is-open="group.open" >
+    <accordion-group ng-repeat="team in teams" heading="{{team.name}}  " is-open="group.open" class="accordion-team-group">
     <ul class="list-unstyled">
-    	<li>Admin: {{team.administrator.firstName}} {{team.administrator.lastName}}</li>
+    	<li><strong>Admin: </strong>{{team.administrator.firstName}} {{team.administrator.lastName}}</li>
     	<li ng-repeat="member in team.members | filter: search">{{ member.firstName }} {{ member.lastName }}</li>
     </ul>
     </accordion-group>

@@ -1,5 +1,5 @@
 'use strict';
-window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate']);
+window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'colorpicker.module']);
 //taking out colorpicker.module makes the angular tests work... have to debug as to why
 
 app.config(function ($urlRouterProvider, $locationProvider) {
