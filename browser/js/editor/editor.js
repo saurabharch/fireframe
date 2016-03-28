@@ -45,6 +45,10 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 		return source;
 	}
 
+	$scope.setActive = function(component) {
+		$scope.active = component;
+	}
+
 	$scope.makeActive = function($event){
 		$scope.active = $event.target;
 		var color = $scope.active.style.backgroundColor;
@@ -116,15 +120,12 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 
 //Event listeners
 
-	$scope.board.on('mousedown',function(){
-		$($scope.active).removeClass('active-element');
-		$scope.active = null;
-		// $scope.createSelectBox;
-	});
+	// $scope.board.on('mousedown',function(){
+	// 	$($scope.active).removeClass('active-element');
+	// 	$scope.active = null;
+	// 	// $scope.createSelectBox;
+	// });
 
-	$scope.$watch('activeColor', function(){
-		if($scope.active) $scope.active.style.backgroundColor = $scope.activeColor;
-	});
 
 
 //Helper functions
