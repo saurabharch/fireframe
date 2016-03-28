@@ -29,7 +29,6 @@ app.config(function($stateProvider) {
 
 app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 	$scope.project = project;
-	console.log(project);
 	$scope.history = [];
 	$scope.altBranches = [];
 	$scope.master = project.wireframes.filter(frame => frame.master === true)[0];

@@ -15,6 +15,7 @@ app.config(function($stateProvider){
 });
 
 app.controller('EditorCtrl', function($scope, wireframe, components, Interact, CSS, Firebase, Wireframe, $rootScope) {
+	console.log('does this work?');
 	$scope.components = Firebase.getComponentCache();
 	$scope.wireframe = wireframe;
 	$scope.board = $('#wireframe-board');
@@ -49,40 +50,31 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 		$scope.active = component;
 	}
 
-	$scope.makeActive = function($event){
-		$scope.active = $event.target;
-		var color = $scope.active.style.backgroundColor;
-		color = color.substring(4, color.length-1);
-		color = color.split(', ').map(str => Number(str));
-		color = rgbToHex(color);
-		$scope.activeColor = color;
-	};
-
 	$scope.save = function () {
 		Wireframe.save($scope.wireframe, $scope.components);
 	};
 
-	$scope.imageUpload = function(element) {
-	  var file = element.files[0];
-	  var reader  = new FileReader();
-	  var name = Math.round(Math.random()*100000);
+	// $scope.imageUpload = function(element) {
+	//   var file = element.files[0];
+	//   var reader  = new FileReader();
+	//   var name = Math.round(Math.random()*100000);
 
-	  //on upload, must create element on firebase
-	  //once that element is rendered on our page, we read the file as a data url and set the src to that..not updating firebase
-	  //but also need to leave src as default placeholder on all other users pages
-	  //at the same time, or perhaps once that firebase object is returned and we have its id, we need to upload the buffer to our server
-	  //send that to aws and get back a url
-	  //once we have the url, connect from the server to our firebase room, find that component by its id, and set the src to the image src passed in
+	//   //on upload, must create element on firebase
+	//   //once that element is rendered on our page, we read the file as a data url and set the src to that..not updating firebase
+	//   //but also need to leave src as default placeholder on all other users pages
+	//   //at the same time, or perhaps once that firebase object is returned and we have its id, we need to upload the buffer to our server
+	//   //send that to aws and get back a url
+	//   //once we have the url, connect from the server to our firebase room, find that component by its id, and set the src to the image src passed in
 
-	  reader.addEventListener("load", function () {
-	    $('img').attr('src', reader.result);
-	    Component.uploadImage(reader.result)
-	  }, false);
+	//   reader.addEventListener("load", function () {
+	//     $('img').attr('src', reader.result);
+	//     Component.uploadImage(reader.result)
+	//   }, false);
 
-	  if (file) {
-	    reader.readAsDataURL(file);
-	  }
-	};
+	//   if (file) {
+	//     reader.readAsDataURL(file);
+	//   }
+	// };
 
 	//Z-index arrangement
 
@@ -143,13 +135,9 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 
 //Event listeners
 
-	// $scope.board.on('mousedown',function(){
-	// 	$($scope.active).removeClass('active-element');
-	// 	$scope.active = null;
-	// 	// $scope.createSelectBox;
-	// });
-
-
+	$scope.board.on('mousedown',function(){
+		$scope.active = null;
+	});
 
 //Helper functions
 

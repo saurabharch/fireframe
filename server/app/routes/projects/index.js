@@ -50,6 +50,7 @@ router.post('/', auth.ensureUser, function(req, res, next) {
   req.body.creator = req.user._id;
   Project.createNewProject(req.body)
   .then(wireframe => {
+    console.log('heres the return', wireframe)
     res.json(wireframe);
   })
   .then(null, next)

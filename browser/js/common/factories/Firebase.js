@@ -1,4 +1,4 @@
-app.factory('Firebase', function(Component, Session, Wireframe, CSS, $rootScope) {
+app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
   var firebase;
   var firebaseComponents;
   var firebaseUsers;
