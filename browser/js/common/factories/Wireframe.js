@@ -46,6 +46,15 @@ app.factory('Wireframe', function($http, $log) {
 		setMaster: function(wireframeId, projectId) {
 			return $http.put(path+wireframeId+'/master', {id: projectId})
 			.then(extractData);
+		},
+
+		uploadImage: function(projectId, wireframeId, componentId, file) {
+			console.log('componentId', componentId);
+			return $http.post(path+wireframeId+'/upload', {
+				projectId: projectId,
+				componentId: componentId,
+				imageData: file,
+			})
 		}
 	};
 

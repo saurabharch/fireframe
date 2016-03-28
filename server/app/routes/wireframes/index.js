@@ -7,6 +7,7 @@ var Promise = require('bluebird');
 var Readable = require('stream').Readable;
 var webshot = Promise.promisifyAll(require('webshot'));
 var image = require('../imageUpload.js');
+var Firebase = require('firebase');
 
 var mongoose = require('mongoose');
 var Wireframe = mongoose.model('Wireframe');
@@ -51,7 +52,6 @@ router.get('/:id', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
 //edit current wireframe
 
 router.put('/:id', function(req, res, next) {
-  //Are these webshot options needed?
   var options = {
     windowSize: {
       width: 1024,
@@ -63,7 +63,6 @@ router.put('/:id', function(req, res, next) {
   //Save wireframe with components to DB before capturing screen
   req.wireframe.saveWithComponents(req.body)
   .then(function() {
-
     /**
      * Webshot (phantomJS wrapper) goes to '/phantom/:id',
      * components are loaded from DB, and webshot
@@ -87,9 +86,29 @@ router.put('/:id', function(req, res, next) {
     res.json(wireframe);
   })
   .then(null, next);
-
 });
 
+router.post('/:id/upload', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
+  var imageUpload = req.body.imageData.split(',');
+  var imageData = new Buffer(imageUpload[1], 'base64');
+
+  //image.upload(req.body.componentId, imageData)
+  //.then(imageUrl => {
+    var firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" +
+                                req.body.projectId + "/wireframes/" + req.params.id + 
+                                "/components/" + req.body.componentId);
+    //return
+    firebase.child('style').update({
+      //"background-image": "url(" + imageUrl + ")"
+      "background-image": "url('http://batesmeron.com/wp-content/uploads/2012/07/success_baby.jpg')"
+    })
+  //})
+  //.then(function() {
+    res.sendStatus(201);
+  // })
+  // .then(null, next);
+
+});
 
 //delete single wireframe
 //do we want to remove this? only able to delete whole projects, thus saving all versions
@@ -116,8 +135,8 @@ router.post('/:id/fork', auth.ensureTeamMemberOrAdmin, function(req, res, next) 
 })
 
 //set wireframe as new master
-router.get('/:id/master', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
-  Project.setMaster(req.wireframe)
+router.put('/:id/master', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
+  Project.setMaster(req.wireframe, req.body.id)
   .then(wireframe => {
     res.json(wireframe);
   })
