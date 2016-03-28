@@ -1,5 +1,5 @@
 <div class="delete-hoverable fileUpload">
-  <input id="uploadBtn" type="file" class="upload" onchange="console.log(angular.element(this).$parent.scope())"/>
+  <input id="uploadBtn" type="file" class="upload" onchange="console.log(angular.element(this).scope())"/>
 	<button type="button" class="hover-delete-btn">
   <i class="fa fa-trash" id="" ng-click="deleteElement($event)"></i></button>
 </div>
