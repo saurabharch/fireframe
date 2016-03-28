@@ -50,6 +50,7 @@
 			</div>
 		</div>
 	</div>
+
 	<div ng-show="active.type==='image-box'" class="tool-panel">
 		<div class="form-group">
 			<input type="radio" ng-model="active.style['background-size']" value="'100% 100%'">
@@ -60,6 +61,13 @@
 
 			<input type="radio" ng-model="active.style['background-size']" value="contain">
 			<label>Contain</label>
+		</div>
+	</div>
+
+	<div ng-show="active.type==='text-box'" class="tool-panel">
+		<div class="form-group">
+			<label>Font Size</label>
+			<input type="text" ng-model="active.style['font-size']" value="14px">
 		</div>
 	</div>
 	<div class="tool-panel">
