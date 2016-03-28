@@ -12,7 +12,7 @@ var _ = require('lodash'),
     ProjectRouter = require('../projects');
 
 //Get all existing teams
-router.get('/', function(req, res, next) {
+router.get('/', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
 	Team.find({})
 	.then(teams => {
 		res.json(teams);
@@ -20,9 +20,10 @@ router.get('/', function(req, res, next) {
 	.then(null, next);
 });
 
-router.post('/', function(req, res, next) {
+router.post('/', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
 	Team.createAndAddMembers(req.body)
 	.then(team => {
+    console.log("the team!!!", team);
 		res.json(team);
 	})
 	.then(null, next);

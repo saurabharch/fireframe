@@ -3,38 +3,26 @@ app.config(function($stateProvider){
 		url: '/editor/:projectId/edit/:id',
 		templateUrl: '/js/editor/editor.html',
 		resolve: {
-			wireframe: function($stateParams, Wireframe, Firebase) {
-				return Firebase.checkForComponents($stateParams.id, $stateParams.projectId)
-				.then(components => {
-					if (!components.val()) {
-						return Wireframe.fetchOne($stateParams.id)
-						.then(wireframe => {
-							wireframe.project = $stateParams.projectId;
-							return wireframe;
-						})
-					} else {
-						return { _id: $stateParams.id, existingRoom: true, project: $stateParams.projectId }
-					}
-				})
-				.then(null, function(err){
-					console.log(err);
-				})
+			wireframe: function($stateParams) {
+				return { _id: $stateParams.id, project: $stateParams.projectId }
+			},
+			components: function($stateParams, Wireframe, Firebase) {
+				return Firebase.fetchComponents($stateParams.id, $stateParams.projectId)
 			}
 		},
 		controller: 'EditorCtrl'
 		});
 });
 
-app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, Interact, CSS, Firebase, Wireframe) {
+app.controller('EditorCtrl', function($scope, wireframe, components, Interact, CSS, Firebase, Wireframe, $rootScope) {
+	console.log('does this work?');
+	$scope.components = Firebase.getComponentCache();
 	$scope.wireframe = wireframe;
 	$scope.board = $('#wireframe-board');
+	Firebase.setScope($scope);
 
-	$scope.wireframe.existingRoom ? Firebase.joinRoom(wireframe, $scope) : Firebase.createRoom(wireframe, $scope);
-
-	//$scope.components = wireframe.components;
 	$scope.activeOpacity = 1;
 	$scope.activeColor = "#FFF";
-	$scope.elementsRendered = $scope.elementsRendered || false;
 
 	//initialize dragging and resizing
 	Interact.dragAndResize();
@@ -46,45 +34,47 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 	$scope.deleteElement = Firebase.deleteElement;
 
 	$scope.createElement = function(type) {
-		console.log("hitting editor createElement");
-		var style = { "background-color": "#FFF", "opacity":$scope.activeOpacity, "border-width": "1px", "border-style": "solid", "border-color": "gray", "z-index": getZrange()};
-		Firebase.createElement(style, type, {textContents:""});
+		var style = { "background-color": "#FFF", "opacity":$scope.activeOpacity, "z-index": getZrange()};
+		Firebase.createElement({ style: style, type: type, content: 'I AM A TEXT BOX' });
 	};
+	
+	$scope.setStyle = function(style) {
+		return style;
+	}
 
-	$scope.makeActive = function($event){
-		$scope.active = $event.target;
-		var color = $scope.active.style.backgroundColor;
-		color = color.substring(4, color.length-1);
-		color = color.split(', ').map(str => Number(str));
-		color = rgbToHex(color);
-		$scope.activeColor = color;
-	};
+	$scope.setSource = function(source) {
+		return source;
+	}
+
+	$scope.setActive = function(component) {
+		$scope.active = component;
+	}
 
 	$scope.save = function () {
-		Wireframe.save($scope.wireframe)
+		Wireframe.save($scope.wireframe, $scope.components);
 	};
 
-	$scope.imageUpload = function(element) {
-	  var file = element.files[0];
-	  var reader  = new FileReader();
-	  var name = Math.round(Math.random()*100000);
+	// $scope.imageUpload = function(element) {
+	//   var file = element.files[0];
+	//   var reader  = new FileReader();
+	//   var name = Math.round(Math.random()*100000);
 
-	  //on upload, must create element on firebase
-	  //once that element is rendered on our page, we read the file as a data url and set the src to that..not updating firebase
-	  //but also need to leave src as default placeholder on all other users pages
-	  //at the same time, or perhaps once that firebase object is returned and we have its id, we need to upload the buffer to our server
-	  //send that to aws and get back a url
-	  //once we have the url, connect from the server to our firebase room, find that component by its id, and set the src to the image src passed in
+	//   //on upload, must create element on firebase
+	//   //once that element is rendered on our page, we read the file as a data url and set the src to that..not updating firebase
+	//   //but also need to leave src as default placeholder on all other users pages
+	//   //at the same time, or perhaps once that firebase object is returned and we have its id, we need to upload the buffer to our server
+	//   //send that to aws and get back a url
+	//   //once we have the url, connect from the server to our firebase room, find that component by its id, and set the src to the image src passed in
 
-	  reader.addEventListener("load", function () {
-	    $('img').attr('src', reader.result);
-	    Component.uploadImage(reader.result)
-	  }, false);
+	//   reader.addEventListener("load", function () {
+	//     $('img').attr('src', reader.result);
+	//     Component.uploadImage(reader.result)
+	//   }, false);
 
-	  if (file) {
-	    reader.readAsDataURL(file);
-	  }
-	};
+	//   if (file) {
+	//     reader.readAsDataURL(file);
+	//   }
+	// };
 
 	//Z-index arrangement
 
@@ -145,17 +135,9 @@ app.controller('EditorCtrl', function($scope, wireframe, $compile, Component, In
 
 //Event listeners
 
-
 	$scope.board.on('mousedown',function(){
-		$($scope.active).removeClass('active-element');
 		$scope.active = null;
-		// $scope.createSelectBox;
 	});
-
-	$scope.$watch('activeColor', function(){
-		if($scope.active) $scope.active.style.backgroundColor = $scope.activeColor;
-	});
-
 
 //Helper functions
 
