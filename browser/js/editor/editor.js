@@ -141,14 +141,26 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 		return Number(el.style['z-index']);
 	}
 
+	function setZindex(el,zIndex){
+		el.style['z-index'] = zIndex;
+	}
+
 	function getMaxZ(){
 		var maxZ = 0;
 		var elementArray = $scope.components;
-		elementArray.forEach(el => {
-			let z = getZindex(el);
-			if(z > maxZ) maxZ = z;
+		// elementArray.forEach(el => {
+		// 	let z = getZindex(el);
+		// 	if(z > maxZ) maxZ = z;
+		// });
+		console.log(elementArray);
+		elementArray = elementArray.sort(function(a,b){
+			return getZindex(a) - getZindex(b);
+		})
+		elementArray.forEach(function(el,index){
+			setZindex(el, index);
 		});
-		return maxZ;
+		console.log(elementArray);
+		return getZindex(elementArray.slice(-1)[0]);
 	}
 
 	function getZrange(){
