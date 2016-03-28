@@ -36,9 +36,8 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 	$scope.showHistory = true;
 
 	traverseFrames($scope.active);
-	console.log($scope.master);
-	console.log($scope.history);
-	console.log($scope.altBranches);
+	console.log("project", $scope.project);
+	console.log("active", $scope.active);
 
 	$scope.forkFrame = function(){
 		Wireframe.fork($scope.master._id, $scope.project._id)
