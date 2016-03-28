@@ -35,7 +35,7 @@
 		    	</div>
 	  		</div>
 	  	<h3>Active Wireframe: {{active._id}}</h3>
-			<img id="activeSnapshot" src="http://creatage.com/wp-content/uploads/2012/04/wireframe-lrg.jpg">
+			<img id="activeSnapshot" src="{{active.screenshotUrl}}">
 			<br><br>
 			<button class="btn btn-warm" ng-click="forkFrame()">Create Fork</button>
 			<button class="btn btn-cool" ng-show="currentEdit()" ng-click="joinRoom()">Join Editing</button>
@@ -49,7 +49,7 @@
 			  <li id="master">Master</a></li>
 		  </ul>
 		  <div class="masterFrame" ng-click="changeActive(master)">
-			  <img src="http://creatage.com/wp-content/uploads/2012/04/wireframe-lrg.jpg" height="100" width="100">
+			  <img src="{{master.screenshotUrl}}" height="100" width="100">
 					<label>{{master._id}}</label>
 			</div>
 			<ul class="nav nav-tabs nav-justified headerPanel">
@@ -59,11 +59,11 @@
 			<!-- 		<h3 ng-show="showHistory">History</h3><br>
 			<h3 ng-hide="showHistory">Alternate Branches</h3><br> -->
 			<div class="framesList" ng-hide="showHistory" ng-repeat="frame in altBranches" ng-click="changeActive(frame)">
-				<img src="http://creatage.com/wp-content/uploads/2012/04/wireframe-lrg.jpg" height="100" width="100">
+				<img src="{{frame.screenshotUrl}}" height="100" width="100">
 				<label>{{frame._id}}</label>
 			</div>
 			<div class="framesList" ng-show="showHistory" ng-repeat="frame in history" ng-click="changeActive(frame)">
-				<img src="http://creatage.com/wp-content/uploads/2012/04/wireframe-lrg.jpg" height="100" width="100">
+				<img src="{{frame.screenshotUrl}}" height="100" width="100">
 				<label>{{frame._id}}</label>
 			</div>
 		</div>
