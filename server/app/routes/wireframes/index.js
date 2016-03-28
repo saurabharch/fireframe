@@ -51,13 +51,13 @@ router.get('/:id', function(req, res, next) {
 //edit current wireframe
 router.put('/:id', function(req, res, next) {
   //Are these webshot options needed?
-  // var options = {
-  //   windowSize: {
-  //     width: 1024,
-  //     height: 768
-  //   },
-  //   takeShotOnCallback: true
-  // };
+  var options = {
+    windowSize: {
+      width: 1024,
+      height: 768
+    },
+    renderDelay: 2000
+  };
 
   //Save wireframe with components to DB before capturing screen
   req.wireframe.saveWithComponents(req.body)
@@ -68,7 +68,7 @@ router.put('/:id', function(req, res, next) {
      * components are loaded from DB, and webshot
      * captures screen
      */ 
-    return webshot("http://localhost:1337/phantom/"+req.params.id);
+    return webshot("http://localhost:1337/phantom/"+req.params.id, options);
   })
   .then(function(stream) {
     return new Readable().wrap(stream);

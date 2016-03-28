@@ -38,7 +38,7 @@ app.factory('Component', function($compile, CSS) {
 
 // <<<<<<< HEAD
 			CSS.addStyles(newElement, style);
-			newElement[0].setAttribute('data-textContents',dataset.textContents);
+			if(dataset) newElement[0].setAttribute('data-textContents',dataset.textContents);
   		$scope.board.append(newElement);
 		},
 

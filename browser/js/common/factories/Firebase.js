@@ -82,7 +82,7 @@ app.factory('Firebase', function(Component, Session, $rootScope) {
           var key = component.id;
           firebaseComponents.child(key).update({
             style: component.style,
-            dataset: component.dataset
+            dataset: component.dataset || ''
           });
         });
       });
@@ -150,7 +150,7 @@ app.factory('Firebase', function(Component, Session, $rootScope) {
       var blobject = {
         style: style,
         type: type,
-        dataset: dataset
+        dataset: dataset || ''
       };
       console.log("object being sent to firebase is ", blobject);
       firebaseComponents.push(blobject);
