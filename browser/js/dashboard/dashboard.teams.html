@@ -9,6 +9,19 @@
 
 <br>
 
+<div>
+  <accordion>
+    <accordion-group ng-repeat="team in teams" heading="{{team.name}}" is-open="group.open">
+    <ul class="list-group">
+    	<li>Admin: {{administrator.firstName}} {{administrator.lastName}}</li>
+    	<li ng-repeat="member in team.members | filter: search">{{ member.firstName }} {{ member.lastName }}</li>
+    </ul>
+    </accordion-group>
+  </accordion>
+</div>
+
+
+ <!-- 
 <div class="row">
 	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 	  <div class="panel panel-default" ng-repeat="team in teams">
@@ -21,11 +34,11 @@
 	    </div>
 	    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 	      <ul class="list-group">
-	        <!--Project 1 Team members. This is placeholder. Should be done with ng-repeat-->
+	        <!--Project 1 Team members. This is placeholder. Should be done with ng-repeat
 	      	<li class="list-group-item" ng-repeat="member in team.members | filter: search">{{ member.firstName }} {{ member.lastName }}</li>
 
 	      </ul>
 	    </div>
 	  </div>
 	</div>
-</div>
+</div> --> 
