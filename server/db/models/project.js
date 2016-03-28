@@ -35,17 +35,8 @@ var ProjectSchema = new mongoose.Schema({
 });
 
 
-ProjectSchema.plugin(deepPopulate, {
-  populate: {
-    'team.members': {
-      select: 'name'
-    },
-    'team.adminstrator': {
-      select: 'name'
-    }
-  }
-})
-//dates are not updating in the project details thing on projects page...
+ProjectSchema.plugin(deepPopulate);
+
 ProjectSchema.pre('validate', function(next){
   this.updated_at = Date.now();
   if ( !this.created_at ) {

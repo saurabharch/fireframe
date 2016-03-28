@@ -7,13 +7,12 @@ var mongoose = require('mongoose');
 var Project = mongoose.model('Project');
 var Team = mongoose.model('Team');
 var auth = require('../authentication');
-var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 
 router.param('id', function(req, res, next, id) {
 	Project.findById(id)
   .populate('wireframes', 'photoUrl master parent children')
-  .deepPopulate('team', 'members adminstrator')
+  .deepPopulate(['team.members', 'team.administrator'])
   .populate('comments')
 	.then(project => {
 		if (project) {

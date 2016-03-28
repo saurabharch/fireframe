@@ -20,10 +20,12 @@
             	  <dd>{{project.name}}</dd>
             	  <dt>Description: </dt>
             	  <dd>{{project.description}}</dd>
+            	  <dt>Team Name</dt>
+            	  <dd>{{project.team.name}}</dd>
             	  <dt>Team Admin: </dt>
             	  <dd>{{project.team.administrator.firstName}}</dd>
             	  <dt>Team Members: </dt>
-            	  <dd>{{project.team.members.firstName}}</dd>
+            	  <dd ng-repeat="member in project.team.members">{{member.firstName}}</dd>
             	  <dt>Created On: </dt>
             	  <dd>{{project.created_at | date:'medium'}}</dd>
             	  <dt>Last Updated: </dt>

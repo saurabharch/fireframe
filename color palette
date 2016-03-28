@@ -1,4 +1,4 @@
-npm s.color-primary-0 { color: #006E92 }	/* Main Primary color */
+.color-primary-0 { color: #006E92 }	/* Main Primary color */
 .color-primary-1 { color: #06303E }
 .color-primary-2 { color: #06303E }
 .color-primary-3 { color: #99E6FF }
