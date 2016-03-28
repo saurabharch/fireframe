@@ -33,7 +33,7 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 	$scope.master = project.wireframes.filter(frame => frame.master === true)[0];
 	$scope.active = $scope.master;
 	$scope.showHistory = true;
-
+	console.log($scope.project);
 	traverseFrames($scope.active);
 
 	$scope.forkFrame = function(){
