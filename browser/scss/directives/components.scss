@@ -172,11 +172,13 @@ component {
 }
 
 .text-box {
-  height: 200px;
-  width: 300px;
+  height: 100%;
+  width: 100%;
   min-height:2em;
   min-width:1em;
   overflow:hidden;
+  background: transparent !important;
+  border: none !important;
 }
 
 .image-box {
