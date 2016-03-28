@@ -111,6 +111,10 @@ $sideBarWidth: 200px;
 		background-color:$headerGrey;
 		color:$headerText;
 		margin-top:2px;
+		.active {
+			background-color:#555;
+			color:#fff;
+		}
 	}
 
 	.masterPanel {
