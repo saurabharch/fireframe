@@ -34,7 +34,7 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 
 	$scope.createElement = function(type) {
 		var style = { "background-color": "#FFF", "opacity":$scope.activeOpacity, "z-index": getZrange()};
-		Firebase.createElement({ style: style, type: type, content: 'I AM A TEXT BOX' });
+		Firebase.createElement({ style: style, type: type });
 	};
 	
 	$scope.setStyle = function(style) {
@@ -63,7 +63,17 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 	  var reader  = new FileReader();
 	  
 	  reader.addEventListener("load", function () {
-	  	var image = reader.result;
+	  	var image = reader.result; 
+			var img = new Image();
+			var height, width;       
+			img.onload = function(){
+			  width = img.width, height = img.height;
+				console.log(width, height, '!!!!!')
+			};
+			img.src = image;
+			
+			imageBox.width(width);
+			imageBox.height(height);
 	  	imageBox.css('background-image', 'url(' + image + ')');
 	    Wireframe.uploadImage($scope.wireframe.project, $scope.wireframe._id, imageBox.attr('id'), image);
 	  }, false);
