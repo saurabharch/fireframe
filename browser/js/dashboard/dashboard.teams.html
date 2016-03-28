@@ -11,34 +11,11 @@
 
 <div>
   <accordion>
-    <accordion-group ng-repeat="team in teams" heading="{{team.name}}" is-open="group.open">
-    <ul class="list-group">
-    	<li>Admin: {{administrator.firstName}} {{administrator.lastName}}</li>
+    <accordion-group ng-repeat="team in teams" heading="{{team.name}}" is-open="group.open" >
+    <ul class="list-unstyled">
+    	<li>Admin: {{team.administrator.firstName}} {{team.administrator.lastName}}</li>
     	<li ng-repeat="member in team.members | filter: search">{{ member.firstName }} {{ member.lastName }}</li>
     </ul>
     </accordion-group>
   </accordion>
 </div>
-
-
- <!-- 
-<div class="row">
-	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-	  <div class="panel panel-default" ng-repeat="team in teams">
-	    <div class="panel-heading" role="tab" id="headingOne">
-	      <h4 class="panel-title">
-	        <a data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-	          {{ team.name }} (Admin: {{ team.administrator.firstName }} {{ team.administrator.lastName }})
-	        </a>
-	      </h4>
-	    </div>
-	    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-	      <ul class="list-group">
-	        <!--Project 1 Team members. This is placeholder. Should be done with ng-repeat
-	      	<li class="list-group-item" ng-repeat="member in team.members | filter: search">{{ member.firstName }} {{ member.lastName }}</li>
-
-	      </ul>
-	    </div>
-	  </div>
-	</div>
-</div> --> 
