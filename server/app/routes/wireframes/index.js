@@ -95,6 +95,7 @@ router.post('/:id/upload', auth.ensureTeamMemberOrAdmin, function(req, res, next
   image.upload(req.body.componentId, imageData)
   .then(imageUrl => {
     console.log('Button image url: ', imageUrl);
+
     var firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" +
                                 req.body.projectId + "/wireframes/" + req.params.id + 
                                 "/components/" + req.body.componentId);
