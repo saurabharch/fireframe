@@ -33,8 +33,12 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 	$scope.master = project.wireframes.filter(frame => frame.master === true)[0];
 	$scope.active = $scope.master;
 	$scope.showHistory = true;
-	console.log($scope.project);
+	$scope.altBranches = $.grep($scope.project.wireframes, e => !e.children.length && e !== $scope.active);
 	traverseFrames($scope.active);
+	console.log("project" ,$scope.project);
+	console.log("altBranches", $scope.altBranches);
+	console.log("active", $scope.active);
+
 
 	$scope.forkFrame = function(){
 		Wireframe.fork($scope.master._id, $scope.project._id)
@@ -44,12 +48,14 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 	};
 
 	$scope.goHistory = function(){
+		console.log("hit me");
 		$('#showAlt').removeClass("active");
 		$scope.showHistory = true;
 		$('#showHist').addClass("active");
 	};
 
 	$scope.goAlt = function(){
+		console.log("hit me instead");
 		$('#showHist').removeClass("active");
 		$scope.showHistory = false;
 		$('#showAlt').addClass("active");
