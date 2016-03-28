@@ -41,8 +41,8 @@ app.factory('CSS', function() {
 			styles.forEach(function(prop) {
 				style[prop] = element.css(prop);
 			});
-			style.left = element.position().left;
-			style.top = element.position().top;
+			style.left = element.position().left/currentScale*100;
+			style.top = element.position().top/currentScale*100;
 			return style;
 		},
 

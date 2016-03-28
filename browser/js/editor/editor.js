@@ -78,7 +78,7 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 		if(!$scope.active) return;
 		var zIndex = getZindex($scope.active);
 
-		getElementArray().forEach(el => {
+		$scope.components.forEach(el => {
 			let elZ = getZindex(el);
 			if(elZ === zIndex + 1) el.style['z-index'] = elZ - 1;
 		});
@@ -92,7 +92,7 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 		if (!$scope.active) return;
 		var zIndex = getZindex($scope.active);
 
-		getElementArray().forEach(el => {
+		$scope.components.forEach(el => {
 			let elZ = getZindex(el);
 			if(elZ === zIndex - 1) el.style['z-index'] = elZ + 1;
 		});
@@ -106,7 +106,7 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 		if(!$scope.active) return;
 		var zIndex = getZindex($scope.active);
 		var max = getMaxZ();
-		getElementArray().forEach(el => {
+		$scope.components.forEach(el => {
 			let elZ = getZindex(el);
 			if(elZ > zIndex) el.style['z-index'] = elZ - 1;
 		});
@@ -119,7 +119,7 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 		if (!$scope.active) return;
 		var zIndex = getZindex($scope.active);
 
-		getElementArray().forEach(el => {
+		$scope.components.forEach(el => {
 			let elZ = getZindex(el);
 			if(elZ < zIndex) el.style['z-index'] = elZ + 1;
 		});
@@ -137,17 +137,18 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 
 //Helper functions
 
-	function getElementArray(){
-		return [].slice.call($scope.board.children());
-	}
+	// function $scope.components{
+	// 	return [].slice.call($scope.board.children());
+	// }
 
 	function getZindex(el){
+		console.log('our z index', el.style['z-index']);
 		return Number(el.style['z-index']);
 	}
 
 	function getMaxZ(){
 		var maxZ = 0;
-		var elementArray = getElementArray();
+		var elementArray = $scope.components;
 		elementArray.forEach(el => {
 			let z = getZindex(el);
 			if(z > maxZ) maxZ = z;
@@ -156,7 +157,7 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 	}
 
 	function getZrange(){
-		var elementArray = getElementArray();
+		var elementArray = $scope.components;
 		return elementArray.length;
 	}
 
