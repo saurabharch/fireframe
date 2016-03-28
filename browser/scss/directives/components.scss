@@ -7,9 +7,9 @@
 
 component {
   position: absolute;
-  height: 100%;
-  width: 100%;
-  border: 1px solid #cccccc;
+  /*height: 100%;
+  width: 100%;*/
+ /* border: 1px solid #cccccc;*/
   overflow: hidden
 }
 
@@ -18,7 +18,8 @@ component {
   height: 400px;
   width: 600px;
   border-radius: 10px;
-  overflow: hidden
+  overflow: hidden;
+  border: 1px solid #cccccc;
 }
 
 #browser-nav {
@@ -139,6 +140,7 @@ component {
 }
 
 .table-component {
+  border: 1px solid #cccccc;
   background-color: white;
   color: black;
   text-align: center;
@@ -151,6 +153,7 @@ component {
 }
 
 .box {
+  border: 1px solid #cccccc;
   height: 50px;
   width: 50px;
 }
@@ -159,26 +162,30 @@ component {
   height: 50px;
   width: 50px;
   border-radius: 50%;
+  border: 1px solid #cccccc;
 }
 
 .list {
+  border: 1px solid #cccccc;
   height: 75px;
   width: 50px;
 }
 
 .button-component {
+  border: 1px solid #cccccc;
   height: 60px;
   width: 50px;
 }
 
 .text-box {
-  height: 100%;
-  width: 100%;
   min-height:2em;
   min-width:1em;
   overflow:hidden;
   background: transparent !important;
-  border: none !important;
+  border-style: solid !important;
+  border-width: 0;
+  box-sizing: content-box;
+  text-align: left;
 }
 
 .image-box {
