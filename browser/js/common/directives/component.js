@@ -20,7 +20,6 @@ app.directive('component', function ($compile, CSS, Firebase, $templateRequest) 
       },
       link: {
         pre: function (scope, element, attrs) {
-          console.log('content', scope.content);
           var url = templateFinder(attrs.type);
           $templateRequest(url)
           .then(function(res) { 
@@ -34,13 +33,11 @@ app.directive('component', function ($compile, CSS, Firebase, $templateRequest) 
         post: function (scope, element, attr){
           var selectedElement;
           element.on('mousedown', function(e){
-            console.log('mousedown');
             selectedElement = $(this);
           });
 
           $(window).on('mouseup', function(e) {
             if (selectedElement) {
-              console.log('mouseup');
               var id = selectedElement.attr('id');
 
               //listen for mouseup on window instead of element, to account for cursor being outside of element's area
