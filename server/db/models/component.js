@@ -10,6 +10,7 @@ var ComponentSchema = new mongoose.Schema({
     opacity: Number,
     "z-index": Number
   },
+  innerHtml:String,
   wireframe: {
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Wireframe',
