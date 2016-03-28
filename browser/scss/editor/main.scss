@@ -20,6 +20,7 @@ input {
   width: $left-width;
   height: 100%;
   background-color: gray;
+  overflow: scroll;
 }
 
 #color-picker {
@@ -34,6 +35,7 @@ input {
   width: 10vw;
   height: 100%;
   background-color: gray;
+  overflow: scroll;
 }
 
 $swatch-side: $left-width / 10;

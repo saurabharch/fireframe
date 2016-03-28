@@ -63,15 +63,14 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 	  var reader  = new FileReader();
 	  
 	  reader.addEventListener("load", function () {
-	  	var image = reader.result;
-
-	  	var imgData = 'data:image/png;base64,iVBORw0.........';    
+	  	var image = reader.result; 
 			var img = new Image();
 			var height, width;       
 			img.onload = function(){
 			  width = img.width, height = img.height;
+				console.log(width, height, '!!!!!')
 			};
-			img.src = imgData;
+			img.src = image;
 			
 			imageBox.width(width);
 			imageBox.height(height);
