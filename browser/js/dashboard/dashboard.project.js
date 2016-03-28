@@ -36,9 +36,8 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 	$scope.showHistory = true;
 
 	traverseFrames($scope.active);
-	console.log($scope.master);
-	console.log($scope.history);
-	console.log($scope.altBranches);
+	console.log("project", $scope.project);
+	console.log("active", $scope.active);
 
 	$scope.forkFrame = function(){
 		Wireframe.fork($scope.master._id, $scope.project._id)
@@ -65,9 +64,7 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 	};
 
 	$scope.changeActive = function(frame){
-		console.log("fráme is: ",frame);
-		$scope.active = $.grep($scope.project.wireframes, e=> e._id === frame);
-		console.log($scope.active);
+		$scope.active = frame;
 		$scope.history = [];
 		$scope.altBranches = [];
 		traverseFrames($scope.active);
