@@ -49,11 +49,11 @@ router.get('/:id', auth.ensureCurrentUserOrAdmin, function(req, res, next) {
 router.get('/:id/teams', function(req, res, next){
   var id = req.params.id;
   Team.find({
-    $or: [{ members: id }, { creator: id }]
+    $or: [{ members: id }, { administrator: id }]
   })
   .populate('administrator members')
   .then(function(teams){
-    res.json(teams);
+    res.json(teams || []);
   })
   .then(null, next);
 });
