@@ -137,12 +137,7 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 
 //Helper functions
 
-	// function $scope.components{
-	// 	return [].slice.call($scope.board.children());
-	// }
-
 	function getZindex(el){
-		console.log('our z index', el.style['z-index']);
 		return Number(el.style['z-index']);
 	}
 
