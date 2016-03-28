@@ -75,7 +75,7 @@ ProjectSchema.methods.deleteProject = function() {
 };
 
 ProjectSchema.statics.setMaster = function(wireframeId, projectId) {
-	Project.findById(projectId)
+	return Project.findById(projectId)
 	.then(function(project){
 		var projectWireframes = project.wireframes;
 		return Wireframe.find({
