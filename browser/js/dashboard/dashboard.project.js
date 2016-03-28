@@ -60,6 +60,11 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 		$('#showAlt').addClass("active");
 	};
 
+	$scope.getProjDetails = function() {
+		console.log("project details will go here", $scope.project.project);
+
+	};
+
 	$scope.changeActive = function(frame){
 		console.log("fráme is: ",frame);
 		$scope.active = $.grep($scope.project.wireframes, e=> e._id === frame);
@@ -102,5 +107,7 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 	$scope.isMaster = function(){
 		return $scope.active === $scope.master;
 	};
+
+	//date created, team name and members, team admin, brief description of project 
 
 });

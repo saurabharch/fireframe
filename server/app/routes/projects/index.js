@@ -8,10 +8,11 @@ var Project = mongoose.model('Project');
 var Team = mongoose.model('Team');
 var auth = require('../authentication');
 
+
 router.param('id', function(req, res, next, id) {
 	Project.findById(id)
   .populate('wireframes', 'photoUrl master parent children')
-  .populate('team', ' members creator')
+  .deepPopulate(['team.members', 'team.administrator'])
   .populate('comments')
 	.then(project => {
 		if (project) {
@@ -50,6 +51,7 @@ router.post('/', auth.ensureUser, function(req, res, next) {
   req.body.creator = req.user._id;
   Project.createNewProject(req.body)
   .then(wireframe => {
+    console.log(wireframe, "wireframe created in POST?");
     res.json(wireframe);
   })
   .then(null, next)
