@@ -146,11 +146,11 @@ app.factory('Firebase', function(Component, Session, $rootScope) {
 
 // <<<<<<< HEAD
     createElement: function(style, type, dataset) {
-      console.log("sent dataset = ",dataset)
+      console.log("sent dataset = ",dataset);
       var blobject = {
         style: style,
         type: type,
-        dataset: dataset
+        dataset: dataset || ""
       };
       console.log("object being sent to firebase is ", blobject);
       firebaseComponents.push(blobject);
