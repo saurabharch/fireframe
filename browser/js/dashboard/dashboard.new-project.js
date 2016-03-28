@@ -27,6 +27,7 @@ app.config(function($stateProvider) {
 
 app.controller('NewProjectCtrl', function($scope, $state, user, User, Wireframe) {
 		$scope.user = user;
+		console.log("user is ",user);
 		$scope.formShow = false;
 
 	//Add New Team
