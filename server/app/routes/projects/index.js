@@ -51,7 +51,6 @@ router.post('/', auth.ensureUser, function(req, res, next) {
   req.body.creator = req.user._id;
   Project.createNewProject(req.body)
   .then(wireframe => {
-    console.log(wireframe, "wireframe created in POST?");
     res.json(wireframe);
   })
   .then(null, next)

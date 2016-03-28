@@ -1,7 +1,7 @@
 app.config(function($stateProvider) {
 	$stateProvider.state('phantom', {
 		url: '/phantom/:id',
-		template: '<div class="container"><div id="wireframe-board" class="phantom-board"></div><div>',
+		templateUrl: '/js/phantom/phantom.html',
 		resolve: {
 			wireframe: function($stateParams, Wireframe) {
 				return Wireframe.fetchOne($stateParams.id)
@@ -15,8 +15,16 @@ app.controller('PhantomCtrl', function($scope, wireframe, Component, CSS, Wirefr
 	$scope.wireframe = wireframe;
 	$scope.board = $('.phantom-board');
 
+	$scope.setStyle = function(style) {
+		return style;
+	}
+
+	$scope.setSource = function(source) {
+		return source;
+	}
+
 	//load components
-	Component.load($scope.wireframe.components, $scope);
+	//Component.load($scope.wireframe.components, $scope);
 	
 	//update zoom to fit all elements
 	var width = $(window).width();

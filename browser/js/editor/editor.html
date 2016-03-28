@@ -16,9 +16,17 @@
 
     <!-- Workspace -->
     <div id="wireframe-board">
+    	<div>
+	    	<component class="resize-drag component"
+	    						 ng-repeat="component in components"
+	    						 id="{{ component.id }}"
+	    						 ng-style="setStyle(component.style)"
+	    						 ng-class="component.type"
+	    						 ng-click="setActive(component)"
+	    						 content="component.content"
+	    						 type="{{ component.type }}"></component>
+	    </div>
     </div>
-
-
 
 <!-- Right Sidebar -->
 <div id="right-sidebar">
@@ -26,25 +34,34 @@
 		<div class='form-group'>
 			<label for="color">Color</label>
 			<div id="row">
-			<input id="color" type="text" ng-model="activeColor" style="background-color:{{activeColor}}"><button class="btn" colorpicker ng-model="activeColor">Choose color</button>
+				<input id="color" type="text" ng-model="active.style['background-color']">
+				<button class="btn" colorpicker ng-model="active.style['background-color']">Choose color</button>
 			</div>
 		</div>
 	</div>
 	<div class="tool-panel">
 		<div class="form-group">
+			<label for="width">Width</label>
+			<input type="text" id="width" ng-model="active.style.width"/>
+
+			<label for="height">Height</label>
+			<input type="text" id="height" ng-model="active.style.height"/>
+			
 			<label for="opacity">Opacity</label>
-			<input type="text" id="opacity" ng-model="activeOpacity"/>
+			<input type="text" id="opacity" ng-model="active.style.opacity"/>
+
+			<label for="opacity">border radius</label>
+			<input type="text" id="border-radius" ng-model="active.style['border-radius']"/>
 		</div>
 	</div>
-	<button ng-click="save()">Save</button>
 	<div class="tool-panel">
 			<label>Arrange</label>
-				<button class="btn btn-arrange" ng-click="moveForward()">Move Forward</button>
-				<button class="btn btn-arrange" ng-click="moveToFront()">Bring to Front</button>
-				<button class="btn btn-arrange" ng-click="moveBackward()">Move Backward</button>
-				<button class="btn btn-arrange" ng-click="moveToBack()">Send to Back</button>
-			</div>
-		</div>
+			<button class="btn btn-arrange btn-editor btn-blue" ng-click="moveForward()">Move Forward</button>
+			<button class="btn btn-arrange btn-editor btn-blue" ng-click="moveToFront()">Bring to Front</button>
+			<button class="btn btn-arrange btn-editor btn-blue" ng-click="moveBackward()">Move Backward</button>
+			<button class="btn btn-arrange btn-editor btn-blue" ng-click="moveToBack()">Send to Back</button>
 	</div>
-
+	<div class="tool-panel">
+		<button class="btn btn-arrange btn-editor btn-save" ng-click="save()">Save</button>
+	</div>
 </div>
