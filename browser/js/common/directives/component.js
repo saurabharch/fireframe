@@ -15,9 +15,9 @@ app.directive('component', function ($compile, CSS, Firebase, $templateRequest) 
 
     return {
       restrict: "E",
-      scope: {
-        content:'='
-      },
+      // scope: {
+      //   content: '='
+      // },
       link: {
         pre: function (scope, element, attrs) {
           var url = templateFinder(attrs.type);

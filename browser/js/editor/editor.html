@@ -31,8 +31,8 @@
 		<div class='form-group'>
 			<label for="color">Color</label>
 			<div id="row">
-				<input id="color" type="text" ng-model="active.style['background-color']">
-				<button class="btn" colorpicker ng-model="active.style['background-color']">Choose color</button>
+				<input id="color" type="text" ng-disabled="active.type==='image-box'" ng-model="active.style['background-color']">
+				<button class="btn" colorpicker>Choose color</button>
 			</div>
 		</div>
 	</div>
