@@ -57,7 +57,7 @@ router.put('/:id', function(req, res, next) {
       width: 1024,
       height: 768
     },
-    renderDelay: 2000
+    renderDelay: 4000
   };
 
   //Save wireframe with components to DB before capturing screen
@@ -98,10 +98,10 @@ router.post('/:id/upload', auth.ensureTeamMemberOrAdmin, function(req, res, next
                                 req.body.projectId + "/wireframes/" + req.params.id + 
                                 "/components/" + req.body.componentId);
     //return
-    firebase.child('style').update({
-      //"background-image": "url(" + imageUrl + ")"
-      "background-image": "url('http://batesmeron.com/wp-content/uploads/2012/07/success_baby.jpg')"
-    })
+    // firebase.child('style').update({
+    //   //"background-image": "url(" + imageUrl + ")"
+    //   //"background-image": "url('http://batesmeron.com/wp-content/uploads/2012/07/success_baby.jpg')"
+    // })
   //})
   //.then(function() {
     res.sendStatus(201);
