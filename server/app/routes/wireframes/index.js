@@ -57,7 +57,7 @@ router.put('/:id', function(req, res, next) {
       width: 1024,
       height: 768
     },
-    renderDelay: 2000
+    renderDelay: 4000
   };
 
   //Save wireframe with components to DB before capturing screen
@@ -96,8 +96,7 @@ router.post('/:id/upload', auth.ensureTeamMemberOrAdmin, function(req, res, next
   .then(imageUrl => {
     var firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" +
                                 req.body.projectId + "/wireframes/" + req.params.id + 
-                                "/components/" + req.body.componentId);
-    
+                                "/components/" + req.body.componentId);    
     return firebase.child('style').update({"background-image": "url(" + imageUrl + ")"});
   })
   .then(function() {

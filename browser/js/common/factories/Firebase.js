@@ -172,7 +172,7 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
 
     updateComponent: function(id, style, content) {
       firebaseComponents.child(id).update({
-        style: style,
+        style: style || '',
         content: content || ''
       });
     },
@@ -183,6 +183,7 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
 
     //get components array, which is either generated from joining an exisiting room or fetching from the backend and creating a room
     fetchComponents: function(id, projectId) {
+      componentCache = [];
       factory.checkForComponents(id, projectId)
       .then(components => {
         //if room doesn't exist, fetch the wireframe and create a firebase room
