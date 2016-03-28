@@ -1,16 +1,47 @@
 <div class="row">
 	<div class="col-lg-8 col-lg-offset-1">
-		<label>Project Name</label> <br>
+		<h2>{{ project.name }}</h2> <br>
+		<button ng-click="getProjDetails()">DETAILS????</button>
+				<div class="panel-group" id="accordion">
+    	<div class="panel panel-default" id="panel1">
+        <div class="panel-heading">
+             <h4 class="panel-title">
+        <a data-toggle="collapse" data-target="#collapseOne" 
+           href="#collapseOne">
+						Project Details 
+        </a>
+      </h4>
+
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in">
+            <div class="panel-body">
+            	<dl class="dl-horizontal">
+            	  <dt>Project Name: </dt>
+            	  <dd>{{project.name}}</dd>
+            	  <dt>Description: </dt>
+            	  <dd>{{project.description}}</dd>
+            	  <dt>Team Admin: </dt>
+            	  <dd>{{project.team.administrator.firstName}}</dd>
+            	  <dt>Team Members: </dt>
+            	  <dd>{{project.team.members.firstName}}</dd>
+            	  <dt>Created On: </dt>
+            	  <dd>{{project.created_at | date:'medium'}}</dd>
+            	  <dt>Last Updated: </dt>
+            	  <dd>{{project.updated_at | date:'medium'}}</dd>
+            	</dl>
+						</div>
+        </div>
+    </div>
+  </div>
 		<img src="http://creatage.com/wp-content/uploads/2012/04/wireframe-lrg.jpg">
 		<br><br>
 		<button class="btn btn-warm" ng-click="forkFrame()">Create Fork</button>
 		<button class="btn btn-cool" ng-show="currentEdit()" ng-click="joinRoom()">Join Editing</button>
 		<button class="btn btn-liquid" ng-hide="isMaster()" ng-click="setMaster()">Set Master</button>
 		<br>
-		<label>Project Description</label>
 		<br>
-		<label>Comments</label>
-	</div>
+
+</div>
 
 	<div class="col-lg-3">
 		<ul class="nav nav-tabs">
