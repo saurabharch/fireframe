@@ -18,9 +18,9 @@
 	    						 ng-repeat="component in components"
 	    						 id="{{ component.id }}"
 	    						 ng-style="setStyle(component.style)"
-	    						 ng-src="setSource(component.src)"
 	    						 ng-class="component.type"
 	    						 ng-click="setActive(component)"
+	    						 content="component.content"
 	    						 type="{{ component.type }}"></component>
 	    </div>
     </div>

@@ -15,9 +15,12 @@ app.directive('component', function ($compile, CSS, Firebase, $templateRequest) 
 
     return {
       restrict: "E",
-      scope: {},
+      scope: {
+        content:'='
+      },
       link: {
         pre: function (scope, element, attrs) {
+          console.log('content', scope.content);
           var url = templateFinder(attrs.type);
           $templateRequest(url)
           .then(function(res) { 

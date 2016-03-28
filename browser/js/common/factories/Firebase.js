@@ -156,7 +156,7 @@ app.factory('Firebase', function(Component, Session, Wireframe, CSS, $rootScope)
       firebaseComponents.push({
         style: component.style || '',
         type: component.type || '',
-        //source: component.source || ''
+        content: component.content || ''
       });
     },
 

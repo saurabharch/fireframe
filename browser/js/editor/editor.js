@@ -34,7 +34,7 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 
 	$scope.createElement = function(type) {
 		var style = { "background-color": "#FFF", "opacity":$scope.activeOpacity, "z-index": getZrange()};
-		Firebase.createElement({ style: style, type: type });
+		Firebase.createElement({ style: style, type: type, content: 'I AM A TEXT BOX' });
 	};
 	
 	$scope.setStyle = function(style) {
