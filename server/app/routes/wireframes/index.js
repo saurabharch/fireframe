@@ -100,7 +100,7 @@ router.post('/:id/upload', auth.ensureTeamMemberOrAdmin, function(req, res, next
     //return
     firebase.child('style').update({
       //"background-image": "url(" + imageUrl + ")"
-      //"background-image": "url('http://batesmeron.com/wp-content/uploads/2012/07/success_baby.jpg')"
+      "background-image": "url('http://batesmeron.com/wp-content/uploads/2012/07/success_baby.jpg')"
     })
   //})
   //.then(function() {

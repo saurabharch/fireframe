@@ -1,11 +1,5 @@
-<!-- <div class="delete-hoverable">
-  <button type="button" class="hover-delete-btn">
-  <i class="fa fa-trash" id="" ng-click="deleteElement($event)"></i></button>
-  <img ng-src="{{ getSource() }}"/>
-</div> -->
-
 <div class="delete-hoverable fileUpload">
-  <input id="uploadBtn" type="file" class="upload" onchange="angular.element(this).scope().imageUpload(this)"/>
+  <input id="uploadBtn" type="file" class="upload" onchange="console.log(angular.element(this).$parent.scope())"/>
 	<button type="button" class="hover-delete-btn">
   <i class="fa fa-trash" id="" ng-click="deleteElement($event)"></i></button>
 </div>
