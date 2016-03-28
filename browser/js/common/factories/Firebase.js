@@ -162,23 +162,19 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
 
     },
 
-    deleteElement: function(event) {
-      var innerDiv = event.target.parentNode;
-      var outerDiv = innerDiv.parentNode;
-      var outerouterDiv = outerDiv.parentNode;
-      var id = outerouterDiv.id;
-      console.log(id, "the ID"); //gotta figure out how to put ID in the button div to avoid the parent parent parent...
-      firebaseComponents.child(id).remove(function() {
-        console.log("deleting element?? ?");
-      });
+    deleteElement: function(id) {
+      firebaseComponents.child(id).remove();
     },
 
     createImage: function(file, scope, style) {
       factory.createElement(style, 'image-box');
     },
 
-    updateComponent: function(id, style) {
-      firebaseComponents.child(id).update({ style: style });
+    updateComponent: function(id, style, content) {
+      firebaseComponents.child(id).update({
+        style: style,
+        content: content || ''
+      });
     },
 
     getComponentCache: function() {

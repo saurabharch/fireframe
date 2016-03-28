@@ -92,8 +92,8 @@ router.post('/:id/upload', auth.ensureTeamMemberOrAdmin, function(req, res, next
   var imageUpload = req.body.imageData.split(',');
   var imageData = new Buffer(imageUpload[1], 'base64');
 
-  //image.upload(req.body.componentId, imageData)
-  //.then(imageUrl => {
+  // image.upload(req.body.componentId, imageData)
+  // .then(imageUrl => {
     var firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" +
                                 req.body.projectId + "/wireframes/" + req.params.id + 
                                 "/components/" + req.body.componentId);

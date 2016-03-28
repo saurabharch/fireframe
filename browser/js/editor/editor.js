@@ -15,7 +15,6 @@ app.config(function($stateProvider){
 });
 
 app.controller('EditorCtrl', function($scope, wireframe, components, Interact, CSS, Firebase, Wireframe, $rootScope) {
-	console.log('does this work?');
 	$scope.components = Firebase.getComponentCache();
 	$scope.wireframe = wireframe;
 	$scope.board = $('#wireframe-board');
@@ -60,7 +59,7 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 	// }
 
 	$scope.imageUpload = function(element) {
-		var imageBox = $(element).closest('image-box');
+		var imageBox = $(element).closest('.image-box');
 	  var file = element.files[0];
 	  var reader  = new FileReader();
 	  
