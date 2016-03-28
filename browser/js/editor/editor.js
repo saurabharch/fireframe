@@ -54,27 +54,24 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 		Wireframe.save($scope.wireframe, $scope.components);
 	};
 
-	// $scope.imageUpload = function(element) {
-	//   var file = element.files[0];
-	//   var reader  = new FileReader();
-	//   var name = Math.round(Math.random()*100000);
+	// if we want to use double click for file upload we'll need to expand upon this
+	// $scope.uploadImage = function(event) {
+	// 	var id = event.currentTarget.id;
+	// }
 
-	//   //on upload, must create element on firebase
-	//   //once that element is rendered on our page, we read the file as a data url and set the src to that..not updating firebase
-	//   //but also need to leave src as default placeholder on all other users pages
-	//   //at the same time, or perhaps once that firebase object is returned and we have its id, we need to upload the buffer to our server
-	//   //send that to aws and get back a url
-	//   //once we have the url, connect from the server to our firebase room, find that component by its id, and set the src to the image src passed in
+	$scope.imageUpload = function(element) {
+		var imageBox = $(element).closest('image-box');
+	  var file = element.files[0];
+	  var reader  = new FileReader();
+	  
+	  reader.addEventListener("load", function () {
+	  	var image = reader.result;
+	  	imageBox.css('background-image', 'url(' + image + ')');
+	    Wireframe.uploadImage($scope.wireframe.project, $scope.wireframe._id, imageBox.attr('id'), image);
+	  }, false);
 
-	//   reader.addEventListener("load", function () {
-	//     $('img').attr('src', reader.result);
-	//     Component.uploadImage(reader.result)
-	//   }, false);
-
-	//   if (file) {
-	//     reader.readAsDataURL(file);
-	//   }
-	// };
+	  reader.readAsDataURL(file);
+	};
 
 	//Z-index arrangement
 

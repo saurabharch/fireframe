@@ -140,6 +140,7 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
     joinRoom: function(wireframeId, projectId) {
       factory.connect(wireframeId, projectId);
       //load in existing firebase objects
+
       return new Promise(function(resolve, reject) {
         firebaseComponents.once('value', function(data) {
           resolve(data.components || null);
@@ -172,6 +173,10 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
       });
     },
 
+    createImage: function(file, scope, style) {
+      factory.createElement(style, 'image-box');
+    },
+
     updateComponent: function(id, style) {
       firebaseComponents.child(id).update({ style: style });
     },
@@ -201,7 +206,7 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
       })
     }
   };
-  return factory;
 
+  return factory;
 });
 

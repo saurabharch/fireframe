@@ -4,6 +4,22 @@ app.factory('Interact', function(CSS) {
 		return CSS.currentZoom()/100
 	};
 
+	var snapPoints = function(mouseX, mouseY) {
+		var el = $('#wireframe-board');
+		var xLeft = el.offset().left;
+		var xRight = el.position().left + el.width();
+		var yTop = el.offset().top;
+		var yBottom = el.position().top + el.height();
+
+		var points = [{x: xLeft}, {y: yTop}]
+		console.log(points);
+		return points;
+	}
+
+	var currentEdges = [];
+
+	setInterval(function(){ currentEdges.push({ x: 100*currentEdges.length, y: 100*currentEdges.length }) }, 2000)
+
 	return {
 		dragAndResize: function() {
 			interact('.resize-drag')
@@ -15,7 +31,8 @@ app.factory('Interact', function(CSS) {
 			      restriction: "#wireframe-board",
 			      endOnly: true,
 			      elementRect: { top: 0, left: 0, bottom: null, right: null }
-			    }
+			    },
+			    snap: { targets: currentEdges, range: 30 }
 			  })
 			  .resizable({
 			    preserveAspectRatio: false,

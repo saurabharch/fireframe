@@ -93,6 +93,7 @@ $btn-side: .45 * $left-width;
 }
 
 .delete-hoverable .hover-delete-btn {
+  position: absolute;
   float: right;
   margin-top: 2px;
   margin-right: 2px;
@@ -129,7 +130,9 @@ $btn-side: .45 * $left-width;
   top:0.25 * $btn-side;
 }
 
+
 /*
+
 .active-element {
   border: 2px dashed black;
 }
