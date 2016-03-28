@@ -3,7 +3,7 @@ var AWS = require('aws-sdk');
 var path = require('path');
 var Promise = require('bluebird');
 
-// AWS.config.loadFromPath(path.join(__dirname, '../../secret/config.json'));
+AWS.config.loadFromPath(path.join(__dirname, '../../secret/config.json'));
 
 var image = {};
 

@@ -11,7 +11,7 @@ app.config(function($stateProvider) {
 	});
 });
 
-app.controller('PhantomCtrl', function($scope, wireframe, Component, CSS, Wireframe, $window) {
+app.controller('PhantomCtrl', function($scope, wireframe, CSS, Wireframe, $window) {
 	$scope.wireframe = wireframe;
 	$scope.board = $('.phantom-board');
 
@@ -41,5 +41,4 @@ app.controller('PhantomCtrl', function($scope, wireframe, Component, CSS, Wirefr
 	$scope.board.width(width/scale*100);
 	$('navbar').remove();
 
-	window.callPhantom('takeShot');
 });
