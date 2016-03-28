@@ -10,6 +10,10 @@
         <button class="component-button" ng-click="createElement('button-component')"><span><img class="button-icon" src='/images/button.svg'></span></button>
         <button class="component-button" ng-click="createElement('image-box')"><span><img class="button-icon" src='/images/photo.svg'></span></button>
     		<div class="tool-panel">
+    			
+					<label>Zoom: <span id="percentage">{{ currentZoom }}%</span></label>
+    			<input type="range" ng-model='currentZoom' ng-change="updateZoom(currentZoom)" min="50" max="200"></input><br>
+					
 					<label>Arrange</label>
 					<button class="btn btn-arrange btn-editor btn-blue" ng-click="moveForward()">Move Forward</button>
 					<button class="btn btn-arrange btn-editor btn-blue" ng-click="moveToFront()">Bring to Front</button>
@@ -46,6 +50,7 @@
 			</div>
 		</div>
 	</div>
+
 	<div ng-show="active.type==='image-box'" class="tool-panel">
 		<div class="form-group">
 			<input type="radio" ng-model="active.style['background-size']" value="'100% 100%'">
@@ -56,6 +61,13 @@
 
 			<input type="radio" ng-model="active.style['background-size']" value="contain">
 			<label>Contain</label>
+		</div>
+	</div>
+
+	<div ng-show="active.type==='text-box'" class="tool-panel">
+		<div class="form-group">
+			<label>Font Size</label>
+			<input type="text" ng-model="active.style['font-size']" value="14px">
 		</div>
 	</div>
 	<div class="tool-panel">
@@ -72,5 +84,8 @@
 			<label for="border-radius">Border Radius</label>
 			<input type="text" id="border-radius" ng-model="active.style['border-radius']"/>
 		</div>
+	</div>
+	<div class="tool-panel">
+		<button class="btn btn-arrange btn-delete btn-editor" ng-click="deleteElement()">Delete Element</button>
 	</div>
 </div>

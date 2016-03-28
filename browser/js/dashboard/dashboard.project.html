@@ -1,66 +1,72 @@
-<div class="row">
-	<div class="col-lg-8 col-lg-offset-1">
-		<h2>{{ project.name }}</h2> <br>
-		<button ng-click="getProjDetails()">DETAILS????</button>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-9">
+			<h2>{{ project.name }}</h2> <br>
 				<div class="panel-group" id="accordion">
-    	<div class="panel panel-default" id="panel1">
-        <div class="panel-heading">
-             <h4 class="panel-title">
-        <a data-toggle="collapse" data-target="#collapseOne" 
-           href="#collapseOne">
-						Project Details 
-        </a>
-      </h4>
-
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse in">
-            <div class="panel-body">
-            	<dl class="dl-horizontal">
-            	  <dt>Project Name: </dt>
-            	  <dd>{{project.name}}</dd>
-            	  <dt>Description: </dt>
-            	  <dd>{{project.description}}</dd>
-            	  <dt>Team Name</dt>
-            	  <dd>{{project.team.name}}</dd>
-            	  <dt>Team Admin: </dt>
-            	  <dd>{{project.team.administrator.firstName}}</dd>
-            	  <dt>Team Members: </dt>
-            	  <dd ng-repeat="member in project.team.members">{{member.firstName}}</dd>
-            	  <dt>Created On: </dt>
-            	  <dd>{{project.created_at | date:'medium'}}</dd>
-            	  <dt>Last Updated: </dt>
-            	  <dd>{{project.updated_at | date:'medium'}}</dd>
-            	</dl>
-						</div>
-        </div>
-    </div>
-  </div>
-		<img src="http://creatage.com/wp-content/uploads/2012/04/wireframe-lrg.jpg">
-		<br><br>
-		<button class="btn btn-warm" ng-click="forkFrame()">Create Fork</button>
-		<button class="btn btn-cool" ng-show="currentEdit()" ng-click="joinRoom()">Join Editing</button>
-		<button class="btn btn-liquid" ng-hide="isMaster()" ng-click="setMaster()">Set Master</button>
-		<br>
-		<br>
-
-</div>
-
-	<div class="col-lg-3">
-		<ul class="nav nav-tabs">
-		  <li id="goHist"class="active" ng-click="goHistory()">History</a></li>
-		  <li id="goAlternate" ng-click="goAlt()">Alternate</a></li>
-	  </ul>
-<!-- 		<h3 ng-show="showHistory">History</h3><br>
-		<h3 ng-hide="showHistory">Alternate Branches</h3><br> -->
-		<div ng-hide="showHistory" ng-repeat="frame in altBranches" ng-click="changeActive(frame)">
-			<img src="http://creatage.com/wp-content/uploads/2012/04/wireframe-lrg.jpg" height="100" width="100" ng-click="changeActive($event)">
-			<label>{{frame._id}}</label>
+		    	<div class="panel panel-default" id="panel1">
+		        <div class="panel-heading">
+		          <h4 class="panel-title">
+		    				<a data-toggle="collapse" data-target="#collapseOne" 
+		       			href="#collapseOne">
+								Project Details 
+		        		</a>
+		     			</h4>
+		        </div>
+		        <div id="collapseOne" class="panel-collapse collapse">
+		            <div class="panel-body">
+		            	<dl class="dl-horizontal">
+		            	  <dt>Project Name: </dt>
+		            	  <dd>{{project.name}}</dd>
+		            	  <dt>Description: </dt>
+		            	  <dd>{{project.description}}</dd>
+		            	  <dt>Team Name</dt>
+		            	  <dd>{{project.team.name}}</dd>
+		            	  <dt>Team Admin: </dt>
+		            	  <dd>{{project.team.administrator.firstName}}</dd>
+		            	  <dt>Team Members: </dt>
+		            	  <dd ng-repeat="member in project.team.members">{{member.firstName}}</dd>
+		            	  <dt>Created On: </dt>
+		            	  <dd>{{project.created_at | date:'medium'}}</dd>
+		            	  <dt>Last Updated: </dt>
+		            	  <dd>{{project.updated_at | date:'medium'}}</dd>
+		            	</dl>
+								</div>
+		        </div>
+		    	</div>
+	  		</div>
+	  	<h3>Active Wireframe: {{active._id}}</h3>
+			<img id="activeSnapshot" src="http://creatage.com/wp-content/uploads/2012/04/wireframe-lrg.jpg">
+			<br><br>
+			<button class="btn btn-warm" ng-click="forkFrame()">Create Fork</button>
+			<button class="btn btn-cool" ng-show="currentEdit()" ng-click="joinRoom()">Join Editing</button>
+			<button class="btn btn-liquid" ng-hide="isMaster()" ng-click="setMaster()">Set Master</button>
+			<br>
+			<br>
 		</div>
-		<div ng-show="showHistory" ng-repeat="frame in history" ng-click="changeActive(frame)">
-			<img src="http://creatage.com/wp-content/uploads/2012/04/wireframe-lrg.jpg" height="100" width="100" ng-click="changeActive($event)">
-			<label>{{frame._id}}</label>
+
+		<div class="col-lg-3" >
+			<ul class="nav nav-tabs nav-justified masterPanel">
+			  <li id="master">Master</a></li>
+		  </ul>
+		  <div class="masterFrame" ng-click="changeActive(master)">
+			  <img src="http://creatage.com/wp-content/uploads/2012/04/wireframe-lrg.jpg" height="100" width="100">
+					<label>{{master._id}}</label>
+			</div>
+			<ul class="nav nav-tabs nav-justified headerPanel">
+			  <li id="goHist"class="active" ng-click="goHistory()">History</a></li>
+			  <li id="goAlternate" ng-click="goAlt()">Alternate</a></li>
+		  </ul>
+			<!-- 		<h3 ng-show="showHistory">History</h3><br>
+			<h3 ng-hide="showHistory">Alternate Branches</h3><br> -->
+			<div class="framesList" ng-hide="showHistory" ng-repeat="frame in altBranches" ng-click="changeActive(frame)">
+				<img src="http://creatage.com/wp-content/uploads/2012/04/wireframe-lrg.jpg" height="100" width="100">
+				<label>{{frame._id}}</label>
+			</div>
+			<div class="framesList" ng-show="showHistory" ng-repeat="frame in history" ng-click="changeActive(frame)">
+				<img src="http://creatage.com/wp-content/uploads/2012/04/wireframe-lrg.jpg" height="100" width="100">
+				<label>{{frame._id}}</label>
+			</div>
 		</div>
 
 	</div>
-
 </div>

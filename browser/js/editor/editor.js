@@ -53,10 +53,9 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 		Wireframe.save($scope.wireframe, $scope.components);
 	};
 
-	// if we want to use double click for file upload we'll need to expand upon this
-	// $scope.uploadImage = function(event) {
-	// 	var id = event.currentTarget.id;
-	// }
+	$scope.deleteElement = function() {
+		Firebase.deleteElement($scope.active.id);
+	}
 
 	$scope.imageUpload = function(element) {
 		var imageBox = $(element).closest('.image-box');
@@ -78,7 +77,7 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 		if(!$scope.active) return;
 		var zIndex = getZindex($scope.active);
 
-		getElementArray().forEach(el => {
+		$scope.components.forEach(el => {
 			let elZ = getZindex(el);
 			if(elZ === zIndex + 1) el.style['z-index'] = elZ - 1;
 		});
@@ -92,7 +91,7 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 		if (!$scope.active) return;
 		var zIndex = getZindex($scope.active);
 
-		getElementArray().forEach(el => {
+		$scope.components.forEach(el => {
 			let elZ = getZindex(el);
 			if(elZ === zIndex - 1) el.style['z-index'] = elZ + 1;
 		});
@@ -106,7 +105,7 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 		if(!$scope.active) return;
 		var zIndex = getZindex($scope.active);
 		var max = getMaxZ();
-		getElementArray().forEach(el => {
+		$scope.components.forEach(el => {
 			let elZ = getZindex(el);
 			if(elZ > zIndex) el.style['z-index'] = elZ - 1;
 		});
@@ -119,7 +118,7 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 		if (!$scope.active) return;
 		var zIndex = getZindex($scope.active);
 
-		getElementArray().forEach(el => {
+		$scope.components.forEach(el => {
 			let elZ = getZindex(el);
 			if(elZ < zIndex) el.style['z-index'] = elZ + 1;
 		});
@@ -137,26 +136,28 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 
 //Helper functions
 
-	function getElementArray(){
-		return [].slice.call($scope.board.children());
-	}
-
 	function getZindex(el){
 		return Number(el.style['z-index']);
 	}
 
+	function setZindex(el,zIndex){
+		el.style['z-index'] = zIndex;
+	}
+
 	function getMaxZ(){
 		var maxZ = 0;
-		var elementArray = getElementArray();
-		elementArray.forEach(el => {
-			let z = getZindex(el);
-			if(z > maxZ) maxZ = z;
+		var elementArray = $scope.components;
+		elementArray = elementArray.sort(function(a,b){
+			return getZindex(a) - getZindex(b);
+		})
+		elementArray.forEach(function(el,index){
+			setZindex(el, index);
 		});
-		return maxZ;
+		return getZindex(elementArray.slice(-1)[0]);
 	}
 
 	function getZrange(){
-		var elementArray = getElementArray();
+		var elementArray = $scope.components;
 		return elementArray.length;
 	}
 
