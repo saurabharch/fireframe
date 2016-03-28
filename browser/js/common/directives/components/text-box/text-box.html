@@ -1,5 +1,5 @@
-<div class="delete-hoverable">
+<div class="delete-hoverable textbox">
   <button type="button" class="hover-delete-btn">
   <i class="fa fa-trash" id="" ng-click="deleteElement($event)"></i></button>
-  <div>{{ content }}</div>
+  <div contentEditable ng-model="content">{{ content }}</div>
 </div>

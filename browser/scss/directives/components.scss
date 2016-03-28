@@ -5,6 +5,7 @@
   box-sizing: border-box;
 }
 
+<<<<<<< HEAD
 component {
   position: absolute;
   height: 100%;
@@ -17,23 +18,42 @@ component {
   position: absolute;
   height: 400px;
   width: 600px;
+=======
+base-layer {
+  color: white;
+  font-size: 20px;
+  font-family: sans-serif;
+  /*border-radius: 4px;*/
+  height: 400px;
+  width: 400px;
+>>>>>>> master
   border-radius: 10px;
   overflow: hidden
 }
 
 #browser-nav {
+<<<<<<< HEAD
+=======
+  position: relative;
+>>>>>>> master
   /*display: inline-block;*/
   top: 0;
   left: 0;
   height: 50px;
   width: 100%;
+<<<<<<< HEAD
   background-color: #dbdbdb;
+=======
+  background-color: #EBEBEB;
+>>>>>>> master
   padding-left: 5px;
 }
 
 #left {
   width: 100%;
   height: 100%;
+<<<<<<< HEAD
+=======
 }
 
 #right {
@@ -41,6 +61,55 @@ component {
   height: 100%;
 }
 
+#browser-input {
+  position: absolute;
+  display: inline-block;
+  top: 10px;
+  left: 70px;
+  width: 70%;
+  height: 30px;
+  border-radius: 3px;
+  background-color: white;
+}
+
+#browser-btns {
+  white-space : nowrap; /* this does the trick */
+  overflow : hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: inline-block;
+  height: 100%;
+  width: 100px;
+  padding: 10px;
+}
+
+.browser-btn {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.close-btn {
+  background-color: #FC605B;
+}
+
+.hide-btn {
+  background-color: #FDBC40;
+}
+
+.full-btn {
+  background-color: #34C646;
+>>>>>>> master
+}
+
+#right {
+  width: 100%;
+  height: 100%;
+}
+
+<<<<<<< HEAD
 #browser-input {
   position: absolute;
   display: inline-block;
@@ -83,6 +152,8 @@ component {
   background-color: #34C646;
 }
 
+=======
+>>>>>>> master
 /*button {*/
 .save-button {
   position: absolute;
@@ -102,7 +173,17 @@ component {
   }
 }
 
+<<<<<<< HEAD
 .box {
+=======
+text-box {
+  min-height:2em;
+  min-width:1em;
+  overflow:hidden;
+}
+
+box {
+>>>>>>> master
   height: 50px;
   width: 50px;
 }

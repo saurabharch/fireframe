@@ -9,7 +9,7 @@ app.factory('CSS', function() {
 			var board = $('#wireframe-board');
 
 			board		
-				.css('width', 80/scale+'%')
+				.css('width', 100/scale+'%')
 				.css('height', 100/scale+'%')
 				.css('transform', 'scale('+ scale +')');
 		},
@@ -19,12 +19,14 @@ app.factory('CSS', function() {
 		},
 
 		//ng-style couldn't handle commas in rgb(0,0,0) so added this instead
-		addStyles: function(element, styles) {
-			//should also add an id in here?
+		addStyles: function(element, styles, source) {
 			for(var prop in styles) {
 				var param = {};
 				param[prop] = styles[prop];
 				$(element).css(param);
+			}
+			if (source) {
+				$(element).attr('src', source);
 			}
 		},
 

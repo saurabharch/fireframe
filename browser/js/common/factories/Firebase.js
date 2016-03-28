@@ -1,6 +1,6 @@
 app.factory('Firebase', function(Component, Session, Wireframe, CSS, $rootScope) {
   var firebase;
-  var firebaseComponents
+  var firebaseComponents;
   var firebaseUsers;
   var currentUser = Session.id || Math.round(100000*Math.random());
   var activeUsers = [];
@@ -72,7 +72,7 @@ app.factory('Firebase', function(Component, Session, Wireframe, CSS, $rootScope)
             if (component.id === id) {
               component.style = element.style;
               component.type = element.type;
-              component.source = element.source;
+              component.content = element.content;
             }
           });
           if (!currentScope.$$phase) {
@@ -199,8 +199,7 @@ app.factory('Firebase', function(Component, Session, Wireframe, CSS, $rootScope)
         console.log(err);
       })
     }
-
-  }
+  };
   return factory;
 
 });
