@@ -15,9 +15,9 @@ app.directive('component', function ($compile, CSS, Firebase, $templateRequest) 
 
     return {
       restrict: "E",
-      // scope: {
-      //   content: '='
-      // },
+      scope: {
+        content: '='
+      },
       link: {
         pre: function (scope, element, attrs) {
           var url = templateFinder(attrs.type);
@@ -42,10 +42,14 @@ app.directive('component', function ($compile, CSS, Firebase, $templateRequest) 
 
               //listen for mouseup on window instead of element, to account for cursor being outside of element's area
               var style = CSS.extractStyle(selectedElement);
-              Firebase.updateComponent(id, style);
+              Firebase.updateComponent(id, style, scope.content);
             }
             selectedElement = null;
           })
+
+          scope.deleteElement = function() {
+            Firebase.deleteElement($(element).attr('id'));
+          }
         }
       }
     };
