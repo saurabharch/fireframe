@@ -1,3 +1,9 @@
+$panelGrey:#aaa;
+$headerGrey:#555;
+$headerText:#fff;
+$liquid:#558FBC;
+$liquidUp:#66a0CD;
+
 * {
   box-sizing: border-box;
 }
@@ -34,7 +40,7 @@ body {
 }
 
 .btn-liquid {
-  background: #558FBC;
+  background: $liquid;
 }
 
 .panel-heading a:after {

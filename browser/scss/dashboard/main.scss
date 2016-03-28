@@ -93,10 +93,35 @@ $sideBarWidth: 200px;
 
 		td {
 			width:50%;
-
-
-
 		}
+	}
+
+	#activeSnapshot{
+		width:100%;
+	}
+
+	.framesList {
+		background-color:$panelGrey;
+		padding: 5px;
+		overflow:hidden;
+
+	}
+
+	.headerPanel {
+		background-color:$headerGrey;
+		color:$headerText;
+		margin-top:2px;
+	}
+
+	.masterPanel {
+		background-color:$liquid;
+		font-size:1.2em;
+	}
+
+	.masterFrame {
+		background-color:$liquidUp;
+		padding: 5px;
+		overflow:hidden;
 	}
 }
 

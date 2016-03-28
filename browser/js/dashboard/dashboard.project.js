@@ -19,7 +19,6 @@ app.config(function($stateProvider) {
 							proj.activeEdits.push(session);
 						}
 					}
-					console.log("Active édits åre: ", proj.activeEdits);
 				}).then(wireframe => proj);
 			}
 		},
@@ -36,8 +35,6 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 	$scope.showHistory = true;
 
 	traverseFrames($scope.active);
-	console.log("project", $scope.project);
-	console.log("active", $scope.active);
 
 	$scope.forkFrame = function(){
 		Wireframe.fork($scope.master._id, $scope.project._id)
@@ -68,6 +65,7 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 		$scope.history = [];
 		$scope.altBranches = [];
 		traverseFrames($scope.active);
+		$scope.altBranches = $.grep($scope.project.wireframes, e => !e.children.length && e !== $scope.active);
 	};
 
 	$scope.setMaster = function(){
@@ -79,18 +77,15 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 		$state.go('editor', {id:$scope.active._id, projectId: $scope.project._id});
 	};
 
-	//Fill out history and branches by traversing project frame tree
+	//Fill out history
 	function traverseFrames(frame) {
 		//Find history
 		var parent;
 		if (frame.parent){
 			parent = $.grep($scope.project.wireframes, e => e._id === frame.parent)[0];
-		}
-		if(parent){
 			$scope.history.push(parent);
 			traverseFrames(parent);
 		}
-		$scope.altBranches = $.grep($scope.project.wireframes, e => !e.children.length && e !== $scope.active);
 	}
 
 
