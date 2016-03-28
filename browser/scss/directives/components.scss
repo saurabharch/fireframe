@@ -22,12 +22,14 @@ component {
 }
 
 #browser-nav {
+  /*position: relative; might need this?*/
   /*display: inline-block;*/
   top: 0;
   left: 0;
   height: 50px;
   width: 100%;
   background-color: #dbdbdb;
+  /*background-color: #EBEBEB;*/
   padding-left: 5px;
 }
 
@@ -61,6 +63,50 @@ component {
   display: inline-block;
   height: 100%;
   width: 100px;
+  padding: 10px;
+}
+
+.browser-btn {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.close-btn {
+  background-color: #FC605B;
+}
+
+.hide-btn {
+  background-color: #FDBC40;
+}
+
+.full-btn {
+  background-color: #34C646;
+}
+
+/*
+>>>>>>> master
+#browser-input {
+  position: absolute;
+  display: inline-block;
+  top: 10px;
+  left: 70px;
+  width: 70%;
+  height: 30px;
+  border-radius: 3px;
+  background-color: white;
+}
+
+#browser-btns {
+  white-space : nowrap;
+  overflow : hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: inline-block;
+  height: 100%;
+  width: 100px;
   padding: 14px;
 }
 
@@ -83,7 +129,9 @@ component {
   background-color: #34C646;
 }
 
+<<<<<<< HEAD
 /*button {*/
+
 .save-button {
   position: absolute;
   bottom: 20px;
@@ -126,6 +174,9 @@ component {
 .text-box {
   height: 200px;
   width: 300px;
+  min-height:2em;
+  min-width:1em;
+  overflow:hidden;
 }
 
 .image-box {

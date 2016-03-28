@@ -159,6 +159,7 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
         type: component.type || '',
         content: component.content || ''
       });
+
     },
 
     deleteElement: function(event) {
