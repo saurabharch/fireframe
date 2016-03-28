@@ -89,21 +89,16 @@ router.put('/:id', function(req, res, next) {
 });
 
 router.post('/:id/upload', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
-  var imageData = req.body.imageData.split(',')[1];
-  // var imageData = new Buffer(imageUpload[1], 'base64');
+  var imageUpload = req.body.imageData.split(',');
+  var imageData = new Buffer(imageUpload[1], 'base64');
 
   image.upload(req.body.componentId, imageData)
   .then(imageUrl => {
-    console.log('Button image url: ', imageUrl);
-
     var firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" +
                                 req.body.projectId + "/wireframes/" + req.params.id + 
                                 "/components/" + req.body.componentId);
-    return
-    firebase.child('style').update({
-      "background-image": "url(" + imageUrl + ")"
-      // "background-image": "url('http://batesmeron.com/wp-content/uploads/2012/07/success_baby.jpg')"
-    })
+    
+    return firebase.child('style').update({"background-image": "url(" + imageUrl + ")"});
   })
   .then(function() {
     res.sendStatus(201);
