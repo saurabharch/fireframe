@@ -1,11 +1,16 @@
 var mongoose = require('mongoose');
 var Wireframe = mongoose.model('Wireframe');
-
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 var ProjectSchema = new mongoose.Schema({
 
 	name: {
 		type: String,
 		required: true
+	},
+	description: {
+		type: String,
+		minlength: 5,
+		maxlength: 100
 	},
 	team: {
 		type: mongoose.Schema.Types.ObjectId, 
@@ -20,8 +25,24 @@ var ProjectSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId, 
 		ref: 'Wireframe',
 	}],
-	type: String //what is this for?
+	type: String,
+	created_at: {
+		type: Date
+	},
+	updated_at: {
+		type: Date
+	}
+});
 
+
+ProjectSchema.plugin(deepPopulate);
+
+ProjectSchema.pre('validate', function(next){
+  this.updated_at = Date.now();
+  if ( !this.created_at ) {
+    this.created_at = Date.now();
+  }
+  next();
 });
 
 ProjectSchema.statics.createNewProject = function(project) {
@@ -37,7 +58,7 @@ ProjectSchema.statics.createNewProject = function(project) {
 		return Project.create(project);
 	})
 	.then(function(project) {
-		//set project ID and return
+		//set project ID and return;
 		wireframe.project = project._id;
 		return wireframe;
 	});
@@ -74,6 +95,5 @@ ProjectSchema.statics.setMaster = function(wireframeId, projectId) {
 		return wireframe.save();
 	});
 };
-
 
 var Project = mongoose.model('Project', ProjectSchema);
