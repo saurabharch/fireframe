@@ -53,10 +53,9 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 		Wireframe.save($scope.wireframe, $scope.components);
 	};
 
-	// if we want to use double click for file upload we'll need to expand upon this
-	// $scope.uploadImage = function(event) {
-	// 	var id = event.currentTarget.id;
-	// }
+	$scope.deleteElement = function() {
+		Firebase.deleteElement($scope.active.id);
+	}
 
 	$scope.imageUpload = function(element) {
 		var imageBox = $(element).closest('.image-box');
