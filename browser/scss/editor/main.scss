@@ -130,7 +130,10 @@ $btn-side: .45 * $left-width;
   top:0.25 * $btn-side;
 }
 
-
+.btn-delete {
+  color: white;
+  background-color: #ff8855;
+}
 /*
 
 .active-element {
