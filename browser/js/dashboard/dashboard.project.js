@@ -29,7 +29,6 @@ app.config(function($stateProvider) {
 
 app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 	$scope.project = project;
-	console.log(project);
 	$scope.history = [];
 	$scope.altBranches = [];
 	$scope.master = project.wireframes.filter(frame => frame.master === true)[0];
@@ -58,6 +57,11 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 		$('#showHist').removeClass("active");
 		$scope.showHistory = false;
 		$('#showAlt').addClass("active");
+	};
+
+	$scope.getProjDetails = function() {
+		console.log("project details will go here", $scope.project.project);
+
 	};
 
 	$scope.changeActive = function(frame){
@@ -100,5 +104,7 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 	$scope.isMaster = function(){
 		return $scope.active === $scope.master;
 	};
+
+	//date created, team name and members, team admin, brief description of project 
 
 });

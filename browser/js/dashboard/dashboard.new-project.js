@@ -64,7 +64,8 @@ app.controller('NewProjectCtrl', function($scope, $state, user, User, Wireframe)
 
 		$scope.addProject = function(){
 			var project = {
-				name: $scope.projectName
+				name: $scope.projectName,
+				description: $scope.projectDescription
 			};
 			project.team = $scope.projectTeam ? $scope.projectTeam._id : null; 
 

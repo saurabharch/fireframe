@@ -32,7 +32,7 @@ router.param('id', function(req, res, next, id) {
 });
 
 //save new wireframe
-router.post('/', function(req, res, next) {
+router.post('/', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
   Wireframe.create(req.body)
   .then(() => {
     res.sendStatus(201);
@@ -41,7 +41,7 @@ router.post('/', function(req, res, next) {
 });
 
 //get single wireframe
-router.get('/:id', function(req, res, next) {
+router.get('/:id', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
   console.log(req.wireframe)
   //return wireframe with components
   res.json(req.wireframe);
@@ -49,15 +49,16 @@ router.get('/:id', function(req, res, next) {
 
 
 //edit current wireframe
+
 router.put('/:id', function(req, res, next) {
   //Are these webshot options needed?
-  // var options = {
-  //   windowSize: {
-  //     width: 1024,
-  //     height: 768
-  //   },
-  //   takeShotOnCallback: true
-  // };
+  var options = {
+    windowSize: {
+      width: 1024,
+      height: 768
+    },
+    renderDelay: 2000
+  };
 
   //Save wireframe with components to DB before capturing screen
   req.wireframe.saveWithComponents(req.body)
@@ -68,7 +69,7 @@ router.put('/:id', function(req, res, next) {
      * components are loaded from DB, and webshot
      * captures screen
      */ 
-    return webshot("http://localhost:1337/phantom/"+req.params.id);
+    return webshot("http://localhost:1337/phantom/"+req.params.id, options);
   })
   .then(function(stream) {
     return new Readable().wrap(stream);
@@ -101,7 +102,7 @@ router.delete('/:id', auth.ensureTeamAdmin, function(req, res, next) {
 });
 
 //fork a wireframe
-router.post('/:id/fork', function(req, res, next) {
+router.post('/:id/fork', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
   //returns new wireframe, with new instances of all components
   Project.findById(req.body.id)
   .then(function(project){
@@ -115,8 +116,8 @@ router.post('/:id/fork', function(req, res, next) {
 })
 
 //set wireframe as new master
-router.put('/:id/master', function(req, res, next) {
-  Project.setMaster(req.wireframe, req.body.id)
+router.get('/:id/master', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
+  Project.setMaster(req.wireframe)
   .then(wireframe => {
     res.json(wireframe);
   })

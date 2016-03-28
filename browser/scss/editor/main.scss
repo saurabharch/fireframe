@@ -73,6 +73,25 @@ $btn-side: .45 * $left-width;
   margin:2%;
 }
 
+.btn-editor {
+  border-radius: 0;
+  border: 2px solid white;
+  text-align: center;
+  padding: 5px 0;
+  margin: 2px;
+}
+
+.btn-blue {
+  background-color: #0FA0D1;
+  color: white;
+}
+
+.btn-save {
+  background-color: #00BFFF;
+  color: white;
+  margin: 5px;
+}
+
 .delete-hoverable .hover-delete-btn {
   float: right;
   margin-top: 2px;

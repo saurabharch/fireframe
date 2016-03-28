@@ -26,12 +26,14 @@ TeamSchema.statics.createAndAddMembers = function(newTeam) {
 
   return this.create(newTeam)
   .then(createdTeam => {
+    console.log(createdTeam, "new team");
     team = createdTeam;
     return User.find({
       email: { $in : memberEmails }
     })
   })
   .then(users => {
+    console.log(users, "team members?");
     team.members = users;
     return team.save()
   })
