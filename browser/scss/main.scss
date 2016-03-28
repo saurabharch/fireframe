@@ -37,6 +37,14 @@ body {
   background: #558FBC;
 }
 
+.panel-heading a:after {
+    font-family:'Glyphicons Halflings';
+    content:"\e114";
+    color: grey;
+}
+.panel-heading a.collapsed:after {
+    content:"\e080";
+}
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';

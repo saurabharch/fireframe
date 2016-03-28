@@ -37,7 +37,7 @@ var auth = {
 	},
 
 	isTeamAdmin: function(user, team) {
-		return team.administrator === user._id;
+		// return team.administrator === user._id;
 	},
 
 	ensureTeamMemberOrAdmin: function(req, res, next) {

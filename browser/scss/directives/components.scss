@@ -5,25 +5,29 @@
   box-sizing: border-box;
 }
 
-base-layer {
-  color: white;
-  font-size: 20px;
-  font-family: sans-serif;
-  /*border-radius: 4px;*/
+component {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border: 1px solid #cccccc;
+  overflow: hidden
+}
+
+.base-layer {
+  position: absolute;
   height: 400px;
-  width: 400px;
+  width: 600px;
   border-radius: 10px;
   overflow: hidden
 }
 
 #browser-nav {
-  position: relative;
   /*display: inline-block;*/
   top: 0;
   left: 0;
   height: 50px;
   width: 100%;
-  background-color: #EBEBEB;
+  background-color: #dbdbdb;
   padding-left: 5px;
 }
 
@@ -57,7 +61,7 @@ base-layer {
   display: inline-block;
   height: 100%;
   width: 100px;
-  padding: 10px;
+  padding: 14px;
 }
 
 .browser-btn {
@@ -79,12 +83,6 @@ base-layer {
   background-color: #34C646;
 }
 
-table-component {
-  border: 1px solid black;
-  height: 120px;
-  width: 240px;
-}
-
 /*button {*/
 .save-button {
   position: absolute;
@@ -96,42 +94,41 @@ table-component {
   background-color: white;
   color: black;
   text-align: center;
-  width: 100%;
-  height: 100%;
+  height: 200px;
+  width: 400px;
   margin-bottom: 0;
   #first-row {
     background-color: #6D7375;
   }
 }
 
-text-box {
-  min-height:2em;
-  min-width:1em;
-  overflow:hidden;
-}
-
-box {
+.box {
   height: 50px;
   width: 50px;
 }
 
-circle {
+.circle {
   height: 50px;
   width: 50px;
   border-radius: 50%;
 }
 
-list {
+.list {
   height: 75px;
   width: 50px;
 }
 
-button-component {
+.button-component {
   height: 60px;
   width: 50px;
 }
 
-image-box {
+.text-box {
+  height: 200px;
+  width: 300px;
+}
+
+.image-box {
   height: 90px;
   width: 80px;
   border: 1px solid #FF0000;
