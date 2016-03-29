@@ -39,7 +39,7 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 	$scope.forkFrame = function(){
 		Wireframe.fork($scope.master._id, $scope.project._id)
 		.then(wireframe=>{
-			$state.go('editor', {id:wireframe._id, projectId:$scope.project._id});
+			$state.go('editor', { id: wireframe._id, projectId: $scope.project._id });
 		});
 	};
 

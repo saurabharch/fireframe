@@ -91,8 +91,8 @@ router.put('/:id', function(req, res, next) {
 router.post('/:id/upload', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
   var imageUpload = req.body.imageData.split(',');
   var imageData = new Buffer(imageUpload[1], 'base64');
-
-  image.upload(req.body.componentId, imageData)
+  var imageName = req.body.componentId + Math.round(Math.random()*10000);
+  image.upload(imageName, imageData)
   .then(imageUrl => {
     var firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" +
                                 req.body.projectId + "/wireframes/" + req.params.id + 

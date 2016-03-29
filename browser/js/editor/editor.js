@@ -57,6 +57,25 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 		Firebase.deleteElement($scope.active.id);
 	}
 
+	//listen for delete key, prevent default, and ensure we are not within an active text-box
+	$(document).on("keydown", function (event) {
+		var active = $(document.activeElement);
+    if (event.keyCode === 8 && !active[0].isContentEditable && active.is('body')) {
+   		event.preventDefault();
+    	if ($scope.active) {
+    		$scope.deleteElement();
+    	}
+    }
+
+    if (event.keyCode === 16) {
+    	Interact.preserveAspectRatio();
+    }
+  });
+
+  $(document).on('keyup', function() {
+  	Interact.removeAspectRatio();
+  })
+
 	$scope.imageUpload = function(element) {
 		var imageBox = $(element).closest('.image-box');
 	  var file = element.files[0];
@@ -64,18 +83,15 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 	  
 	  reader.addEventListener("load", function () {
 	  	var image = reader.result; 
-			var img = new Image();
-			var height, width;       
+			var img = new Image();     
 			img.onload = function(){
-			  width = img.width, height = img.height;
-				console.log(width, height, '!!!!!')
+			  var width = img.width, height = img.height;
+	  		imageBox.css('background-image', 'url(' + image + ')');
+	  		imageBox.width(width);
+	  		imageBox.height(height);
+				Firebase.updateComponent(imageBox.attr('id'), { width: width, height: height });
 			};
 			img.src = image;
-			
-	  	imageBox.css('background-image', 'url(' + image + ')');
-	  	imageBox.width(width);
-			imageBox.height(height);
-	    $timeout(function(){$scope.digest()}, 0)
 	    Wireframe.uploadImage($scope.wireframe.project, $scope.wireframe._id, imageBox.attr('id'), image);
 	  }, false);
 
