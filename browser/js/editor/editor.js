@@ -14,7 +14,7 @@ app.config(function($stateProvider){
 		});
 });
 
-app.controller('EditorCtrl', function($scope, wireframe, components, Interact, CSS, Firebase, Wireframe, $rootScope) {
+app.controller('EditorCtrl', function($scope, wireframe, components, Interact, CSS, Firebase, Wireframe, $timeout) {
 	$scope.components = Firebase.getComponentCache();
 	$scope.wireframe = wireframe;
 	$scope.board = $('#wireframe-board');
@@ -72,9 +72,10 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 			};
 			img.src = image;
 			
-			imageBox.width(width);
-			imageBox.height(height);
 	  	imageBox.css('background-image', 'url(' + image + ')');
+	  	imageBox.width(width);
+			imageBox.height(height);
+	    $timeout(function(){$scope.digest()}, 0)
 	    Wireframe.uploadImage($scope.wireframe.project, $scope.wireframe._id, imageBox.attr('id'), image);
 	  }, false);
 

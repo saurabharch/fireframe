@@ -1,5 +1,5 @@
 app.factory('CSS', function() {
-	var styles = ['width', 'height', 'font-size', 'opacity', 'border-width', 'border-style', 'border-radius', 'border-color', 'background-color', 'background-image', 'background-size', 'z-index'];
+	var styles = ['width', 'height', 'font-size', 'color', 'opacity', 'border-width', 'border-style', 'border-radius', 'border-color', 'background-color', 'background-image', 'background-size', 'z-index', 'text-align'];
 	var currentScale = 100;
 
 	return {

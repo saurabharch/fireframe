@@ -9,12 +9,18 @@ app.config(function($stateProvider) {
 				return AuthService.getLoggedInUser()
 				.then(function(loggedUser){
 					return User.getUserTeams(loggedUser._id);
+				})
+				.then(function(teams){
+					console.log(teams);
+					return teams;
 				});
 			}
 		}
 	})
 });
 
-app.controller('UserTeamsCtrl', function($scope, userTeams) {
+app.controller('UserTeamsCtrl', function($scope, userTeams, AuthService) {
 	$scope.teams = userTeams;
+	console.log("scope.teams is ",userTeams);
+	console.log("user is ",AuthService.getLoggedInUser());
 });

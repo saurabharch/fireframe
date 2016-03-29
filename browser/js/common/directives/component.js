@@ -31,6 +31,7 @@ app.directive('component', function ($compile, CSS, Firebase, $templateRequest) 
         },
 
         post: function (scope, element, attr){
+          scope.content = scope.content || 'Your Text Here';
           var selectedElement;
           element.on('mousedown', function(e){
             selectedElement = $(this);

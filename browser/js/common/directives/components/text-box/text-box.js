@@ -5,20 +5,20 @@ app.directive('textBox', function($timeout) {
     scope:true,
     link: function(scope, element) {
 
-    	scope.text = element[0].getAttribute('data-textContents');
-    	scope.$on('element-changed', changeText);
+    	// scope.text = element[0].getAttribute('data-textContents');
+    	// scope.$on('element-changed', changeText);
 
-    	if(!scope.text) scope.text = "Text goes here!";
-    	scope.$watch('text', function(){
-    		element[0].setAttribute('data-textContents',scope.text);
-    		console.log("changing element", element[0].getAttribute('data-textContents'));
-    	});
+    	// if(!scope.text) scope.text = "Text goes here!";
+    	// scope.$watch('text', function(){
+    	// 	element[0].setAttribute('data-textContents',scope.text);
+    	// 	console.log("changing element", element[0].getAttribute('data-textContents'));
+    	// });
 
-	    function changeText(){
-	    	$timeout(function(){
-	    		scope.text = element[0].getAttribute('data-textContents');
-	    	}, 1);
-	    }
+	    // function changeText(){
+	    // 	$timeout(function(){
+	    // 		scope.text = element[0].getAttribute('data-textContents');
+	    // 	}, 1);
+	    // }
     }
 
   };
