@@ -2,56 +2,58 @@
 	<h1>NEW PROJECT</h1>
 </div>
 
-<div class="row">
-	<form id="newProject" class="form-inline">
-		<div class="row">
+<div class="row" id="newProject">
+	<div class="col-lg-10 col-lg-offset-1">
+		<form class="form-inline">
 			<div class="form-group">
 				<label for="projectName">Project Name</label>
+				<br>
 				<input type="text" class="form-control" placeholder="Name" ng-model="projectName">
-			</div>
-			<div class="row">
-			<div class="form-group">
+				<br>
+			
 				<label for="projectDescription">Description</label>
+				<br>
 				<input type="text" class="form-control" placeholder="Project description" ng-model="projectDescription">
-			</div>
-		</div>
-		</div>
-		<div class="row">
-			<div class="form-group">
-			  <label for="teams">Team</label>
-			  <select class="form-control"
-            ng-model="projectTeam"
-            ng-options="team.name for team in user.teams">
-	      </select>
-			  <button class="btn" ng-click="showTeamAdd()">Add team</button>
-			</div>
-		</div>
-	</form>
-</div>
-	  <button ng-click="addProject()" class="btn btn-default">Submit</button>
-	</form>
-</div>
+				<br>
+				
 
-
-
-<div id="teamForm" ng-show="formShow">
-	<div class="row">
-		<form id="newProject" class="form-inline">
-			<div class="row">
-				<div class="form-group">
-					<label for="projectName">Team Name</label>
-					<input id="teamName" ng-model="teamName" type="text" class="form-control" placeholder="Name">
-				</div>
+			  	<label>Team (Select Existing or Create New)</label>
+			  	<br>
+			  	<select id="teamOptions" class="form-control"
+		        	ng-model="projectTeam"
+		        	ng-options="team.name for team in user.teams">
+		      	</select>
+		      	<br>
+		      	
+		      	<button class="btn btn-primary" ng-hide="formShow" ng-click="showTeamAdd()">Create Team</button>
+		      	<button class="btn btn-danger" ng-show="formShow" ng-click="cancelTeam()">Cancel Team</button>
 			</div>
-			<div class="row">
-				<div class="form-group">
-				  <label for="teams">Member Email</label>
-				  <input ng-model="member" type="text" class="form-control" placeholder="email">
-				  <button class="btn" ng-click="addMember()">Add Member</button>
-					<p ng-repeat="member in teamMembers">{{member}}</p>
-				</div>
-			</div>
-			<button class="btn btn-success" ng-click="addTeam()">Add Team</button>
 		</form>
+
+
+		<div id="teamForm" ng-show="formShow">
+			<form class="form-inline">
+				<div class="form-group">
+					<hr>
+					<label for="teamName">Team Name</label>
+					<br>
+					<input id="teamName" ng-model="teamName" type="text" class="form-control" placeholder="Name">
+					<br>
+				
+					<label for="member">Member Email</label>
+					<br>
+					<input ng-model="member" type="text" class="form-control" placeholder="email">
+					<button class="btn" ng-click="addMember()">Add Member</button>
+					<br>
+					<p ng-show="teamMembers.length > 0">Team Members:</p>
+					<p ng-repeat="member in teamMembers">{{member}}</p>
+					<br>
+					<button class="btn btn-primary" ng-click="addTeam()">Add Team</button>
+					<hr>
+				</div>
+			</form>
+		</div>
+
+		<button ng-click="addProject()" id="newProjectSubmit" class="btn btn-success">Submit</button>
 	</div>
 </div>
