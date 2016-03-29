@@ -37,7 +37,7 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 	traverseFrames($scope.active);
 
 	$scope.forkFrame = function(){
-		Wireframe.fork($scope.master._id, $scope.project._id)
+		Wireframe.fork($scope.active._id, $scope.project._id)
 		.then(wireframe=>{
 			$state.go('editor', { id: wireframe._id, projectId: $scope.project._id });
 		});
