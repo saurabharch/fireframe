@@ -74,7 +74,7 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 			
 	  	imageBox.css('background-image', 'url(' + image + ')');
 	  	imageBox.width(width);
-			imageBox.height(4000);
+			imageBox.height(height);
 	    $timeout(function(){$scope.digest()}, 0)
 	    Wireframe.uploadImage($scope.wireframe.project, $scope.wireframe._id, imageBox.attr('id'), image);
 	  }, false);
