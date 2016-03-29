@@ -31,7 +31,19 @@ app.directive('component', function ($compile, CSS, Firebase, $templateRequest) 
         },
 
         post: function (scope, element, attr){
-          scope.content = scope.content || 'Your Text Here';
+          if (attr.type === 'text-box') {
+            scope.content = scope.content || 'Your Text Here';
+          } else if (attr.type ==='list') {
+              if (!scope.content.list) {
+                scope.content = {};
+                scope.content.list = {};
+              }
+              scope.content.list.header = scope.content.list.header || 'Header';
+              scope.content.list.items = scope.content.list.items || ['List line 1', 'List Line 2', 'List Line 3'];
+          } else {
+            scope.content = null;
+          }
+
           var selectedElement;
           element.on('mousedown', function(e){
             selectedElement = $(this);

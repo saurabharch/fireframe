@@ -47,19 +47,19 @@
 			<label for="color">Color</label>
 			<div id="row">
 
-				<input id="color" type="text" ng-hide="active.type==='text-box'"
-							 ng-disabled="active.type==='image-box' || active.type==='text-box'"
+				<input id="color" type="text" ng-hide="active.type==='text-box' || active.type==='list'"
+							 ng-disabled="active.type==='image-box' || active.type==='text-box' || active-type==='list'"
 							 ng-model="active.style['background-color']"
 							 style="background-color: {{ active.style['background-color'] }}">
-				<button class="btn" colorpicker ng-hide="active.type==='text-box'"
-								ng-disabled="active.type==='image-box' || active.type==='text-box'"
+				<button class="btn" colorpicker ng-hide="active.type==='text-box' || active.type==='list'"
+								ng-disabled="active.type==='image-box' || active.type==='text-box' || active.type==='list'"
 								ng-model="active.style['background-color']">Choose color</button>
 
-				<input id="color" type="text" ng-show="active.type==='text-box'"
-							 ng-disabled="active.type !=='text-box'" ng-model="active.style.color"
+				<input id="color" type="text" ng-show="active.type==='text-box' || active.type==='list'"
+							 ng-disabled="active.type!=='text-box' && active.type!=='list'" ng-model="active.style.color"
 							 style="background-color: {{ active.style.color }}">
-				<button class="btn" colorpicker ng-show="active.type==='text-box'"
-								ng-disabled="active.type !=='text-box'"
+				<button class="btn" colorpicker ng-show="active.type==='text-box' || active.type==='list'"
+								ng-disabled="active.type !=='text-box' && active.type !== 'list'"
 								ng-model="active.style.color">Choose Color</button>
 			</div>
 		</div>
