@@ -25,7 +25,9 @@ var ProjectSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId, 
 		ref: 'Wireframe',
 	}],
-	type: String,
+	category: {
+		type: String
+	},
 	created_at: {
 		type: Date
 	},
