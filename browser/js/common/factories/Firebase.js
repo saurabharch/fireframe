@@ -9,6 +9,19 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
   var componentCache = [];
   var currentScope;
 
+  $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+    console.log(fromState, toState)
+    if (fromState.name==='editor') {
+      if (firebaseUsers) {
+        firebaseUsers.child(currentUser).remove()
+      }
+
+      firebaseComponents = null
+      firebaseUsers = null;
+      activeUsers = [];
+    }
+  });
+
   var factory = {
     setScope: function($scope) {
       currentScope = $scope;
@@ -38,6 +51,7 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
 
         //Event listener, log users joining room
         firebaseUsers.on('child_added', function(snapshot) {
+          console.log(activeUsers);
           activeUsers.push(snapshot.key());
           setOnDisconnect();
         });
@@ -97,8 +111,8 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
         });
     },
 
-    checkForComponents: function(wireframeId, projectId) {
-      var firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + projectId + '/wireframes/' + wireframeId);
+    checkForUsers: function(wireframeId, projectId) {
+      var firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + projectId + '/wireframes/' + wireframeId + '/users');
       
       //firebase promises not working => made our own
       return new Promise(function(resolve, reject) {
@@ -184,10 +198,10 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
     //get components array, which is either generated from joining an exisiting room or fetching from the backend and creating a room
     fetchComponents: function(id, projectId) {
       componentCache = [];
-      factory.checkForComponents(id, projectId)
-      .then(components => {
+      factory.checkForUsers(id, projectId)
+      .then(users => {
         //if room doesn't exist, fetch the wireframe and create a firebase room
-        if (!components.val()) {
+        if (!users.val()) {
           return Wireframe.fetchOne(id, projectId)
           .then(wireframe => {
             wireframe.project = projectId;
