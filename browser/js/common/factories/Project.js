@@ -1,7 +1,6 @@
 app.factory('Project', function($http, $log){
 
 	function extractData(res) {
-		console.log(res, '!!!!!');
 		return res.data;
 	}
 

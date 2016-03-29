@@ -96,8 +96,17 @@ $sideBarHeight: 95vh;
 		}
 	}
 
+	#projectDetails {
+		text-align: left;
+		margin-left: 25%;
+		td {
+			padding-left: 1em;
+		}
+	}
+
 	#activeSnapshot{
 		width:100%;
+		border: 1px solid black;
 	}
 
 	.framesList {
@@ -120,6 +129,7 @@ $sideBarHeight: 95vh;
 	.masterPanel {
 		background-color:$liquid;
 		font-size:1.2em;
+		margin-top: 1.5em;
 	}
 
 	.masterFrame {
@@ -152,7 +162,7 @@ $sideBarHeight: 95vh;
 	overflow:scroll;
 }
 
-#projectPage {
+.projectPage {
 	text-align:center;
 	height:$sideBarHeight;
 	overflow:scroll;
@@ -164,10 +174,6 @@ $sideBarHeight: 95vh;
 	height:270px;
 	background-color:$panelGrey;
 
-	&:hover{
-		background-color:#555;
-				color:#fff;
-	};
 /*	&:nth-child(odd){
 		background-color:$panelGrey;
 	};
@@ -181,3 +187,8 @@ $sideBarHeight: 95vh;
 		height:60%;
 	}
 }
+
+.boxActive:hover{
+		background-color:#555;
+				color:#fff;
+	};
