@@ -8,6 +8,10 @@ var WireframeSchema = new mongoose.Schema({
 		type:Boolean,
 		default:false
 	},
+	dateCreated: {
+		type: Date,
+		default: Date.now()
+	},
 	// project: {
 	// 	type:mongoose.Schema.Types.ObjectId, 
 	// 	ref:'Project'
