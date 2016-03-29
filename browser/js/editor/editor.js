@@ -57,6 +57,10 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 		Firebase.deleteElement($scope.active.id);
 	}
 
+	$scope.changeListLength = function(e) {
+		var currentLength = $scope.active.list.length;
+	}
+
 	//listen for delete key, prevent default, and ensure we are not within an active text-box
 	$(document).on("keydown", function (event) {
 		var active = $(document.activeElement);
