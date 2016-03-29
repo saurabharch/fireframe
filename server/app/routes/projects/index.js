@@ -37,7 +37,8 @@ router.get('/', function(req, res, next) {
   .then(teams => {
     return Project.find({
       $or: [{ creator: id }, { team: { $in: teams }}]
-    }).populate('creator', 'email');
+    }).populate('creator', 'email')
+    .populate('wireframes', 'screenshotUrl master');
   })
   .then(projects => {
     res.json(projects);

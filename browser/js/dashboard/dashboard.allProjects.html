@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" id="projectPage">
 	<div class="row">
 		<h1>PROJECTS</h1>
 	</div>
@@ -12,14 +12,10 @@
 	</div>
 
 	<div class="row">
-		<table class="project-table">
-			<thead>
-				<td>Project Name</td>
-				<td>Creator</td>
-			</thead>
-			<tr ui-sref="dashboard.project({id:project._id})" ng-repeat="project in projects | filter:search">
-				<td>{{project.name}}</td><td>{{project.creator.email}}</td>
-			</tr>
-		</table>
+		<div class="projectBox col-md-3" ng-repeat="project in projects | filter:search">
+			<img src="{{project.master.screenshotUrl}}">
+			<h3>{{project.name}}</h3>
+			<h4>{{project.creator.email}}</h4>
+		</div>
 	</div>
 </div>
