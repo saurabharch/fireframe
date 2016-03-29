@@ -1,12 +1,12 @@
 $sideBarWidth: 200px;
+$sideBarHeight: 95vh;
 
 #userPage {
-
 	.sidebar {
 		display: inline-block;
 		position: absolute;
 		color: #D2D5D6;
-		height: 100%;
+		height: $sideBarHeight;
 		width: $sideBarWidth;
 		background: #222;
 		
@@ -146,4 +146,38 @@ $sideBarWidth: 200px;
 
 .accordion-team-group {
 	width: 20%;
+}
+
+.scroller {
+	overflow:scroll;
+}
+
+#projectPage {
+	text-align:center;
+	height:$sideBarHeight;
+	overflow:scroll;
+}
+.projectBox {
+	margin:30px;
+	padding:10px;
+	text-align:center;
+	height:200px;
+	background-color:$panelGrey;
+
+	&:hover{
+		background-color:#555;
+				color:#fff;
+	};
+/*	&:nth-child(odd){
+		background-color:$panelGrey;
+	};
+
+	&:nth-child(even){
+		background-color:$panelGreyDark;
+	}*/
+
+	img {
+		width:80%;
+		height:60%;
+	}
 }
