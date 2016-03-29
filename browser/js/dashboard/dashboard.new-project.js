@@ -58,7 +58,10 @@ app.controller('NewProjectCtrl', function($scope, $state, user, User, Wireframe)
 			.then(team => {
 				$scope.user.teams.push(team);
 				$scope.formShow = false;
+				$scope.projectTeam = user.teams[user.teams.length - 1];
 			});
+
+
 		};
 
 	//Add New Project
@@ -76,5 +79,9 @@ app.controller('NewProjectCtrl', function($scope, $state, user, User, Wireframe)
 				$state.go('editor', { id: wireframe._id, projectId: wireframe.project });
 			});
 		};
+
+		$scope.cancelTeam = function(){
+			$scope.formShow = false;
+		}
 
 });

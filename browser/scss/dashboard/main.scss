@@ -127,6 +127,21 @@ $sideBarWidth: 200px;
 		padding: 5px;
 		overflow:hidden;
 	}
+
+	#newProject {
+		
+		.form-group {
+		 	width: 70%;
+		}
+
+		.form-control {
+			width: 100%;
+		}
+	}
+
+	#newProjectSubmit {
+		width: 70%;
+	}
 }
 
 .accordion-team-group {
