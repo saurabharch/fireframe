@@ -17,6 +17,7 @@ app.config(function($stateProvider){
 app.controller('EditorCtrl', function($scope, wireframe, components, Interact, CSS, Firebase, Wireframe, $timeout) {
 	$scope.components = Firebase.getComponentCache();
 	$scope.wireframe = wireframe;
+	$scope.copy;
 	$scope.board = $('#wireframe-board');
 	Firebase.setScope($scope);
 
@@ -69,6 +70,33 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 		$('#'+$scope.active.id).removeClass('active-component');
 		$scope.active = null;
 	});
+
+	$scope.copyElement = function() {
+		$scope.copy = $scope.active;
+	}
+
+	$scope.pasteElement = function() {
+		if ($scope.copy) {
+			var copy = {};
+			angular.copy($scope.copy, copy)
+			copy.style.left += 50;
+			copy.style.top += 50;
+			copy.style['z-index'] = getZrange();
+			Firebase.createElement({
+				style: copy.style,
+				type: copy.type,
+				content: copy.content
+			})
+		}
+	}
+
+	$scope.undoAction = function() {
+		Firebase.undo();
+	}
+
+	$scope.redoAction = function() {
+		Firebase.redo();
+	}
 
 	//listen for delete key, prevent default, and ensure we are not within an active text-box
 	$(document).on("keydown", function (event) {
