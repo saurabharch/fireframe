@@ -67,7 +67,9 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 	//Event listeners
 
 	$scope.board.on('mousedown',function(){
-		$('#'+$scope.active.id).removeClass('active-component');
+		if ($scope.active) {
+			$('#'+$scope.active.id).removeClass('active-component');
+		}
 		$scope.active = null;
 	});
 

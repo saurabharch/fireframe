@@ -18,10 +18,12 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
       if (firebaseUsers) {
         firebaseUsers.child(currentUser).remove()
       }
+      firebaseComponents.onDisconnect.cancel()
       firebaseComponents = null
       firebaseUsers = null;
       firebase = null;
       activeUsers = [];
+      componentCache = [];
     }
   });
 
@@ -49,17 +51,15 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
       /* Here we set up the events for users joining and leaving a room */
         //add current user to room
         firebaseUsers.child(currentUser).set('connected');
-        
+        firebaseUsers.child(currentUser).onDisconnect().remove();
         //for every user change, set up disconnect handler depending on number of users currently connected
         //this feels quite hacky, though I can't figure out a good way to delete components if everyone leaves a room
         function setOnDisconnect() {
-          // if(activeUsers.length<=1) {
-            //firebaseComponents.onDisconnect().remove();  
-          // } else {
-            //firebaseComponents.onDisconnect().cancel();
-            //firebaseUsers.onDisconnect().cancel();
-          // }
-          firebaseUsers.child(currentUser).onDisconnect().remove();
+          if(activeUsers.length<=1) {
+            firebaseComponents.onDisconnect().remove();  
+          } else {
+            firebaseComponents.onDisconnect().cancel();
+          }          
         };
 
         //Event listener, log users joining room
