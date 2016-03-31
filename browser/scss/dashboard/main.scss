@@ -177,18 +177,14 @@ $sideBarHeight: 95vh;
 	height:270px;
 	background-color:$panelGrey;
 
-/*	&:nth-child(odd){
-		background-color:$panelGrey;
-	};
-
-	&:nth-child(even){
-		background-color:$panelGreyDark;
-	}*/
-
 	img {
 		width:80%;
 		height:60%;
 	}
+}
+
+.bottom-padding{
+	padding-bottom:50px;
 }
 
 .boxActive:hover{
