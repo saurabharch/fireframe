@@ -6,10 +6,10 @@ $sideBarHeight: 95vh;
 		display: inline-block;
 		position: absolute;
 		color: #D2D5D6;
-		height: $sideBarHeight;
+		/*height: $sideBarHeight;*/
 		width: $sideBarWidth;
 		background: #222;
-		
+				
 		.sidebar-column{
 			height:100%;
 		}
@@ -171,14 +171,14 @@ $sideBarHeight: 95vh;
 	width: 20%;
 }
 
-.scroller {
+/*.scroller {
 	overflow:scroll;
-}
+}*/
 
 .projectPage {
 	text-align:center;
 	height:$sideBarHeight;
-	overflow:scroll;
+	/*overflow:scroll;*/
 }
 .projectBox {
 	margin:10px;
@@ -187,18 +187,14 @@ $sideBarHeight: 95vh;
 	height:270px;
 	background-color:$panelGrey;
 
-/*	&:nth-child(odd){
-		background-color:$panelGrey;
-	};
-
-	&:nth-child(even){
-		background-color:$panelGreyDark;
-	}*/
-
 	img {
 		width:80%;
 		height:60%;
 	}
+}
+
+.bottom-padding{
+	padding-bottom:50px;
 }
 
 .boxActive:hover{
