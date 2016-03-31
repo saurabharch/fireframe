@@ -10,6 +10,9 @@ $sideBarHeight: 95vh;
 		width: $sideBarWidth;
 		background: #222;
 		
+		.sidebar-column{
+			height:100%;
+		}
 		ul {
 			list-style: none;
 			padding: 0;

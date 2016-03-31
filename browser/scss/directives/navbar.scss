@@ -6,13 +6,23 @@ navbar {
   box-shadow: 1px 1px 14px -3px black;*/
 
   .container {
-    width: 91%;
+    width: 95%;
     max-width: 1340px;
     /*padding-top: 20px;*/
   }
 
   .navbar {
     margin: 0;
+  }
+
+  .menubtn{
+    float:left;
+    vertical-align: middle;
+    font-size: 2em;
+    margin-top: 0.4em;
+    margin-right:1em;
+    color:#fff;
+
   }
 
   /*fullstack-logo {

@@ -46,7 +46,7 @@
 			        </div>
 		    	</div>
 	  		</div>
-	  		<h3>Active Wireframe (Date Created: {{active.dateCreated | date: 'short'}})</h3>
+	  		<h3>Active Wireframe (Date Created: {{active.createdAt | date: 'short'}})</h3>
 			<img id="activeSnapshot" src="{{active.screenshotUrl}}">
 			<br><br>
 			<button class="btn btn-warm" ng-click="forkFrame()">Create Fork</button>
@@ -62,7 +62,7 @@
 		  	</ul>
 		  	<div class="masterFrame" ng-click="changeActive(master)">
 			 	<img src="{{master.screenshotUrl}}" height="100" width="100">
-				<label>{{master.dateCreated | date: 'short'}}</label>
+				<label>{{master.updatedAt | date: 'short'}}</label>
 			</div>
 			<ul class="nav nav-tabs nav-justified headerPanel">
 			  <li id="goHist"class="active" ng-click="goHistory()">History</a></li>
@@ -70,13 +70,13 @@
 		  	</ul>
 			<!-- 		<h3 ng-show="showHistory">History</h3><br>
 			<h3 ng-hide="showHistory">Alternate Branches</h3><br> -->
-			<div class="framesList" ng-hide="showHistory" ng-repeat="frame in altBranches | orderBy:'dateCreated':true" ng-click="changeActive(frame)">
+			<div class="framesList" ng-hide="showHistory" ng-repeat="frame in altBranches | orderBy:'updatedAt':true" ng-click="changeActive(frame)">
 				<img src="{{frame.screenshotUrl}}" height="100" width="100">
-				<label>{{frame.dateCreated | date: 'short'}}</label>
+				<label>{{frame.updatedAt | date: 'short'}}</label>
 			</div>
-			<div class="framesList" ng-show="showHistory" ng-repeat="frame in history | orderBy:'dateCreated':true" ng-click="changeActive(frame)">
+			<div class="framesList" ng-show="showHistory" ng-repeat="frame in history | orderBy:'updatedAt':true" ng-click="changeActive(frame)">
 				<img src="{{frame.screenshotUrl}}" height="100" width="100">
-				<label>{{frame.dateCreated | date: 'short'}}</label>
+				<label>{{frame.updatedAt | date: 'short'}}</label>
 			</div>
 		</div>
 	</div>
