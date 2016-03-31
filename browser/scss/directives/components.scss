@@ -7,6 +7,7 @@
 
 component {
   position: absolute;
+  outline: none !important;
   /*height: 100%;
   width: 100%;*/
  /* border: 1px solid #cccccc;*/
@@ -186,6 +187,8 @@ component {
 }
 
 .text-box {
+  height: 60px;
+  width: 120px;
   min-height:2em;
   min-width:1em;
   overflow:hidden;
@@ -194,6 +197,9 @@ component {
   border-width: 0;
   box-sizing: content-box;
   text-align: left;
+  div {
+    outline: none;
+  }
 }
 
 .image-box {

@@ -28,11 +28,10 @@
     <!-- Workspace -->
     <div id="wireframe-board" ng-copy="copyElement()" ng-paste="pasteElement()" my-undo="undoAction()" my-redo="redoAction()">
     	<div>
-	    	<component class="resize-drag component"
+	    	<component class="resize-drag component {{ component.type }}"
 	    						 ng-repeat="component in components"
 	    						 id="{{ component.id }}"
 	    						 ng-style="setStyle(component.style)"
-	    						 ng-class="component.type"
 	    						 ng-click="setActive(component)"
 	    						 content="component.content"
 	    						 aspect-ratio

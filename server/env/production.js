@@ -9,6 +9,11 @@
 module.exports = {
     "DATABASE_URI": process.env.MONGOLAB_URI,
     "SESSION_SECRET": process.env.SESSION_SECRET,
+    "AWS": {
+        "accessKeyId": process.env.AWS_S3_ACCESS_KEY_ID,
+        "secretAccessKey": process.env.AWS_S3_SECRET_ACCESS_KEY,
+        "region": process.env.AWS_S3_REGION
+    },
     "TWITTER": {
         "consumerKey": process.env.TWITTER_CONSUMER_KEY,
         "consumerSecret": process.env.TWITTER_CONSUMER_SECRET,
