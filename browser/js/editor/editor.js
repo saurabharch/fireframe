@@ -80,20 +80,19 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 	});
 
 	$scope.copyElement = function() {
-		$scope.copy = $scope.active;
+		$scope.copy = {};
+		angular.copy($scope.active, $scope.copy);
 	}
 
 	$scope.pasteElement = function() {
 		if ($scope.copy) {
-			var copy = {};
-			angular.copy($scope.copy, copy)
-			copy.style.left += 50;
-			copy.style.top += 50;
-			copy.style['z-index'] = getZrange();
+			$scope.copy.style.left += 20;
+			$scope.copy.style.top += 20;
+			$scope.copy.style['z-index'] = getZrange();
 			Firebase.createElement({
-				style: copy.style,
-				type: copy.type,
-				content: copy.content
+				style: $scope.copy.style,
+				type: $scope.copy.type,
+				content: $scope.copy.content
 			})
 		}
 	}
@@ -108,8 +107,9 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 
 	//listen for delete key, prevent default, and ensure we are not within an active text-box
 	$(document).on("keydown", function (event) {
+		//event.preventDefault();
 		var active = $(document.activeElement);
-    if (event.keyCode === 8 && !active[0].isContentEditable && active.is('body')) {
+    if (event.keyCode === 8 && !active[0].isContentEditable) {
    		event.preventDefault();
     	if ($scope.active) {
     		$scope.deleteElement();

@@ -18,7 +18,7 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
       if (firebaseUsers) {
         firebaseUsers.child(currentUser).remove()
       }
-      firebaseComponents.onDisconnect.cancel()
+      firebaseComponents.onDisconnect().cancel()
       firebaseComponents = null
       firebaseUsers = null;
       firebase = null;
