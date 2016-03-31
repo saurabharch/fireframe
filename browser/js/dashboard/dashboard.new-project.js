@@ -61,6 +61,10 @@ app.controller('NewProjectCtrl', function($scope, $state, user, User, Wireframe,
 			});
 		};
 
+		$scope.$watch('projectTeam', function() {
+			console.log('changeed. now', $scope.projectTeam)
+		})
+
 	//Add New Project
 
 		$scope.addProject = function(){
