@@ -57,7 +57,7 @@ router.put('/:id', function(req, res, next) {
       width: 1024,
       height: 768
     },
-    renderDelay: 4000
+    renderDelay: 2000
   };
 
   //Save wireframe with components to DB before capturing screen

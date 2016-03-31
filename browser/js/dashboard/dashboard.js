@@ -12,13 +12,14 @@ app.controller('DashboardCtrl', function($scope, $state) {
 
 	$state.go('dashboard.allProjects');
 
-	$(document).ready(function() {
+	$scope.openLeftMenu = function() {
+    $mdSidenav('left').toggle();
+  };
 
-		$('.sidebar li').click(function() {
-			if($(this).find('a').hasClass('add')) return;
-			$('.sidebar li').removeClass('active');
-			$(this).addClass('active');
-		});
-
+	$('.sidebar li').click(function() {
+		if($(this).find('a').hasClass('add')) return;
+		$('.sidebar li').removeClass('active');
+		$(this).addClass('active');
 	});
+
 });
