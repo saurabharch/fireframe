@@ -10,8 +10,6 @@ app.config(function($stateProvider) {
 
 app.controller('DashboardCtrl', function($scope, $state, $mdSidenav) {
 
-	$state.go('dashboard.allProjects');
-
 	$('.sidebar li').click(function() {
 		if($(this).find('a').hasClass('add')) return;
 		$('.sidebar li').removeClass('active');
