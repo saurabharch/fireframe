@@ -4,19 +4,17 @@ $headerGrey:#555;
 $headerText:#fff;
 $liquid:#558FBC;
 $liquidUp:#66a0CD;
+$warm:#FF7B47;
+$cool:#3ACF91;
+
 
 * {
   box-sizing: border-box;
 }
 
-window {
-	overflow:hidden;
-  overflow: scroll;
-}
-
 body {
   background: #fdfdfd;
-
+  overflow:hidden;
 }
 
 @mixin clearfix {
@@ -39,14 +37,15 @@ body {
 	padding: 0;
   height:100%;
   width:100%;
+  overflow:scroll;
 }
 
 .btn-cool {
-  background: #3ACF91;
+  background: $cool;
 }
 
 .btn-warm {
-  background: #FF7B47;
+  background: $warm;
 }
 
 .btn-liquid {
