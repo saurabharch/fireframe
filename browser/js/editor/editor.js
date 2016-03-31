@@ -107,12 +107,13 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 
 	//listen for delete key, prevent default, and ensure we are not within an active text-box
 	$(document).on("keydown", function (event) {
-		//event.preventDefault();
 		var active = $(document.activeElement);
-    if (event.keyCode === 8 && !active[0].isContentEditable) {
+
+    if (event.keyCode === 8 && !active[0].isContentEditable && !active.is('input')) {
    		event.preventDefault();
     	if ($scope.active) {
     		$scope.deleteElement();
+    		$scope.active = null;
     	}
     }
 

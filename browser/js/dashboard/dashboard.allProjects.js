@@ -17,7 +17,6 @@ app.controller('AllProjectsCtrl', function($scope, projects) {
 
 	$scope.projects.forEach(project => {
 		project.master = $.grep(project.wireframes, e => e.master === true)[0];
-		console.log(project);
 	});
 
 	$(document).ready(function() {
