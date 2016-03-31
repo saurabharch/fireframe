@@ -1,32 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<h2>{{ project.name }}</h2> <br>
-		<div class="col-sm-3">
-			<md-content>
-		    <md-list>
-		      <md-subheader class="md-no-sticky">Comments</md-subheader>
-		      <md-list-item ng-repeat="comment in project.comments">
-		        <img class="md-avatar" />
-		        <div class="md-list-item-text">
-		          <h3>{{ comment.user.name }}</h3>
-		          <p>{{ comment.content }}</p>
-		        </div>
-		      </md-list-item>
-		      <md-list-item ng-hide="project.comments && project.comments.length">
-		      	<div class="md-list-item-text">
-		        	<p>There are no comments yet for this project</p>
-		        </div>
-		      </md-list-item>
-		      <br>
-		      <md-input-container class="md-block" flex-gt-sm>
-            <label>Add a comment</label>
-            <input ng-model="newComment">
-            <md-button ng-click="addComment()">Submit</md-button>	
-          </md-input-container>
-		    </md-list>
-		  </md-content>
-		</div>
-		<div class="col-sm-6">
+		<div class="col-sm-8">
 	  	<h3>Active Wireframe (Date Created: {{active.createdAt | date: 'short'}})</h3>
 			<img id="activeSnapshot" src="{{active.screenshotUrl}}">
 			<br><br>
@@ -36,16 +11,16 @@
 			<br>
 			<br>
 			<div class="panel-group" id="accordion">
-		    	<div class="panel panel-default" id="panel1">
-			        <div class="panel-heading">
-			        	<h4 class="panel-title">
-			        		<a data-toggle="collapse" data-target="#collapseOne" 
-			       			href="#collapseOne">Project Details</a>
-			     		</h4>
-			        </div>
-			        <div id="collapseOne" class="panel-collapse collapse">
-			            <div class="panel-body">
-			            	<table id="projectDetails">
+	    	<div class="panel panel-default" id="panel1">
+		        <div class="panel-heading">
+		        	<h4 class="panel-title">
+		        		<a data-toggle="collapse" data-target="#collapseOne" 
+		       			href="#collapseOne">Project Details</a>
+		     			</h4>
+		        </div>
+		        <div id="collapseOne" class="panel-collapse collapse">
+		          <div class="panel-body">
+		            <table id="projectDetails">
 								<tr>
 									<th>Project Name: </th>
 									<td>{{project.name}}</td>
@@ -74,14 +49,37 @@
 									<th>Last Updated: </th>
 									<td>{{project.updated_at | date:'medium'}}</td>
 								</tr>
-			            	</table>
+		          </table>
 						</div>
-			        </div>
-		    	</div>
-	  		</div>
+		      </div>
+	    	</div>
+  		</div>
+			<md-content>
+		    <md-list>
+		      <md-subheader class="md-no-sticky">Comments</md-subheader>
+		      <md-list-item ng-repeat="comment in project.comments">
+		        <img class="md-avatar" />
+		        <div class="md-list-item-text">
+		          <h3>{{ comment.user.name }}</h3>
+		          <p>{{ comment.content }}</p>
+		        </div>
+		      </md-list-item>
+		      <md-list-item ng-hide="project.comments && project.comments.length">
+		      	<div class="md-list-item-text">
+		        	<p>There are no comments yet for this project</p>
+		        </div>
+		      </md-list-item>
+		      <br>
+		      <md-input-container class="md-block" flex-gt-sm>
+            <label>Add a comment</label>
+            <input ng-model="newComment">
+            <md-button ng-click="addComment()">Submit</md-button>	
+          </md-input-container>
+		    </md-list>
+		  </md-content>
 		</div>
 
-		<div class="col-sm-3" >
+		<div class="col-sm-4" >
 			<ul class="nav nav-tabs nav-justified masterPanel">
 			  	<li id="master">Master</a></li>
 		  	</ul>

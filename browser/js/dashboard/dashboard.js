@@ -24,13 +24,13 @@ app.controller('DashboardCtrl', function($scope, $state, $mdSidenav, $mdDialog) 
     // Appending dialog to document.body to cover sidenav in docs app
     // Modal dialogs should fully cover application
     // to prevent interaction outside of dialog
-    $mdDialog.show({
-    	templateUrl: '/js/dashboard/dashboard.new-project.html',
-      $mdDialog.alert()
-        .parent(angular.element(document.querySelector('#popupContainer')))
-        .clickOutsideToClose(true)
-        .targetEvent(ev)
-    }
-    );
+    // $mdDialog.show({
+    // 	templateUrl: '/js/dashboard/dashboard.new-project.html',
+    //   $mdDialog.alert()
+    //     .parent(angular.element(document.querySelector('#popupContainer')))
+    //     .clickOutsideToClose(true)
+    //     .targetEvent(ev)
+    // }
+    // );
   };
 });

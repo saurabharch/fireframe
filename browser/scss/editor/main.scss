@@ -8,6 +8,13 @@ $left-width: 10vw;
 *{
   box-sizing:border-box;
 }
+
+#main {
+  *:focus {
+    outline: none;
+  }
+}
+
 #wrapper {
   position:relative;
   height:95vh;
