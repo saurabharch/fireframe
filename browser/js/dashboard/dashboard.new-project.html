@@ -1,19 +1,19 @@
 <div class="row" id="newProject">
 	<div class="col-md-10">
 		<h1>NEW PROJECT</h1>
-		<md-content md-theme="docs-dark" layout-gt-md="row" layout-padding>
+		<md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
     	<div>
-				<md-input-container class="md-block" flex-gt-sm>
+				<md-input-container class="md-block" flex-gt-md>
           <label>Project Name</label>
           <input ng-model="projectName">
         </md-input-container>
 			
-				<md-input-container class="md-block" flex-gt-sm>
+				<md-input-container class="md-block" flex-gt-md>
           <label>Description</label>
           <input ng-model="projectDescription">
         </md-input-container>
 
-	      <md-input-container class="md-block" flex-gt-sm>
+	      <md-input-container class="md-block" flex-gt-md>
 	        <label>Team (Select Existing or Create New)</label>
 	        <md-select ng-model="projectTeam">
 	          <md-option ng-repeat="team in user.teams" value="{{ team.name }}">
@@ -24,35 +24,33 @@
 	      
 	      <br>
       	
+				<md-button ng-click="addProject()" id="newProjectSubmit" class="md-raised md-primary">Create New Project</md-button>
+
       	<md-content>
-      		<md-button md-ink class="md-raised md-primary" ng-hide="formShow" ng-click="showTeamAdd()">Create Team</md-button>
+      		<md-button md-ink class="md-raised md-primary" ng-hide="formShow" ng-click="showTeamAdd()">Add New Team</md-button>
       		<md-button class="md-raised md-warn" ng-show="formShow" ng-click="cancelTeam()">Cancel Team</md-button>
 				</md-content>
 			</div>
 		</md-content>
 
-		<div id="teamForm" ng-show="formShow">
-			<form class="form-inline">
-				<div class="form-group">
-					<md-input-container class="md-block" flex-gt-sm>
-	          <label>Team Name</label>
-	          <input ng-model="teamName">
-	        </md-input-container>
-					
-	        <md-input-container class="md-block" flex-gt-sm>
-	          <label>Member Email</label>
-	          <input ng-model="member">
-	        </md-input-container>
+		<md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding id="teamForm" ng-show="formShow">
+    	<div>
+				<md-input-container class="md-block">
+          <label>Team Name</label>
+          <input ng-model="teamName">
+        </md-input-container>
+				
+        <md-input-container class="md-block">
+          <label>Member Email</label>
+          <input ng-model="member">
+        </md-input-container>
 
-					<p ng-show="teamMembers.length > 0">Team Members:</p>
-					<p ng-repeat="member in teamMembers">{{member}}</p>
+				<p ng-show="teamMembers.length > 0">Team Members:</p>
+				<p ng-repeat="member in teamMembers">{{member}}</p>
 
-					<md-button class="md-raised md-default" ng-click="addTeam()">Add Team</md-button>
-					<hr>
-				</div>
-			</form>
-		</div>
-
-		<md-button ng-click="addProject()" id="newProjectSubmit" class="md-raised md-primary">Submit</md-button>
+				<md-button class="md-raised md-default" ng-click="addTeam()">Add Team</md-button>
+				<hr>
+			</div>
+		</md-content>
 	</div>
 </div>

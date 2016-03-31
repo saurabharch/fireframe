@@ -1,11 +1,10 @@
 <div id="phantom-board">
 	<div>
   		<component ng-repeat="component in wireframe.components"
-                 class="resize-drag component"
+                 class="resize-drag component {{ component.type }}"
   						   id="{{ component.id }}"
   						   ng-style="setStyle(component.style)"
   						   ng-src="setSource(component.src)"
-  						   ng-class="{{component.type}}"
   						   type="{{ component.type }}"
   						   content="component.content"></component>
   </div>
