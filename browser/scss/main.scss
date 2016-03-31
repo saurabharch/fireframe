@@ -11,10 +11,12 @@ $liquidUp:#66a0CD;
 
 window {
 	overflow:hidden;
+  overflow: scroll;
 }
 
 body {
   background: #fdfdfd;
+
 }
 
 @mixin clearfix {
@@ -59,6 +61,7 @@ body {
 .panel-heading a.collapsed:after {
     content:"\e080";
 }
+
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';

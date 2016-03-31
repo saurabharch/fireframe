@@ -67,15 +67,6 @@ ProjectSchema.statics.createNewProject = function(project) {
 
 };
 
-ProjectSchema.methods.deleteProject = function() {
-	var project = this;
-
-	return project.remove()
-	.then(function() {
-		return Wireframe.remove(project.wireframes);
-	});
-};
-
 ProjectSchema.statics.setMaster = function(wireframeId, projectId) {
 	return Project.findById(projectId)
 	.then(function(project){

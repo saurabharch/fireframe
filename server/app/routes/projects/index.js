@@ -75,7 +75,7 @@ router.put('/:id', auth.ensureTeamAdmin, function(req, res, next) {
 
 //delete single project
 router.delete('/:id', auth.ensureTeamAdmin, function(req, res, next) {
-  req.project.deleteProject()
+  req.project.remove()
   .then(function() {
     res.sendStatus(204)
   })

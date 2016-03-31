@@ -1,4 +1,8 @@
 <div class="delete-hoverable">
   <button type="button" class="hover-delete-btn" ng-click="deleteElement($event)">
   <i class="fa fa-trash" id=""></i></button>
+  <p contenteditable ng-model="content.list.header"></p>
+  <ul>
+  	<li contenteditable ng-repeat="listItem in content.list.items" ng-model="listItem"></li>
+  </ul>
 </div>

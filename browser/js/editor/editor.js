@@ -17,6 +17,7 @@ app.config(function($stateProvider){
 app.controller('EditorCtrl', function($scope, wireframe, components, Interact, CSS, Firebase, Wireframe, $timeout) {
 	$scope.components = Firebase.getComponentCache();
 	$scope.wireframe = wireframe;
+	$scope.copy;
 	$scope.board = $('#wireframe-board');
 	Firebase.setScope($scope);
 
@@ -46,7 +47,9 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 	}
 
 	$scope.setActive = function(component) {
+		if ($scope.active) $('#'+$scope.active.id).removeClass('active-component');
 		$scope.active = component;
+		$('#'+$scope.active.id).addClass('active-component');
 	}
 
 	$scope.save = function () {
@@ -55,6 +58,52 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 
 	$scope.deleteElement = function() {
 		Firebase.deleteElement($scope.active.id);
+	}
+
+	$scope.changeListLength = function(e) {
+		var currentLength = $scope.active.list.length;
+	}
+
+	$scope.$watch('active', function() {
+		if ($scope.active) {
+			Firebase.updateComponent($scope.active.id, $scope.active.style, $scope.active.content);
+		}
+	}, true)
+
+	//Event listeners
+
+	$scope.board.on('mousedown',function(){
+		if ($scope.active) {
+			$('#'+$scope.active.id).removeClass('active-component');
+		}
+		$scope.active = null;
+	});
+
+	$scope.copyElement = function() {
+		$scope.copy = $scope.active;
+	}
+
+	$scope.pasteElement = function() {
+		if ($scope.copy) {
+			var copy = {};
+			angular.copy($scope.copy, copy)
+			copy.style.left += 50;
+			copy.style.top += 50;
+			copy.style['z-index'] = getZrange();
+			Firebase.createElement({
+				style: copy.style,
+				type: copy.type,
+				content: copy.content
+			})
+		}
+	}
+
+	$scope.undoAction = function() {
+		Firebase.undo();
+	}
+
+	$scope.redoAction = function() {
+		Firebase.redo();
 	}
 
 	//listen for delete key, prevent default, and ensure we are not within an active text-box
@@ -153,13 +202,6 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 		zIndex = 0;
 		$scope.active.style['z-index'] = zIndex;
 	};
-
-
-//Event listeners
-
-	$scope.board.on('mousedown',function(){
-		$scope.active = null;
-	});
 
 //Helper functions
 

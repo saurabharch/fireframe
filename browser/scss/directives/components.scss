@@ -165,9 +165,18 @@ component {
 }
 
 .list {
-  border: 1px solid #cccccc;
-  height: 75px;
-  width: 50px;
+  background: transparent !important;
+  height: 100px;
+  width: 100px;
+  p {
+    display: inline;
+    font-size: 1.5em;
+  }
+  li {
+    float: left;
+    clear: left;
+    font-size: 1em;
+  }
 }
 
 .button-component {
@@ -195,4 +204,13 @@ component {
   background-repeat: no-repeat;
   border-style: solid !important;
   border-width: 0;
+  input {
+    display: none;
+  }
+}
+
+.image-box:hover {
+  input {
+    display: block;
+  }
 }

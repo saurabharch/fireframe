@@ -26,7 +26,7 @@
     </div>
 
     <!-- Workspace -->
-    <div id="wireframe-board">
+    <div id="wireframe-board" ng-copy="copyElement()" ng-paste="pasteElement()" my-undo="undoAction()" my-redo="redoAction()">
     	<div>
 	    	<component class="resize-drag component"
 	    						 ng-repeat="component in components"
@@ -47,19 +47,19 @@
 			<label for="color">Color</label>
 			<div id="row">
 
-				<input id="color" type="text" ng-hide="active.type==='text-box'"
-							 ng-disabled="active.type==='image-box' || active.type==='text-box'"
+				<input id="color" type="text" ng-hide="active.type==='text-box' || active.type==='list'"
+							 ng-disabled="active.type==='image-box' || active.type==='text-box' || active-type==='list'"
 							 ng-model="active.style['background-color']"
 							 style="background-color: {{ active.style['background-color'] }}">
-				<button class="btn" colorpicker ng-hide="active.type==='text-box'"
-								ng-disabled="active.type==='image-box' || active.type==='text-box'"
+				<button class="btn" colorpicker ng-hide="active.type==='text-box' || active.type==='list'"
+								ng-disabled="active.type==='image-box' || active.type==='text-box' || active.type==='list'"
 								ng-model="active.style['background-color']">Choose color</button>
 
-				<input id="color" type="text" ng-show="active.type==='text-box'"
-							 ng-disabled="active.type !=='text-box'" ng-model="active.style.color"
+				<input id="color" type="text" ng-show="active.type==='text-box' || active.type==='list'"
+							 ng-disabled="active.type!=='text-box' && active.type!=='list'" ng-model="active.style.color"
 							 style="background-color: {{ active.style.color }}">
-				<button class="btn" colorpicker ng-show="active.type==='text-box'"
-								ng-disabled="active.type !=='text-box'"
+				<button class="btn" colorpicker ng-show="active.type==='text-box' || active.type==='list'"
+								ng-disabled="active.type !=='text-box' && active.type !== 'list'"
 								ng-model="active.style.color">Choose Color</button>
 			</div>
 		</div>
@@ -85,6 +85,9 @@
 
 			<label for="height">Height</label>
 			<input type="text" id="height" ng-model="active.style.height"/>
+
+			<!-- <label for="height"># of Rows</label>
+			<input type="text" id="height" ng-change="changeListLength()" ng-model="listLength"/> -->
 		</div>
 	</div>
 	<div class="tool-panel">

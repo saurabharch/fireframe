@@ -4,23 +4,38 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
   var firebaseUsers;
   var currentUser = Session.id || Math.round(100000*Math.random());
   var activeUsers = [];
+  var undoHistory = [];
+  var redoHistory = [];
 
   //Cache of components that we will reference from the editor scope
   var componentCache = [];
   var currentScope;
 
+
+  //need to fix this, all components get deleted when a single user closes their browser window
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-    console.log(fromState, toState)
     if (fromState.name==='editor') {
       if (firebaseUsers) {
         firebaseUsers.child(currentUser).remove()
       }
-
+      firebaseComponents.onDisconnect.cancel()
       firebaseComponents = null
       firebaseUsers = null;
+      firebase = null;
       activeUsers = [];
+      componentCache = [];
     }
   });
+
+  function logCurrentState() {
+    undoHistory.push(angular.copy(componentCache, []));
+    if (undoHistory.length > 5) undoHistory.shift();
+  }
+
+  //on any action, before changing the cache, we push the whole componentCache into the undoHistory array
+  //if ctrl-z is pressed, we reset the componentCache to the popped of value from the undoHistory
+  //that popped off value is pushed into the redoHistory
+  //on any user action that is not undo, we clear the redoHistory
 
   var factory = {
     setScope: function($scope) {
@@ -36,22 +51,19 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
       /* Here we set up the events for users joining and leaving a room */
         //add current user to room
         firebaseUsers.child(currentUser).set('connected');
-        
+        firebaseUsers.child(currentUser).onDisconnect().remove();
         //for every user change, set up disconnect handler depending on number of users currently connected
         //this feels quite hacky, though I can't figure out a good way to delete components if everyone leaves a room
         function setOnDisconnect() {
           if(activeUsers.length<=1) {
-            firebase.onDisconnect().remove();  
+            firebaseComponents.onDisconnect().remove();  
           } else {
-            firebase.onDisconnect().cancel();
-            firebaseUsers.onDisconnect().cancel();
-          }
-          firebaseUsers.child(currentUser).onDisconnect().remove();
+            firebaseComponents.onDisconnect().cancel();
+          }          
         };
 
         //Event listener, log users joining room
         firebaseUsers.on('child_added', function(snapshot) {
-          console.log(activeUsers);
           activeUsers.push(snapshot.key());
           setOnDisconnect();
         });
@@ -69,6 +81,7 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
         firebaseComponents.on('child_added', function(snapshot) {
           var element = snapshot.val();
           element.id = snapshot.key();
+          logCurrentState();
           componentCache.push(element);
           if (!currentScope.$$phase) {
             currentScope.$digest();
@@ -79,8 +92,8 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
         firebaseComponents.on('child_changed', function(snapshot) {
           var element = snapshot.val();
           var id = snapshot.key();
+          logCurrentState();
           CSS.removeTransform(id);
-
           //find the component changed, and update the properties
           componentCache.forEach(function(component) {
             if (component.id === id) {
@@ -100,6 +113,7 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
           var id = snapshot.key();
           var index;
 
+          logCurrentState();
           componentCache.forEach(function(component, i) {
             if (component.id===id) index = i;
           });
@@ -193,6 +207,17 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
 
     getComponentCache: function() {
       return componentCache;
+    },
+
+    undo: function() {
+      var pastState = undoHistory.pop();
+      componentCache.length = 0;
+      angular.merge(componentCache, pastState);
+      firebaseComponents.set(componentCache);
+    },
+
+    redo: function () {
+
     },
 
     //get components array, which is either generated from joining an exisiting room or fetching from the backend and creating a room

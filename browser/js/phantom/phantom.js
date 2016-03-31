@@ -11,9 +11,9 @@ app.config(function($stateProvider) {
 	});
 });
 
-app.controller('PhantomCtrl', function($scope, wireframe, CSS, Wireframe, $window) {
+app.controller('PhantomCtrl', function($scope, wireframe, CSS, Wireframe, $timeout) {
 	$scope.wireframe = wireframe;
-	$scope.board = $('.phantom-board');
+	$scope.board = $('#phantom-board');
 
 	$scope.setStyle = function(style) {
 		return style;
@@ -23,22 +23,23 @@ app.controller('PhantomCtrl', function($scope, wireframe, CSS, Wireframe, $windo
 		return source;
 	}
 
-	//load components
-	//Component.load($scope.wireframe.components, $scope);
-	
-	//update zoom to fit all elements
-	var width = $(window).width();
-	var projectWidth = $scope.board.prop('scrollWidth');
-	var widthScale = width/projectWidth*100;
+	//timeout needed for scrollWidth to calculate properly
+	$timeout(function() {
+		//should also calculate left and rightmost elements, and adjust zoom and position to fit those, with some margin on either side
 
-	var height = $(window).height();
-	var projectHeight = $scope.board.prop('scrollHeight');
-	var heightScale = height/projectHeight*100;
+		//update zoom to fit all elements
+		var width = $(window).width();
+		var projectWidth = document.getElementsByTagName('body')[0].scrollWidth;
+		var widthScale = width/projectWidth*100;
 
-	var scale = (heightScale > widthScale) ? widthScale : heightScale;
+		var height = $(window).height();
+		var projectHeight = $scope.board.prop('scrollHeight');
+		var heightScale = height/projectHeight*100;
 
-	CSS.updateZoom(scale);
-	$scope.board.width(width/scale*100);
-	$('navbar').remove();
+		var scale = (heightScale < widthScale) ? widthScale : heightScale;
 
+		CSS.updateZoom(widthScale, true);
+		$scope.board.width(width/scale*100);
+		$('navbar').remove();
+	}, 0)
 });
