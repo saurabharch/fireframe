@@ -204,4 +204,13 @@ component {
   background-repeat: no-repeat;
   border-style: solid !important;
   border-width: 0;
+  input {
+    display: none;
+  }
+}
+
+.image-box:hover {
+  input {
+    display: block;
+  }
 }

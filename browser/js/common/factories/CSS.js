@@ -3,13 +3,13 @@ app.factory('CSS', function() {
 	var currentScale = 100;
 
 	return {
-		updateZoom: function(percent) {
+		updateZoom: function(percent, phantom) {
 			currentScale = percent || 100;
 			var scale = currentScale/100;
 			var board = $('#wireframe-board');
 
 			board		
-				.css('width', 100/scale+'%')
+				.css('width', 80/scale+'%')
 				.css('height', 100/scale+'%')
 				.css('transform', 'scale('+ scale +')');
 		},
@@ -41,8 +41,12 @@ app.factory('CSS', function() {
 			styles.forEach(function(prop) {
 				style[prop] = element.css(prop);
 			});
-			style.left = element.position().left/currentScale*100;
-			style.top = element.position().top/currentScale*100;
+			var boardLeft = $('#wireframe-board').scrollLeft();
+			var boardTop = $('#wireframe-board').scrollTop();
+
+			style.left = element.position().left/currentScale*100+boardLeft*100/currentScale;
+			style.top = element.position().top/currentScale*100+boardTop*100/currentScale;
+
 			return style;
 		},
 

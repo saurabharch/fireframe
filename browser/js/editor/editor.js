@@ -64,6 +64,12 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 		var currentLength = $scope.active.list.length;
 	}
 
+	$scope.$watch('active', function() {
+		if ($scope.active) {
+			Firebase.updateComponent($scope.active.id, $scope.active.style, $scope.active.content);
+		}
+	}, true)
+
 	//Event listeners
 
 	$scope.board.on('mousedown',function(){

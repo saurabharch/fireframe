@@ -54,8 +54,8 @@ app.factory('Interact', function(CSS) {
 			    target.style.height = event.rect.height/scale() + 'px';
 
 			    // translate when resizing from top or left edges
-			    x += event.deltaRect.left/scale();
-			    y += event.deltaRect.top/scale();
+			    x += event.deltaRect.left/scale()//-$('#wireframe-board').scrollLeft()//scale();
+			    y += event.deltaRect.top/scale()//-$('#wireframe-board').scrollTop()//scale()
 
 			    target.style.webkitTransform = target.style.transform =
 			        'translate(' + x + 'px,' + y + 'px)';
