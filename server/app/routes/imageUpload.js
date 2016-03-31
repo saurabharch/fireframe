@@ -2,8 +2,9 @@
 var AWS = require('aws-sdk');
 var path = require('path');
 var Promise = require('bluebird');
+var env = require('../../env');
 
-AWS.config.loadFromPath(path.join(__dirname, '../../secret/config.json'));
+AWS.config.update(env.AWS);
 
 var image = {};
 
@@ -22,6 +23,7 @@ image.upload = function(id, imageData) {
 	return s3.uploadAsync(params)
 	.then(function(data){
 		var imageUrl = data.Location;
+		console.log('imageUrl', imageUrl);
 		return imageUrl;
 	});
 
