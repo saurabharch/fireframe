@@ -5,5 +5,8 @@ var productionConfigPath = path.join(__dirname, './production.js');
 if (process.env.NODE_ENV === 'production') {
     module.exports = require(productionConfigPath);
 } else {
-    module.exports = require(devConfigPath);
+	var initialConfig = require(devConfigPath);
+	var AWSConfig = require('../secret/config.json');
+	initialConfig.AWS = AWSConfig;
+    module.exports = initialConfig;
 }
