@@ -25,9 +25,8 @@ app.config(function($stateProvider) {
 	});
 });
 
-app.controller('NewProjectCtrl', function($scope, $state, user, User, Wireframe) {
+app.controller('NewProjectCtrl', function($scope, $state, user, User, Wireframe, $timeout) {
 		$scope.user = user;
-		console.log("user is ",user);
 		$scope.formShow = false;
 
 	//Add New Team
@@ -49,7 +48,7 @@ app.controller('NewProjectCtrl', function($scope, $state, user, User, Wireframe)
 			if(!(name && members)) throw new Error('Fill out the form!');
 
 			var team = {
-				administrator:admin,
+				administrator: admin,
 				name: name,
 				members: members
 			};
@@ -58,10 +57,8 @@ app.controller('NewProjectCtrl', function($scope, $state, user, User, Wireframe)
 			.then(team => {
 				$scope.user.teams.push(team);
 				$scope.formShow = false;
-				$scope.projectTeam = user.teams[user.teams.length - 1];
+				$scope.projectTeam = team;
 			});
-
-
 		};
 
 	//Add New Project
