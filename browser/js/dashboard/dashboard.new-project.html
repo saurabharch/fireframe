@@ -23,11 +23,11 @@
 	      </md-input-container>
 	      
 	      <br>
-      	
+	      	
 				<md-button ng-click="addProject()" id="newProjectSubmit" class="md-raised md-primary">Create New Project</md-button>
 
       	<md-content>
-      		<md-button md-ink class="md-raised md-primary" ng-hide="formShow" ng-click="showTeamAdd()">Add New Team</md-button>
+      		<md-button class="md-raised md-primary" ng-hide="formShow" ng-click="showTeamAdd()">Add New Team</md-button>
       		<md-button class="md-raised md-warn" ng-show="formShow" ng-click="cancelTeam()">Cancel Team</md-button>
 				</md-content>
 			</div>
@@ -42,14 +42,14 @@
 				
         <md-input-container class="md-block">
           <label>Member Email</label>
-          <input ng-model="member">
+          <input ng-model="member" class="md-raised md-primary" ng-enter="addMember()">
+          <md-button class="btn" ng-click="addMember()">Add Member</md-button>
         </md-input-container>
 
 				<p ng-show="teamMembers.length > 0">Team Members:</p>
 				<p ng-repeat="member in teamMembers">{{member}}</p>
 
 				<md-button class="md-raised md-default" ng-click="addTeam()">Add Team</md-button>
-				<hr>
 			</div>
 		</md-content>
 	</div>
