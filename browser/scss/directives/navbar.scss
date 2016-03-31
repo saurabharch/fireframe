@@ -15,8 +15,12 @@ navbar {
     margin: 0;
   }
 
-  .menubtn{
+  .btn-wrapper{
+    width:40%;
     float:left;
+  }
+
+  .menubtn{
     vertical-align: middle;
     font-size: 2em;
     margin-top: 0.4em;

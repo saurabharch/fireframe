@@ -15,7 +15,7 @@
 		</div>
 	</div>
 
-	<div class="row">
+	<div class="row bottom-padding">
 		<div class="projectBox boxActive col-md-3" ng-repeat="project in projects | filter:search" ui-sref="dashboard.project({id:project._id})">
 			<img ng-src="{{project.master.screenshotUrl}}">
 			<h3>{{project.name}}</h3>

@@ -50,14 +50,14 @@
 							 ng-disabled="active.type==='image-box' || active.type==='text-box' || active-type==='list'"
 							 ng-model="active.style['background-color']"
 							 style="background-color: {{ active.style['background-color'] }}">
-				<button class="btn" colorpicker ng-hide="active.type==='text-box' || active.type==='list'"
+				<button class="btn btn-colorpicker" colorpicker colorpicker-position="left" ng-hide="active.type==='text-box' || active.type==='list'"
 								ng-disabled="active.type==='image-box' || active.type==='text-box' || active.type==='list'"
-								ng-model="active.style['background-color']">Choose color</button>
+								ng-model="active.style['background-color']">Choose Color</button>
 
 				<input id="color" type="text" ng-show="active.type==='text-box' || active.type==='list'"
 							 ng-disabled="active.type!=='text-box' && active.type!=='list'" ng-model="active.style.color"
 							 style="background-color: {{ active.style.color }}">
-				<button class="btn" colorpicker ng-show="active.type==='text-box' || active.type==='list'"
+				<button class="btn btn-colorpicker" colorpicker colorpicker-position="left" ng-show="active.type==='text-box' || active.type==='list'"
 								ng-disabled="active.type !=='text-box' && active.type !== 'list'"
 								ng-model="active.style.color">Choose Color</button>
 			</div>
@@ -101,7 +101,7 @@
 			<input id="border-color" type="text"
 						 ng-model="active.style['border-color']"
 						 style="background-color: {{ active.style['border-color'] }}">
-			<button class="btn" colorpicker
+			<button class="btn btn-colorpicker" colorpicker colorpicker-position="left"
 							ng-model="active.style['border-color']">Choose color</button>
 
 			<label for="border-radius">Border Radius<span id="border-radius" ng-model='active.style["border-radius"]'>{{ active.style["border-radius"] }}</span></label>

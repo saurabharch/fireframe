@@ -1,7 +1,9 @@
 <nav class="navbar navbar-static-top">
     <div class="container">
         <div class="navbar-header">
-            <i class="fa fa-bars menubtn" ng-click="toggleNav()"></i>
+        <div class="btn-wrapper">
+            <i class="fa fa-bars menubtn" ng-click="toggleNav()" ng-show="state.includes('dashboard')"></i>
+        </div>
             <img class="logo" src="/scss/home/iconnavbar.png"/>
         </div>
         <ul class="nav navbar-nav">

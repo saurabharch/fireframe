@@ -43,7 +43,8 @@ app.factory('Interact', function(CSS) {
 			      elementRect: { top: 0, left: 0, bottom: '1000px', right: '1000px' }
 			    }
 			  })
-			  .preventDefault('never')
+			  // .preventDefault('never')
+			  .styleCursor(true)
 			  .on('resizemove', function (event) {
 			    var target = event.target,
 			        x = (parseFloat(target.getAttribute('data-x')) || 0),

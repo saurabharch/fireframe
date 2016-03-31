@@ -88,12 +88,12 @@ $btn-side: .45 * $left-width;
 }
 
 .btn-blue {
-  background-color: #0FA0D1;
+  background-color: $liquid;
   color: white;
 }
 
 .btn-save {
-  background-color: #00BFFF;
+  background-color: $warm;
   color: white;
   margin: 5px;
 }
@@ -121,9 +121,16 @@ $btn-side: .45 * $left-width;
   border:0;
   border-radius:3%;
   background-color:#ddd;
-  margin:1%;
+  margin:0.1vw 0.05vw 0.1vw 0.2vw;
   width: $btn-side;
   height: $btn-side;
+
+}
+
+.btn-colorpicker{
+  margin-top:3px;
+  padding:0.25vw 0.7vw;
+  font-size:1vw;
 }
 
 .btn-arrange {
@@ -145,6 +152,16 @@ $btn-side: .45 * $left-width;
 
 .uploadBtn {
   width: 80px;
+}
+
+button{
+  &:hover{
+    background-color:$liquid;
+  }
+
+  &:active{
+    background-color:$warm;
+  };
 }
 /*
 
