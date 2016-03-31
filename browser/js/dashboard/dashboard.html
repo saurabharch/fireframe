@@ -1,13 +1,18 @@
 <div id="userPage">
-	<md-sidenav md-component-id="left" class="md-sidenav-left">
-		<ul>
-			<li class="active"><a ui-sref="dashboard.allProjects">PROJECTS</a></li>
-			<li><a ui-sref="dashboard.teams">TEAMS</a></li>
-			<li><a ui-sref="dashboard.profile">MY PROFILE</a></li>
-			<li><a class="add" ui-sref="dashboard.newProject"><span class="glyphicon glyphicon-plus"></span> NEW PROJECT</a></li>
-		</ul>
+	<md-sidenav md-component-id="left" class="md-sidenav-left sidebar">
+		<div layout="column" class="sidebar-column">
+			<div flex="10"></div>
+			<div flex>
+				<ul>
+					<li class="active"><a ui-sref="dashboard.allProjects">PROJECTS</a></li>
+					<li><a ui-sref="dashboard.teams">TEAMS</a></li>
+					<li><a ui-sref="dashboard.profile">MY PROFILE</a></li>
+					<li><a class="add" ui-sref="dashboard.newProject"><span class="glyphicon glyphicon-plus"></span> NEW PROJECT</a></li>
+				</ul>
+			</div>
+			<div flex></div>
+		</div>
 	</md-sidenav>
-	<md-button ng-click="openLeftMenu()">yuuh</md-button>
 	<div class="container-fluid">
 		<div class="col-sm-9 col-xs-offset-3">
 			<ui-view></ui-view>
