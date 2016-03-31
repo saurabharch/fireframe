@@ -1,4 +1,4 @@
-app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) {
+app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, $mdSidenav) {
 
     return {
         restrict: 'E',
@@ -12,6 +12,10 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             ];
 
             scope.user = null;
+
+            scope.toggleNav = function() {
+                $mdSidenav('left').toggle();
+            };
 
             scope.isLoggedIn = function () {
                 return AuthService.isAuthenticated();

@@ -11,7 +11,7 @@ var auth = require('../authentication');
 
 router.param('id', function(req, res, next, id) {
 	Project.findById(id)
-  .populate('wireframes', 'screenshotUrl master parent children dateCreated')
+  .populate('wireframes', 'screenshotUrl master parent children createdAt updatedAt')
   .deepPopulate(['team.members', 'team.administrator'])
   .populate('comments')
 	.then(project => {
