@@ -7,20 +7,27 @@ app.config(function($stateProvider) {
 		resolve: {
 			userTeams: function(User, AuthService) {
 				return AuthService.getLoggedInUser()
-				.then(function(loggedUser){
+				.then(loggedUser => {
 					return User.getUserTeams(loggedUser._id);
 				})
-				.then(function(teams){
-					console.log(teams);
+				.then(teams => {
 					return teams;
 				});
-			}
+			}	
 		}
 	})
 });
 
-app.controller('UserTeamsCtrl', function($scope, userTeams, AuthService) {
+app.controller('UserTeamsCtrl', function($scope, userTeams, Project, AuthService) {
 	$scope.teams = userTeams;
 	console.log("scope.teams is ",userTeams);
 	console.log("user is ",AuthService.getLoggedInUser());
+	$scope.teams.forEach(function(team){
+		console.log("fetching teams???");
+		var projectsTeam = Project.fetchProjectsByTeam({teamId: team._id});
+		console.log(projectsTeam, "projects by team???");
+	});
+
+
+
 });

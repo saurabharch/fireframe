@@ -25,8 +25,9 @@
           </span>
         </md-card-title-text>
         <md-card-title-media>
-          <div class="md-media-lg card-media">
-            <img src="../scss/home/iconnavbar.png">
+          <div class="md-media-lg card-media" ng-repeat="teamProject in teamProjects | filter:search">
+            <img src="/scss/home/iconnavbar.png">
+            <p>{{  }}</p>
           </div>
         </md-card-title-media>
       </md-card-title>
