@@ -86,7 +86,6 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 
 	$scope.pasteElement = function() {
 		if ($scope.copy) {
-			$scope.copy.pasteCount++;
 			$scope.copy.style.left += 20;
 			$scope.copy.style.top += 20;
 			$scope.copy.style['z-index'] = getZrange();
@@ -110,7 +109,6 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 	$(document).on("keydown", function (event) {
 		//event.preventDefault();
 		var active = $(document.activeElement);
-		console.log(active, '111111')
     if (event.keyCode === 8 && !active[0].isContentEditable) {
    		event.preventDefault();
     	if ($scope.active) {
