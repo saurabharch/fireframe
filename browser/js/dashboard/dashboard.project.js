@@ -44,15 +44,11 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 	};
 
 	$scope.goHistory = function(){
-		$('#goAlternate').removeClass("active");
 		$scope.showHistory = true;
-		$('#goHist').addClass("active");
 	};
 
 	$scope.goAlt = function(){
-		$('#goHist').removeClass("active");
 		$scope.showHistory = false;
-		$('#goAlternte').addClass("active");
 	};
 
 	$scope.getProjDetails = function() {
