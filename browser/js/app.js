@@ -1,5 +1,5 @@
 'use strict';
-window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'colorpicker.module', 'ngMaterial']);
+window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'colorpicker.module']);
 
 //taking out  makes the angular tests work... have to debug as to why
 
@@ -9,6 +9,16 @@ app.config(function ($urlRouterProvider, $locationProvider) {
     // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
     $urlRouterProvider.otherwise('/');
 });
+
+// app.config(function ($mdThemingProvider) {
+    
+//    $mdThemingProvider.theme('default')
+//        .primaryPalette('red')
+//        .accentPalette('teal')
+//        .warnPalette('deep-orange')
+//        .backgroundPalette('blue')
+//        .dark();
+// });
 
 // This app.run is for controlling access to specific states.
 app.run(function ($rootScope, AuthService, $state) {

@@ -24,26 +24,28 @@
 	</div>
 </div> -->
 
-<div layout="row">
-	<h1>PROJECTS</h1>
-</div>
+<div class="container-fluid projectPage">
+	<div class="row">
+		<div class="col-sm-4 col-sm-offset-3">
+			<h1>PROJECTS</h1>
+		</div>
+	</div>
 
-<div layout="row" layout-wrap layout-align="center">
-	<div class="project-flex" flex="50" flex-gt-sm="35" flex-gt-md="20" ng-repeat="project in projects | filter:search">
-		<div layout="column">
-      <md-card class="project-card">
-        <img ng-src="{{ project.master.screenshotUrl }}" class="md-card-image" alt="Project Image">
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">{{ project.name }}</span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-actions layout="row" layout-align="center">
-          <md-button class="md-primary md-raised md-hue-4" ui-sref="dashboard.project({id:project._id})">View Project</md-button>
-        </md-card-actions>
-        <md-card-content class="project-card-description">
-          <p>{{ project.description }}</p>
-        </md-card-content>
-      </md-card>
-  </div>
+	<div class="row">
+		<div class="col-sm-4 col-sm-offset-3">
+			<form class="form-inline">
+				<div class="form-group">
+			    <input type="text" class="form-control" placeholder="Search" ng-model="search">
+			  </div>
+			</form>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="projectBox boxActive col-md-3" ng-repeat="project in projects | filter:search" ui-sref="dashboard.project({id:project._id})">
+			<img src="{{project.master.screenshotUrl}}">
+			<h3>{{project.name}}</h3>
+			<h4>{{project.creator.email}}</h4>
+		</div>
+	</div>
 </div>

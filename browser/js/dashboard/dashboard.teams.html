@@ -1,22 +1,41 @@
 <div class="container-fluid projectPage">
   <div class="row">
-  	<h1>TEAMS</h1>
-  	<form class="form-inline">
-  		<div class="form-group">
-  	    <input type="text" class="form-control" placeholder="Search" ng-model="search">
-  	  </div>
-  	</form>
+    <h1>TEAMS</h1>
+    <form class="form-inline">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search" ng-model="search">
+      </div>
+    </form>
   </div>
 
-  <div class="row">
-    <div class="projectBox col-md-3" ng-repeat="team in teams | filter:search">
-      <h3>{{team.name}}</h3>
+<!--   <md-content class="md-padding" layout-xs="column" layout="row">
+    <div flex-xs flex-gt-xs="50" layout="column" ng-repeat="team in teams | filter:search">
+      <span class="md-headline">{{team.name}}</span>
+    </br></br>
+    <span class="md-subhead">
       <ul class="list-unstyled">
         <li><strong>Admin: </strong></li>
         <li>{{team.administrator.firstName}} {{team.administrator.lastName}}</li>
         <li><strong>Members: </strong></li>
-        <li ng-repeat="member in team.members | filter: search">{{ member.firstName }} {{ member.lastName }}</li>
+        <li ng-repeat="member in team.members | filter:search">{{member.firstName}} {{member.lastName}}</li>
       </ul>
+    </span>
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Card with image</span>
+            <span class="md-subhead">Large</span>
+          </md-card-title-text>
+          <md-card-title-media>
+            <div class="md-media-lg card-media" ng-repeat="screenshot in screenshots">
+          <img ng-src="{{screenshot}}">
+            </div>
+          </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button>Action 1</md-button>
+        </md-card-actions>
+      </md-card>
     </div>
-  </div>
+  </md-content> -->
 </div>
