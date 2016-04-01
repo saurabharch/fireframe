@@ -27,7 +27,6 @@ app.config(function($stateProvider) {
 });
 
 app.controller('DashboardCtrl', function($scope, $state, user, $mdSidenav, $mdDialog) {
-	$state.go('dashboard.allProjects');
 
 	$scope.user = user;
 	$scope.formShow = false;
