@@ -57,8 +57,13 @@ body {
     content:"\e114";
     color: grey;
 }
+
 .panel-heading a.collapsed:after {
     content:"\e080";
+}
+
+.pointer-hover {
+  cursor: pointer;
 }
 
 @import 'directives/main';
