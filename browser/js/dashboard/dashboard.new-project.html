@@ -1,5 +1,7 @@
-<div class="row" id="newProject">
-	<div class="col-md-10">
+<!-- <div class="row" id="newProject">
+	<div class="col-md-10"> -->
+<md-dialog>
+	<md-dialog-content>
 		<h1>NEW PROJECT</h1>
 		<md-content layout-gt-md="row" layout-padding>
     	<div>
@@ -14,17 +16,12 @@
         </md-input-container>
 
 	      <md-input-container class="md-block" flex-gt-md>
-	        <label>Team (Select Existing or Create New)</label>
-	        <md-select ng-model="projectTeam">
-	          <md-option ng-repeat="team in user.teams" value="{{ team.name }}">
-	            {{ team.name }}
-	          </md-option>
-	        </md-select>
-	      </md-input-container>
+          <md-select placeholder="Team" ng-model="projectTeam">
+      			<md-option ng-value="team" ng-repeat="team in user.teams">{{team.name}}</md-option>
+    			</md-select>
+        </md-input-container>
 	      
 	      <br>
-	      	
-				<md-button ng-click="addProject()" id="newProjectSubmit" class="md-raised md-primary">Create New Project</md-button>
 
       	<md-content>
       		<md-button class="md-raised md-primary" ng-hide="formShow" ng-click="showTeamAdd()">Add New Team</md-button>
@@ -52,5 +49,12 @@
 				<md-button class="md-raised md-default" ng-click="addTeam()">Add Team</md-button>
 			</div>
 		</md-content>
+
+		<md-content layout-gt-sm="row" layout-padding>
+			<md-button ng-click="addProject()" id="newProjectSubmit" flex="35" class="md-raised md-primary">Create New Project</md-button>
+		</md-content>
+	</md-dialog-content>
+</md-dialog>
+
 	</div>
 </div>

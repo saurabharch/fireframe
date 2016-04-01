@@ -8,9 +8,6 @@
 component {
   position: absolute;
   outline: none !important;
-  /*height: 100%;
-  width: 100%;*/
- /* border: 1px solid #cccccc;*/
   overflow: hidden
 }
 
@@ -24,8 +21,6 @@ component {
 }
 
 .browser-nav {
-  /*position: relative; might need this?*/
-  /*display: inline-block;*/
   top: 0;
   left: 0;
   height: 50px;

@@ -5,6 +5,7 @@ module.exports = router;
 
 var mongoose = require('mongoose');
 var Project = mongoose.model('Project');
+var Comment = mongoose.model('Comment');
 var Team = mongoose.model('Team');
 var auth = require('../authentication');
 
@@ -59,7 +60,15 @@ router.post('/', auth.ensureUser, function(req, res, next) {
 
 //get single project
 router.get('/:id', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
-  res.json(req.project);
+  Comment.find({
+    project: req.project._id
+  })
+  .then(comments => {
+    var project = req.project.toObject();
+    project.comments = comments;
+    res.json(project);
+  })
+  .then(null, next)
 });
 
 //edit single project
@@ -93,6 +102,14 @@ router.get('/:id/wireframes', auth.ensureAdmin, function(req, res, next) {
   .then(null, next)
 });
 
-
-
-
+router.post('/:id/comments', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
+  Comment.create({
+    content: req.body.content,
+    user: req.user._id,
+    project: req.project._id
+  })
+  .then(comment => {
+    res.json(comment);
+  })
+  .then(null, next)
+});

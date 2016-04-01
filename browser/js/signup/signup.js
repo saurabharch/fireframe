@@ -22,7 +22,7 @@ app.controller('SignupCtrl', function ($scope, AuthService, $state) {
 
 
         AuthService.signup(signupInfo).then(function(user) {
-            $state.go('dashboard');
+            $state.go('dashboard.allProjects');
         }).catch(function () {
             $scope.error = 'Invalid signup credentials.';
         });

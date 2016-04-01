@@ -7,14 +7,14 @@
 					<li class="active"><a ui-sref="dashboard.allProjects">PROJECTS</a></li>
 					<li><a ui-sref="dashboard.teams">TEAMS</a></li>
 					<li><a ui-sref="dashboard.profile">MY PROFILE</a></li>
-					<li><a class="add" ui-sref="dashboard.newProject"><span class="glyphicon glyphicon-plus"></span> NEW PROJECT</a></li>
+					<li><a class="add" ng-click="showAlert()"><span class="glyphicon glyphicon-plus"></span> NEW PROJECT</a></li><!-- ui-sref="dashboard.newProject" -->
 				</ul>
 			</div>
 			<div flex></div>
 		</div>
 	</md-sidenav>
-	<div class="container-fluid">
-		<div class="col-sm-9 col-xs-offset-3">
+	<div class="container">
+		<div class="row">
 			<ui-view></ui-view>
 		</div>
 	</div>
