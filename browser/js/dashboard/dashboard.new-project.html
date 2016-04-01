@@ -1,3 +1,64 @@
+<div class="modal-header">
+    <h3 class="modal-title">New Project</h3>
+</div>
+<div class="modal-body">
+    <form class="form-inline">
+			<div class="form-group">
+				<label for="projectName">Project Name</label>
+				<br>
+				<input type="text" class="form-control" placeholder="Name" ng-model="projectName">
+				<br>
+			
+				<label for="projectDescription">Description</label>
+				<br>
+				<input type="text" class="form-control" placeholder="Project description" ng-model="projectDescription">
+				<br>
+				
+
+			  	<label>Team (Select Existing or Create New)</label>
+			  	<br>
+			  	<select id="teamOptions" class="form-control"
+		        	ng-model="projectTeam"
+		        	ng-options="team.name for team in user.teams">
+		      	</select>
+		      	<br>
+		      	
+		      	<button class="btn btn-primary" ng-hide="formShow" ng-click="showTeamAdd()">Create Team</button>
+		      	<button class="btn btn-danger" ng-show="formShow" ng-click="cancelTeam()">Cancel Team</button>
+			</div>
+		</form>
+
+
+		<div id="teamForm" ng-show="formShow">
+			<form class="form-inline">
+				<div class="form-group">
+					<hr>
+					<label for="teamName">Team Name</label>
+					<br>
+					<input id="teamName" ng-model="teamName" type="text" class="form-control" placeholder="Name">
+					<br>
+				
+					<label for="member">Member Email</label>
+					<br>
+					<input ng-model="member" type="text" class="form-control" placeholder="email">
+					<button class="btn" ng-click="addMember()">Add Member</button>
+					<br>
+					<p ng-show="teamMembers.length > 0">Team Members:</p>
+					<p ng-repeat="member in teamMembers">{{member}}</p>
+					<br>
+					<button class="btn btn-primary" ng-click="addTeam()">Add Team</button>
+					<hr>
+				</div>
+			</form>
+		</div>
+</div>
+<div class="modal-footer">
+	<button ng-click="addProject()" id="newProjectSubmit" class="btn btn-success">Submit</button>
+  <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>
+
+
+<!-- 
 <div class="row" id="newProject">
 	<div class="col-md-10">
 		<h1>NEW PROJECT</h1>
@@ -53,4 +114,4 @@
 
 		<button ng-click="addProject()" id="newProjectSubmit" class="btn btn-success">Submit</button>
 	</div>
-</div>
+</div> -->
