@@ -9,6 +9,7 @@ var _ = require('lodash'),
     mongoose = require('mongoose'),
     User = mongoose.model('User'),
     Team = mongoose.model('Team'),
+    Project = mongoose.model('Project'),
     ProjectRouter = require('../projects');
 
 //Get all existing teams
@@ -27,4 +28,13 @@ router.post('/', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
 		res.json(team);
 	})
 	.then(null, next);
+});
+
+//get a team's projects
+router.get('/:teamid/projects', function(req, res, next) {
+  return Project.find({team: req.params.teamid}).populate('wireframes')
+  .then(projects => {
+    res.json(projects);
+  })
+  .then(null, next);
 });

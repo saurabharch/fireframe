@@ -18,16 +18,21 @@ app.config(function($stateProvider) {
 	})
 });
 
-app.controller('UserTeamsCtrl', function($scope, userTeams, Project, AuthService) {
+app.controller('UserTeamsCtrl', function($scope, userTeams, Project, Team, AuthService) {
 	$scope.teams = userTeams;
 	console.log("scope.teams is ",userTeams);
 	console.log("user is ",AuthService.getLoggedInUser());
+
+	$scope.screenshots = [];
 	$scope.teams.forEach(function(team){
-		console.log("fetching teams???");
-		var projectsTeam = Project.fetchProjectsByTeam({teamId: team._id});
-		console.log(projectsTeam, "projects by team???");
+		Team.fetchTeamProjects(team._id)
+		.then(projects => {
+			return team.projects = projects;
+		})
+		.then(function(projects) {
+			projects.forEach(function(project, i) {
+				$scope.screenshots.push(projects[i].master.screenshotUrl);
+			})
+		})
 	});
-
-
-
 });
