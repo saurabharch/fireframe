@@ -23,7 +23,6 @@ router.get('/', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
 router.post('/', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
 	Team.createAndAddMembers(req.body)
 	.then(team => {
-    console.log("the team!!!", team);
 		res.json(team);
 	})
 	.then(null, next);

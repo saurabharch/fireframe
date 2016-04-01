@@ -26,7 +26,7 @@ app.config(function($stateProvider) {
 	});
 });
 
-app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
+app.controller('ProjectCtrl', function($scope, $state, project, Wireframe, Project) {
 	$scope.project = project;
 	$scope.history = [];
 	$scope.altBranches = [];
@@ -86,6 +86,18 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe) {
 		}
 	}
 
+	//Add comment to project
+	$scope.addComment = function() {
+		Project.submitComment($scope.project._id, $scope.newComment)
+		.then(comment => {
+			var comments = $scope.project.comments
+			if (comments && comments.length) {
+				comments.push(comment)
+			} else {
+				$scope.project.comments = [comment];
+			}
+		})
+	}
 
 	//Functions checking current scope status
 

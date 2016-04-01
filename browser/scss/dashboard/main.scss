@@ -1,10 +1,10 @@
-$sideBarWidth: 200px;
-$sideBarHeight: 95vh;
+$sideBarWidth: 250px;
+$sideBarHeight: 100%;
 
 #userPage {
 	.sidebar {
 		display: inline-block;
-		position: absolute;
+		position: fixed;
 		color: #D2D5D6;
 		/*height: $sideBarHeight;*/
 		width: $sideBarWidth;
@@ -54,11 +54,7 @@ $sideBarHeight: 95vh;
 	}
 
 	.container {
-		left: $sideBarWidth;
-		width: 100%;
 		text-align: center;
-		position: absolute;
-
 	}	
 
 	.form-group {
@@ -126,8 +122,8 @@ $sideBarHeight: 95vh;
 		background-color:$panelGrey;
 		padding: 5px;
 		overflow:hidden;
-
 	}
+	
 	.individualFrame {
 		margin-top: 0.2em;
 	}
@@ -175,11 +171,24 @@ $sideBarHeight: 95vh;
 	overflow:scroll;
 }*/
 
+.project-flex {
+	margin: 20px;
+}
+
+.project-card {
+	height: 450px;
+}
+
+.project-card-description {
+	text-overflow: ellipsis;
+}
+
 .projectPage {
 	text-align:center;
 	height:$sideBarHeight;
 	/*overflow:scroll;*/
 }
+
 .projectBox {
 	margin:10px;
 	padding:10px;
