@@ -19,18 +19,16 @@ app.controller('DashboardCtrl', function($scope, $state, $mdSidenav, $mdDialog) 
 		$mdSidenav('left').toggle();
 	});
 
-	$scope.showAlert = function(ev) {
+	$scope.showAlert = function(event) {
     $mdSidenav('left').toggle();
     // Appending dialog to document.body to cover sidenav in docs app
     // Modal dialogs should fully cover application
     // to prevent interaction outside of dialog
-    // $mdDialog.show({
-    // 	templateUrl: '/js/dashboard/dashboard.new-project.html',
-    //   $mdDialog.alert()
-    //     .parent(angular.element(document.querySelector('#popupContainer')))
-    //     .clickOutsideToClose(true)
-    //     .targetEvent(ev)
-    // }
-    // );
+		var options = $mdDialog.show({
+			parent: angular.element(document.querySelector('body')),
+			templateUrl: '/js/dashboard/dashboard.new-project.html',
+			targetEvent: event,
+			clickOutsideToClose: true
+		})
   };
 });

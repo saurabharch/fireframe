@@ -171,11 +171,24 @@ $sideBarHeight: 100%;
 	overflow:scroll;
 }*/
 
+.project-flex {
+	margin: 20px;
+}
+
+.project-card {
+	height: 450px;
+}
+
+.project-card-description {
+	text-overflow: ellipsis;
+}
+
 .projectPage {
 	text-align:center;
 	height:$sideBarHeight;
 	/*overflow:scroll;*/
 }
+
 .projectBox {
 	margin:10px;
 	padding:10px;
