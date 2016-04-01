@@ -25,7 +25,7 @@ app.config(function($stateProvider) {
 	});
 });
 
-app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, user) {
+app.controller('ModalInstanceCtrl', function ($uibModalInstance, $scope, $state, user, User, Wireframe, $timeout) {
 	$scope.user = user;
 	$scope.formShow = false;
 	//Add New Team
@@ -44,7 +44,7 @@ app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, user) {
 			$state.go('editor', { id: wireframe._id, projectId: wireframe.project });
 		});
 
-    $uibModalInstance.close($scope.selected.item);
+    $uibModalInstance.close();
   };
 
   $scope.cancel = function () {

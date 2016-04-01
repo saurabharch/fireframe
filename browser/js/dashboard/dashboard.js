@@ -35,10 +35,9 @@ app.controller('DashboardCtrl', function($scope, $state, $uibModal) {
 	});
 
 	$scope.newProject = function () {
-		console.log('hur');
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
-      templateUrl: '/js/dashboard/dashboard.html',
+      templateUrl: '/js/dashboard/dashboard.new-project.html',
       controller: 'ModalInstanceCtrl',
       resolve: {
 				user: function(AuthService, User, $log) {
