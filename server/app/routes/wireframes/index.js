@@ -124,7 +124,6 @@ router.post('/:id/fork', auth.ensureTeamMemberOrAdmin, function(req, res, next) 
     return req.wireframe.clone(project)
   })
   .then(wireframe => {
-    console.log(wireframe);
     res.json(wireframe);
   })
   .then(null, next);

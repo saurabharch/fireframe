@@ -18,7 +18,7 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state) {
         $scope.error = null;
 
         AuthService.login(loginInfo).then(function () {
-            $state.go('dashboard');
+            $state.go('dashboard.allProjects');
         }).catch(function () {
             $scope.error = 'Invalid login credentials.';
         });

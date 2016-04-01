@@ -10,6 +10,16 @@ app.config(function ($urlRouterProvider, $locationProvider) {
     $urlRouterProvider.otherwise('/');
 });
 
+// app.config(function ($mdThemingProvider) {
+    
+//    $mdThemingProvider.theme('default')
+//        .primaryPalette('red')
+//        .accentPalette('teal')
+//        .warnPalette('deep-orange')
+//        .backgroundPalette('blue')
+//        .dark();
+// });
+
 // This app.run is for controlling access to specific states.
 app.run(function ($rootScope, AuthService, $state) {
 

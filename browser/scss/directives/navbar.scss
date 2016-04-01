@@ -1,5 +1,7 @@
 navbar {
-  display: block;
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
   background: #242626;
   /*background: white;
   border-bottom: 1px solid black;

@@ -14,7 +14,7 @@ $cool:#3ACF91;
 
 body {
   background: #fdfdfd;
-  overflow:hidden;
+  /*overflow:hidden;*/
 }
 
 @mixin clearfix {
@@ -35,9 +35,9 @@ body {
 #main {
 	margin: 0;
 	padding: 0;
+  padding-top: 60px;
   height:100%;
   width:100%;
-  overflow:scroll;
 }
 
 .btn-cool {
