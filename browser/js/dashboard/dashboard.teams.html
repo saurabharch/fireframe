@@ -1,22 +1,22 @@
 <div class="container-fluid projectPage">
-<div class="row">
-	<h1>TEAMS</h1>
-	<form class="form-inline">
-		<div class="form-group">
-	    <input type="text" class="form-control" placeholder="Search" ng-model="search">
-	  </div>
-	</form>
-</div>
+  <div class="row">
+  	<h1>TEAMS</h1>
+  	<form class="form-inline">
+  		<div class="form-group">
+  	    <input type="text" class="form-control" placeholder="Search" ng-model="search">
+  	  </div>
+  	</form>
+  </div>
 
-<div class="row">
+  <div class="row">
     <div class="projectBox col-md-3" ng-repeat="team in teams | filter:search">
       <h3>{{team.name}}</h3>
       <ul class="list-unstyled">
-      <li><strong>Admin: </strong></li>
-      <li>{{team.administrator.firstName}} {{team.administrator.lastName}}</li>
-      <li><strong>Members: </strong></li>
-      <li ng-repeat="member in team.members | filter: search">{{ member.firstName }} {{ member.lastName }}</li>
-    </ul>
+        <li><strong>Admin: </strong></li>
+        <li>{{team.administrator.firstName}} {{team.administrator.lastName}}</li>
+        <li><strong>Members: </strong></li>
+        <li ng-repeat="member in team.members | filter: search">{{ member.firstName }} {{ member.lastName }}</li>
+      </ul>
     </div>
   </div>
 </div>

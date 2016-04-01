@@ -1,10 +1,10 @@
-$sideBarWidth: 200px;
-$sideBarHeight: 95vh;
+$sideBarWidth: 250px;
+$sideBarHeight: 100%;
 
 #userPage {
 	.sidebar {
 		display: inline-block;
-		position: absolute;
+		position: fixed;
 		color: #D2D5D6;
 		/*height: $sideBarHeight;*/
 		width: $sideBarWidth;
@@ -122,8 +122,8 @@ $sideBarHeight: 95vh;
 		background-color:$panelGrey;
 		padding: 5px;
 		overflow:hidden;
-
 	}
+	
 	.individualFrame {
 		margin-top: 0.2em;
 	}
