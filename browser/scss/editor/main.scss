@@ -125,12 +125,11 @@ $btn-side: .45 * $left-width;
 .component-button {
   box-sizing:border-box;
   border:0;
-  border-radius:3%;
+  /*border-radius:3%;*/
   background-color:#ddd;
   margin:0.1vw 0.05vw 0.1vw 0.2vw;
   width: $btn-side;
   height: $btn-side;
-
 }
 
 .btn-colorpicker{
