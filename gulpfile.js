@@ -152,7 +152,7 @@ gulp.task('default', function () {
     gulp.watch(['tests/server/**/*.js'], ['testServerJS']);
 
     // Run browser testing when a browser test file changes.
-    gulp.watch(['tests/browser/**/*','browser/js/**'], ['testBrowserJS']);
+    gulp.watch(['tests/browser/**/*'], ['testBrowserJS']);
 
     livereload.listen();
 
