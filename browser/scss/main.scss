@@ -7,6 +7,12 @@ $liquidUp:#66a0CD;
 $warm:#FF7B47;
 $cool:#3ACF91;
 
+$sunshine: #F9BA32;
+$steelblue: #426E86;
+$bonegrey: #F8F1E5;
+$coalgrey: #2F3131;
+
+
 
 * {
   box-sizing: border-box;
@@ -15,6 +21,7 @@ $cool:#3ACF91;
 body {
   background: #fdfdfd;
   /*overflow:hidden;*/
+  font-family: 'Roboto Slab', serif;
 }
 
 @mixin clearfix {
@@ -66,6 +73,7 @@ body {
   cursor: pointer;
 }
 
+@import 'general/general';
 @import 'directives/main';
 @import 'home/main';
 @import 'tutorial/main';
