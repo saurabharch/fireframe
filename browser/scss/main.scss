@@ -35,7 +35,7 @@ body {
 #main {
 	margin: 0;
 	padding: 0;
-  padding-top: 60px;
+  padding-top: 51px;
   height:100%;
   width:100%;
 }
@@ -65,6 +65,7 @@ body {
 .pointer-hover {
   cursor: pointer;
 }
+
 
 @import 'directives/main';
 @import 'home/main';

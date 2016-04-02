@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/angular-bootstrap-colorpicker/css/colorpicker.css" />
     <link rel="stylesheet" type="text/css" href="/style.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/angular-material/angular-material.css">
     <script src="/lodash/index.js"></script>
     <script src="/jquery/dist/jquery.min.js"></script>
@@ -14,7 +14,6 @@
     <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
     <script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
 
-    <!-- <script src="/jquery-ui/jquery-ui.min.js"></script> -->
     <script src="/interact.js/interact.js"></script>
     <script src="/angular/angular.js"></script>
     <script src="/angular-animate/angular-animate.js"></script>
@@ -22,9 +21,6 @@
     <script src="/angular-ui-bootstrap/ui-bootstrap.js"></script>
     <script src="/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
-    <script src="/angular-material/angular-material.min.js"></script>
-    <script src="/angular-aria/angular-aria.min.js"></script>
-    <script src="/angular-messages/angular-messages.min.js"></script>
 
     <script src="/socket.io-client/socket.io.js"></script>
     <script src="/main.js"></script>
@@ -32,6 +28,7 @@
 </head>
 <body ng-app="FullstackGeneratedApp">
     <navbar></navbar>
-    <div id="main" ui-view></div>
+    <side-nav></side-nav>
+    <div class="main" id="main" ui-view></div>
 </body>
 </html>
