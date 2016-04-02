@@ -1,94 +1,154 @@
-navbar {
-  position: fixed;
-  width: 100%;
-  z-index: 9999;
-  background: #242626;
-  /*background: white;
-  border-bottom: 1px solid black;
-  box-shadow: 1px 1px 14px -3px black;*/
+$accent:#fbba32;
+$mid:#426e86;
+$light:#f8f1e5;
+$dark:#2f3131;
 
-  .container {
-    width: 95%;
-    max-width: 1340px;
-    /*padding-top: 20px;*/
-  }
 
-  .navbar {
-    margin: 0;
-  }
-
-  .btn-wrapper{
-    width:40%;
-    float:left;
-  }
-
-  .menubtn{
-    vertical-align: middle;
-    font-size: 2em;
-    margin-top: 0.4em;
-    margin-right:1em;
-    color:#fff;
-
-  }
-
-  /*fullstack-logo {
-    margin-top: 5px;
-    margin-right: 20px;
-    width: 40px;
-  }*/
-
-  a {
+.navbar-fixed-top {
+  padding-left: 15px;
+  i {
     color: white;
-    /*color: black;*/
+  }
+}
+
+#left-collapse-btn {
+  padding: 4px;
+}
+
+/*Side bar*/
+side-nav {
+  height: 100%;
+  position: fixed;
+  .active i {
+    color: $accent;
+  }
+}
+
+.sidebar {
+  padding-top: 50px;
+}
+
+.shift-left {
+  padding-right: 5px;
+}
+/*Remove rounded coners*/
+nav.sidebar.navbar {
+  background-color: $dark;
+  border-radius: 0px;
+}
+
+nav.sidebar, .main{
+  -webkit-transition: left 200ms ease-out;
+  -moz-transition: left 200ms ease-out;
+  -o-transition: left 200ms ease-out;
+  transition: left 200ms ease-out;
+}
+
+/* Add gap to nav and right windows.*/
+.main{
+  padding: 10px 10px 0 10px;
+}
+
+@media (max-width: 768px) {
+  side-nav {
+    position: relative;
+  }
+}
+
+/* .....NavBar: Icon only with coloring/layout.....*/
+/*small/medium side display*/
+@media (min-width: 768px) {
+  /*Allow main to be next to Nav*/
+  .main{
+    width: calc(100% - 60px); /*keeps 100% minus nav size*/
+    float: right;
+  }
+
+  /*lets nav bar to be showed on mouseover*/
+  nav.sidebar:hover{
+    left: 0;
+  }
+
+  /*Center Brand*/
+  nav.sidebar.navbar.sidebar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+    margin-left: 0px;
+  }
+  /*Center Brand*/
+  nav.sidebar .navbar-brand, nav.sidebar .navbar-header{
+    text-align: center;
+    width: 100%;
+    margin-left: 0px;
+  }
+
+  /*Center Icons*/
+  nav.sidebar a{
+    padding-right: 13px;
+    padding-top: 25px;
+    height: 100%;
+  }
+
+  /*adds border top to first nav box */
+  nav.sidebar .navbar-nav > li:first-child{
+    border-top: 1px #e5e5e5 solid;
+  }
+
+  /*adds border to bottom nav boxes*/
+  nav.sidebar .navbar-nav > li{
+    border-bottom: 1px #e5e5e5 solid;
+  }
+
+  /* Colors/style dropdown box*/
+  nav.sidebar .navbar-nav .open .dropdown-menu {
+    position: fixed;
+    float: none;
+    width: auto;
+    margin-top: 0;
+    background-color: transparent;
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  /*allows nav box to use 100% width*/
+  nav.sidebar .navbar-collapse, nav.sidebar .container-fluid{
+    padding: 0 0px 0 0px;
+  }
+
+  /*gives sidebar width/height*/
+  nav.sidebar{
+    width: 220px;
+    height: 100%;
+    left: -160px;
+    float: left;
+    z-index: 8000;
+    margin-bottom: 0px;
+  }
+
+  /*give sidebar 100% width;*/
+  nav.sidebar li {
+    height: 80px;
+    width: 100%;
     font-size: 16px;
   }
 
-  .nav > li > a {
-    cursor: pointer;
-    transition: color 0.2s;
-    &.active {
-      color: darken(#f31214, 10%);
-    }
-    &:hover {
-      background: none;
-      color: #f31214;
-    }
-    &:focus {
-      background: none;
-    }
+  /* Move nav to full on mouse over*/
+  nav.sidebar:hover{
+    left: 0px;
   }
-
-  .login-button {
-    float: right;
-    /*border: 1px solid black;*/
-    background: #3ACF91;
-    margin-top: 10px;
-    /*background: none;*/
-    outline: none !important;
+  /*for hiden things when navbar hidden*/
+  .forAnimate{
+    opacity: 0;
   }
+}
 
-  .signup-button {
-    float: right;
-    /*border: 1px solid black;*/
-    background: #FFB709;
-    margin-top: 10px;
-    margin-left:10px;
-    /*background: none;*/
-    outline: none !important;
-  }
+nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover, nav.sidebar .navbar-nav .open .dropdown-menu>li>a:focus {
+  color: #ccc;
+  background-color: transparent;
+}
 
-  .welcome {
-    float: right;
-    margin-top: 12px;
-    span {
-      color: #0FA0D1;
-      font-size: 16px;
-      margin-right: 5px;
-    }
-    a {
-      color: #FFB709;
-      cursor: pointer;
-    }
-  }
-
+nav:hover .forAnimate{
+  opacity: 1;
+}
+section{
+  padding-left: 15px;
 }

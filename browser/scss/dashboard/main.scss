@@ -1,53 +1,12 @@
 $sideBarWidth: 250px;
 $sideBarHeight: 100%;
 
+.modal-dialog {
+	padding-top: 80px;
+}
+
 #userPage {
-	.sidebar {
-		display: inline-block;
-		position: fixed;
-		color: #D2D5D6;
-		/*height: $sideBarHeight;*/
-		width: $sideBarWidth;
-		background: #222;
-				
-		.sidebar-column{
-			height:100%;
-		}
-		ul {
-			list-style: none;
-			padding: 0;
-			
-			/*li {
-				padding: 8% 25%;
-			}*/
-
-			.active {
-				background: black;
-				color: white;
-			} 
-
-			a {
-				padding: 8% 25%;
-				display: block;
-				text-decoration: inherit;
-				color: inherit;
-			}
-
-			a.add {
-				padding: 8% 20%;
-				display: block;
-				text-decoration: inherit;
-				color: inherit;
-			}
-
-			a:hover {
-				background: black;
-				color: white;
-			}
-
-		}
-
-	}
+	padding-left: 60px;
 
 	select {
 		min-width:60%;

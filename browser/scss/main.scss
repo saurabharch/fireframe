@@ -7,6 +7,12 @@ $liquidUp:#66a0CD;
 $warm:#FF7B47;
 $cool:#3ACF91;
 
+$sunshine: #F9BA32;
+$steelblue: #426E86;
+$bonegrey: #F8F1E5;
+$coalgrey: #2F3131;
+
+
 
 * {
   box-sizing: border-box;
@@ -15,6 +21,7 @@ $cool:#3ACF91;
 body {
   background: #fdfdfd;
   /*overflow:hidden;*/
+  font-family: 'Roboto Slab', serif;
 }
 
 @mixin clearfix {
@@ -26,16 +33,15 @@ body {
 }
 
 .logo {
-  vertical-align: middle;
-  height: 3em;
-  margin-top: 0.3em;
+  height: 2em;
+  margin-top: -0.4em;
 }
 
 
 #main {
 	margin: 0;
 	padding: 0;
-  padding-top: 60px;
+  padding-top: 50px;
   height:100%;
   width:100%;
 }
@@ -66,6 +72,7 @@ body {
   cursor: pointer;
 }
 
+@import 'general/general';
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';

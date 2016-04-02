@@ -1,0 +1,29 @@
+<nav class="navbar navbar-inverse sidebar" role="navigation" ng-show="state.includes('dashboard')">
+    <div class="container-fluid">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="side-nav-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a ui-sref="dashboard.allProjects">PROJECTS
+                        <i class="fa fa-image fa-2x pull-right hidden-xs showopacity"></i>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="dashboard.teams">TEAMS
+                        <i class="fa fa-users fa-2x pull-right hidden-xs showopacity"></i>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="dashboard.profile">MY PROFILE
+                        <i class="fa fa-user fa-2x shift-left pull-right hidden-xs showopacity"></i>
+                    </a>
+                </li>
+                <li class="pointer-hover">
+                    <a class="add" ng-click="newProject()">NEW PROJECT
+                        <i class="fa fa-plus fa-2x shift-left pull-right hidden-xs showopacity"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
