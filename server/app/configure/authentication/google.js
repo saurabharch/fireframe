@@ -45,12 +45,11 @@ module.exports = function (app) {
 
     passport.use(new GoogleStrategy(googleCredentials, verifyCallback));
 
-    app.get('/auth/google', function(req,res,next){
-        console.log("Hey!\n, googleconfig: ",googleConfig);
-
-    },
-        passport.authenticate('google', {
-        scope: "email"
+    app.get('/auth/google', passport.authenticate('google', {
+        scope: [
+            'https://www.googleapis.com/auth/userinfo.profile',
+            'https://www.googleapis.com/auth/userinfo.email'
+        ]
     }));
 
     app.get('/auth/google/callback',
