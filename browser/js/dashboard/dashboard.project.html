@@ -8,6 +8,7 @@
 			<button class="btn btn-warm" ng-click="forkFrame()">Create Fork</button>
 			<button class="btn btn-cool" ng-show="currentEdit()" ng-click="joinRoom()">Join Editing</button>
 			<button class="btn btn-liquid" ng-hide="isMaster()" ng-click="setMaster()">Set Master</button>
+			<a class="image-download" download="{{ active._id }}.png" href="{{ active.screenshotUrl }}"><button class="btn">Download Image</button></a>
 			<br>
 			<br>
 			<div class="panel-group" id="accordion">
@@ -53,6 +54,14 @@
 						</div>
 		      </div>
 	    	</div>
+  		</div>
+  		<div class="panel panel-info">
+  			<div class="panel-heading">Comments</div>
+  			<div class="panel-body">
+
+  			</div>
+  			<div class="panel-footer">
+  			</div>
   		</div>
 			<!-- <md-content>
 		    <md-list>
