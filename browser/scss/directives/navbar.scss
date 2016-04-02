@@ -3,101 +3,29 @@ $mid:#426e86;
 $light:#f8f1e5;
 $dark:#2f3131;
 
-navbar {
-  position: fixed;
-  width: 100%;
-  z-index: 9999;
-  background: #242626;
-  /*background: white;
-  border-bottom: 1px solid black;
-  box-shadow: 1px 1px 14px -3px black;*/
 
-  .container {
-    width: 95%;
-    max-width: 1340px;
-    /*padding-top: 20px;*/
-  }
-
-  .navbar {
-    margin: 0;
-  }
-
-  .btn-wrapper{
-    width:40%;
-    float:left;
-  }
-
-  .menubtn{
-    vertical-align: middle;
-    font-size: 2em;
-    margin-top: 0.4em;
-    margin-right:1em;
-    color:#fff;
-  }
-
-  a {
+.navbar-fixed-top {
+  padding-left: 15px;
+  i {
     color: white;
-    /*color: black;*/
-    font-size: 16px;
-  }
-
-  .nav > li > a {
-    cursor: pointer;
-    transition: color 0.2s;
-    &.active {
-      color: darken(#f31214, 10%);
-    }
-    &:hover {
-      background: none;
-      color: #f31214;
-    }
-    &:focus {
-      background: none;
-    }
-  }
-
-  .login-button {
-    float: right;
-    /*border: 1px solid black;*/
-    background: #3ACF91;
-    margin-top: 10px;
-    /*background: none;*/
-    outline: none !important;
-  }
-
-  .signup-button {
-    float: right;
-    /*border: 1px solid black;*/
-    background: #FFB709;
-    margin-top: 10px;
-    margin-left:10px;
-    /*background: none;*/
-    outline: none !important;
-  }
-
-  .welcome {
-    float: right;
-    margin-top: 12px;
-    span {
-      color: #0FA0D1;
-      font-size: 16px;
-      margin-right: 5px;
-    }
-    a {
-      color: #FFB709;
-      cursor: pointer;
-    }
   }
 }
 
-/*Side bar*/
+#left-collapse-btn {
+  padding: 4px;
+}
 
+/*Side bar*/
 side-nav {
   height: 100%;
   position: fixed;
   .active i {
     color: $accent;
   }
+}
+
+.sidebar {
+  padding-top: 50px;
 }
 
 .shift-left {
@@ -121,10 +49,15 @@ nav.sidebar, .main{
   padding: 10px 10px 0 10px;
 }
 
+@media (max-width: 768px) {
+  side-nav {
+    position: relative;
+  }
+}
+
 /* .....NavBar: Icon only with coloring/layout.....*/
 /*small/medium side display*/
 @media (min-width: 768px) {
-
   /*Allow main to be next to Nav*/
   .main{
     width: calc(100% - 60px); /*keeps 100% minus nav size*/
