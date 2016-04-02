@@ -90,6 +90,7 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe, Proje
 	$scope.addComment = function() {
 		Project.submitComment($scope.project._id, $scope.newComment)
 		.then(comment => {
+			$scope.newComment = null;
 			var comments = $scope.project.comments
 			if (comments && comments.length) {
 				comments.push(comment)
