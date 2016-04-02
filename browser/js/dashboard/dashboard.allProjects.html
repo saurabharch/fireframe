@@ -1,25 +1,23 @@
-<div class="container-fluid projectPage">
+<div class="container-fluid projectPage bg-bone">
 	<div class="row">
-		<div class="col-sm-4 col-sm-offset-3">
+		<div>
 			<h1>PROJECTS</h1>
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="col-sm-4 col-sm-offset-3">
-			<form class="form-inline">
-				<div class="form-group">
-			    <input type="text" class="form-control" placeholder="Search" ng-model="search">
-			  </div>
-			</form>
-		</div>
+		<form class="form-inline">
+			<div class="form-group">
+		    <input type="text" class="form-control" placeholder="Search" ng-model="search">
+		  </div>
+		</form>
 	</div>
 
-	<div class="row">
+	<div class="row alltheprojects">
 		<div class="projectBox boxActive col-md-3" ng-repeat="project in projects | filter:search" ui-sref="dashboard.project({id:project._id})">
-			<img ng-src="{{project.master.screenshotUrl}}">
+			<img class="img-responsive projectimgs" ng-src="{{project.master.screenshotUrl}}">
 			<h3>{{project.name}}</h3>
-			<h4>{{project.creator.email}}</h4>
+			<h4 class="steelblue">Created by: {{project.creator.firstName}} {{project.creator.lastName}}</h4>
 		</div>
-	</div>
+</div>
 </div>
