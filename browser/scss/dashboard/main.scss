@@ -10,6 +10,16 @@ a.image-download {
 	color: black;
 }
 
+/*.alltheprojects {
+	margin: auto;
+	margin-left: 15%;
+}*/
+
+.footer-basic-centered {
+	padding-bottom: 0;
+	margin-bottom: 0;
+}
+
 #userPage {
 	@media (min-width: 768px) {
 		padding-left: 60px;
@@ -158,8 +168,12 @@ a.image-download {
 	height:$sideBarHeight;
 }
 
+.container-fluid {
+	padding: 0;
+}
+
 .projectBox {
-	margin:10px;
+	margin:5px;
 	padding:10px;
 	text-align:center;
 	height:270px;
@@ -167,8 +181,9 @@ a.image-download {
 	box-shadow: 0 10px 6px -6px #777;
 	word-wrap: break-word;
 	img {
-		width:80%;
+		max-width:80%;
 		height:60%;
+		margin: auto;
 	}
 	&:hover{
 		cursor: pointer;
@@ -183,4 +198,12 @@ a.image-download {
 
 .bottom-padding{
 	padding-bottom:50px;
+}
+
+.boxActive:hover{
+	background-color:#555;
+	color:#fff;
+	h4 {
+		color: $sunshine;
+	}
 }

@@ -1,4 +1,4 @@
-<div class="container-fluid projectPage">
+<div class="projectPage">
 	<div class="row">
 		<div class="col-sm-4">
 			<h1>PROJECTS</h1>
@@ -15,12 +15,12 @@
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="col-md-3" ng-repeat="project in projects | filter:search" ui-sref="dashboard.project({id:project._id})">
+	<div class="row alltheprojects">
+		<div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="project in projects | filter:search" ui-sref="dashboard.project({id:project._id})">
 			<div class="projectBox boxActive">
-				<img ng-src="{{project.master.screenshotUrl}}">
+				<img class="img-responsive projectimgs" ng-src="{{project.master.screenshotUrl}}">
 				<h3>{{project.name}}</h3>
-				<h4>{{project.creator.email}}</h4>
+				<h4 class="steelblue">Created by: {{project.creator.firstName}} {{project.creator.lastName}}</h4>
 			</div>
 		</div>
 	</div>
