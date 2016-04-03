@@ -3,7 +3,6 @@ $mid:#426e86;
 $light:#f8f1e5;
 $dark:#2f3131;
 
-
 navbar {
   z-index: 999;
 }
@@ -21,17 +20,24 @@ nav li:hover {
   }
 }
 
-/*#left-collapse-btn {
+#left-collapse-btn {
   padding: 4px;
-}*/
+}
 
 /*Side bar*/
-nav.sidebar {
+/*this was side-nav, now nav.sidebar*/
+side-nav {
   z-index: 100;
   height: 100%;
   position: fixed;
   .active i {
     color: $accent;
+  }
+}
+
+nav.sidebar {
+  @media(min-width: 768px) {
+    height: 100%;
   }
 }
 
@@ -42,13 +48,14 @@ nav.sidebar {
 .shift-left {
   padding-right: 5px;
 }
+
 /*Remove rounded coners*/
 nav.sidebar.navbar {
   background-color: $dark;
   border-radius: 0px;
 }
 
-nav.sidebar {
+side-nav {
   -webkit-transition: left 200ms ease-out;
   -moz-transition: left 200ms ease-out;
   -o-transition: left 200ms ease-out;
@@ -79,7 +86,7 @@ nav.sidebar {
   }
 
   /*lets nav bar to be showed on mouseover*/
-  nav.sidebar:hover{
+  side-nav:hover{
     left: 0;
   }
 
@@ -129,7 +136,7 @@ nav.sidebar {
   }
 
   /*gives sidebar width/height*/
-  nav.sidebar{
+  side-nav{
     width: 220px;
     height: 100%;
     left: -160px;
@@ -145,7 +152,7 @@ nav.sidebar {
   }
 
   /* Move nav to full on mouse over*/
-  nav.sidebar:hover{
+  side-nav:hover{
     left: 0px;
     right: 10px;
   }
