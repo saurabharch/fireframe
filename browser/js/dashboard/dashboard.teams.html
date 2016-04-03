@@ -8,20 +8,27 @@
     </form>
   </div>
   <div ng-repeat="team in teams | filter:search">
+    <div class="card teamcards">
       <span class="md-headline">{{team.name}}</span>
     </br></br>
     <span class="md-subhead">
-      <ul class="list-unstyled">
+      <ul class="list-unstyled teamsinfo">
         <li><strong>Admin: </strong></li>
-        <li>{{team.administrator.firstName}} {{team.administrator.lastName}} - email: {{team.administrator.email}}</li>
+        <li>· {{team.administrator.firstName}} {{team.administrator.lastName}} - <em>email: {{team.administrator.email}}</em></li>
         <li><strong>Members: </strong></li>
-        <li ng-repeat="member in team.members | filter:search">{{member.firstName}} {{member.lastName}} - email: {{member.email}}</li>
+        <li ng-repeat="member in team.members | filter:search">· {{member.firstName}} {{member.lastName}}<br> <em>email: {{member.email}}</em></li>
       </ul>
     </span>
-      <div class="card">
-        <div class="card-img-top" ng-repeat="screenshot in team.screenshots">
-          <img ng-src="{{screenshot}}">
-        </div>
+  </div>
+
+
+  <div class="projcard">
+    <div class="card-img-top" ng-repeat="projinfo in team.screenshots">
+      <div class="card-block projcardinfo">
+        <ul class="list-unstyled">
+          <li><a href="#"><img ng-src="{{projinfo.screenshotUrl}}" alt=""><br><span>{{projinfo.name}}</span></a></li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

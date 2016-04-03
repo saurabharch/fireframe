@@ -32,7 +32,11 @@ app.controller('UserTeamsCtrl', function($scope, userTeams, Project, Team, AuthS
 		})
 		.then(function(projects) {
 			projects.forEach(function(project, i) {
-				team.screenshots.push(projects[i].master.screenshotUrl);
+				var projinfo = {};
+				projinfo.name = project.name;
+				projinfo.screenshotUrl = projects[i].master.screenshotUrl;
+				team.screenshots.push(projinfo);
+				console.log(team.screenshots, "array of team proj screenshots");
 			})
 		})
 	});
