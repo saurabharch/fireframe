@@ -1,4 +1,4 @@
-<div class="container-fluid projectPage">
+<div class="projectPage">
   <div class="row">
     <h1>TEAMS</h1>
     <form class="form-inline">
@@ -9,24 +9,25 @@
   </div>
   <div ng-repeat="team in teams | filter:search">
     <div class="card teamcards">
-      <span class="md-headline">{{team.name}}</span>
+      <span class="md-headline steelblue">{{team.name}}</span>
     </br></br>
     <span class="md-subhead">
       <ul class="list-unstyled teamsinfo">
-        <li><strong>Admin: </strong></li>
-        <li>· {{team.administrator.firstName}} {{team.administrator.lastName}} - <em>email: {{team.administrator.email}}</em></li>
-        <li><strong>Members: </strong></li>
-        <li ng-repeat="member in team.members | filter:search">· {{member.firstName}} {{member.lastName}}<br> <em>email: {{member.email}}</em></li>
+        <li class="coalgrey"><strong>Admin: </strong></li>
+        <li>· {{team.administrator.firstName}} {{team.administrator.lastName}} <em class="sunshine">({{team.administrator.email}})</em></li>
+        <li class="coalgrey"><strong>Members: </strong></li>
+        <li ng-repeat="member in team.members | filter:search">· {{member.firstName}} {{member.lastName}} <em class="sunshine">({{member.email}})</em></li>
       </ul>
     </span>
   </div>
 
 
   <div class="projcard">
-    <div class="card-img-top" ng-repeat="projinfo in team.screenshots">
+    <div class="subcards">
+    <div class="projimgs" ng-repeat="projinfo in team.screenshots">
       <div class="card-block projcardinfo">
         <ul class="list-unstyled">
-          <li><a ui-sref="dashboard.project({id:projinfo.id})"><img ng-src="{{projinfo.screenshotUrl}}" alt=""><br><span>{{projinfo.name}}</span></a></li>
+          <li><a ui-sref="dashboard.project({id:projinfo.id})"><img ng-src="{{projinfo.screenshotUrl}}" class="img-responsive projscreenshots"><br><span>{{projinfo.name}}</span></a></li>
         </ul>
       </div>
     </div>
