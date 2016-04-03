@@ -6,7 +6,7 @@ app.config(function($stateProvider) {
     templateUrl: '/js/dashboard/dashboard.profile.html',
     controller: 'ProfileCtrl',
     resolve: {
-      profile: function(User, AuthService) {
+      profile: function(AuthService) {
         return AuthService.getLoggedInUser()
       }
     }
@@ -15,5 +15,4 @@ app.config(function($stateProvider) {
 
 app.controller('ProfileCtrl', function($scope, $state, profile) {
   $scope.profile = profile;
-
 });

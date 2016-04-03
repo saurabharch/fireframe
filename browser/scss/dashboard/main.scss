@@ -11,14 +11,20 @@ a.image-download {
 }
 
 #userPage {
-	padding-left: 60px;
+	@media (min-width: 768px) {
+		padding-left: 60px;
+	}
+
+	.wireframe-header small {
+		margin-top: 8px;
+	}
 
 	select {
 		min-width:60%;
 	}
 
-	.container {
-		text-align: center;
+	.container-fluid {
+		padding: 30px;
 	}	
 
 	.form-group {
@@ -150,7 +156,6 @@ a.image-download {
 .projectPage {
 	text-align:center;
 	height:$sideBarHeight;
-	/*overflow:scroll;*/
 }
 
 .projectBox {
@@ -160,18 +165,22 @@ a.image-download {
 	height:270px;
 	background-color:$panelGrey;
 	box-shadow: 0 10px 6px -6px #777;
-
+	word-wrap: break-word;
 	img {
 		width:80%;
 		height:60%;
 	}
+	&:hover{
+		cursor: pointer;
+		background-color:#555;
+		color:#fff;
+	}
+	-webkit-transition: 300ms ease-out;
+  -moz-transition: 300ms ease-out;
+  -o-transition: 300ms ease-out;
+  transition: 300ms ease-out;
 }
 
 .bottom-padding{
 	padding-bottom:50px;
-}
-
-.boxActive:hover{
-	background-color:#555;
-			color:#fff;
 }
