@@ -30,7 +30,7 @@
 </head>
 <body ng-app="FullstackGeneratedApp">
     <navbar></navbar>
-    <side-nav></side-nav>
+    <side-nav ng-show="state.includes('dashboard')"></side-nav>
     <div class="main" id="main" ui-view></div>
 </body>
 </html>

@@ -4,12 +4,20 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
     scope: {},
     templateUrl: 'js/common/directives/navbar/navbar.html',
     link: function (scope) {
-
+      scope.isCollapsed=true;
       scope.state = $state;
 
       scope.items = [
         { label: 'My Dashboard', state: 'dashboard.allProjects', auth: true }
       ];
+
+      scope.toggle = function () {
+        scope.isCollapsed = !scope.isCollapsed;
+      }
+
+      scope.toggleSide = function() {
+
+      }
 
       scope.user = null;
 
@@ -45,7 +53,6 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
 app.directive('sideNav', function ($rootScope, $state, $uibModal) {
   return {
     restrict: 'E',
-    scope: {},
     templateUrl: 'js/common/directives/navbar/side-nav.html',
     link: function (scope, element, attr) {
       scope.state = $state;
