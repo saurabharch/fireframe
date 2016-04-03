@@ -3,11 +3,16 @@ $mid:#426e86;
 $light:#f8f1e5;
 $dark:#2f3131;
 
+.navbar {
+  margin-bottom: 0;
+}
 
 .navbar-fixed-top {
   padding-left: 15px;
+  padding-bottom: 0;
+  margin-bottom: 0;
   i {
-    color: white;
+    color: $sunshine;
   }
 }
 
@@ -134,6 +139,7 @@ nav.sidebar, .main{
   /* Move nav to full on mouse over*/
   nav.sidebar:hover{
     left: 0px;
+    right: 10px;
   }
   /*for hiden things when navbar hidden*/
   .forAnimate{
@@ -141,9 +147,10 @@ nav.sidebar, .main{
   }
 }
 
+
 nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover, nav.sidebar .navbar-nav .open .dropdown-menu>li>a:focus {
-  color: #ccc;
   background-color: transparent;
+  right: 10px;
 }
 
 nav:hover .forAnimate{
