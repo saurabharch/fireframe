@@ -56,6 +56,7 @@ Without any previous design software knowledge, non-designers can quickly create
 * Firebase -- Real-time collaboration
 * AWS S3 -- Image storage
 * Webshot -- Screen Capture
+* Interact.js -- Drag and resize elements
 * Bootstrap -- Styling
 
 ## Team
