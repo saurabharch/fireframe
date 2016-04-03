@@ -10,16 +10,10 @@ app.config(function($stateProvider) {
 					proj = project;
 					return Firebase.checkForWireframes(project._id);
 				})
-				.then(wireframe =>{
-					var edits = wireframe.val();
-					proj.activeEdits = [];
-
-					if (edits) {
-						for(var session in edits) {
-							proj.activeEdits.push(session);
-						}
-					}
-				}).then(wireframe => proj);
+				.then(wireframes =>{
+					proj.activeEdits = wireframes.map(w => w.key())
+					return proj;
+				})
 			}
 		},
 		controller: 'ProjectCtrl'
@@ -32,7 +26,7 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe, Proje
 	$scope.altBranches = [];
 	$scope.master = project.wireframes.filter(frame => frame.master === true)[0];
 	$scope.active = $scope.master;
-	$scope.showHistory = true;
+	$scope.showHistory = false;
 	$scope.altBranches = $.grep($scope.project.wireframes, e => !e.children.length && e !== $scope.active);
 	traverseFrames($scope.active);
 	$scope.active.screenshotUrl = $scope.active.screenshotUrl || "http://static3.creately.com/blog/wp-content/uploads/2012/03/Wire-frame-example.png";
@@ -49,11 +43,6 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe, Proje
 
 	$scope.goAlt = function(){
 		$scope.showHistory = false;
-	};
-
-	$scope.getProjDetails = function() {
-		console.log("project details will go here", $scope.project.project);
-
 	};
 
 	$scope.changeActive = function(frame){
@@ -78,26 +67,32 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe, Proje
 	//Fill out history
 	function traverseFrames(frame) {
 		//Find history
-		var parent;
-		if (frame.parent){
-			parent = $.grep($scope.project.wireframes, e => e._id === frame.parent)[0];
-			$scope.history.push(parent);
-			traverseFrames(parent);
+		function traverse(frame) {
+			var parent;
+			if (frame.parent){
+				parent = $.grep($scope.project.wireframes, e => e._id === frame.parent)[0];
+				$scope.history.push(parent);
+				traverse(parent);
+			}
 		}
+		traverse(frame);
+		$scope.history.reverse();
 	}
 
 	//Add comment to project
 	$scope.addComment = function() {
-		Project.submitComment($scope.project._id, $scope.newComment)
-		.then(comment => {
-			$scope.newComment = null;
-			var comments = $scope.project.comments
-			if (comments && comments.length) {
-				comments.push(comment)
-			} else {
-				$scope.project.comments = [comment];
-			}
-		})
+		if($scope.newComment) {
+			Project.submitComment($scope.project._id, $scope.newComment)
+			.then(comment => {
+				$scope.newComment = null;
+				var comments = $scope.project.comments
+				if (comments && comments.length) {
+					comments.push(comment)
+				} else {
+					$scope.project.comments = [comment];
+				}
+			})
+		}
 	}
 
 	//Functions checking current scope status

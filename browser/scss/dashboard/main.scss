@@ -10,18 +10,19 @@ a.image-download {
 	color: black;
 }
 
-/*.alltheprojects {
-	margin: auto;
-	margin-left: 15%;
-}*/
-
 .footer-basic-centered {
 	padding-bottom: 0;
 	margin-bottom: 0;
 }
 
-#userPage {
+.image-buffer {
+	border: 1px solid lighten($coalgrey, 20%);
 	background-color: white;
+	padding: 10px;
+}
+
+#userPage {
+	background-color: $bonegrey;
 	@media (min-width: 768px) {
 		padding-left: 60px;
 	}
@@ -86,7 +87,6 @@ a.image-download {
 
 	#activeSnapshot{
 		width:100%;
-		border: 1px solid black;
 	}
 
 	$tabPadding: 0.3em;
@@ -107,6 +107,9 @@ a.image-download {
 	
 	.individualFrame {
 		margin-top: 0.2em;
+		img {
+			width: 100%;
+		}
 	}
 
 	.masterPanel {

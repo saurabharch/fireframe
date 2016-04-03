@@ -5,6 +5,12 @@ $dark:#2f3131;
 
 navbar {
   z-index: 999;
+  .navbar-header {
+    padding: 0 15px;
+  }
+  .navbar-right {
+    margin: 0;
+  }
 }
 
 nav li:hover {

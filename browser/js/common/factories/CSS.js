@@ -18,40 +18,18 @@ app.factory('CSS', function() {
 			return currentScale;
 		},
 
-		//ng-style couldn't handle commas in rgb(0,0,0) so added this instead
-		addStyles: function(element, styles) {
-			for(var prop in styles) {
-				var param = {};
-
-				//catch for images flying off board...
-				if((prop==='left' || prop==='top') && +styles[prop] < 0) styles[prop] = 0;
-				
-				param[prop] = styles[prop];
-				$(element).css(param);
-			}
-		},
-
-		addSource: function(element, source) {
-			source = source || '/images/placeholder.png'
-			$('img').attr('src', source);
-		},
-
 		extractStyle: function(element) {
 			var style = {};
 			styles.forEach(function(prop) {
 				style[prop] = element.css(prop);
 			});
+
 			var boardLeft = $('#wireframe-board').scrollLeft();
 			var boardTop = $('#wireframe-board').scrollTop();
 
-			style.left = element.position().left/currentScale*100+boardLeft*100/currentScale;
-			style.top = element.position().top/currentScale*100+boardTop*100/currentScale;
-
+			style.left = (element.position().left+boardLeft)*100/currentScale
+			style.top = (element.position().top+boardTop)*100/currentScale
 			return style;
-		},
-
-		extractSource: function(element) {
-			return element.attr('src');
 		},
 
 		removeTransform: function(id) {

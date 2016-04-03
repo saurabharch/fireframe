@@ -31,8 +31,7 @@ app.factory('Interact', function(CSS) {
 			      restriction: "#wireframe-board",
 			      endOnly: true,
 			      elementRect: { top: 0, left: 0, bottom: null, right: null }
-			    },
-			    snap: { targets: currentEdges, range: 30 }
+			    }
 			  })
 			  .resizable({
 			    preserveAspectRatio: false,
