@@ -29,7 +29,7 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe, Proje
 	$scope.showHistory = false;
 	$scope.altBranches = $.grep($scope.project.wireframes, e => !e.children.length && e !== $scope.active);
 	traverseFrames($scope.active);
-	$scope.active.screenshotUrl = $scope.active.screenshotUrl || "http://static3.creately.com/blog/wp-content/uploads/2012/03/Wire-frame-example.png";
+	$scope.active.screenshotUrl = $scope.active.screenshotUrl || 'http://qvartz.com/wp-content/uploads/2015/05/Image_placeholder_4-3.png';
 	$scope.forkFrame = function(){
 		Wireframe.fork($scope.active._id, $scope.project._id)
 		.then(wireframe=>{
@@ -51,7 +51,7 @@ app.controller('ProjectCtrl', function($scope, $state, project, Wireframe, Proje
 		$scope.altBranches = [];
 		traverseFrames($scope.active);
 		$scope.altBranches = $.grep($scope.project.wireframes, e => !e.children.length && e !== $scope.active);
-		$scope.active.screenshotUrl = $scope.active.screenshotUrl || "http://static3.creately.com/blog/wp-content/uploads/2012/03/Wire-frame-example.png";
+		$scope.active.screenshotUrl = $scope.active.screenshotUrl || 'http://qvartz.com/wp-content/uploads/2015/05/Image_placeholder_4-3.png';
 
 	};
 

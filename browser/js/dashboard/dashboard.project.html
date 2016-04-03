@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-xs-12 text-center">
+	<div class="col-xs-12 text-center project-header">
 		<h2>{{ project.name }}</h2>
 		<hr>
 	</div>
@@ -7,10 +7,9 @@
 <div class="row">
 	<div class="col-xs-12">
 		<div class="col-xs-12 col-sm-8 col-md-7 col-md-offset-1">
-			<h3 style="margin-left: -40px"
-					class="wireframe-header">Active Wireframe
+			<h4 class="wireframe-header">Active Wireframe
 					<small class="pull-right">(Date Created: {{active.createdAt | date: 'short'}})</small>
-			</h3>
+			</h4>
 		</div>
 	</div>
 
@@ -101,13 +100,6 @@
 	</div>
 	
 	<div class="col-xs-12 col-sm-4 col-md-3" id="revisionControlPanel">
-		<!-- <ul class="masterPanel">
-	  	<li class="masterTitle"><strong>Master</strong></li>
-	  	<li class="masterScreenshot" ng-click="changeActive(master)">
-	  		<img class="img-responsive" ng-src="{{master.screenshotUrl}}">
-	  		<label>{{master.updatedAt | date: 'short'}}</label>
-	  	</li>
-  	</ul> -->
 
 		<ul class="nav nav-tabs nav-justified" role="tablist">
 		  <li role="presentation" id="goAlternate" ng-click="goAlt()" class="active">
@@ -119,6 +111,11 @@
   	</ul>
 
   	<ul class="framesList" ng-show="showHistory">
+	  	<li class="masterScreenshot" ng-click="changeActive(master)">
+	  		<h5>Master</h5>
+	  		<img class="img-responsive" ng-src="{{ master.screenshotUrl }}">
+	  		<label>{{master.updatedAt | date: 'short'}}</label>
+		  </li>
 			<li class="individualFrame"
 					ng-repeat="frame in history | orderBy:'updatedAt':true"
 					ng-click="changeActive(frame)">
@@ -129,6 +126,11 @@
 		</ul>
 
 		<ul class="framesList" ng-hide="showHistory">
+			<li class="masterScreenshot" ng-click="changeActive(master)">
+	  		<h5>Master</h5>
+	  		<img class="img-responsive" ng-src="{{ master.screenshotUrl }}">
+	  		<label>{{master.updatedAt | date: 'short'}}</label>
+		  </li>
 			<li class="individualFrame"
 					ng-repeat="frame in altBranches | orderBy:'updatedAt':true"
 					ng-click="changeActive(frame)">

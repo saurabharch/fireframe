@@ -90,8 +90,19 @@ a.image-download {
 		padding-left: 60px;
 	}
 
-	.wireframe-header small {
-		margin-top: 8px;
+	.project-header {
+		hr {
+			border-color: $coalgrey;
+			margin-bottom: 30px;
+			width: 50%;
+		}
+	}
+
+	.wireframe-header {
+		margin-left: -10px;
+		small {
+			margin-top: 4px;
+		}
 	}
 
 	select {
@@ -166,6 +177,9 @@ a.image-download {
 		background-color:$panelGrey;
 		padding: 5px;
 		overflow:hidden;
+		img:hover {
+			cursor: pointer;
+		};
 	}
 	
 	.individualFrame {
@@ -175,23 +189,20 @@ a.image-download {
 		}
 	}
 
-	.masterPanel {
-		width: 100%;
-		padding: 0;
-		font-size:1.2em;
-		margin-top: 1.5em;
-		list-style: none;
-		text-align: center;
-	}
-
-	.masterTitle {
-		background-color:$liquid;
-	}
-
 	.masterScreenshot {
-		background-color:$liquidUp;
-		padding: 5px;
-		overflow:hidden;
+		padding: 0;
+		background-color:$steelblue;
+		img {
+			padding: 0 5px;
+		}
+		h5 {
+			padding: 3px 0;
+			background-color: $coalgrey;
+			color: $sunshine;
+		}
+		&:hover {
+			cursor: pointer;
+		};
 	}
 
 	#newProject {
