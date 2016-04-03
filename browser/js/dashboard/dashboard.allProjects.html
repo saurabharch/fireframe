@@ -1,23 +1,27 @@
-<div class="container-fluid projectPage bg-bone">
+<div class="projectPage">
 	<div class="row">
-		<div>
+		<div class="col-sm-4">
 			<h1>PROJECTS</h1>
 		</div>
 	</div>
 
 	<div class="row">
-		<form class="form-inline">
-			<div class="form-group">
-		    <input type="text" class="form-control" placeholder="Search" ng-model="search">
-		  </div>
-		</form>
+		<div class="col-sm-4">
+			<form class="form-inline">
+				<div class="form-group">
+			    <input type="text" class="form-control" placeholder="Search" ng-model="search">
+			  </div>
+			</form>
+		</div>
 	</div>
 
-	<div class="row alltheprojects">
-		<div class="projectBox boxActive col-md-3" ng-repeat="project in projects | filter:search" ui-sref="dashboard.project({id:project._id})">
-			<img class="img-responsive projectimgs" ng-src="{{project.master.screenshotUrl}}">
-			<h3>{{project.name}}</h3>
-			<h4 class="steelblue">Created by: {{project.creator.firstName}} {{project.creator.lastName}}</h4>
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="project in projects | filter:search" ui-sref="dashboard.project({id:project._id})">
+			<div class="projectBox boxActive">
+				<img class="img-responsive projectimgs" ng-src="{{ project.master.screenshotUrl || 'http://qvartz.com/wp-content/uploads/2015/05/Image_placeholder_4-3.png' }}">
+				<h3>{{project.name}}</h3>
+				<h4 class="steelblue">Created by: {{project.creator.firstName}} {{project.creator.lastName}}</h4>
+			</div>
 		</div>
-</div>
+	</div>
 </div>

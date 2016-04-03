@@ -45,7 +45,6 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
 app.directive('sideNav', function ($rootScope, $state, $uibModal) {
   return {
     restrict: 'E',
-    scope: {},
     templateUrl: 'js/common/directives/navbar/side-nav.html',
     link: function (scope, element, attr) {
       scope.state = $state;

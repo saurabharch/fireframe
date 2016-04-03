@@ -14,7 +14,6 @@ router.param('id', function(req, res, next, id) {
 	Project.findById(id)
   .populate('wireframes', 'screenshotUrl master parent children createdAt updatedAt')
   .deepPopulate(['team.members', 'team.administrator'])
-  .populate('comments')
 	.then(project => {
 		if (project) {
       req.project = project;
@@ -63,6 +62,7 @@ router.get('/:id', auth.ensureTeamMemberOrAdmin, function(req, res, next) {
   Comment.find({
     project: req.project._id
   })
+  .populate('user', 'firstName lastName')
   .then(comments => {
     var project = req.project.toObject();
     project.comments = comments;
@@ -107,6 +107,11 @@ router.post('/:id/comments', auth.ensureTeamMemberOrAdmin, function(req, res, ne
     content: req.body.content,
     user: req.user._id,
     project: req.project._id
+  })
+  .then(comment => {
+    return comment
+    .populate('user', 'firstName lastName')
+    .execPopulate()
   })
   .then(comment => {
     res.json(comment);

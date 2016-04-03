@@ -1,117 +1,143 @@
-<div class="container-fluid">
-	<div class="row">
-		<h2>{{ project.name }}</h2> <br>
-		<div class="col-sm-8">
-	  	<h3>Active Wireframe (Date Created: {{active.createdAt | date: 'short'}})</h3>
-			<img id="activeSnapshot" src="{{active.screenshotUrl}}">
-			<br><br>
-			<button class="btn btn-warm" ng-click="forkFrame()">Create Fork</button>
-			<button class="btn btn-cool" ng-show="currentEdit()" ng-click="joinRoom()">Join Editing</button>
-			<button class="btn btn-liquid" ng-hide="isMaster()" ng-click="setMaster()">Set Master</button>
-			<br>
-			<br>
-			<div class="panel-group" id="accordion">
-	    	<div class="panel panel-default" id="panel1">
-		        <div class="panel-heading">
-		        	<h4 class="panel-title">
-		        		<a data-toggle="collapse" data-target="#collapseOne" 
-		       			href="#collapseOne">Project Details</a>
-		     			</h4>
-		        </div>
-		        <div id="collapseOne" class="panel-collapse collapse">
-		          <div class="panel-body">
-		            <table id="projectDetails">
-								<tr>
-									<th>Project Name: </th>
-									<td>{{project.name}}</td>
-								</tr>
-								<tr>
-									<th>Description: </th>
-									<td>{{project.description}}</td>
-								</tr>
-								<tr>
-									<th>Team Name: </th>
-									<td>{{project.team.name}}</td>
-								</tr>
-								<tr>
-									<th>Team Admin: </th>
-									<td>{{project.team.administrator.firstName}}</td>
-								</tr>
-								<tr>
-									<th>Team Members: </th>
-									<td ng-repeat="member in project.team.members">{{member.firstName}}</td>
-								</tr>
-								<tr>
-									<th>Created On: </th>
-									<td>{{project.created_at | date:'medium'}}</td>
-								</tr>
-								<tr>
-									<th>Last Updated: </th>
-									<td>{{project.updated_at | date:'medium'}}</td>
-								</tr>
-		          </table>
-						</div>
-		      </div>
-	    	</div>
-  		</div>
-			<!-- <md-content>
-		    <md-list>
-		      <md-subheader class="md-no-sticky">Comments</md-subheader>
-		      <md-list-item ng-repeat="comment in project.comments">
-		        <img class="md-avatar" />
-		        <div class="md-list-item-text">
-		          <h3>{{ comment.user.name }}</h3>
-		          <p>{{ comment.content }}</p>
-		        </div>
-		      </md-list-item>
-		      <md-list-item ng-hide="project.comments && project.comments.length">
-		      	<div class="md-list-item-text">
-		        	<p>There are no comments yet for this project</p>
-		        </div>
-		      </md-list-item>
-		      <br>
-		      <md-input-container class="md-block" flex-gt-sm>
-            <label>Add a comment</label>
-            <input ng-model="newComment">
-            <md-button ng-click="addComment()">Submit</md-button>	
-          </md-input-container>
-		    </md-list>
-		  </md-content> -->
-		</div>
-
-		<div class="col-sm-4" id="revisionControlPanel">
-			<!-- <ul class="nav nav-tabs nav-justified masterPanel"> -->
-			<ul class="masterPanel">
-			  	<li class="masterTitle"><strong>Master</strong></li>
-			  	<li class="masterScreenshot" ng-click="changeActive(master)">
-			  		<img ng-src="{{master.screenshotUrl}}" height="100" width="100">
-			  		<label>{{master.updatedAt | date: 'short'}}</label>
-			  	</li>
-		  	</ul>
-
-			<ul class="nav nav-tabs nav-justified" role="tablist">
-			  <li role="presentation" id="goHist" ng-click="goHistory()" class="active">
-			  	<a href="#history" role="tab" data-toggle="tab">History</a>
-			  </li>
-			  <li role="presentation" id="goAlternate" ng-click="goAlt()">
-			  	<a href="#alternate" role="tab" data-toggle="tab">Alternate</a>
-			  </li>
-		  	</ul>
-
-			<ul class="framesList" ng-hide="showHistory">
-				<li class="individualFrame" ng-repeat="frame in altBranches | orderBy:'updatedAt':true" ng-click="changeActive(frame)">
-					<img ng-src="{{frame.screenshotUrl}}" height="100" width="100">
-					<label>{{frame.updatedAt | date: 'short'}}</label>
-				</li>
-			</ul>
-
-			<ul class="framesList" ng-show="showHistory">
-				<li class="individualFrame" ng-repeat="frame in history | orderBy:'updatedAt':true" ng-click="changeActive(frame)">
-					<img ng-src="{{frame.screenshotUrl}}" height="100" width="100">
-					<label>{{frame.updatedAt | date: 'short'}}</label>
-				</li>
-			</ul>
-
+<div class="row">
+	<div class="col-xs-12 text-center project-header">
+		<h2>{{ project.name }}</h2>
+		<hr>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="col-xs-12 col-sm-8 col-md-7 col-md-offset-1">
+			<h4 class="wireframe-header">Active Wireframe
+					<small class="pull-right">(Date Created: {{active.createdAt | date: 'short'}})</small>
+			</h4>
 		</div>
 	</div>
+
+	<div class="col-xs-12 col-sm-8 col-md-7 col-md-offset-1">
+		<div class="image-buffer">
+			<img id="activeSnapshot" ng-src="{{ active.screenshotUrl }}">
+		</div>
+		<br><br>
+		<button class="btn btn-warm" ng-click="forkFrame()">Create Fork</button>
+		<button class="btn btn-cool" ng-show="currentEdit()" ng-click="joinRoom()">Join Editing</button>
+		<button class="btn btn-liquid" ng-hide="isMaster()" ng-click="setMaster()">Set Master</button>
+		<a class="image-download" download="{{ active._id }}.png" href="{{ active.screenshotUrl }}"><button class="btn">Download Image</button></a>
+		<br>
+		<br>
+		<div class="panel panel-info">
+  		<div class="panel-heading">Project Discussion</div>
+			<div class="panel-body">
+				<ul class="media-list">
+					<li ng-repeat="comment in project.comments" class="media">
+						<div class="media-body">
+							<div class="media">
+                <div class="media-body">
+                  {{ comment.content }}
+                  <br>
+                 	<small class="text-muted">{{ (comment.user.firstName + ' ' + comment.user.lastName) }} | {{ comment.time | date }}</small>
+                  <hr>
+                </div>
+            	</div>
+        		</div>
+    			</li>
+        </ul>  
+    	</div>
+			<div class="panel-footer">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Add to the Conversation" ng-model="newComment">
+					<span class="input-group-btn">
+            <button class="btn btn-info" type="button" ng-click="addComment()">Submit</button>
+          </span>
+        </div>
+			</div>
+		</div>
+
+		<!-- <div class="panel-group" id="accordion">
+    	<div class="panel panel-default" id="panel1">
+        <div class="panel-heading">
+        	<h4 class="panel-title">
+        		<a data-toggle="collapse" data-target="#collapseOne" 
+       			href="#collapseOne">Project Details</a>
+     			</h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse">
+          <div class="panel-body">
+            <table id="projectDetails">
+							<tr>
+								<th>Project Name: </th>
+								<td>{{project.name}}</td>
+							</tr>
+							<tr>
+								<th>Description: </th>
+								<td>{{project.description}}</td>
+							</tr>
+							<tr>
+								<th>Team Name: </th>
+								<td>{{project.team.name}}</td>
+							</tr>
+							<tr>
+								<th>Team Admin: </th>
+								<td>{{project.team.administrator.firstName}}</td>
+							</tr>
+							<tr>
+								<th>Team Members: </th>
+								<td ng-repeat="member in project.team.members">{{member.firstName}}</td>
+							</tr>
+							<tr>
+								<th>Created On: </th>
+								<td>{{project.created_at | date:'medium'}}</td>
+							</tr>
+							<tr>
+								<th>Last Updated: </th>
+								<td>{{project.updated_at | date:'medium'}}</td>
+							</tr>
+	          </table>
+					</div>
+		    </div>
+	   	</div>
+  	</div> --><!-- closes panel -->
+	<!-- </div> --><!-- closes column -->
+	</div>
+	
+	<div class="col-xs-12 col-sm-4 col-md-3" id="revisionControlPanel">
+
+		<ul class="nav nav-tabs nav-justified" role="tablist">
+		  <li role="presentation" id="goAlternate" ng-click="goAlt()" class="active">
+		  	<a href="#alternate" role="tab" data-toggle="tab">Alternate</a>
+		  </li>
+		  <li role="presentation" id="goHist" ng-click="goHistory()">
+		  	<a href="#history" role="tab" data-toggle="tab">History</a>
+		  </li>
+  	</ul>
+
+  	<ul class="framesList" ng-show="showHistory">
+	  	<li class="masterScreenshot" ng-click="changeActive(master)">
+	  		<h5>Master</h5>
+	  		<img class="img-responsive" ng-src="{{ master.screenshotUrl }}">
+	  		<label>{{master.updatedAt | date: 'short'}}</label>
+		  </li>
+			<li class="individualFrame"
+					ng-repeat="frame in history | orderBy:'updatedAt':true"
+					ng-click="changeActive(frame)">
+					<img class="img-responsive"
+							 ng-src="{{ frame.screenshotUrl || 'http://qvartz.com/wp-content/uploads/2015/05/Image_placeholder_4-3.png' }}">
+					<label>{{frame.updatedAt | date: 'short'}}</label>
+			</li>
+		</ul>
+
+		<ul class="framesList" ng-hide="showHistory">
+			<li class="masterScreenshot" ng-click="changeActive(master)">
+	  		<h5>Master</h5>
+	  		<img class="img-responsive" ng-src="{{ master.screenshotUrl }}">
+	  		<label>{{master.updatedAt | date: 'short'}}</label>
+		  </li>
+			<li class="individualFrame"
+					ng-repeat="frame in altBranches | orderBy:'updatedAt':true"
+					ng-click="changeActive(frame)">
+					<img class="img-responsive" 
+							 ng-src="{{ frame.screenshotUrl || 'http://qvartz.com/wp-content/uploads/2015/05/Image_placeholder_4-3.png' }}">
+				<label>{{frame.updatedAt | date: 'short'}}</label>
+			</li>
+		</ul>
+	</div><!-- closes control panel -->
 </div>
