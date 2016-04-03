@@ -19,8 +19,6 @@ $coalgrey: #2F3131;
 }
 
 body {
-  background: #fdfdfd;
-  /*overflow:hidden;*/
   font-family: 'Roboto Slab', serif;
 }
 
@@ -37,13 +35,12 @@ body {
   margin-top: -0.4em;
 }
 
-
 #main {
 	margin: 0;
 	padding: 0;
-  padding-top: 50px;
   height:100%;
   width:100%;
+  padding-top: 50px;
 }
 
 .btn-cool {

@@ -1,4 +1,4 @@
-app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
+app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope, $log) {
   var firebase;
   var firebaseComponents;
   var firebaseUsers;
@@ -140,7 +140,7 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
 
     checkForWireframes: function(projectId){
       var firebase = new Firebase("https://shining-torch-5682.firebaseio.com/projects/" + projectId + '/wireframes/');
-        
+
       //firebase promises r dum
       return new Promise(function(resolve, reject) {
         firebase.once('value', function(data) {
@@ -148,7 +148,17 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope) {
         }, function(err) {
           reject(err);
         });
-      });
+      })
+      .then(wireframes => {
+        var activeWires = [];
+        wireframes.forEach(frame => {
+          if(frame.hasChild('users')) {
+            activeWires.push(frame);
+          }
+        })
+        return activeWires;
+      })
+      .then(null, $log)
 
     },
 

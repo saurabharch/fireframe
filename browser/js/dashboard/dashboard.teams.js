@@ -23,15 +23,19 @@ app.controller('UserTeamsCtrl', function($scope, userTeams, Project, Team, AuthS
 	console.log("scope.teams is ",userTeams);
 	console.log("user is ",AuthService.getLoggedInUser());
 
-	$scope.screenshots = [];
 	$scope.teams.forEach(function(team){
+		team.screenshots = [];
 		Team.fetchTeamProjects(team._id)
 		.then(projects => {
 			return team.projects = projects;
 		})
 		.then(function(projects) {
 			projects.forEach(function(project, i) {
-				$scope.screenshots.push(projects[i].master.screenshotUrl);
+				var projinfo = {};
+				projinfo.id = project._id;
+				projinfo.name = project.name;
+				projinfo.screenshotUrl = projects[i].master.screenshotUrl;
+				team.screenshots.push(projinfo);
 			})
 		})
 	});
