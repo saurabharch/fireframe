@@ -26,7 +26,7 @@
     <div class="card-img-top" ng-repeat="projinfo in team.screenshots">
       <div class="card-block projcardinfo">
         <ul class="list-unstyled">
-          <li><a href="#"><img ng-src="{{projinfo.screenshotUrl}}" alt=""><br><span>{{projinfo.name}}</span></a></li>
+          <li><a ui-sref="dashboard.project({id:projinfo.id})"><img ng-src="{{projinfo.screenshotUrl}}" alt=""><br><span>{{projinfo.name}}</span></a></li>
         </ul>
       </div>
     </div>
