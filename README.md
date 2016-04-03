@@ -46,6 +46,7 @@ Without any previous design software knowledge, non-designers can quickly create
 
 ## How to use it
 **Creating wireframes is simple:**
+
 1. Go to firefra.me
 2. Login/Create Account
 3. Create new project or edit an existing one
