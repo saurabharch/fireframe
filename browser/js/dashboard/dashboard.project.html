@@ -5,15 +5,11 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-xs-12">
-		<div class="col-xs-12 col-sm-8 col-md-7 col-md-offset-1">
-			<h4 class="wireframe-header">Active Wireframe
-					<small class="pull-right">(Date Created: {{active.createdAt | date: 'short'}})</small>
-			</h4>
-		</div>
-	</div>
-
 	<div class="col-xs-12 col-sm-8 col-md-7 col-md-offset-1">
+		<h4 class="wireframe-header">Active Wireframe
+				<small class="pull-right">(Date Created: {{active.createdAt | date: 'short'}})</small>
+		</h4>
+
 		<div class="image-buffer">
 			<img id="activeSnapshot" ng-src="{{ active.screenshotUrl }}">
 		</div>
@@ -51,7 +47,7 @@
         </div>
 			</div>
 		</div>
-
+	</div>
 		<!-- <div class="panel-group" id="accordion">
     	<div class="panel panel-default" id="panel1">
         <div class="panel-heading">
@@ -96,8 +92,6 @@
 		    </div>
 	   	</div>
   	</div> --><!-- closes panel -->
-	<!-- </div> --><!-- closes column -->
-	</div>
 	
 	<div class="col-xs-12 col-sm-4 col-md-3" id="revisionControlPanel">
 

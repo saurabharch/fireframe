@@ -88,18 +88,20 @@ a.image-download {
 	background-color: $bonegrey;
 	@media (min-width: 768px) {
 		padding-left: 60px;
+		margin-top: 0px;
 	}
+	margin-top: -70px;
 
 	.project-header {
 		hr {
 			border-color: $coalgrey;
-			margin-bottom: 30px;
+			margin-bottom: 50px;
 			width: 50%;
 		}
 	}
 
 	.wireframe-header {
-		margin-left: -10px;
+		margin-left: 0;
 		small {
 			margin-top: 4px;
 		}
@@ -252,6 +254,7 @@ a.image-download {
 
 .projectBox {
 	margin:5px;
+	margin-bottom: 30px;
 	padding:10px;
 	text-align:center;
 	height:270px;
