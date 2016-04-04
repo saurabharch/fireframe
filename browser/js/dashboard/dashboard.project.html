@@ -23,7 +23,7 @@
 		<br>
 		<br>
 		<div class="panel panel-info">
-  		<div class="panel-heading">Project Discussion</div>
+  		<div class="panel-heading panel-steel">Project Discussion</div>
 			<div class="panel-body">
 				<ul class="media-list">
 					<li ng-repeat="comment in project.comments" class="media">
@@ -44,7 +44,7 @@
 				<div class="input-group">
 					<input type="text" class="form-control" placeholder="Add to the Conversation" ng-model="newComment">
 					<span class="input-group-btn">
-            <button class="btn btn-info" type="button" ng-click="addComment()">Submit</button>
+            <button class="btn btn-sunshine" type="button" ng-click="addComment()">Submit</button>
           </span>
         </div>
 			</div>
@@ -108,13 +108,13 @@
   	<ul class="framesList" ng-show="showHistory">
 	  	<li class="masterScreenshot" ng-click="changeActive(master)">
 	  		<h5>Master</h5>
-	  		<img class="img-responsive" ng-src="{{ master.screenshotUrl }}">
+	  		<img class="img-responsive project-img" ng-src="{{ master.screenshotUrl }}">
 	  		<label>{{master.updatedAt | date: 'short'}}</label>
 		  </li>
 			<li class="individualFrame"
 					ng-repeat="frame in history | orderBy:'updatedAt':true"
 					ng-click="changeActive(frame)">
-					<img class="img-responsive"
+					<img class="img-responsive project-img"
 							 ng-src="{{ frame.screenshotUrl || 'http://qvartz.com/wp-content/uploads/2015/05/Image_placeholder_4-3.png' }}">
 					<label>{{frame.updatedAt | date: 'short'}}</label>
 			</li>
@@ -123,13 +123,13 @@
 		<ul class="framesList" ng-hide="showHistory">
 			<li class="masterScreenshot" ng-click="changeActive(master)">
 	  		<h5>Master</h5>
-	  		<img class="img-responsive" ng-src="{{ master.screenshotUrl }}">
+	  		<img class="img-responsive project-img" ng-src="{{ master.screenshotUrl }}">
 	  		<label>{{master.updatedAt | date: 'short'}}</label>
 		  </li>
 			<li class="individualFrame"
 					ng-repeat="frame in altBranches | orderBy:'updatedAt':true"
 					ng-click="changeActive(frame)">
-					<img class="img-responsive" 
+					<img class="img-responsive project-img" 
 							 ng-src="{{ frame.screenshotUrl || 'http://qvartz.com/wp-content/uploads/2015/05/Image_placeholder_4-3.png' }}">
 				<label>{{frame.updatedAt | date: 'short'}}</label>
 			</li>
