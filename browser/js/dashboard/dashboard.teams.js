@@ -2,6 +2,7 @@
 
 app.config(function($stateProvider) {
 	$stateProvider.state('dashboard.teams', {
+		url: '/teams',
 		templateUrl: '/js/dashboard/dashboard.teams.html',
 		controller: 'UserTeamsCtrl',
 		resolve: {
