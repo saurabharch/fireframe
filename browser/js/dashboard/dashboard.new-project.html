@@ -1,7 +1,7 @@
-<div class="modal-header">
-    <h3 class="modal-title">New Project</h3>
+<div class="modal-header bg-lightgrey">
+    <h3 class="modal-title steelblue">New Project</h3>
 </div>
-<div class="modal-body">
+<div class="modal-body bg-bone">
     <form class="form">
 			<div class="form-group">
 				<label for="projectName">Project Name</label>
@@ -44,13 +44,13 @@
 					<p ng-show="teamMembers.length > 0">Team Members:</p>
 					<p ng-repeat="member in teamMembers">{{member}}</p>
 					<br>
-					<button class="btn btn-primary" ng-click="addTeam()">Add Team</button>
+					<button class="btn btn-primary bg-steelblue" ng-click="addTeam()">Add Team</button>
 					<hr>
 				</div>
 			</form>
 		</div>
 </div>
-<div class="modal-footer">
+<div class="modal-footer bg-lightgrey">
 	<button ng-click="addProject()" id="newProjectSubmit" class="btn btn-success">Submit</button>
-  <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+  <button class="btn btn-warning bg-sunshine" type="button" ng-click="cancel()">Cancel</button>
 </div>

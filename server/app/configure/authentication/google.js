@@ -3,7 +3,7 @@
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var mongoose = require('mongoose');
-var UserModel = mongoose.model('User');
+var User = mongoose.model('User');
 
 module.exports = function (app) {
 
@@ -17,16 +17,20 @@ module.exports = function (app) {
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
 
-        UserModel.findOne({ 'google.id': profile.id }).exec()
+        User.findOne({ 'google.id': profile.id }).exec()
             .then(function (user) {
 
                 if (user) {
                     return user;
                 } else {
-                    return UserModel.create({
+                    return User.create({
                         google: {
                             id: profile.id
-                        }
+                        },
+                        email: profile.emails[0].value,
+                        password: Math.rand(),
+                        firstName: profile.displayName[0],
+                        lastName: profile.displayName[1] || "NoLastName"
                     });
                 }
 
@@ -51,7 +55,8 @@ module.exports = function (app) {
     app.get('/auth/google/callback',
         passport.authenticate('google', { failureRedirect: '/login' }),
         function (req, res) {
-            res.redirect('/');
+            console.log("Hitting this?");
+            res.redirect('/dashboard');
         });
 
 };
