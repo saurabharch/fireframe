@@ -68,7 +68,7 @@ Gustaf Erickson [![Github][Github_Logo]][Gustaf_GithubUrl] [![Linkedin][LinkedIn
 
 
 [Fireframe_Screenshot]: https://s3.amazonaws.com/capstone.bucket/FireframeEditor_4-4-2016.png "Fireframe Editor"
-[VC_TreeStructure]: https://s3.amazonaws.com/capstone.bucket/VersionControlTree.png "Version Control Tree"
+[VC_TreeStructure]: https://s3.amazonaws.com/capstone.bucket/VersionControlTree_reducedsize_4-4-2016.png "Version Control Tree"
 
 [Github_Logo]: https://s3.amazonaws.com/capstone.bucket/GitHub-Mark-14px.png
 [LinkedIn_Logo]: https://s3.amazonaws.com/capstone.bucket/In-2C-14px.png
