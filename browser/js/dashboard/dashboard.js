@@ -26,7 +26,7 @@ app.config(function($stateProvider) {
 	})
 });
 
-app.controller('DashboardCtrl', function($scope, $state, $uibModal) {
+app.controller('DashboardCtrl', ["$scope", "$state", "$uibModal", function($scope, $state, $uibModal) {
 
 	$('.sidebar li').click(function() {
 		if($(this).find('a').hasClass('add')) return;
@@ -60,4 +60,4 @@ app.controller('DashboardCtrl', function($scope, $state, $uibModal) {
     });
   };
 
-});
+}]);
