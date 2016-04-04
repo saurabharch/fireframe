@@ -68,7 +68,7 @@ router.put('/:id', function(req, res, next) {
      * components are loaded from DB, and webshot
      * captures screen
      */ 
-    return webshot("http://localhost:1337/phantom/"+req.params.id, options);
+    return webshot("http://www.firefra.me/phantom/"+req.params.id, options);
   })
   .then(function(stream) {
     return new Readable().wrap(stream);

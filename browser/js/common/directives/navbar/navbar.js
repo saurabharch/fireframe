@@ -70,7 +70,7 @@ app.directive('sideNav', ["$rootScope", "$state", "$uibModal", function ($rootSc
           controller: 'ModalInstanceCtrl',
           size: 'sm',
           resolve: {
-            user: function(AuthService, User, $log) {
+            user: ['AuthService', 'User', '$log', function (AuthService, User, $log) {
               var user;
               return AuthService.getLoggedInUser()
               .then(currentUser => {
@@ -84,8 +84,8 @@ app.directive('sideNav', ["$rootScope", "$state", "$uibModal", function ($rootSc
               .catch(function(err) {
                 console.log(err);
                 return user;
-              })
-            }
+              });
+            }]
           }
         });
       };
