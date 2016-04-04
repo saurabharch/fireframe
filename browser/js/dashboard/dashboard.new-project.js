@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('ModalInstanceCtrl', function ($uibModalInstance, $scope, $state, user, User, Wireframe, $timeout) {
+app.controller('ModalInstanceCtrl', ['$uibModalInstance', '$scope', '$state', 'user', 'User', 'Wireframe', '$timeout', function ($uibModalInstance, $scope, $state, user, User, Wireframe, $timeout) {
 	$scope.user = user;
 	$scope.formShow = false;
 	//Add New Team
@@ -60,4 +60,4 @@ app.controller('ModalInstanceCtrl', function ($uibModalInstance, $scope, $state,
 	$scope.cancelTeam = function(){
 		$scope.formShow = false;
 	}
-});
+}]);
