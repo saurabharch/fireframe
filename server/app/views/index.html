@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="/style.css"/>
     <link rel="stylesheet" type="text/css" href="/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/angular-material/angular-material.css">
+    <link rel="stylesheet" type="text/css" href="/angular-loading-bar/build/loading-bar.min.css"></link>
 
     <script src="/lodash/index.js"></script>
     <script src="/jquery/dist/jquery.min.js"></script>
@@ -22,6 +23,7 @@
     <script src="/angular-ui-bootstrap/ui-bootstrap.js"></script>
     <script src="/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
+    <script src="/angular-loading-bar/build/loading-bar.min.js"></script>
 
 
     <script src="/socket.io-client/socket.io.js"></script>
@@ -31,6 +33,7 @@
 <body ng-app="FullstackGeneratedApp">
     <navbar></navbar>
     <side-nav ng-show="state.includes('dashboard')"></side-nav>
+    <div id="loading-bar-container"></div>
     <div class="main" id="main" ui-view></div>
 </body>
 </html>
