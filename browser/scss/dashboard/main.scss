@@ -281,6 +281,9 @@ a.image-download {
 		cursor: pointer;
 		background-color:#555;
 		color:#fff;
+		h4 {
+		color: $sunshine;
+		}
 	}
 	-webkit-transition: 300ms ease-out;
   -moz-transition: 300ms ease-out;
@@ -290,12 +293,4 @@ a.image-download {
 
 .bottom-padding{
 	padding-bottom:50px;
-}
-
-.boxActive:hover{
-	background-color:#555;
-	color:#fff;
-	h4 {
-		color: $sunshine;
-	}
 }

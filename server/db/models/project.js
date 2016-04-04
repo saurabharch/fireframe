@@ -71,22 +71,26 @@ ProjectSchema.statics.setMaster = function(wireframeId, projectId) {
 	return Project.findById(projectId)
 	.then(function(project){
 		var projectWireframes = project.wireframes;
-		return Wireframe.find({
+		return Wireframe.findOne({
 			master: true,
 			_id: { $in: projectWireframes}
 		});
 	})
 	.then(function(oldMaster) {
-		oldMaster[0].master = false;
-		return oldMaster[0].save();
+		oldMaster.master = false;
+		return oldMaster.save();
 	})
-	.then(function() {
+	.then(function(oldMaster) {
 		return Wireframe.findById(wireframeId);
 	})
 	.then(function(wireframe) {
 		wireframe.master = true;
 		return wireframe.save();
 	});
+};
+
+ProjectSchema.methods.deleteProject = function(){
+	return this.remove();
 };
 
 var Project = mongoose.model('Project', ProjectSchema);
