@@ -94,7 +94,7 @@ $btn-side: .45 * $left-width;
 }
 
 .btn-blue {
-  background-color: $liquid;
+  background-color: $steelblue;
   color: white;
 }
 
@@ -130,12 +130,20 @@ $btn-side: .45 * $left-width;
   margin:0.1vw 0.05vw 0.1vw 0.2vw;
   width: $btn-side;
   height: $btn-side;
+  box-shadow: 3px 0px 3px rgba(0, 0, 0, 0.3);
 }
 
 .btn-colorpicker{
-  margin-top:3px;
-  padding:0.25vw 0.7vw;
-  font-size:1vw;
+  width:100%;
+  margin-bottom:2%;
+  font-size:0.9vw;
+  background-color: $steelblue;
+  color: white;
+  margin: 5px;
+  border-radius: 0px;
+  border: 2px solid white;
+  padding: auto 0;
+  margin: auto 0;
 }
 
 .btn-arrange {
@@ -143,6 +151,7 @@ $btn-side: .45 * $left-width;
   margin-bottom:2%;
   font-size:0.8vw;
 }
+
 
 .button-icon {
   height:0.5 * $btn-side;
@@ -161,7 +170,7 @@ $btn-side: .45 * $left-width;
 
 button{
   &:hover{
-    background-color:$liquid;
+    background-color:$sunshine;
   }
 
   &:active{
