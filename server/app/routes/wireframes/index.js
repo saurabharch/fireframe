@@ -67,8 +67,15 @@ router.put('/:id', function(req, res, next) {
      * Webshot (phantomJS wrapper) goes to '/phantom/:id',
      * components are loaded from DB, and webshot
      * captures screen
-     */ 
-    return webshot("http://www.firefra.me/phantom/"+req.params.id, options);
+     */
+    var phantomUrl;
+    if (process.env.NODE_ENV === 'production') {
+      phantomUrl = "http://www.firefra.me/phantom/";
+    } else {
+      phantomUrl = "http://localhost:1337/phantom/";
+    }
+
+    return webshot(phantomUrl+req.params.id, options);
   })
   .then(function(stream) {
     return new Readable().wrap(stream);
