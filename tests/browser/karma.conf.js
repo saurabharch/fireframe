@@ -6,14 +6,16 @@ module.exports = function (config) {
         'node_modules/lodash/index.js',
         'node_modules/angular/angular.js',
         'node_modules/angular-animate/angular-animate.js',
+        'node_modules/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
         'node_modules/angular-ui-router/release/angular-ui-router.js',
         'node_modules/angular-ui-bootstrap/ui-bootstrap.js',
         'node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.js',
         'node_modules/socket.io-client/socket.io.js',
+        'node_modules/interact.js/interact.js'    
         'public/main.js',
         'node_modules/sinon/pkg/sinon.js',
         'node_modules/angular-mocks/angular-mocks.js',
-        'tests/browser/**/*.js'
+        'tests/browser/**/*.js',
     ];
 
     var excludeFiles = [
