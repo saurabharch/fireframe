@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('LoginCtrl', function ($scope, AuthService, $state) {
+app.controller('LoginCtrl', function ($scope, AuthService, $state, $http) {
 
     $scope.login = {};
     $scope.error = null;
@@ -24,5 +24,11 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state) {
         });
 
     };
+
+    // $scope.googleAuth = function(){
+    //     console.log("HELP");
+    //     return $http.get('/auth/google/')
+    //     .then(res => console.log(res));
+    // };
 
 });

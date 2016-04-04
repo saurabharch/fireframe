@@ -51,6 +51,7 @@ describe('Project model', function() {
           })
           .then(function(newMasterWireframe) {
             projTwo.wireframes.push(newMasterWireframe._id);
+            projTwo.save();
           }),
 
           Project.create({
@@ -70,10 +71,10 @@ describe('Project model', function() {
       });
 
     it('sets a master wireframe', function(done) {
-
-      projTwo.setMaster(projTwo.wireframes[0])
+      Project.setMaster(projTwo.wireframes[0], projTwo._id)
       .then(function(newMasterWireframe) {
         expect(newMasterWireframe._id.toString()).to.be.equal(projTwo.wireframes[0].toString());
+        expect(newMasterWireframe.master).to.be.true;
         done();
       })
       .then(null, function(err) {
@@ -84,7 +85,10 @@ describe('Project model', function() {
     it('deletes a project', function(done) {
       projOne.deleteProject()
       .then(function(deletedProject) {
-        expect(deletedProject.wireframes).to.be.undefined;
+        return Project.findById(deletedProject._id);
+        })
+      .then(function(project){
+        expect(project).to.be.null;
         done();
       })
       .then(null, function(err) {
