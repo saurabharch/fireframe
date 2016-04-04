@@ -3,6 +3,7 @@
 app.config(function($stateProvider) {
 	$stateProvider.state('dashboard.allProjects', {
 		templateUrl: '/js/dashboard/dashboard.allProjects.html',
+		url: '/projects',
 		resolve: {
 			projects: function(User) {
 				return User.fetchProjects()
