@@ -1,6 +1,7 @@
 'use strict';
 
 app.controller('ModalInstanceCtrl', ["$uibModalInstance", "$scope", "$state", "user", "User", "Wireframe", "$timeout", function ($uibModalInstance, $scope, $state, user, User, Wireframe, $timeout) {
+
 	$scope.user = user;
 	$scope.formShow = false;
 	//Add New Team

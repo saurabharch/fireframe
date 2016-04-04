@@ -50,6 +50,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
   };
 });
 
+
 app.directive('sideNav', ["$rootScope", "$state", "$uibModal", function ($rootScope, $state, $uibModal) {
   return {
     restrict: 'E',
