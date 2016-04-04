@@ -1,24 +1,22 @@
 'use strict';
-window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'colorpicker.module']);
+window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'colorpicker.module', 'angular-loading-bar']);
 
 //taking out  makes the angular tests work... have to debug as to why
 
 app.config(function ($urlRouterProvider, $locationProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)
     $locationProvider.html5Mode(true);
+    $urlRouterProvider.when('/auth/google', function () {
+        window.location.reload();
+    });
     // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
     $urlRouterProvider.otherwise('/');
 });
 
-// app.config(function ($mdThemingProvider) {
-    
-//    $mdThemingProvider.theme('default')
-//        .primaryPalette('red')
-//        .accentPalette('teal')
-//        .warnPalette('deep-orange')
-//        .backgroundPalette('blue')
-//        .dark();
-// });
+app.config(function(cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.includeSpinner = false;
+    cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
+})
 
 // This app.run is for controlling access to specific states.
 app.run(function ($rootScope, AuthService, $state) {

@@ -65,7 +65,7 @@ a.image-download {
 
 .projimgs {
 	float: left; 
-	height: 90%;
+	height: 70%;
 	width: 30%;
 }
 
@@ -75,8 +75,8 @@ a.image-download {
 }
 
 .projscreenshots {
-	width: 100%;
-	height: 100%;
+	width: 70%;
+	height: 70%;
 }
 
 .footer-links {
@@ -281,6 +281,9 @@ a.image-download {
 		cursor: pointer;
 		background-color:#555;
 		color:#fff;
+		h4 {
+		color: $sunshine;
+		}
 	}
 	-webkit-transition: 300ms ease-out;
   -moz-transition: 300ms ease-out;
@@ -290,12 +293,4 @@ a.image-download {
 
 .bottom-padding{
 	padding-bottom:50px;
-}
-
-.boxActive:hover{
-	background-color:#555;
-	color:#fff;
-	h4 {
-		color: $sunshine;
-	}
 }

@@ -8,6 +8,7 @@ var Project = mongoose.model('Project');
 var Comment = mongoose.model('Comment');
 var Team = mongoose.model('Team');
 var auth = require('../authentication');
+var _ = require('lodash');
 
 
 router.param('id', function(req, res, next, id) {
@@ -52,7 +53,7 @@ router.post('/', auth.ensureUser, function(req, res, next) {
   req.body.creator = req.user._id;
   Project.createNewProject(req.body)
   .then(wireframe => {
-    res.json(wireframe);
+    res.status(201).json(wireframe);
   })
   .then(null, next)
 });
