@@ -14,6 +14,7 @@ app.config(function($stateProvider) {
 app.controller('PhantomCtrl', function($scope, wireframe, CSS, Wireframe, $timeout) {
 	$scope.wireframe = wireframe;
 	$scope.board = $('#phantom-board');
+	$('#main').css('background-color', 'white');
 
 	$scope.setStyle = function(style) {
 		return style;

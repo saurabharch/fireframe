@@ -14,10 +14,12 @@
 			<img id="activeSnapshot" ng-src="{{ active.screenshotUrl }}">
 		</div>
 		<br><br>
-		<button class="btn btn-warm" ng-click="forkFrame()">Create Fork</button>
-		<button class="btn btn-cool" ng-show="currentEdit()" ng-click="joinRoom()">Join Editing</button>
-		<button class="btn btn-liquid" ng-hide="isMaster()" ng-click="setMaster()">Set Master</button>
-		<a class="image-download" download="{{ active._id }}.png" href="{{ active.screenshotUrl }}"><button class="btn">Download Image</button></a>
+		<div id="project-btns">
+			<button class="btn btn-steel" ng-click="forkFrame()">Create Fork</button>
+			<button class="btn btn-sunshine" ng-show="currentEdit()" ng-click="joinRoom()">Join Editing</button>
+			<a class="image-download pull-right" download="{{ active._id }}.png" href="{{ active.screenshotUrl }}"><button class=" btn btn-steel">Download Image</button></a>
+			<button class="btn btn-sunshine pull-right" ng-hide="isMaster()" ng-click="setMaster()">Set Master</button>
+		</div>
 		<br>
 		<br>
 		<div class="panel panel-info">
