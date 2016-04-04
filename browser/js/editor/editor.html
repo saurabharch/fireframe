@@ -15,13 +15,13 @@
     			<input type="range" ng-model='currentZoom' ng-change="updateZoom(currentZoom)" min="50" max="200"></input><br>
 					
 					<label>Arrange</label>
-					<button class="btn btn-arrange btn-editor btn-blue" ng-click="moveForward()">Move Forward</button>
+					<button class="btn btn-arrange btn-editor btn-blue" ng-click="moveForward()">Forward</button>
 					<button class="btn btn-arrange btn-editor btn-blue" ng-click="moveToFront()">Bring to Front</button>
-					<button class="btn btn-arrange btn-editor btn-blue" ng-click="moveBackward()">Move Backward</button>
+					<button class="btn btn-arrange btn-editor btn-blue" ng-click="moveBackward()">Backward</button>
 					<button class="btn btn-arrange btn-editor btn-blue" ng-click="moveToBack()">Send to Back</button>
 				</div>
 				<div class="tool-panel">
-					<button class="btn btn-arrange btn-editor btn-save" ng-click="save()">Save</button>
+					<button class="btn btn-arrange btn-editor btn-yellow" ng-click="save()">Save</button>
 				</div>
     </div>
 
@@ -50,14 +50,14 @@
 							 ng-disabled="active.type==='image-box' || active.type==='text-box' || active-type==='list'"
 							 ng-model="active.style['background-color']"
 							 style="background-color: {{ active.style['background-color'] }}">
-				<button class="btn btn-colorpicker" colorpicker colorpicker-position="left" ng-hide="active.type==='text-box' || active.type==='list'"
+				<button class="btn btn-arrange btn-editor btn-blue" colorpicker colorpicker-position="left" ng-hide="active.type==='text-box' || active.type==='list'"
 								ng-disabled="active.type==='image-box' || active.type==='text-box' || active.type==='list'"
 								ng-model="active.style['background-color']">Choose Color</button>
 
 				<input id="color" type="text" ng-show="active.type==='text-box' || active.type==='list'"
 							 ng-disabled="active.type!=='text-box' && active.type!=='list'" ng-model="active.style.color"
 							 style="background-color: {{ active.style.color }}">
-				<button class="btn btn-colorpicker" colorpicker colorpicker-position="left" ng-show="active.type==='text-box' || active.type==='list'"
+				<button class="btn btn-arrange btn-editor btn-blue" colorpicker colorpicker-position="left" ng-show="active.type==='text-box' || active.type==='list'"
 								ng-disabled="active.type !=='text-box' && active.type !== 'list'"
 								ng-model="active.style.color">Choose Color</button>
 			</div>
@@ -101,7 +101,7 @@
 			<input id="border-color" type="text"
 						 ng-model="active.style['border-color']"
 						 style="background-color: {{ active.style['border-color'] }}">
-			<button class="btn btn-colorpicker" colorpicker colorpicker-position="left"
+			<button class="btn btn-arrange btn-editor btn-blue" colorpicker colorpicker-position="left"
 							ng-model="active.style['border-color']">Choose color</button>
 
 			<label for="border-radius">Border Radius: <span id="border-radius" ng-model='active.style["border-radius"]'>{{ active.style["border-radius"] }}</span></label>
@@ -124,6 +124,6 @@
 	</div>
 
 	<div class="tool-panel">
-		<button class="btn btn-arrange btn-delete btn-editor" ng-click="deleteElement()">Delete Element</button>
+		<button class="btn btn-arrange btn-editor btn-yellow" ng-click="deleteElement()">Delete Element</button>
 	</div>
 </div>

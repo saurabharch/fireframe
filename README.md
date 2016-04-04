@@ -6,7 +6,7 @@
 ## Introduction
 Have you ever felt like your team uses email for everything, and designs end up getting lost in your inbox? Fireframe solves this problem with its web based design collaboration platform.
 
-Without any previous design software knowledge, non-designers can quickly create wireframe designs that designers can easily understand and further develop. This facilitates the creative process for both designers and non-designers alike; therefore, reducing the number of iterations needed to come up with a design.
+Without any previous software knowledge, non-designers can quickly create wireframes that designers can easily understand and further develop. This facilitates the creative process for both designers and non-designers alike; therefore, reducing the number of iterations needed to come up with a design.
 
 ## Main Features
 ### Fully-Featured Editing Suite
