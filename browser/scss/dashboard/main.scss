@@ -125,12 +125,16 @@ a.image-download {
 	padding: 10px;
 }
 
-.panel-steel {
+.panel-heading.panel-steel {
 	background-color: $steelblue;
 	color: white;
 }
 
 #userPage {
+	.panel {
+		border: 1px solid $steelblue;
+	}
+
 	background-color: $bonegrey;
 	@media (min-width: 768px) {
 		padding-left: 60px;
