@@ -1,5 +1,5 @@
 'use strict';
-window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'colorpicker.module']);
+window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'colorpicker.module', 'angular-loading-bar']);
 
 //taking out  makes the angular tests work... have to debug as to why
 
@@ -13,15 +13,10 @@ app.config(function ($urlRouterProvider, $locationProvider) {
     $urlRouterProvider.otherwise('/');
 });
 
-// app.config(function ($mdThemingProvider) {
-    
-//    $mdThemingProvider.theme('default')
-//        .primaryPalette('red')
-//        .accentPalette('teal')
-//        .warnPalette('deep-orange')
-//        .backgroundPalette('blue')
-//        .dark();
-// });
+app.config(function(cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.includeSpinner = false;
+    cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
+})
 
 // This app.run is for controlling access to specific states.
 app.run(function ($rootScope, AuthService, $state) {
