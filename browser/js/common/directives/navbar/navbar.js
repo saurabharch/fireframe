@@ -50,7 +50,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
   };
 });
 
-app.directive('sideNav', function ($rootScope, $state, $uibModal) {
+app.directive('sideNav', ['$rootScope', '$state', '$uibModal', function ($rootScope, $state, $uibModal) {
   return {
     restrict: 'E',
     templateUrl: 'js/common/directives/navbar/side-nav.html',
@@ -90,4 +90,4 @@ app.directive('sideNav', function ($rootScope, $state, $uibModal) {
       };
     }
   };
-});
+}]);
