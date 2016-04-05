@@ -6,7 +6,7 @@
 ## Introduction
 Have you ever felt like your team uses email for everything, and designs end up getting lost in your inbox? Fireframe solves this problem with its web based design collaboration platform.
 
-Without any previous software knowledge, non-designers can quickly create wireframes that designers can easily understand and further develop. This facilitates the creative process for both designers and non-designers alike; therefore, reducing the number of iterations needed to come up with a design.
+Without any previous knowledge, non-designers can quickly create wireframes that designers can easily understand and further develop. This facilitates the creative process for both designers and non-designers alike; therefore, reducing the number of iterations needed to come up with a design.
 
 ## Main Features
 ### Fully-Featured Editing Suite
@@ -25,6 +25,7 @@ Without any previous software knowledge, non-designers can quickly create wirefr
   * Position
   * Etc ...
 * Easily manipulate your designs with built-in keyboard shortcuts
+* Download your project images
 
 ### Real-Time Collaboration
 * Join a room and build designs together
@@ -66,8 +67,8 @@ Without any previous software knowledge, non-designers can quickly create wirefr
 Gustaf Erickson [![Github][Github_Logo]][Gustaf_GithubUrl] [![Linkedin][LinkedIn_Logo]][Gustaf_LinkedInUrl] | Liana Chin [![Github][Github_Logo]][Liana_GithubUrl] [![Linkedin][LinkedIn_Logo]][Liana_LinkedInUrl] | Gustavo Ocasio [![Github][Github_Logo]][Gustavo_GithubUrl] [![Linkedin][LinkedIn_Logo]][Gustavo_LinkedInUrl] | Jeremy Bini [![Github][Github_Logo]][Jeremy_GithubUrl] [![Linkedin][LinkedIn_Logo]][Jeremy_LinkedInUrl]
 
 
-[Fireframe_Screenshot]: https://s3.amazonaws.com/capstone.bucket/FireFrame_Editor_Screenshot.png "Fireframe Editor"
-[VC_TreeStructure]: https://s3.amazonaws.com/capstone.bucket/VersionControl_resized.png
+[Fireframe_Screenshot]: https://s3.amazonaws.com/capstone.bucket/FireframeEditor_4-4-2016.png "Fireframe Editor"
+[VC_TreeStructure]: https://s3.amazonaws.com/capstone.bucket/VersionControlTree_reducedsize_4-4-2016.png "Version Control Tree"
 
 [Github_Logo]: https://s3.amazonaws.com/capstone.bucket/GitHub-Mark-14px.png
 [LinkedIn_Logo]: https://s3.amazonaws.com/capstone.bucket/In-2C-14px.png
