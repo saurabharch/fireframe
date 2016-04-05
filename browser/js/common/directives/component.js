@@ -9,6 +9,7 @@ app.directive('component', function ($compile, CSS, Firebase, $templateRequest) 
         case 'list': return '/js/common/directives/components/list/list.html';
         case 'table-component': return '/js/common/directives/components/table-component/table-component.html';
         case 'button-component': return '/js/common/directives/components/button-component/button-component.html';
+        case 'phone': return '/js/common/directives/components/phone/phone-component.html'
         default: return '/js/common/directives/components/base-layer/base-layer.html'
       }
     }
