@@ -7,8 +7,16 @@ navbar {
     margin: 0;
   }
   .navbar-inverse {
-    background-color: black;
+    background-color: $steelblue;
   }
+}
+
+#top-nav a {
+  color: $sunshine;
+}
+
+#top-nav a:hover {
+  color: white;
 }
 
 nav li:hover {

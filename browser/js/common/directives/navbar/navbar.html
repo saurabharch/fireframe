@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav id="top-nav" class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <button ng-show="state.includes('dashboard')" type="button" id="left-collapse-btn" class="pull-left navbar-toggle collapsed" data-toggle="collapse" data-target="#side-nav-collapse" aria-expanded="false">
@@ -12,7 +12,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" ui-sref-active="active" ui-sref="home">
-        <img class="logo" src="/scss/home/iconnavbar.png" alt="fireframe-logo"/>
+        <img class="logo" src="/scss/home/FireFrameNav.png" alt="fireframe-logo"/>
       </a>
     </div>
 
@@ -37,7 +37,7 @@
                 <a>Logout<span class="pull-right glyphicon glyphicon-off"></span></a>
               </li>
             </ul>
-        <li ng-show="!user" ui-sref-active="active" ui-sref="signup" class="signup-button"><a>Sign Up</a></li>
+        <li ng-show="!user" ui-sref-active="active" ui-sref="signup"><a class="signup-button">Sign Up</a></li>
         <li ng-show="!user" ui-sref-active="active" ui-sref="login" class="login-button"><a>Login</a></li>
       </ul>
     </div>
