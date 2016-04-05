@@ -12,7 +12,7 @@
     		<div class="tool-panel">
     			
 					<label>Zoom: <span id="percentage">{{ currentZoom }}%</span></label>
-    			<input type="range" ng-model='currentZoom' ng-change="updateZoom(currentZoom)" min="50" max="200"></input><br>
+    			<input class="marg-sm" type="range" ng-model='currentZoom' ng-change="updateZoom(currentZoom)" min="50" max="200"></input><br>
 					
 					<label>Arrange</label>
 					<button class="btn btn-arrange btn-editor btn-blue" ng-click="moveForward()">Forward</button>
@@ -77,12 +77,12 @@
 		</div>
 	</div>
 
-	<div class="tool-panel">
+	<div class="tool-panel dimensions-panel">
 		<div class="form-group">
 			<label for="width">Width</label>
 			<input type="text" id="width" ng-model="active.style.width"/>
 
-			<label for="height">Height</label>
+			<label class="marg-top" for="height">Height</label>
 			<input type="text" id="height" ng-model="active.style.height"/>
 
 			<!-- <label for="height"># of Rows</label>
@@ -92,20 +92,20 @@
 	<div class="tool-panel">
 		<div class="form-group">
 			<label>Opacity: <span id="percentage" ng-model='active.style.opacity'>{{ active.style.opacity }}</span></label>
-    	<input type="range" ng-model='active.style.opacity' min="0" max="1" step="0.05"></input><br>
+    	<input class="marg-sm" type="range" ng-model='active.style.opacity' min="0" max="1" step="0.05"></input><br>
 
 			<label for="border-width">Border Size</label>
 			<input type="text" id="border-width" ng-model="active.style['border-width']"/>
 
-			<label for="border-color">Border Color</label>
+			<label class="marg-top" for="border-color">Border Color</label>
 			<input id="border-color" type="text"
 						 ng-model="active.style['border-color']"
 						 style="background-color: {{ active.style['border-color'] }}">
 			<button class="btn btn-arrange btn-editor btn-blue" colorpicker colorpicker-position="left"
 							ng-model="active.style['border-color']">Choose color</button>
 
-			<label for="border-radius">Border Radius: <span id="border-radius" ng-model='active.style["border-radius"]'>{{ active.style["border-radius"] }}</span></label>
-    	<input type="range" pixels ng-model='active.style["border-radius"]' min="0" max="100"></input><br>
+			<label class="marg-top" for="border-radius">Radius: <span id="border-radius" ng-model='active.style["border-radius"]'>{{ active.style["border-radius"] }}</span></label>
+    	<input class="marg-sm" type="range" pixels ng-model='active.style["border-radius"]' min="0" max="100"></input><br>
 		</div>
 	</div>
 	

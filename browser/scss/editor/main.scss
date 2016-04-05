@@ -19,6 +19,18 @@ $left-width: 10vw;
   position:relative;
   height: 100%;
   width: 100vw;
+  .form-group {
+    margin: 0;
+  }
+  label {
+    margin: 0;
+  }
+  .marg-top {
+    margin-top: 10px;
+  }
+  .marg-sm {
+    margin-top: 5px;
+  }
 }
 
 input {
@@ -81,13 +93,12 @@ $swatch-side: $left-width / 10;
 
 .tool-panel {
   padding:10%;
-  /*background-color:#aaa;*/
   margin:2%;
   margin-top: 4px;
   background-color: #f2f3f7;
   border: 1px solid #d2d4e0;
 }
-
+  
 .btn-editor {
   border-radius: 1px;
   text-align: center;
