@@ -1,87 +1,67 @@
-// describe('Components factory', function() {
-  
-//   beforeEach(module('FullstackGeneratedApp'));
-
-//   var Component, $scope, $rootScope;
-
-
-//   beforeEach(inject(function(_Component_, _$rootScope_){
-//     Component = _Component_;
-//     $rootScope = _$rootScope_;
-//     $scope = _$rootScope_.$new();
-//   }));
-
-//   it('creates different types of components', function(){
-//     var newComponent = Component.create();
-//     console.log(newComponent, "the new component");
-//     expect(newComponent).to.be.an('object');
-
-//   });
-
-// });
-
-//changed browser in karma.conf.js
-
-
-describe('Firebase and Wireframe factories', function() {
+describe('Firebase', function() {
   beforeEach(module('FullstackGeneratedApp'));
 
   var $rootScope, $scope, $httpBackend;
-  beforeEach('Get tools', inject(function (_$httpBackend_, _$rootScope_) {
+  beforeEach('Get tools', inject(function (_$httpBackend_, _$rootScope_, $templateCache) {
     $httpBackend = _$httpBackend_;
     $rootScope = _$rootScope_;
-    //$scope = _$rootScope_.$new();
+    $scope = _$rootScope_.$new();
+    $templateCache.put('js/home/home.html', 'test');
   }));
 
-  var Firebase, Wireframe;
-  beforeEach('Get factories', inject(function (_Firebase_, _Wireframe_) {
-    Firebase = _Firebase_;
+  var FirebaseFactory, Wireframe, WireStubFetch;
+  beforeEach('Get factories', inject(function (_FirebaseFactory_, _Wireframe_) {
+    FirebaseFactory = _FirebaseFactory_;
     Wireframe = _Wireframe_;
+    window.Firebase = function () {
+      this.once = function (event, cb) {
+        var users = {};
+        users.val = function() { return null };
+        cb(users);
+      }
+    }
+    FirebaseFactory.connect = function(){ return true };
+    WireStubFetch = sinon.stub(Wireframe, 'fetchOne', function() {
+      return new Promise(function(resolve, reject) {
+        resolve({}),
+        reject('Bad request');
+      })
+    })
   }));
 
-  describe('fetchComponents', function() {
-
-    afterEach(function () {
-      $httpBackend.verifyNoOutstandingExpectation();
-      $httpBackend.verifyNoOutstandingRequest();
+  describe('fetchComponents', function(done) {
+    
+    it('should call Wireframe factory fetchOne', function(done) {
+      FirebaseFactory.fetchComponents('1234', 'abc').then(function() {
+        expect(WireStubFetch.called).to.be.ok;
+        done();
+      })
+      .then(null, done);
     });
 
-    it('should make a GET request to the backend, instead of to Firebase', function(done) {
-      $httpBackend.expectGET('/api/wireframes/1234');
-      $httpBackend.whenGET('/api/wireframes/1234').respond({
-        style: {},
-        type: 'box'
-      });
-      
-      Firebase.fetchComponents('1234', 'abc').then(function() {
+    it('should also create a firebase room', function(done) {
+      var spy = sinon.spy(FirebaseFactory, 'createRoom');
+      FirebaseFactory.fetchComponents('1234', 'abc').then(function() {
+        expect(spy.called).to.be.ok;
         done()
       })
-      
-      $httpBackend.flush();
-    });
-
-    it('should create a room', function() {
-      $httpBackend.expectGET('/1234');
-      $httpBackend.whenGET('/api/wireframes/1234').respond({
-        style: {},
-        type: 'box'
-      });
-
-      Firebase.fetchComponents('1234', 'abc').then(function() {
-        expect(Firebase.createRoom).to.have.been.called
-        done()
-      });
-      
-      $httpBackend.flush();
+      .then(null, done);
     })
-    // $httpBackend.whenGET('/1234').respond({
-    //     style: {
-    //       'background-color': 'blue',
-    //       width: '100px',
-    //       height: '100px'
-    //     }, 
-    //     type: 'base-layer' 
-    //   });
-  });
 
+    it('if a user is in the room, it should join the room', function(done) {
+      window.Firebase = function() {
+        this.once = function(event, cb) {
+          var users = {};
+          users.val = function() { return "User exists" };
+          cb(users);
+        }
+      }
+
+      var stub = sinon.stub(FirebaseFactory, 'joinRoom');
+      FirebaseFactory.fetchComponents('1234', 'abc').then(function() {
+        expect(stub.called).to.be.ok;
+        done();
+      });
+    })
+  });
 });
