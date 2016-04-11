@@ -83,9 +83,11 @@ app.factory('FirebaseFactory', function(Session, Wireframe, CSS, $rootScope, $lo
           element.id = snapshot.key();
           logCurrentState();
           componentCache.push(element);
-          if (!currentScope.$$phase) {
-            currentScope.$digest();
-          }
+          $timeout(function() {
+            if (currentScope) {
+              currentScope.$digest();
+            }
+          }, 0);
         });
 
         //Event listener, edit element any time a user changes one
@@ -102,9 +104,11 @@ app.factory('FirebaseFactory', function(Session, Wireframe, CSS, $rootScope, $lo
               component.content = element.content;
             }
           });
-          if (!currentScope.$$phase) {
-            currentScope.$digest();
-          }
+          $timeout(function() {
+            if (currentScope) {
+              currentScope.$digest();
+            }
+          }, 0);
         });
 
         //Event listener, delete element any time a user removes one
@@ -120,8 +124,10 @@ app.factory('FirebaseFactory', function(Session, Wireframe, CSS, $rootScope, $lo
 
           componentCache.splice(index, 1);
           $timeout(function() {
-            currentScope.$digest();
-          });
+            if (currentScope) {
+              currentScope.$digest();
+            }
+          }, 0);
         });
     },
 

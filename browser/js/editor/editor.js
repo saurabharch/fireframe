@@ -15,11 +15,11 @@ app.config(function($stateProvider){
 });
 
 app.controller('EditorCtrl', function($scope, wireframe, components, Interact, CSS, FirebaseFactory, Wireframe, $timeout) {
+	FirebaseFactory.setScope($scope);
 	$scope.components = FirebaseFactory.getComponentCache();
 	$scope.wireframe = wireframe;
 	$scope.copy;
 	$scope.board = $('#wireframe-board');
-	FirebaseFactory.setScope($scope);
 
 	$scope.activeOpacity = 1;
 	$scope.activeColor = "#FFF";
