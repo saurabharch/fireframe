@@ -56,8 +56,6 @@ app.controller('ModalInstanceCtrl', ["$uibModalInstance", "$scope", "$state", "u
 		});
 	};
 
-//Add New Project
-
 	$scope.cancelTeam = function(){
 		$scope.formShow = false;
 	}

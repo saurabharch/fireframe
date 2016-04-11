@@ -1,4 +1,4 @@
-app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope, $log, $timeout) {
+app.factory('FirebaseFactory', function(Session, Wireframe, CSS, $rootScope, $log, $timeout) {
   var firebase;
   var firebaseComponents;
   var firebaseUsers;
@@ -233,7 +233,7 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope, $log, $tim
     //get components array, which is either generated from joining an exisiting room or fetching from the backend and creating a room
     fetchComponents: function(id, projectId) {
       componentCache = [];
-      factory.checkForUsers(id, projectId)
+      return factory.checkForUsers(id, projectId)
       .then(users => {
         //if room doesn't exist, fetch the wireframe and create a firebase room
         if (!users.val()) {

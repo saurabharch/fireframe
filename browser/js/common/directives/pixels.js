@@ -8,7 +8,6 @@ app.directive('pixels', function() {
 						}
 
 						function toUser(value) {
-							console.log('our value', value);
 						  return value ? value.slice(0, -2) : '0px';
 						}
 						ngModel.$parsers.push(fromUser);

@@ -1,4 +1,4 @@
-app.directive('component', function ($compile, CSS, Firebase, $templateRequest) {
+app.directive('component', function ($compile, CSS, FirebaseFactory, $templateRequest) {
     function templateFinder(type) {
       switch(type) {
         case 'base-layer': return '/js/common/directives/components/base-layer/base-layer.html';
@@ -56,13 +56,13 @@ app.directive('component', function ($compile, CSS, Firebase, $templateRequest) 
 
               //listen for mouseup on window instead of element, to account for cursor being outside of element's area
               var style = CSS.extractStyle(selectedElement);
-              Firebase.updateComponent(id, style, scope.content);
+              FirebaseFactory.updateComponent(id, style, scope.content);
             }
             selectedElement = null;
           })
 
           scope.deleteElement = function() {
-            Firebase.deleteElement($(element).attr('id'));
+            FirebaseFactory.deleteElement($(element).attr('id'));
           }
         }
       }

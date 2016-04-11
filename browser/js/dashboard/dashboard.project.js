@@ -3,12 +3,12 @@ app.config(function($stateProvider) {
 		url: '/project/:id',
 		templateUrl: '/js/dashboard/dashboard.project.html',
 		resolve: {
-			project: function($stateParams, Project, Firebase) {
+			project: function($stateParams, Project, FirebaseFactory) {
 				var proj;
 				return Project.fetchProject($stateParams.id)
 				.then(project => {
 					proj = project;
-					return Firebase.checkForWireframes(project._id);
+					return FirebaseFactory.checkForWireframes(project._id);
 				})
 				.then(wireframes =>{
 					proj.activeEdits = wireframes.map(w => w.key())

@@ -6,20 +6,20 @@ app.config(function($stateProvider){
 			wireframe: function($stateParams) {
 				return { _id: $stateParams.id, project: $stateParams.projectId }
 			},
-			components: function($stateParams, Wireframe, Firebase) {
-				return Firebase.fetchComponents($stateParams.id, $stateParams.projectId)
+			components: function($stateParams, Wireframe, FirebaseFactory) {
+				return FirebaseFactory.fetchComponents($stateParams.id, $stateParams.projectId)
 			}
 		},
 		controller: 'EditorCtrl'
 		});
 });
 
-app.controller('EditorCtrl', function($scope, wireframe, components, Interact, CSS, Firebase, Wireframe, $timeout) {
-	$scope.components = Firebase.getComponentCache();
+app.controller('EditorCtrl', function($scope, wireframe, components, Interact, CSS, FirebaseFactory, Wireframe, $timeout) {
+	$scope.components = FirebaseFactory.getComponentCache();
 	$scope.wireframe = wireframe;
 	$scope.copy;
 	$scope.board = $('#wireframe-board');
-	Firebase.setScope($scope);
+	FirebaseFactory.setScope($scope);
 
 	$scope.activeOpacity = 1;
 	$scope.activeColor = "#FFF";
@@ -31,11 +31,11 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 	$scope.currentZoom = CSS.currentZoom();
 	$scope.updateZoom = CSS.updateZoom;
 
-	$scope.deleteElement = Firebase.deleteElement;
+	$scope.deleteElement = FirebaseFactory.deleteElement;
 
 	$scope.createElement = function(type) {
 		var style = { "opacity":$scope.activeOpacity, "z-index": getZrange()};
-		Firebase.createElement({ style: style, type: type });
+		FirebaseFactory.createElement({ style: style, type: type });
 	};
 	
 	$scope.setStyle = function(style) {
@@ -57,7 +57,7 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 	};
 
 	$scope.deleteElement = function() {
-		Firebase.deleteElement($scope.active.id);
+		FirebaseFactory.deleteElement($scope.active.id);
 	}
 
 	$scope.changeListLength = function(e) {
@@ -66,7 +66,7 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 
 	$scope.$watch('active', function() {
 		if ($scope.active) {
-			Firebase.updateComponent($scope.active.id, $scope.active.style, $scope.active.content);
+			FirebaseFactory.updateComponent($scope.active.id, $scope.active.style, $scope.active.content);
 		}
 	}, true)
 
@@ -89,7 +89,7 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 			$scope.copy.style.left += 20;
 			$scope.copy.style.top += 20;
 			$scope.copy.style['z-index'] = getZrange();
-			Firebase.createElement({
+			FirebaseFactory.createElement({
 				style: $scope.copy.style,
 				type: $scope.copy.type,
 				content: $scope.copy.content
@@ -98,11 +98,11 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 	}
 
 	$scope.undoAction = function() {
-		Firebase.undo();
+		FirebaseFactory.undo();
 	}
 
 	$scope.redoAction = function() {
-		Firebase.redo();
+		FirebaseFactory.redo();
 	}
 
 	//listen for delete key, prevent default, and ensure we are not within an active text-box
@@ -139,7 +139,7 @@ app.controller('EditorCtrl', function($scope, wireframe, components, Interact, C
 	  		imageBox.css('background-image', 'url(' + image + ')');
 	  		imageBox.width(width);
 	  		imageBox.height(height);
-				Firebase.updateComponent(imageBox.attr('id'), { width: width, height: height });
+				FirebaseFactory.updateComponent(imageBox.attr('id'), { width: width, height: height });
 			};
 			img.src = image;
 	    Wireframe.uploadImage($scope.wireframe.project, $scope.wireframe._id, imageBox.attr('id'), image);
