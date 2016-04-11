@@ -1,4 +1,4 @@
-app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope, $log) {
+app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope, $log, $timeout) {
   var firebase;
   var firebaseComponents;
   var firebaseUsers;
@@ -119,9 +119,9 @@ app.factory('Firebase', function(Session, Wireframe, CSS, $rootScope, $log) {
           });
 
           componentCache.splice(index, 1);
-          if (!currentScope.$$phase) {
+          $timeout(function() {
             currentScope.$digest();
-          }
+          });
         });
     },
 
