@@ -16,7 +16,7 @@ app.config(function($stateProvider){
 
 app.controller('EditorCtrl', function($scope, wireframe, components, Interact, CSS, FirebaseFactory, Wireframe, $timeout) {
 	FirebaseFactory.setScope($scope);
-	$scope.components = FirebaseFactory.getComponentCache();
+	$scope.components = components; //FirebaseFactory.getComponentCache();
 	$scope.wireframe = wireframe;
 	$scope.copy;
 	$scope.board = $('#wireframe-board');
