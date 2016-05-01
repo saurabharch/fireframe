@@ -20,6 +20,12 @@ app.factory('User', function($http, $log){
 			.catch($log);
 		},
 
+		sampleProject: function(project){
+			return $http.post('/api/projects/sample', project)
+			.then(response => response.data)
+			.catch($log);
+		},
+
 		fetchProjects: function() {
 			return $http.get('/api/projects/')
 			.then(response => response.data)

@@ -6,6 +6,13 @@ app.factory('Wireframe', function($http, $log) {
 		return res.data;
 	}
 
+	function attachComponents(wireframe, components) {
+		wireframe.components = components.map(component => {
+			delete component.id;
+			return component;
+		})
+	}
+
 	var factory = {
 		getWireframe: function(){
 			return wireframe;
@@ -34,10 +41,7 @@ app.factory('Wireframe', function($http, $log) {
 		},
 
 		save: function(wireframe, components) {
-			wireframe.components = components.map(component => {
-				delete component.id;
-				return component;
-			})
+			attachComponents(wireframe, components);
 
 			return $http.put(path+wireframe._id, wireframe)
 			.then(extractData);
@@ -49,7 +53,6 @@ app.factory('Wireframe', function($http, $log) {
 		},
 
 		uploadImage: function(projectId, wireframeId, componentId, file) {
-			console.log('componentId', componentId);
 			return $http.post(path+wireframeId+'/upload', {
 				projectId: projectId,
 				componentId: componentId,

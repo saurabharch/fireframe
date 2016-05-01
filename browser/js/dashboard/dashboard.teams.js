@@ -21,8 +21,6 @@ app.config(function($stateProvider) {
 
 app.controller('UserTeamsCtrl', function($scope, userTeams, Project, Team, AuthService) {
 	$scope.teams = userTeams;
-	console.log("scope.teams is ",userTeams);
-	console.log("user is ",AuthService.getLoggedInUser());
 
 	$scope.teams.forEach(function(team){
 		team.screenshots = [];

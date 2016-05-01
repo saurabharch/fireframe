@@ -25,10 +25,4 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, $http) {
 
     };
 
-    // $scope.googleAuth = function(){
-    //     console.log("HELP");
-    //     return $http.get('/auth/google/')
-    //     .then(res => console.log(res));
-    // };
-
 });
