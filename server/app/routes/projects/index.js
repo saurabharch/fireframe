@@ -5,6 +5,7 @@ module.exports = router;
 
 var mongoose = require('mongoose');
 var Project = mongoose.model('Project');
+var Wireframe = mongoose.model('Wireframe');
 var Comment = mongoose.model('Comment');
 var Team = mongoose.model('Team');
 var auth = require('../authentication');
@@ -54,6 +55,22 @@ router.post('/', auth.ensureUser, function(req, res, next) {
   Project.createNewProject(req.body)
   .then(wireframe => {
     res.status(201).json(wireframe);
+  })
+  .then(null, next)
+});
+
+router.post('/sample', function(req, res, next) {
+  var proj;
+
+  Project.create(req.body)
+  .then(project => {
+    proj = project;
+    return Wireframe.create({ master: true })
+  })
+  .then(wireframe => {
+    var wf = wireframe.toObject();
+    wf.project = proj._id;
+    res.status(201).json(wf);
   })
   .then(null, next)
 });

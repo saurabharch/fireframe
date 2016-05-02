@@ -14,10 +14,8 @@ app.factory('Team', function($http, $log){
       return $http.get('/api/teams/' + teamid + '/projects')
       .then(extractData)
       .then(projects => {
-        console.log(projects, "PROJECSTS");
         projects.forEach(function(project) {
           project.master = getMasterWireframe(project);
-          // console.log(project.master.screenshotUrl, "the master??");
         });
         return projects;
       })

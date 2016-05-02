@@ -3,6 +3,9 @@ app.config(function($stateProvider){
 		url: '/editor/:projectId/edit/:id',
 		templateUrl: '/js/editor/editor.html',
 		resolve: {
+			user: function(AuthService) {
+				return AuthService.isAuthenticated()
+			},
 			wireframe: function($stateParams) {
 				return { _id: $stateParams.id, project: $stateParams.projectId }
 			},
@@ -14,11 +17,12 @@ app.config(function($stateProvider){
 		});
 });
 
-app.controller('EditorCtrl', function($scope, wireframe, components, Interact, CSS, Firebase, Wireframe, $timeout) {
+app.controller('EditorCtrl', function($scope, wireframe, components, Interact, CSS, Firebase, Wireframe, $timeout, user) {
 	$scope.components = Firebase.getComponentCache();
 	$scope.wireframe = wireframe;
 	$scope.copy;
 	$scope.board = $('#wireframe-board');
+	$scope.user = user;
 	Firebase.setScope($scope);
 
 	$scope.activeOpacity = 1;

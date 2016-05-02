@@ -15,10 +15,6 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
         scope.isCollapsed = !scope.isCollapsed;
       }
 
-      scope.toggleSide = function() {
-
-      }
-
       scope.user = null;
 
       scope.isLoggedIn = function () {

@@ -1,54 +1,59 @@
 <div class="jumbotron">
+  <div class="col-md-12 text-center">
     <br>
     <br>
     <br>
-  <h1 class="txt-shade">Fireframe</h1>
-  <p class="ffdescription">Collaborative wireframing and design.</p> 
+    <h1 class="txt-shade">Fireframe</h1>
+    <p class="ffdescription">Collaborative wireframing and design.</p>
+    <button class="btn btn-lg btn-blue" ui-sref="signup">Sign Up</button>
+    <button class="btn btn-lg btn-yellow" ng-click="sampleProject()">Give it a Try!</button>
+  </div>
 </div>
 <div class="container-fluid" id="containerbg">
   <div class="row homerow bg-coalgrey">
     <div class="col-sm-6">
-        <h1 class="sunshine wfdescription txt-shade movedown">Design <strong>together</strong></h1>
-        <h3 class="bone homeinfo">Real-time collaboration allows everyone to engage in the creative design process.</h3>
+        <h2 class="sunshine wfdescription txt-shade movedown">Design <strong>together</strong></h2>
+        <h4 class="bone homeinfo">Real-time collaboration allows everyone to engage in the creative design process.</h4>
     </div>
     <div class="col-sm-6">
       <div class="push">
        <img class="img-responsive" src="/scss/home/wireframes.gif">
       </div>
     </div>
-
   </div>
+
   <div class="row homerow bg-oatmeal">
-  <div class="col-sm-6">
-    <div class="push">
-      <img class="img-responsive" id="vctree" src="/scss/home/versioncontrol.png">
+    <div class="col-sm-6">
+      <div class="push">
+        <img class="img-responsive" id="vctree" src="/scss/home/versioncontrol.png">
+      </div>
+    </div>
+    <div class="col-sm-6" id="wfheading">
+      <h2 class="wfdescription steelblue txt-shade movedown moveright">Keep Track with Version Control</h2>
+      <h4 class="coalgrey homeinfotwo">Fireframe's version control system monitors every project's revision history.</h4>
     </div>
   </div>
-  <div class="col-sm-6" id="wfheading">
-      <h1 class="wfdescription steelblue txt-shade movedown moveright">Keep Track with Version Control</h1>
-      <h3 class="coalgrey homeinfotwo">Fireframe's version control system monitors every project's revision history.</h3>
-  </div>
-</div>
+
   <div class="row homerow bg-lightgrey">
    <div class="col-sm-6" id="wfheading">
-      <h1 class="wfdescription txt-shade movedown">Intuitive Design Tools</h1>
-      <h3 class="steelblue homeinfo">Our user-friendly editing suite is equipped to go from idea to complete visual representation.</h3>
-  </div>
-  <div class="col-sm-6">
-    <div class="push">
-      <img class="img-responsive" id="vctree" src="/scss/home/architect-tools.jpg">
+      <h2 class="wfdescription txt-shade movedown">Intuitive Design Tools</h2>
+      <h4 class="steelblue homeinfo">Our user-friendly editing suite is equipped to go from idea to complete visual representation.</h4>
     </div>
+    <div class="col-sm-6">
+      <div class="push">
+        <img class="img-responsive" id="vctree" src="/scss/home/architect-tools.jpg">
+      </div>
+    </div>
+  </div>
 </div>
-</div>
 
+<footer class="footer-basic-centered bg-steelblue">
+  <ul class="list-unstyled infofooter">
+  <li class="footer-info padleft">Fireframe</li>
+  <a class="navbar-brand" ui-sref-active="active" ui-sref="home">
+    <img class="logofooter" src="/scss/home/FireFrameFooter.png" alt="fireframe-logo"/></a>
+  <li class="footer-info">Design Together</li>
 
-    <footer class="footer-basic-centered bg-steelblue">
-      <ul class="list-unstyled infofooter">
-      <li class="footer-info padleft">Fireframe</li>
-      <a class="navbar-brand" ui-sref-active="active" ui-sref="home">
-        <img class="logofooter" src="/scss/home/FireFrameFooter.png" alt="fireframe-logo"/></a>
-      <li class="footer-info">Design Together</li>
-
-      
-    </footer>
+  
+</footer>
 
