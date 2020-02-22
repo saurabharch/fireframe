@@ -20,7 +20,7 @@
     "angular-messages": "^1.5.3",
     "angular-mocks": "^1.4.0",
     "angular-ui-bootstrap": "^0.14.3",
-    "angular-ui-router": "^0.2.15",
+    "angular-ui-router": "^0.4.3",
     "aws-sdk": "^2.2.47",
     "babel": "^5.0.12",
     "bluebird": "^2.9.34",
